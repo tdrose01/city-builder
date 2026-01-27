@@ -4,7 +4,7 @@ import { saveGame, loadGame, clearSave, isStorageAvailable } from '../utils/save
 import { INITIAL_STATE, PACING as BALANCE_PACING, ECONOMY, PRESTIGE, getScaledReward as calculateScaledReward } from '../config/gameBalance';
 import { SessionMetrics, saveSession } from '../utils/sessionAnalytics';
 import MissionTracker from './MissionTracker';
-import ParticleBurst from './ParticleBurst';
+import ParticleEffect from './ParticleEffect';
 import TextPop from './TextPop';
 import ThreeDice from './ThreeDice';
 import Notification from './Notification';
@@ -252,6 +252,7 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
   const [tileEffect, setTileEffect] = useState(null);
   const [hudMessage, setHudMessage] = useState(null);
   const [upgradeParticles, setUpgradeParticles] = useState(null);
+  const [activeParticles, setActiveParticles] = useState([]); // Array of {id, type, x, y, ...props}
   const [textPop, setTextPop] = useState(null);
   const [diceStreak, setDiceStreak] = useState(0);
   const [fundsTilesLanded, setFundsTilesLanded] = useState(0);
@@ -399,6 +400,21 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
         setTileEffect({ type: 'funds', x: 400, y: 300 });
         setTimeout(() => setTileEffect(null), 2000);
         currentSession.current.recordFundsChange(fundsPayout);
+        
+        // Add coin particles for large funds gains (>= 5000)
+        if (fundsPayout >= 5000) {
+          const tileElement = document.querySelector(`.tile-id-${tile.id}`);
+          if (tileElement) {
+            const rect = tileElement.getBoundingClientRect();
+            addParticleEffect('coins', rect.left + rect.width / 2, rect.top + rect.height / 2, { 
+              count: Math.min(20, Math.floor(fundsPayout / 500)), 
+              distance: 100,
+              duration: 1.2,
+              size: 12,
+              customColors: ['#fbbf24', '#f59e0b', '#d97706']
+            });
+          }
+        }
         break;
       }
       case 'Heist': {
@@ -505,6 +521,18 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
     if (die1 === die2) {
       doublesBonus = Math.max(1, Math.round(totalRoll * PACING.doublesBonusMultiplier));
       showNotification(`Doubles! You get ${doublesBonus} extra dice!`, 'success', 2000);
+      
+      // Add sparkle effect for doubles
+      const diceElement = document.querySelector('.dice-roller');
+      if (diceElement) {
+        const rect = diceElement.getBoundingClientRect();
+        addParticleEffect('sparkles', rect.left + rect.width / 2, rect.top + rect.height / 2, { 
+          count: 15, 
+          distance: 60,
+          duration: 0.8,
+          size: 10
+        });
+      }
     }
 
     // Wait for dice tumble animation to almost finish before starting move
@@ -788,17 +816,17 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
     setHudMessage("ALL MISSIONS COMPLETE! Bonus: $10k, 25 Dice, 2 Packs!");
     setTextPop({ x: window.innerWidth / 2, y: window.innerHeight / 2, text: "MISSIONS MASTER!", color: "#d946ef" });
 
-    // Create particle burst
-    setUpgradeParticles({
-      x: window.innerWidth / 2,
-      y: window.innerHeight / 2,
-      count: 40
+    // Create confetti celebration
+    addParticleEffect('confetti', window.innerWidth / 2, window.innerHeight / 3, { 
+      count: 50, 
+      distance: 200,
+      duration: 2,
+      customColors: ['#f59e0b', '#10b981', '#3b82f6', '#a855f7', '#ef4444']
     });
 
     setTimeout(() => {
       setHudMessage(null);
       setTextPop(null);
-      setUpgradeParticles(null);
     }, 3000);
   };
 
@@ -858,17 +886,17 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
       color: '#d946ef'
     });
 
-    // Create particle burst at center
-    setUpgradeParticles({
-      x: window.innerWidth / 2,
-      y: window.innerHeight / 2,
-      count: 50
+    // Create fireworks celebration
+    addParticleEffect('fireworks', window.innerWidth / 2, window.innerHeight / 2, { 
+      count: 60, 
+      distance: 150,
+      duration: 1.5,
+      customColors: ['#fbbf24', '#a855f7', '#3b82f6']
     });
 
     setTimeout(() => {
       setHudMessage(null);
       setTextPop(null);
-      setUpgradeParticles(null);
     }, 3000);
   };
 
@@ -898,6 +926,27 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
     setTargetCity(null);
   };
 
+  // Helper function to add particle effects
+  const addParticleEffect = (type, x, y, props = {}) => {
+    const id = Date.now() + Math.random();
+    const particleEffect = {
+      id,
+      type,
+      x,
+      y,
+      cityLevel,
+      ...props
+    };
+    
+    setActiveParticles(prev => [...prev, particleEffect]);
+    
+    // Auto-remove after duration
+    const duration = (props.duration || 1) * 1000 + 500; // Add buffer
+    setTimeout(() => {
+      setActiveParticles(prev => prev.filter(p => p.id !== id));
+    }, duration);
+  };
+
   const handleUpgradeLandmark = () => {
     const currentTile = tiles.find(t => t.id === playerPosition);
     if (!currentTile || currentTile.type !== 'Landmark' || currentTile.level >= currentTile.maxLevel) {
@@ -914,11 +963,11 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
       const centerX = rect.left + rect.width / 2;
       const centerY = rect.top + rect.height / 2;
 
-      setUpgradeParticles({ x: centerX, y: centerY, count: 20 });
+      // Use new particle effect system with stars
+      addParticleEffect('stars', centerX, centerY, { count: 25, distance: 80, duration: 1.2 });
       setTextPop({ x: centerX, y: centerY, text: 'LEVEL UP!' });
 
       setTimeout(() => {
-        setUpgradeParticles(null);
         setTextPop(null);
       }, 1000);
 
@@ -1232,7 +1281,21 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
         <div className="city-grid -z-10" />
         <div className="city-glow -z-10" style={{ background: 'transparent' }} />
 
-        {upgradeParticles && <ParticleBurst x={upgradeParticles.x} y={upgradeParticles.y} count={upgradeParticles.count} />}
+        {/* Active particle effects */}
+        {activeParticles.map(particle => (
+          <ParticleEffect
+            key={particle.id}
+            type={particle.type}
+            x={particle.x}
+            y={particle.y}
+            count={particle.count || 20}
+            cityLevel={particle.cityLevel}
+            size={particle.size || 8}
+            duration={particle.duration || 1}
+            distance={particle.distance || 100}
+            customColors={particle.customColors}
+          />
+        ))}
         {textPop && <TextPop x={textPop.x} y={textPop.y} text={textPop.text} />}
         <div className="board-shell">
           <div className="board-layout-main">
