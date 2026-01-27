@@ -1554,6 +1554,76 @@ body {
   @apply flex flex-col gap-3;
 }
 
+/* Power-Up UI */
+.powerup-indicator {
+  @apply flex flex-col gap-2 rounded-lg border bg-white/5 p-2;
+}
+
+.powerup-indicator-title {
+  @apply text-[10px] font-semibold uppercase tracking-wide;
+}
+
+.powerup-empty {
+  @apply text-[10px] text-white/40;
+}
+
+.powerup-chip-row {
+  @apply flex flex-wrap gap-2;
+}
+
+.powerup-chip {
+  @apply flex items-center gap-1.5 rounded-full px-2 py-1 text-[10px] font-semibold text-white/80 border bg-white/5;
+}
+
+.powerup-chip-icon {
+  @apply text-sm;
+}
+
+.powerup-chip-remaining {
+  @apply text-[9px] text-white/60;
+}
+
+.powerup-shop {
+  @apply flex flex-col gap-2;
+}
+
+.powerup-card {
+  @apply flex flex-col gap-2 rounded-lg border border-white/10 bg-white/5 p-3;
+}
+
+.powerup-card-header {
+  @apply flex items-center justify-between text-xs font-semibold;
+}
+
+.powerup-title {
+  @apply flex items-center gap-2;
+}
+
+.powerup-icon {
+  @apply text-base;
+}
+
+.powerup-duration {
+  @apply text-[10px] text-white/60;
+}
+
+.powerup-desc {
+  @apply text-[10px] text-white/60;
+}
+
+.powerup-meta {
+  @apply text-[10px] text-white/50;
+}
+
+.powerup-action {
+  @apply w-full rounded-lg px-3 py-2 text-[11px] font-bold uppercase tracking-wide text-black transition-all;
+  background: rgba(251, 191, 36, 0.8);
+}
+
+.powerup-action:disabled {
+  @apply cursor-not-allowed bg-white/10 text-white/40;
+}
+
 /* Event Tab Styles */
 .prestige-badge {
   @apply flex items-center gap-2 px-3 py-2 rounded-lg bg-gradient-to-r from-purple-500/10 to-pink-500/10 border border-purple-500/30;

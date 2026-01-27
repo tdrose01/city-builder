@@ -16,7 +16,7 @@ import audioManager from '../utils/audioManager';
  * 
  * @param {number} cityLevel - Current city level for ticket cost scaling
  * @param {number} currentFunds - Player's current funds
- * @param {function} onResult - Callback with net gain/loss
+ * @param {function} onResult - Callback with lottery outcome data
  * @param {function} onClose - Callback to close the modal
  */
 export default function LotteryTile({ 
@@ -94,7 +94,11 @@ export default function LotteryTile({
       }
       
       // Report result
-      onResult(outcome.netGain);
+      onResult({
+        netGain: outcome.netGain,
+        winAmount: outcome.winAmount,
+        ticketCost
+      });
     }, LOTTERY_CONFIG.scratchDuration);
   };
   
