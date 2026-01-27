@@ -12,11 +12,20 @@
   --font-body: "Space Grotesk", sans-serif;
 }
 
+html {
+  overflow: hidden;
+  height: 100%;
+}
+
 body {
-  @apply text-white overflow-x-hidden;
+  @apply text-white;
   background: #000000;
   font-family: var(--font-body);
   font-feature-settings: "rlig" 1, "calt" 1;
+  overflow: hidden;
+  height: 100%;
+  position: fixed;
+  width: 100%;
 }
 
 .theme-neon-harbor .city-grid {
@@ -44,7 +53,6 @@ body {
 .board-section {
   @apply w-full flex items-center justify-center relative;
   min-height: 60vh;
-  scroll-margin-top: 120px;
 }
 
 .board-section-fit {
