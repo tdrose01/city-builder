@@ -10,6 +10,7 @@ import ThreeDice from './ThreeDice';
 import Notification from './Notification';
 import ConfirmDialog from './ConfirmDialog';
 import AnalyticsViewer from './AnalyticsViewer';
+import CityTransition from './CityTransition';
 
 
 const CITIES = {
@@ -256,6 +257,10 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
   const [fundsTilesLanded, setFundsTilesLanded] = useState(0);
   const [showStickerCollection] = useState(false);
   const [hasNewSticker, setHasNewSticker] = useState(false);
+  
+  // City transition state
+  const [cityTransitionActive, setCityTransitionActive] = useState(false);
+  const [targetCity, setTargetCity] = useState(null);
   const [activeTab, setActiveTab] = useState('event');
   const [isMoving, setIsMoving] = useState(false);
   const [autoRollEnabled, setAutoRollEnabled] = useState(false);
@@ -868,21 +873,29 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
   };
 
   const handleCityTransition = (targetCityLevel) => {
-    // 1. Animation/Feedback
-    setHudMessage(`Traveling to ${CITIES[targetCityLevel].name}...`);
-
-    // 2. State Updates
-    setCityLevel(targetCityLevel);
-    setPlayerPosition(0);
-    // setTiles will be handled by the useEffect dependent on cityLevel, 
-    // but we can force a clear here if needed.
-
-    // 3. Reset ephemeral state
-    setStickerPacksAvailable(prev => prev + 1); // Bonus pack for new city
-    showNotification(`Welcome to ${CITIES[targetCityLevel].name}! +1 Sticker Pack!`, 'success', 5000);
-
-    // 4. Clean up UI
+    // 1. Close confirmation dialog
     setConfirmDialog(null);
+
+    // 2. Start transition animation
+    setTargetCity(targetCityLevel);
+    setCityTransitionActive(true);
+  };
+
+  const handleCityTransitionComplete = () => {
+    // Called after animation completes
+    // 1. Update city level
+    setCityLevel(targetCity);
+    setPlayerPosition(0);
+
+    // 2. Reset ephemeral state
+    setStickerPacksAvailable(prev => prev + 1); // Bonus pack for new city
+
+    // 3. Show welcome notification
+    showNotification(`Welcome to ${CITIES[targetCity].name}! +1 Sticker Pack!`, 'success', 5000);
+
+    // 4. Deactivate transition
+    setCityTransitionActive(false);
+    setTargetCity(null);
   };
 
   const handleUpgradeLandmark = () => {
@@ -1735,6 +1748,13 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
       {showAnalytics && (
         <AnalyticsViewer onClose={() => setShowAnalytics(false)} />
       )}
+
+      {/* City Transition Animation */}
+      <CityTransition
+        targetCityLevel={targetCity}
+        onComplete={handleCityTransitionComplete}
+        isActive={cityTransitionActive}
+      />
     </>
   );
 };
