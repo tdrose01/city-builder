@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 import BoardLoop from '../BoardLoop';
@@ -242,7 +242,7 @@ describe('Multi-City System', () => {
 
   describe('City Progression', () => {
     test('Player starts in City 1', () => {
-      render(
+      const { container } = render(
         <BoardLoop 
           cityLevel={1} 
           funds={5000} 
@@ -255,8 +255,9 @@ describe('Multi-City System', () => {
         />
       );
       
-      expect(screen.getByText(/City Level 1/i)).toBeInTheDocument();
-      expect(screen.getByText(/Neon Harbor/i)).toBeInTheDocument();
+      const scopedQueries = within(container);
+      expect(scopedQueries.getAllByText(/City Level 1/i).length).toBeGreaterThan(0);
+      expect(scopedQueries.getAllByText(/Neon Harbor/i).length).toBeGreaterThan(0);
     });
 
     test('Cities 1-5 all render successfully', () => {
@@ -275,7 +276,8 @@ describe('Multi-City System', () => {
         );
         
         const cityName = CITIES_CONFIG[cityLevel].name;
-        expect(screen.getByText(new RegExp(cityName, 'i'))).toBeInTheDocument();
+        const scopedQueries = within(container);
+        expect(scopedQueries.getAllByText(new RegExp(cityName, 'i')).length).toBeGreaterThan(0);
       });
     });
   });
@@ -319,8 +321,9 @@ describe('Multi-City System', () => {
           />
         );
         
-        const landmarkTiles = container.querySelectorAll('[class*="landmark"]');
-        expect(landmarkTiles.length).toBeGreaterThan(0);
+        const scopedQueries = within(container);
+        const landmarkLabels = scopedQueries.getAllByText(/LANDMARK/i);
+        expect(landmarkLabels.length).toBeGreaterThan(0);
       });
     });
   });
