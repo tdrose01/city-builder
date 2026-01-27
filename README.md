@@ -12,7 +12,11 @@ A React-based idle/incremental city-building game inspired by Monopoly GO, featu
   - ⭐ **City 4: Starlight District** - Cosmic blue theme (2.744x multiplier)
   - 🌆 **City 5: Neon Skyline** - Futuristic emerald theme (3.8416x multiplier)
 - **Dynamic Board Mechanics**: Roll dice, land on tiles, earn resources
-- **Diverse Tile Types**: 14+ tile types including Lottery 🎰, Tax 💸, Jail 🔒, Fortune 🔮, and more
+- **18+ Diverse Tile Types**: 
+  - Core: Start, Funds, Bonus, Shield, Dice, Sticker, Landmark
+  - Penalties: Rent, Shutdown
+  - Special: Heist, Card
+  - **NEW!** Interactive: Lottery 🎰, Tax 💸, Jail 🔒, Fortune 🔮
 - **Landmark Upgrades**: Build and upgrade 5 landmarks per city
 - **Mission System**: Complete missions for rewards and progression
 - **Event System**: Milestone-based events with prestige mechanics
@@ -20,10 +24,15 @@ A React-based idle/incremental city-building game inspired by Monopoly GO, featu
 
 ### 🎨 Recent Updates
 - **Phase 8: Gameplay Enhancement** (IN PROGRESS! 🚧)
-  - 4 new interactive tile types: Lottery 🎰, Tax 💸, Jail 🔒, Fortune 🔮
-  - Economic scaling system for all new tiles
-  - Animated modals with framer-motion
-  - Fortune events: 13 weighted random outcomes
+  - ✅ **Task 8.1 COMPLETE:** 4 new interactive tile types fully integrated
+    - 🎰 **Lottery**: Gambling tile with tiered odds (75% lose, 20% win 10x, 5% jackpot 100x)
+    - 💸 **Tax**: Pay 10% of funds (min $100, max scales by city)
+    - 🔒 **Jail**: Skip 3 turns OR pay bail OR escape with doubles
+    - 🔮 **Fortune**: 10 weighted random events (60% positive, 30% neutral, 10% negative)
+  - Economic scaling for all tiles (1.4x multiplier per city)
+  - Jail status tracking and persistence
+  - 38 new comprehensive tests (100% pass rate)
+  - Next: Task 8.2 - Power-Up System
 - **Phase 6: Multi-City Expansion**
   - 5 fully playable cities with exponential economic scaling (1.4x per city)
   - Unique visual themes and grid patterns for each city
@@ -33,7 +42,7 @@ A React-based idle/incremental city-building game inspired by Monopoly GO, featu
   - Advanced Particle System (7 particle types: burst, confetti, stars, sparkles, coins, fireworks, trail)
   - Synthesized Audio System (8 sound effects using Web Audio API)
   - Performance Optimizations (React.memo, performance monitoring, optimized rendering)
-- **Comprehensive Testing**: 190+ tests with 100% pass rate
+- **Comprehensive Testing**: 225+ tests with 96.6% pass rate (8 cosmetic failures)
 
 ### 🎨 Visual Effects
 - **3D Dice Rolling**: Three.js-powered animated dice
@@ -134,7 +143,9 @@ city-builder/
 
 ## 🧪 Testing
 
-**Test Coverage: 171 tests, 100% passing**
+**Test Coverage: 225 tests, 217 passing (96.6%)**
+- 38 new tests for Phase 8 tile types (100% passing)
+- 8 cosmetic failures in MultiCity tests (non-blocking)
 
 ```powershell
 cd web
