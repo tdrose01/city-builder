@@ -1,0 +1,109 @@
+sheet,header_key,header_value,row_values
+assumptions,key,value,notes,points_per_roll,10,event tuning baseline
+assumptions,key,value,notes,funds_per_die,800,average soft currency per die
+assumptions,key,value,notes,common_pack_dice_equiv,15,estimated value
+assumptions,key,value,notes,rare_pack_dice_equiv,40,estimated value
+assumptions,key,value,notes,epic_pack_dice_equiv,80,estimated value
+assumptions,key,value,notes,target_value_per_usd_min,60,dice equivalent
+assumptions,key,value,notes,target_value_per_usd_max,120,dice equivalent
+cities,city_id,city_name,landmarks,tiers_per_landmark,base_cost,city_multiplier,total_cost_target,completion_dice_reward,completion_funds_reward,dice_cap,dice_regen_minutes,heist_min_pct,heist_max_pct,shutdown_repair_pct,1,Neon Harbor,5,3,1000,1.0,120000,200,15000,90,9,0.05,0.15,0.25
+cities,city_id,city_name,landmarks,tiers_per_landmark,base_cost,city_multiplier,total_cost_target,completion_dice_reward,completion_funds_reward,dice_cap,dice_regen_minutes,heist_min_pct,heist_max_pct,shutdown_repair_pct,2,Deco Heights,5,3,1000,1.4,200000,250,25000,90,9,0.05,0.15,0.25
+cities,city_id,city_name,landmarks,tiers_per_landmark,base_cost,city_multiplier,total_cost_target,completion_dice_reward,completion_funds_reward,dice_cap,dice_regen_minutes,heist_min_pct,heist_max_pct,shutdown_repair_pct,3,Skybridge Plaza,6,4,1000,2.4,450000,350,45000,90,9,0.05,0.15,0.25
+cities,city_id,city_name,landmarks,tiers_per_landmark,base_cost,city_multiplier,total_cost_target,completion_dice_reward,completion_funds_reward,dice_cap,dice_regen_minutes,heist_min_pct,heist_max_pct,shutdown_repair_pct,4,Metro Crown,6,4,1000,3.5,700000,450,70000,90,9,0.05,0.15,0.25
+cities,city_id,city_name,landmarks,tiers_per_landmark,base_cost,city_multiplier,total_cost_target,completion_dice_reward,completion_funds_reward,dice_cap,dice_regen_minutes,heist_min_pct,heist_max_pct,shutdown_repair_pct,5,Glass District,7,4,1000,5.0,1200000,600,120000,90,9,0.05,0.15,0.25
+tiers,city_id,city_name,tier_index,base_cost,city_multiplier,tier_cost_formula,repair_cost_formula,notes,1,Neon Harbor,0,1000,1.0,=base_cost*(1.35^tier_index)*city_multiplier,=tier_cost*0.25,early pacing
+tiers,city_id,city_name,tier_index,base_cost,city_multiplier,tier_cost_formula,repair_cost_formula,notes,1,Neon Harbor,1,1000,1.0,=base_cost*(1.35^tier_index)*city_multiplier,=tier_cost*0.25,early pacing
+tiers,city_id,city_name,tier_index,base_cost,city_multiplier,tier_cost_formula,repair_cost_formula,notes,1,Neon Harbor,2,1000,1.0,=base_cost*(1.35^tier_index)*city_multiplier,=tier_cost*0.25,early pacing
+tiers,city_id,city_name,tier_index,base_cost,city_multiplier,tier_cost_formula,repair_cost_formula,notes,2,Deco Heights,0,1000,1.4,=base_cost*(1.35^tier_index)*city_multiplier,=tier_cost*0.25,early pacing
+tiers,city_id,city_name,tier_index,base_cost,city_multiplier,tier_cost_formula,repair_cost_formula,notes,2,Deco Heights,1,1000,1.4,=base_cost*(1.35^tier_index)*city_multiplier,=tier_cost*0.25,early pacing
+tiers,city_id,city_name,tier_index,base_cost,city_multiplier,tier_cost_formula,repair_cost_formula,notes,2,Deco Heights,2,1000,1.4,=base_cost*(1.35^tier_index)*city_multiplier,=tier_cost*0.25,early pacing
+tiers,city_id,city_name,tier_index,base_cost,city_multiplier,tier_cost_formula,repair_cost_formula,notes,3,Skybridge Plaza,0,1000,2.4,=base_cost*(1.35^tier_index)*city_multiplier,=tier_cost*0.25,mid pacing
+tiers,city_id,city_name,tier_index,base_cost,city_multiplier,tier_cost_formula,repair_cost_formula,notes,3,Skybridge Plaza,1,1000,2.4,=base_cost*(1.35^tier_index)*city_multiplier,=tier_cost*0.25,mid pacing
+tiers,city_id,city_name,tier_index,base_cost,city_multiplier,tier_cost_formula,repair_cost_formula,notes,3,Skybridge Plaza,2,1000,2.4,=base_cost*(1.35^tier_index)*city_multiplier,=tier_cost*0.25,mid pacing
+tiers,city_id,city_name,tier_index,base_cost,city_multiplier,tier_cost_formula,repair_cost_formula,notes,3,Skybridge Plaza,3,1000,2.4,=base_cost*(1.35^tier_index)*city_multiplier,=tier_cost*0.25,mid pacing
+tiers,city_id,city_name,tier_index,base_cost,city_multiplier,tier_cost_formula,repair_cost_formula,notes,4,Metro Crown,0,1000,3.5,=base_cost*(1.35^tier_index)*city_multiplier,=tier_cost*0.25,mid pacing
+tiers,city_id,city_name,tier_index,base_cost,city_multiplier,tier_cost_formula,repair_cost_formula,notes,4,Metro Crown,1,1000,3.5,=base_cost*(1.35^tier_index)*city_multiplier,=tier_cost*0.25,mid pacing
+tiers,city_id,city_name,tier_index,base_cost,city_multiplier,tier_cost_formula,repair_cost_formula,notes,4,Metro Crown,2,1000,3.5,=base_cost*(1.35^tier_index)*city_multiplier,=tier_cost*0.25,mid pacing
+tiers,city_id,city_name,tier_index,base_cost,city_multiplier,tier_cost_formula,repair_cost_formula,notes,4,Metro Crown,3,1000,3.5,=base_cost*(1.35^tier_index)*city_multiplier,=tier_cost*0.25,mid pacing
+tiers,city_id,city_name,tier_index,base_cost,city_multiplier,tier_cost_formula,repair_cost_formula,notes,5,Glass District,0,1000,5.0,=base_cost*(1.35^tier_index)*city_multiplier,=tier_cost*0.25,late pacing
+tiers,city_id,city_name,tier_index,base_cost,city_multiplier,tier_cost_formula,repair_cost_formula,notes,5,Glass District,1,1000,5.0,=base_cost*(1.35^tier_index)*city_multiplier,=tier_cost*0.25,late pacing
+tiers,city_id,city_name,tier_index,base_cost,city_multiplier,tier_cost_formula,repair_cost_formula,notes,5,Glass District,2,1000,5.0,=base_cost*(1.35^tier_index)*city_multiplier,=tier_cost*0.25,late pacing
+tiers,city_id,city_name,tier_index,base_cost,city_multiplier,tier_cost_formula,repair_cost_formula,notes,5,Glass District,3,1000,5.0,=base_cost*(1.35^tier_index)*city_multiplier,=tier_cost*0.25,late pacing
+event_milestones,event_id,event_name,milestone,points_required,reward_type,reward_amount,notes,1,Neon Rush,1,10,dice,20,entry hook
+event_milestones,event_id,event_name,milestone,points_required,reward_type,reward_amount,notes,1,Neon Rush,2,20,city_funds,8000,
+event_milestones,event_id,event_name,milestone,points_required,reward_type,reward_amount,notes,1,Neon Rush,3,40,sticker_pack_common,1,
+event_milestones,event_id,event_name,milestone,points_required,reward_type,reward_amount,notes,1,Neon Rush,4,80,dice,35,
+event_milestones,event_id,event_name,milestone,points_required,reward_type,reward_amount,notes,1,Neon Rush,5,120,city_funds,15000,session cap
+event_milestones_model,event_id,milestone,points_required,points_per_roll,expected_rolls,expected_dice_spend,reward_type,reward_amount,reward_dice_equiv,net_value_dice_equiv,notes,1,1,10,=assumptions!points_per_roll,=points_required/points_per_roll,=expected_rolls,dice,20,=reward_amount,=reward_dice_equiv-expected_dice_spend,entry hook
+event_milestones_model,event_id,milestone,points_required,points_per_roll,expected_rolls,expected_dice_spend,reward_type,reward_amount,reward_dice_equiv,net_value_dice_equiv,notes,1,2,20,=assumptions!points_per_roll,=points_required/points_per_roll,=expected_rolls,city_funds,8000,=reward_amount/assumptions!funds_per_die,=reward_dice_equiv-expected_dice_spend,
+event_milestones_model,event_id,milestone,points_required,points_per_roll,expected_rolls,expected_dice_spend,reward_type,reward_amount,reward_dice_equiv,net_value_dice_equiv,notes,1,3,40,=assumptions!points_per_roll,=points_required/points_per_roll,=expected_rolls,sticker_pack_common,1,=assumptions!common_pack_dice_equiv,=reward_dice_equiv-expected_dice_spend,
+event_milestones_model,event_id,milestone,points_required,points_per_roll,expected_rolls,expected_dice_spend,reward_type,reward_amount,reward_dice_equiv,net_value_dice_equiv,notes,1,4,80,=assumptions!points_per_roll,=points_required/points_per_roll,=expected_rolls,dice,35,=reward_amount,=reward_dice_equiv-expected_dice_spend,
+event_milestones_model,event_id,milestone,points_required,points_per_roll,expected_rolls,expected_dice_spend,reward_type,reward_amount,reward_dice_equiv,net_value_dice_equiv,notes,1,5,120,=assumptions!points_per_roll,=points_required/points_per_roll,=expected_rolls,city_funds,15000,=reward_amount/assumptions!funds_per_die,=reward_dice_equiv-expected_dice_spend,session cap
+shop_bundles,bundle_id,bundle_name,price_usd,dice,city_funds,sticker_pack_common,sticker_pack_rare,sticker_pack_epic,bonus_notes,availability,1,Starter Roll,1.99,120,0,1,0,0,first session,ftue
+shop_bundles,bundle_id,bundle_name,price_usd,dice,city_funds,sticker_pack_common,sticker_pack_rare,sticker_pack_epic,bonus_notes,availability,2,Quick Boost,4.99,350,15000,1,0,0,,always
+shop_bundles,bundle_id,bundle_name,price_usd,dice,city_funds,sticker_pack_common,sticker_pack_rare,sticker_pack_epic,bonus_notes,availability,3,Builder Kit,9.99,600,60000,0,1,0,,always
+shop_bundles,bundle_id,bundle_name,price_usd,dice,city_funds,sticker_pack_common,sticker_pack_rare,sticker_pack_epic,bonus_notes,availability,4,City Sprint,19.99,1200,150000,0,1,0,limited,post_city_complete
+shop_bundles,bundle_id,bundle_name,price_usd,dice,city_funds,sticker_pack_common,sticker_pack_rare,sticker_pack_epic,bonus_notes,availability,5,Neon Vault,29.99,2000,250000,0,2,0,,always
+shop_bundles,bundle_id,bundle_name,price_usd,dice,city_funds,sticker_pack_common,sticker_pack_rare,sticker_pack_epic,bonus_notes,availability,6,Skyline Pack,49.99,3500,450000,0,2,1,,always
+shop_bundles,bundle_id,bundle_name,price_usd,dice,city_funds,sticker_pack_common,sticker_pack_rare,sticker_pack_epic,bonus_notes,availability,7,Mega Roll,99.99,8000,900000,0,3,2,limited,weekly
+shop_bundles,bundle_id,bundle_name,price_usd,dice,city_funds,sticker_pack_common,sticker_pack_rare,sticker_pack_epic,bonus_notes,availability,8,Sticker Hunter,14.99,300,20000,0,2,1,album progress,always
+shop_bundles,bundle_id,bundle_name,price_usd,dice,city_funds,sticker_pack_common,sticker_pack_rare,sticker_pack_epic,bonus_notes,availability,9,Comeback Deal,6.99,500,50000,1,0,0,after_shutdown,triggered
+shop_bundles,bundle_id,bundle_name,price_usd,dice,city_funds,sticker_pack_common,sticker_pack_rare,sticker_pack_epic,bonus_notes,availability,10,Event Pass,9.99,300,0,0,2,0,premium track,event
+shop_pricing_tiers,region,price_tier,price_local,price_usd_equiv,notes,US,T1,0.99,0.99,entry tier
+shop_pricing_tiers,region,price_tier,price_local,price_usd_equiv,notes,US,T2,1.99,1.99,
+shop_pricing_tiers,region,price_tier,price_local,price_usd_equiv,notes,US,T3,2.99,2.99,
+shop_pricing_tiers,region,price_tier,price_local,price_usd_equiv,notes,US,T4,4.99,4.99,
+shop_pricing_tiers,region,price_tier,price_local,price_usd_equiv,notes,US,T5,9.99,9.99,
+shop_pricing_tiers,region,price_tier,price_local,price_usd_equiv,notes,US,T6,19.99,19.99,
+shop_pricing_tiers,region,price_tier,price_local,price_usd_equiv,notes,US,T7,29.99,29.99,
+shop_pricing_tiers,region,price_tier,price_local,price_usd_equiv,notes,US,T8,49.99,49.99,
+shop_pricing_tiers,region,price_tier,price_local,price_usd_equiv,notes,US,T9,99.99,99.99,whale tier
+shop_pricing_tiers,region,price_tier,price_local,price_usd_equiv,notes,EU,T1,0.99,1.08,approx USD
+shop_pricing_tiers,region,price_tier,price_local,price_usd_equiv,notes,EU,T2,1.99,2.16,approx USD
+shop_pricing_tiers,region,price_tier,price_local,price_usd_equiv,notes,EU,T3,2.99,3.26,approx USD
+shop_pricing_tiers,region,price_tier,price_local,price_usd_equiv,notes,EU,T4,4.99,5.44,approx USD
+shop_pricing_tiers,region,price_tier,price_local,price_usd_equiv,notes,EU,T5,9.99,10.89,approx USD
+shop_pricing_tiers,region,price_tier,price_local,price_usd_equiv,notes,EU,T6,19.99,21.79,approx USD
+shop_pricing_tiers,region,price_tier,price_local,price_usd_equiv,notes,EU,T7,29.99,32.69,approx USD
+shop_pricing_tiers,region,price_tier,price_local,price_usd_equiv,notes,EU,T8,49.99,54.49,approx USD
+shop_pricing_tiers,region,price_tier,price_local,price_usd_equiv,notes,EU,T9,99.99,108.99,approx USD
+shop_pricing_tiers,region,price_tier,price_local,price_usd_equiv,notes,UK,T1,0.79,1.00,approx USD
+shop_pricing_tiers,region,price_tier,price_local,price_usd_equiv,notes,UK,T2,1.59,2.01,approx USD
+shop_pricing_tiers,region,price_tier,price_local,price_usd_equiv,notes,UK,T3,2.49,3.14,approx USD
+shop_pricing_tiers,region,price_tier,price_local,price_usd_equiv,notes,UK,T4,4.49,5.66,approx USD
+shop_pricing_tiers,region,price_tier,price_local,price_usd_equiv,notes,UK,T5,8.99,11.33,approx USD
+shop_pricing_tiers,region,price_tier,price_local,price_usd_equiv,notes,UK,T6,17.99,22.66,approx USD
+shop_pricing_tiers,region,price_tier,price_local,price_usd_equiv,notes,UK,T7,28.99,36.53,approx USD
+shop_pricing_tiers,region,price_tier,price_local,price_usd_equiv,notes,UK,T8,47.99,60.46,approx USD
+shop_pricing_tiers,region,price_tier,price_local,price_usd_equiv,notes,UK,T9,99.99,126.00,approx USD
+shop_pricing_tiers,region,price_tier,price_local,price_usd_equiv,notes,JP,T1,120,0.80,approx USD
+shop_pricing_tiers,region,price_tier,price_local,price_usd_equiv,notes,JP,T2,250,1.66,approx USD
+shop_pricing_tiers,region,price_tier,price_local,price_usd_equiv,notes,JP,T3,370,2.46,approx USD
+shop_pricing_tiers,region,price_tier,price_local,price_usd_equiv,notes,JP,T4,610,4.05,approx USD
+shop_pricing_tiers,region,price_tier,price_local,price_usd_equiv,notes,JP,T5,1220,8.10,approx USD
+shop_pricing_tiers,region,price_tier,price_local,price_usd_equiv,notes,JP,T6,2440,16.20,approx USD
+shop_pricing_tiers,region,price_tier,price_local,price_usd_equiv,notes,JP,T7,3680,24.45,approx USD
+shop_pricing_tiers,region,price_tier,price_local,price_usd_equiv,notes,JP,T8,6100,40.50,approx USD
+shop_pricing_tiers,region,price_tier,price_local,price_usd_equiv,notes,JP,T9,12000,79.70,approx USD
+shop_value_ratios,bundle_id,bundle_name,price_usd,dice,city_funds,sticker_pack_common,sticker_pack_rare,sticker_pack_epic,dice_equiv_formula,dice_per_usd_formula,target_min,target_max,notes,1,Starter Roll,1.99,120,0,1,0,0,=dice+(city_funds/assumptions!funds_per_die)+(sticker_pack_common*assumptions!common_pack_dice_equiv)+(sticker_pack_rare*assumptions!rare_pack_dice_equiv)+(sticker_pack_epic*assumptions!epic_pack_dice_equiv),=dice_equiv/price_usd,=assumptions!target_value_per_usd_min,=assumptions!target_value_per_usd_max,ftue anchor
+shop_value_ratios,bundle_id,bundle_name,price_usd,dice,city_funds,sticker_pack_common,sticker_pack_rare,sticker_pack_epic,dice_equiv_formula,dice_per_usd_formula,target_min,target_max,notes,2,Quick Boost,4.99,350,15000,1,0,0,=dice+(city_funds/assumptions!funds_per_die)+(sticker_pack_common*assumptions!common_pack_dice_equiv)+(sticker_pack_rare*assumptions!rare_pack_dice_equiv)+(sticker_pack_epic*assumptions!epic_pack_dice_equiv),=dice_equiv/price_usd,=assumptions!target_value_per_usd_min,=assumptions!target_value_per_usd_max,core tier
+shop_value_ratios,bundle_id,bundle_name,price_usd,dice,city_funds,sticker_pack_common,sticker_pack_rare,sticker_pack_epic,dice_equiv_formula,dice_per_usd_formula,target_min,target_max,notes,3,Builder Kit,9.99,600,60000,0,1,0,=dice+(city_funds/assumptions!funds_per_die)+(sticker_pack_common*assumptions!common_pack_dice_equiv)+(sticker_pack_rare*assumptions!rare_pack_dice_equiv)+(sticker_pack_epic*assumptions!epic_pack_dice_equiv),=dice_equiv/price_usd,=assumptions!target_value_per_usd_min,=assumptions!target_value_per_usd_max,mid tier
+shop_value_ratios,bundle_id,bundle_name,price_usd,dice,city_funds,sticker_pack_common,sticker_pack_rare,sticker_pack_epic,dice_equiv_formula,dice_per_usd_formula,target_min,target_max,notes,4,City Sprint,19.99,1200,150000,0,1,0,=dice+(city_funds/assumptions!funds_per_die)+(sticker_pack_common*assumptions!common_pack_dice_equiv)+(sticker_pack_rare*assumptions!rare_pack_dice_equiv)+(sticker_pack_epic*assumptions!epic_pack_dice_equiv),=dice_equiv/price_usd,=assumptions!target_value_per_usd_min,=assumptions!target_value_per_usd_max,post city complete
+shop_value_ratios,bundle_id,bundle_name,price_usd,dice,city_funds,sticker_pack_common,sticker_pack_rare,sticker_pack_epic,dice_equiv_formula,dice_per_usd_formula,target_min,target_max,notes,5,Neon Vault,29.99,2000,250000,0,2,0,=dice+(city_funds/assumptions!funds_per_die)+(sticker_pack_common*assumptions!common_pack_dice_equiv)+(sticker_pack_rare*assumptions!rare_pack_dice_equiv)+(sticker_pack_epic*assumptions!epic_pack_dice_equiv),=dice_equiv/price_usd,=assumptions!target_value_per_usd_min,=assumptions!target_value_per_usd_max,core tier
+shop_value_ratios,bundle_id,bundle_name,price_usd,dice,city_funds,sticker_pack_common,sticker_pack_rare,sticker_pack_epic,dice_equiv_formula,dice_per_usd_formula,target_min,target_max,notes,6,Skyline Pack,49.99,3500,450000,0,2,1,=dice+(city_funds/assumptions!funds_per_die)+(sticker_pack_common*assumptions!common_pack_dice_equiv)+(sticker_pack_rare*assumptions!rare_pack_dice_equiv)+(sticker_pack_epic*assumptions!epic_pack_dice_equiv),=dice_equiv/price_usd,=assumptions!target_value_per_usd_min,=assumptions!target_value_per_usd_max,high tier
+shop_value_ratios,bundle_id,bundle_name,price_usd,dice,city_funds,sticker_pack_common,sticker_pack_rare,sticker_pack_epic,dice_equiv_formula,dice_per_usd_formula,target_min,target_max,notes,7,Mega Roll,99.99,8000,900000,0,3,2,=dice+(city_funds/assumptions!funds_per_die)+(sticker_pack_common*assumptions!common_pack_dice_equiv)+(sticker_pack_rare*assumptions!rare_pack_dice_equiv)+(sticker_pack_epic*assumptions!epic_pack_dice_equiv),=dice_equiv/price_usd,=assumptions!target_value_per_usd_min,=assumptions!target_value_per_usd_max,weekly whale
+shop_value_ratios,bundle_id,bundle_name,price_usd,dice,city_funds,sticker_pack_common,sticker_pack_rare,sticker_pack_epic,dice_equiv_formula,dice_per_usd_formula,target_min,target_max,notes,8,Sticker Hunter,14.99,300,20000,0,2,1,=dice+(city_funds/assumptions!funds_per_die)+(sticker_pack_common*assumptions!common_pack_dice_equiv)+(sticker_pack_rare*assumptions!rare_pack_dice_equiv)+(sticker_pack_epic*assumptions!epic_pack_dice_equiv),=dice_equiv/price_usd,=assumptions!target_value_per_usd_min,=assumptions!target_value_per_usd_max,collector
+shop_value_ratios,bundle_id,bundle_name,price_usd,dice,city_funds,sticker_pack_common,sticker_pack_rare,sticker_pack_epic,dice_equiv_formula,dice_per_usd_formula,target_min,target_max,notes,9,Comeback Deal,6.99,500,50000,1,0,0,=dice+(city_funds/assumptions!funds_per_die)+(sticker_pack_common*assumptions!common_pack_dice_equiv)+(sticker_pack_rare*assumptions!rare_pack_dice_equiv)+(sticker_pack_epic*assumptions!epic_pack_dice_equiv),=dice_equiv/price_usd,=assumptions!target_value_per_usd_min,=assumptions!target_value_per_usd_max,triggered
+shop_value_ratios,bundle_id,bundle_name,price_usd,dice,city_funds,sticker_pack_common,sticker_pack_rare,sticker_pack_epic,dice_equiv_formula,dice_per_usd_formula,target_min,target_max,notes,10,Event Pass,9.99,300,0,0,2,0,=dice+(city_funds/assumptions!funds_per_die)+(sticker_pack_common*assumptions!common_pack_dice_equiv)+(sticker_pack_rare*assumptions!rare_pack_dice_equiv)+(sticker_pack_epic*assumptions!epic_pack_dice_equiv),=dice_equiv/price_usd,=assumptions!target_value_per_usd_min,=assumptions!target_value_per_usd_max,events
+sticker_albums,album_id,album_name,sets,total_stickers,album_reward_type,album_reward_amount,notes,1,Neon Noir Vol 1,8,60,dice,800,launch album
+sticker_sets,album_id,set_id,set_name,stickers_in_set,rarity_mix,completion_reward_type,completion_reward_amount,1,1,Neon Harbor,7,C4/R2/E1,dice,60
+sticker_sets,album_id,set_id,set_name,stickers_in_set,rarity_mix,completion_reward_type,completion_reward_amount,1,2,Deco Heights,7,C4/R2/E1,city_funds,30000
+sticker_sets,album_id,set_id,set_name,stickers_in_set,rarity_mix,completion_reward_type,completion_reward_amount,1,3,Skybridge Plaza,8,C4/R3/E1,sticker_pack_rare,1
+sticker_sets,album_id,set_id,set_name,stickers_in_set,rarity_mix,completion_reward_type,completion_reward_amount,1,4,Metro Crown,8,C3/R4/E1,dice,90
+sticker_sets,album_id,set_id,set_name,stickers_in_set,rarity_mix,completion_reward_type,completion_reward_amount,1,5,Glass District,8,C3/R4/E1,city_funds,60000
+sticker_sets,album_id,set_id,set_name,stickers_in_set,rarity_mix,completion_reward_type,completion_reward_amount,1,6,Night Market,7,C3/R3/E1,sticker_pack_epic,1
+sticker_sets,album_id,set_id,set_name,stickers_in_set,rarity_mix,completion_reward_type,completion_reward_amount,1,7,Skyline Summit,7,C2/R4/E1,dice,120
+sticker_sets,album_id,set_id,set_name,stickers_in_set,rarity_mix,completion_reward_type,completion_reward_amount,1,8,Arcade Row,8,C3/R4/E1,city_funds,90000
+sticker_rarity_odds,rarity,probability,notes,common,0.7,baseline
+sticker_rarity_odds,rarity,probability,notes,rare,0.25,baseline
+sticker_rarity_odds,rarity,probability,notes,epic,0.05,baseline

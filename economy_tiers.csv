@@ -1,0 +1,19 @@
+city_id,city_name,tier_index,base_cost,city_multiplier,tier_cost_formula,repair_cost_formula,notes
+1,Neon Harbor,0,1000,1.0,=base_cost*(1.35^tier_index)*city_multiplier,=tier_cost*0.25,early pacing
+1,Neon Harbor,1,1000,1.0,=base_cost*(1.35^tier_index)*city_multiplier,=tier_cost*0.25,early pacing
+1,Neon Harbor,2,1000,1.0,=base_cost*(1.35^tier_index)*city_multiplier,=tier_cost*0.25,early pacing
+2,Deco Heights,0,1000,1.4,=base_cost*(1.35^tier_index)*city_multiplier,=tier_cost*0.25,early pacing
+2,Deco Heights,1,1000,1.4,=base_cost*(1.35^tier_index)*city_multiplier,=tier_cost*0.25,early pacing
+2,Deco Heights,2,1000,1.4,=base_cost*(1.35^tier_index)*city_multiplier,=tier_cost*0.25,early pacing
+3,Skybridge Plaza,0,1000,2.4,=base_cost*(1.35^tier_index)*city_multiplier,=tier_cost*0.25,mid pacing
+3,Skybridge Plaza,1,1000,2.4,=base_cost*(1.35^tier_index)*city_multiplier,=tier_cost*0.25,mid pacing
+3,Skybridge Plaza,2,1000,2.4,=base_cost*(1.35^tier_index)*city_multiplier,=tier_cost*0.25,mid pacing
+3,Skybridge Plaza,3,1000,2.4,=base_cost*(1.35^tier_index)*city_multiplier,=tier_cost*0.25,mid pacing
+4,Metro Crown,0,1000,3.5,=base_cost*(1.35^tier_index)*city_multiplier,=tier_cost*0.25,mid pacing
+4,Metro Crown,1,1000,3.5,=base_cost*(1.35^tier_index)*city_multiplier,=tier_cost*0.25,mid pacing
+4,Metro Crown,2,1000,3.5,=base_cost*(1.35^tier_index)*city_multiplier,=tier_cost*0.25,mid pacing
+4,Metro Crown,3,1000,3.5,=base_cost*(1.35^tier_index)*city_multiplier,=tier_cost*0.25,mid pacing
+5,Glass District,0,1000,5.0,=base_cost*(1.35^tier_index)*city_multiplier,=tier_cost*0.25,late pacing
+5,Glass District,1,1000,5.0,=base_cost*(1.35^tier_index)*city_multiplier,=tier_cost*0.25,late pacing
+5,Glass District,2,1000,5.0,=base_cost*(1.35^tier_index)*city_multiplier,=tier_cost*0.25,late pacing
+5,Glass District,3,1000,5.0,=base_cost*(1.35^tier_index)*city_multiplier,=tier_cost*0.25,late pacing

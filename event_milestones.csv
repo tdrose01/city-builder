@@ -1,0 +1,6 @@
+event_id,event_name,milestone,points_required,reward_type,reward_amount,notes
+1,Neon Rush,1,10,dice,20,entry hook
+1,Neon Rush,2,20,city_funds,8000,
+1,Neon Rush,3,40,sticker_pack_common,1,
+1,Neon Rush,4,80,dice,35,
+1,Neon Rush,5,120,city_funds,15000,session cap

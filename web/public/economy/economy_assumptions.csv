@@ -1,0 +1,17 @@
+key,value,notes
+points_per_roll,10,event tuning baseline
+funds_per_die,800,average soft currency per die
+common_pack_dice_equiv,15,estimated value
+rare_pack_dice_equiv,40,estimated value
+epic_pack_dice_equiv,80,estimated value
+tile_funds_base_pct,0.003,base payout as pct of city total
+funds_roll_multiplier,0.3,funds roll multiplier
+rent_multiplier,1.25,rent base multiplier
+rent_roll_multiplier,0.45,rent roll multiplier
+bonus_multiplier,2.0,bonus base multiplier
+start_bonus_multiplier,1.5,start tile base multiplier
+free_dice_bonus,2,free dice tile payout
+doubles_apply_chance,0.5,doubles payout chance
+doubles_bonus_multiplier,1.0,doubles bonus as roll multiplier
+target_value_per_usd_min,60,dice equivalent
+target_value_per_usd_max,120,dice equivalent

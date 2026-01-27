@@ -1,0 +1,29 @@
+# OS / editors
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# React build
+dist/
+build/
+
+# .NET
+bin/
+obj/
+*.user
+*.suo
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# Local env
+.env

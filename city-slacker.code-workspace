@@ -1,0 +1,24 @@
+{
+  "folders": [
+    {
+      "name": "City Slacker (Root)",
+      "path": "."
+    },
+    {
+      "name": "Web Prototype (Active Development)",
+      "path": "./web"
+    },
+    {
+      "name": "Conductor (Project Management)",
+      "path": "./conductor"
+    }
+  ],
+  "settings": {},
+  "extensions": {
+    "recommendations": [
+      "dbaeumer.vscode-eslint",
+      "esbenp.prettier-vscode",
+      "bradlc.vscode-tailwindcss"
+    ]
+  }
+}

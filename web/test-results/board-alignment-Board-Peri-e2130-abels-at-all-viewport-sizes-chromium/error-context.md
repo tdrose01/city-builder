@@ -1,0 +1,117 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e10]:
+  - generic [ref=e12]:
+    - generic [ref=e14]: START
+    - generic [ref=e16]: FUNDS
+    - generic [ref=e18]: RENT
+    - generic [ref=e20]: BONUS
+    - generic [ref=e22]: SHIELD
+    - generic [ref=e24]: BONUS
+    - generic [ref=e26]: FUNDS
+    - generic [ref=e28]: HEIST
+    - generic [ref=e29]:
+      - generic [ref=e30]: LANDMARK
+      - generic [ref=e32]: 0/5
+    - generic [ref=e34]: CARD
+    - generic [ref=e36]: HEIST
+    - generic [ref=e38]: STICKER
+    - generic [ref=e40]: FUNDS
+    - generic [ref=e42]: SHUTDOWN
+    - generic [ref=e44]: BONUS
+    - generic [ref=e46]: HEIST
+    - generic [ref=e48]: SHIELD
+    - generic [ref=e50]: DICE
+    - generic [ref=e52]: FUNDS
+    - generic [ref=e54]: RENT
+    - generic [ref=e55]:
+      - generic [ref=e59]:
+        - generic [ref=e60]:
+          - text: "Roll:"
+          - strong [ref=e61]: "7"
+        - generic [ref=e62]: •
+        - generic [ref=e63]:
+          - text: "Tile:"
+          - strong [ref=e64]: GO
+      - generic [ref=e66]:
+        - generic [ref=e67]:
+          - paragraph [ref=e68]: Event Progress
+          - paragraph [ref=e69]: 0 / 15
+        - paragraph [ref=e72]: "Next: $5,000 Funds"
+  - generic [ref=e74]:
+    - generic [ref=e76]:
+      - paragraph [ref=e77]: City Level 1
+      - paragraph [ref=e78]: Neon Harbor
+    - generic [ref=e79]:
+      - generic [ref=e80]:
+        - generic [ref=e81]: Funds
+        - generic [ref=e82]: $5,000
+      - generic [ref=e83]:
+        - generic [ref=e84]: Dice
+        - generic [ref=e85]: "50"
+      - generic [ref=e86]:
+        - generic [ref=e87]: Shields
+        - generic [ref=e88]: 1/5
+      - generic [ref=e89]:
+        - generic [ref=e90]: Stickers
+        - generic [ref=e91]:
+          - text: 0/9
+          - generic [ref=e92]: (1P)
+    - generic [ref=e93]:
+      - button "Roll" [ref=e94]:
+        - img [ref=e95]
+        - text: Roll
+      - button "Auto" [ref=e97]:
+        - img [ref=e98]
+        - text: Auto
+      - button "Upgrade" [disabled] [ref=e100]:
+        - img [ref=e101]
+        - text: Upgrade
+      - button "Analytics" [ref=e103]:
+        - img [ref=e104]
+        - text: Analytics
+      - button "Reset" [ref=e106]:
+        - img [ref=e107]
+        - text: Reset
+    - generic [ref=e109]:
+      - button "Events" [ref=e110]:
+        - img [ref=e111]
+        - generic [ref=e113]: Events
+      - button "Missions" [ref=e114]:
+        - img [ref=e115]
+        - generic [ref=e117]: Missions
+      - button "Stickers" [ref=e118]:
+        - img [ref=e119]
+        - generic [ref=e121]: Stickers
+    - generic [ref=e123]:
+      - generic [ref=e124]:
+        - generic [ref=e125]: Progress
+        - generic [ref=e126]: 0 / 100
+      - generic [ref=e128]:
+        - generic [ref=e129]:
+          - generic [ref=e130]:
+            - generic [ref=e131]: 15 pts
+            - generic [ref=e132]: $5,000
+          - button "Claim" [disabled] [ref=e133]
+        - generic [ref=e134]:
+          - generic [ref=e135]:
+            - generic [ref=e136]: 30 pts
+            - generic [ref=e137]: $5,000
+          - button "Claim" [disabled] [ref=e138]
+        - generic [ref=e139]:
+          - generic [ref=e140]:
+            - generic [ref=e141]: 50 pts
+            - generic [ref=e142]: $5,000
+          - button "Claim" [disabled] [ref=e143]
+        - generic [ref=e144]:
+          - generic [ref=e145]:
+            - generic [ref=e146]: 75 pts
+            - generic [ref=e147]: $5,000
+          - button "Claim" [disabled] [ref=e148]
+        - generic [ref=e149]:
+          - generic [ref=e150]:
+            - generic [ref=e151]: 100 pts
+            - generic [ref=e152]: $5,000
+          - button "Claim" [disabled] [ref=e153]
+```

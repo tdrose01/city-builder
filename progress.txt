@@ -1,0 +1,55 @@
+
+[2026-01-16 14:46:57] start_here_error
+2026-01-17T13:12:15 -Message
+2026-01-17T13:20:02 -Message
+2026-01-17T14:10:06 -Message
+2026-01-17T14:23:59 -Message
+2026-01-17T14:27:10 -Message
+2026-01-17T14:33:59 -Message
+2026-01-17T14:36:05 -Message
+2026-01-17T14:39:49 Completed: - [X] Board loop with core tiles and upgrade flow.
+2026-01-17T14:43:45 -Message
+2026-01-17T14:46:39 -Message
+2026-01-17T14:51:38 -Message
+2026-01-17T14:55:54 -Message
+2026-01-17T14:59:33 -Message
+2026-01-17T15:06:57 -Message
+2026-01-17T15:57:11 Completed: - [X] Board loop with core tiles and upgrade flow.
+2026-01-17T15:59:38 -Message
+2026-01-17T16:01:00 Completed: - [X] Board loop with core tiles and upgrade flow.
+2026-01-17T16:03:08 -Message
+2026-01-17T16:05:56 Completed: - [X] Board loop with core tiles and upgrade flow.
+2026-01-17T16:09:12 -Message
+2026-01-17T16:14:49 -Message
+2026-01-17T16:19:01 Completed: - [X] Board loop with core tiles and upgrade flow.
+2026-01-17T16:20:51 -Message
+2026-01-17T16:26:43 Completed: - [X] Board loop with core tiles and upgrade flow.
+2026-01-17T16:31:43 -Message
+2026-01-17T16:34:51 -Message
+2026-01-17T16:46:55 -Message
+2026-01-17T16:50:16 -Message
+2026-01-17T17:24:40 -Message
+2026-01-17T17:32:43 -Message
+2026-01-17T17:37:31 -Message
+2026-01-17T17:45:37 -Message
+2026-01-17T17:51:43 -Message
+2026-01-17T17:53:44 -Message
+2026-01-17T17:55:09 -Message
+2026-01-17T18:05:33 -Message
+2026-01-17T18:07:20 -Message
+2026-01-17T18:13:20 -Message
+2026-01-17T18:20:02 -Message
+2026-01-17T18:25:47 -Message
+2026-01-18T12:32:39 -Message
+2026-01-18T12:34:10 Completed: - [X] Dust crafting and token redemption.
+2026-01-18T13:07:33 -Message
+2026-01-18T13:13:16 Completed: - [X] Dust crafting and token redemption.
+2026-01-18T17:21:17 Completed: Modernize board UI and reduce stats density with expandable cards.
+2026-01-18T18:27:02 Completed: Add on-board 3D dice with Three.js and tumble animation.
+2026-01-18T18:33:04 -Message
+2026-01-18T18:36:31 -Message
+2026-01-19T09:44:19 Completed: Automated Verification - Phase 2: Second City Content (BoardLoop unit tests)
+2026-01-19T09:44:19 Completed: Automated Verification - Phase 3: Sticker Progression Hints (BoardLoop unit tests)
+2026-01-19T09:50:36 Completed: Improve board tile label readability (wrapped names + higher-contrast backplates).
+2026-01-19T12:00:18 Completed: Verify board perimeter alignment at multiple viewport sizes with automated tests (Desktop HD/Standard, Laptop Large/Small).
+2026-01-23T04:05:00 Completed: Phase 3: Gameplay Balance Tuning. Automated playtests validated targets: 86s session, 11 rolls/session, sustainable economy.

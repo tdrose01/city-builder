@@ -1,0 +1,6 @@
+event_id,milestone,points_required,points_per_roll,expected_rolls,expected_dice_spend,reward_type,reward_amount,reward_dice_equiv,net_value_dice_equiv,notes
+1,1,10,=assumptions!points_per_roll,=points_required/points_per_roll,=expected_rolls,dice,20,=reward_amount,=reward_dice_equiv-expected_dice_spend,entry hook
+1,2,20,=assumptions!points_per_roll,=points_required/points_per_roll,=expected_rolls,city_funds,8000,=reward_amount/assumptions!funds_per_die,=reward_dice_equiv-expected_dice_spend,
+1,3,40,=assumptions!points_per_roll,=points_required/points_per_roll,=expected_rolls,sticker_pack_common,1,=assumptions!common_pack_dice_equiv,=reward_dice_equiv-expected_dice_spend,
+1,4,80,=assumptions!points_per_roll,=points_required/points_per_roll,=expected_rolls,dice,35,=reward_amount,=reward_dice_equiv-expected_dice_spend,
+1,5,120,=assumptions!points_per_roll,=points_required/points_per_roll,=expected_rolls,city_funds,15000,=reward_amount/assumptions!funds_per_die,=reward_dice_equiv-expected_dice_spend,session cap

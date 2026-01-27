@@ -1,0 +1,37 @@
+region,price_tier,price_local,price_usd_equiv,notes
+US,T1,0.99,0.99,entry tier
+US,T2,1.99,1.99,
+US,T3,2.99,2.99,
+US,T4,4.99,4.99,
+US,T5,9.99,9.99,
+US,T6,19.99,19.99,
+US,T7,29.99,29.99,
+US,T8,49.99,49.99,
+US,T9,99.99,99.99,whale tier
+EU,T1,0.99,1.08,approx USD
+EU,T2,1.99,2.16,approx USD
+EU,T3,2.99,3.26,approx USD
+EU,T4,4.99,5.44,approx USD
+EU,T5,9.99,10.89,approx USD
+EU,T6,19.99,21.79,approx USD
+EU,T7,29.99,32.69,approx USD
+EU,T8,49.99,54.49,approx USD
+EU,T9,99.99,108.99,approx USD
+UK,T1,0.79,1.00,approx USD
+UK,T2,1.59,2.01,approx USD
+UK,T3,2.49,3.14,approx USD
+UK,T4,4.49,5.66,approx USD
+UK,T5,8.99,11.33,approx USD
+UK,T6,17.99,22.66,approx USD
+UK,T7,28.99,36.53,approx USD
+UK,T8,47.99,60.46,approx USD
+UK,T9,99.99,126.00,approx USD
+JP,T1,120,0.80,approx USD
+JP,T2,250,1.66,approx USD
+JP,T3,370,2.46,approx USD
+JP,T4,610,4.05,approx USD
+JP,T5,1220,8.10,approx USD
+JP,T6,2440,16.20,approx USD
+JP,T7,3680,24.45,approx USD
+JP,T8,6100,40.50,approx USD
+JP,T9,12000,79.70,approx USD

@@ -1,0 +1,21 @@
+event_id,event_name,milestone,points_required,reward_type,reward_amount,notes
+1,Neon Rush,1,10,dice,20,entry hook
+1,Neon Rush,2,30,city_funds,8000,
+1,Neon Rush,3,70,sticker_pack_common,1,
+1,Neon Rush,4,130,dice,35,
+1,Neon Rush,5,200,city_funds,15000,
+1,Neon Rush,6,300,sticker_pack_rare,1,
+1,Neon Rush,7,420,dice,50,
+1,Neon Rush,8,570,city_funds,30000,
+1,Neon Rush,9,740,sticker_pack_rare,1,
+1,Neon Rush,10,930,dice,75,midpoint spike
+1,Neon Rush,11,1160,city_funds,45000,
+1,Neon Rush,12,1410,sticker_pack_epic,1,
+1,Neon Rush,13,1690,dice,100,
+1,Neon Rush,14,1990,city_funds,80000,
+1,Neon Rush,15,2330,sticker_pack_epic,1,
+1,Neon Rush,16,2700,dice,140,
+1,Neon Rush,17,3100,city_funds,120000,
+1,Neon Rush,18,3540,sticker_pack_epic,1,
+1,Neon Rush,19,4000,dice,200,final push
+1,Neon Rush,20,4500,city_funds,200000,capstone

@@ -1,0 +1,4 @@
+rarity,probability,dust_value,craft_cost,wildcard_points,notes
+common,0.7,10,100,10,baseline
+rare,0.25,30,300,30,baseline
+epic,0.05,100,1000,100,baseline

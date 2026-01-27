@@ -1,0 +1,6 @@
+city_id,city_name,landmarks,tiers_per_landmark,base_cost,city_multiplier,total_cost_target,completion_dice_reward,completion_funds_reward,dice_cap,dice_regen_minutes,heist_min_pct,heist_max_pct,shutdown_repair_pct
+1,Neon Harbor,5,3,1000,1.0,120000,40,15000,90,9,0.05,0.15,0.25
+2,Deco Heights,5,3,1000,1.4,200000,50,25000,90,9,0.05,0.15,0.25
+3,Skybridge Plaza,6,4,1000,2.4,450000,60,45000,90,9,0.05,0.15,0.25
+4,Metro Crown,6,4,1000,3.5,700000,70,70000,90,9,0.05,0.15,0.25
+5,Glass District,7,4,1000,5.0,1200000,80,120000,90,9,0.05,0.15,0.25

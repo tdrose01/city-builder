@@ -1,0 +1,119 @@
+# Cursor AI Rules for City Slacker Project
+
+## Project Root Directory
+- **IMPORTANT:** The project root is THIS directory (where this .cursorrules file is located)
+- **Active Development:** The `web/` subdirectory contains the React web prototype
+- **Archived:** The `city-slacker/` subdirectory is an old Unity project (NOT in active development)
+
+## Current Development Phase
+- **Phase:** Phase 5 - Content Polish & Enhancement
+- **Status:** Ready to Start
+- **Entry Point:** Read `CURRENT_PHASE.md` in this directory for complete context
+- **Track Details:** `conductor/tracks/phase5_polish_20260123/`
+
+## Directory Structure
+```
+C:\city-slacker\                    ← YOU ARE HERE (project root)
+├── web/                            ← Active React web prototype
+│   ├── src/
+│   │   ├── components/             ← React components
+│   │   │   └── BoardLoop.jsx       ← Main game component
+│   │   ├── config/
+│   │   │   └── gameBalance.js      ← Game balance config
+│   │   └── utils/                  ← Utility functions
+│   ├── tests/                      ← Test suites
+│   └── package.json
+├── conductor/                      ← Project management
+│   ├── tracks/                     ← Development tracks
+│   │   └── phase5_polish_20260123/ ← Current phase
+│   └── workflow.md                 ← Development workflow
+├── CURRENT_PHASE.md                ← START HERE for context
+├── README.md                       ← Project overview
+└── STATUS.md                       ← Current state
+```
+
+## Development Workflow
+1. **Always start from project root** (where this file is)
+2. **Navigate to web/** for all development work
+3. **Read CURRENT_PHASE.md** to understand what to work on
+4. **Follow TDD workflow** in `conductor/workflow.md`
+5. **Update plan.md** as you complete tasks
+
+## Quick Commands
+```bash
+# From project root:
+cd web               # Navigate to active project
+npm install          # Install dependencies
+npm run dev          # Start dev server
+npm test             # Run tests
+npm run lint         # Check code quality
+```
+
+## Tech Stack
+- **Frontend:** React 18, Vite, Tailwind CSS
+- **Animation:** Framer Motion
+- **Testing:** Vitest (unit), Playwright (E2E)
+- **State:** React hooks (no Redux/Context)
+- **Storage:** localStorage (no backend yet)
+
+## Development Philosophy
+- **TDD:** Write tests first, then implementation
+- **Quality:** >80% test coverage required
+- **Performance:** 60fps target
+- **Accessibility:** WCAG AA compliance
+
+## Current Task
+- **Task 5.1:** Enhanced City Transitions (2-3 hours)
+- **Details:** See `conductor/tracks/phase5_polish_20260123/plan.md`
+- **Specs:** See `conductor/tracks/phase5_polish_20260123/spec.md`
+
+## Important Files
+- `web/src/components/BoardLoop.jsx` - Main game component
+- `web/src/config/gameBalance.js` - Game balance configuration
+- `web/src/utils/saveSystem.js` - Save/load system
+- `web/src/utils/sessionAnalytics.js` - Analytics tracking
+
+## Test Status
+- **Tests:** 73/73 passing (100%)
+- **Coverage:** ~80% on critical paths
+- **Target:** >85% coverage for Phase 5
+
+## Code Style
+- Use functional components with hooks
+- Follow TDD workflow (Red → Green → Refactor)
+- Use Tailwind utility classes for styling
+- Add JSDoc comments for complex functions
+- Keep components focused and single-responsibility
+
+## Commit Message Format
+```
+<type>(<scope>): <description>
+
+Examples:
+feat(transitions): Add city transition animations
+fix(particles): Resolve memory leak in particle cleanup
+test(e2e): Add city progression tests
+docs(readme): Update project structure
+```
+
+## Quality Gates
+Before marking any task complete:
+- [ ] All tests pass
+- [ ] Code coverage >80%
+- [ ] No linting errors
+- [ ] No console errors
+- [ ] Performance maintained (60fps)
+- [ ] Documentation updated if needed
+
+## Next Steps
+1. Read `CURRENT_PHASE.md` for complete context
+2. Review `conductor/tracks/phase5_polish_20260123/plan.md`
+3. Start with Task 5.1 - Enhanced City Transitions
+4. Follow TDD workflow in `conductor/workflow.md`
+
+## Need Help?
+- **Current Phase:** `CURRENT_PHASE.md`
+- **Project Status:** `STATUS.md`
+- **Next Steps:** `NEXT_STEPS.md`
+- **Workflow:** `conductor/workflow.md`
+- **Track Details:** `conductor/tracks/phase5_polish_20260123/`

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="9" result="Passed" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-01-14 01:10:53Z" end-time="2026-01-14 01:10:54Z" duration="0.9699182">
+  <test-suite type="TestSuite" id="1000" name="city-slacker" fullname="city-slacker" runstate="Runnable" testcasecount="9" result="Passed" start-time="2026-01-14 01:10:53Z" end-time="2026-01-14 01:10:54Z" duration="0.969918" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties />
+    <test-suite type="Assembly" id="1011" name="Tests.dll" fullname="C:/city-slacker/city-slacker/Library/ScriptAssemblies/Tests.dll" runstate="Runnable" testcasecount="9" result="Passed" start-time="2026-01-14 01:10:53Z" end-time="2026-01-14 01:10:54Z" duration="0.953281" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="5900" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+      </properties>
+      <test-suite type="TestFixture" id="1001" name="StackManagerTests" fullname="StackManagerTests" classname="StackManagerTests" runstate="Runnable" testcasecount="9" result="Passed" start-time="2026-01-14 01:10:53Z" end-time="2026-01-14 01:10:54Z" duration="0.950407" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-case id="1008" name="TestBlockHasColorAssigned" fullname="StackManagerTests.TestBlockHasColorAssigned" methodname="TestBlockHasColorAssigned" classname="StackManagerTests" runstate="Runnable" seed="919253787" result="Passed" start-time="2026-01-14 01:10:53Z" end-time="2026-01-14 01:10:53Z" duration="0.074716" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+          </properties>
+          <output><![CDATA[StackManager Started. Spawning first block...
+]]></output>
+        </test-case>
+        <test-case id="1003" name="TestBlockMovesHorizontally" fullname="StackManagerTests.TestBlockMovesHorizontally" methodname="TestBlockMovesHorizontally" classname="StackManagerTests" runstate="Runnable" seed="634209432" result="Passed" start-time="2026-01-14 01:10:53Z" end-time="2026-01-14 01:10:54Z" duration="0.509623" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+          </properties>
+          <output><![CDATA[StackManager Started. Spawning first block...
+]]></output>
+        </test-case>
+        <test-case id="1004" name="TestBlockPlacementCreatesNewBlock" fullname="StackManagerTests.TestBlockPlacementCreatesNewBlock" methodname="TestBlockPlacementCreatesNewBlock" classname="StackManagerTests" runstate="Runnable" seed="1603951212" result="Passed" start-time="2026-01-14 01:10:54Z" end-time="2026-01-14 01:10:54Z" duration="0.006452" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+          </properties>
+          <output><![CDATA[StackManager Started. Spawning first block...
+Floor 1 placed! Width: 5, Score: 0
+]]></output>
+        </test-case>
+        <test-case id="1002" name="TestBlockSpawnsOnStart" fullname="StackManagerTests.TestBlockSpawnsOnStart" methodname="TestBlockSpawnsOnStart" classname="StackManagerTests" runstate="Runnable" seed="79135083" result="Passed" start-time="2026-01-14 01:10:54Z" end-time="2026-01-14 01:10:54Z" duration="0.002895" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+          </properties>
+          <output><![CDATA[StackManager Started. Spawning first block...
+]]></output>
+        </test-case>
+        <test-case id="1007" name="TestBlockWidthDecreasesOnImperfectPlacement" fullname="StackManagerTests.TestBlockWidthDecreasesOnImperfectPlacement" methodname="TestBlockWidthDecreasesOnImperfectPlacement" classname="StackManagerTests" runstate="Runnable" seed="1779396168" result="Passed" start-time="2026-01-14 01:10:54Z" end-time="2026-01-14 01:10:54Z" duration="0.305231" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+          </properties>
+          <output><![CDATA[StackManager Started. Spawning first block...
+Floor 1 placed! Width: 5, Score: 0
+Floor 2 placed! Width: 4.64321, Score: 93
+]]></output>
+        </test-case>
+        <test-case id="1006" name="TestFloorCountIncreases" fullname="StackManagerTests.TestFloorCountIncreases" methodname="TestFloorCountIncreases" classname="StackManagerTests" runstate="Runnable" seed="584881324" result="Passed" start-time="2026-01-14 01:10:54Z" end-time="2026-01-14 01:10:54Z" duration="0.004668" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+          </properties>
+          <output><![CDATA[StackManager Started. Spawning first block...
+Floor 1 placed! Width: 5, Score: 0
+]]></output>
+        </test-case>
+        <test-case id="1010" name="TestInitialValuesAreSet" fullname="StackManagerTests.TestInitialValuesAreSet" methodname="TestInitialValuesAreSet" classname="StackManagerTests" runstate="Runnable" seed="1536618615" result="Passed" start-time="2026-01-14 01:10:54Z" end-time="2026-01-14 01:10:54Z" duration="0.003304" asserts="0">
+          <properties />
+        </test-case>
+        <test-case id="1005" name="TestScoreIncreasesOnPlacement" fullname="StackManagerTests.TestScoreIncreasesOnPlacement" methodname="TestScoreIncreasesOnPlacement" classname="StackManagerTests" runstate="Runnable" seed="976804372" result="Passed" start-time="2026-01-14 01:10:54Z" end-time="2026-01-14 01:10:54Z" duration="0.010558" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+          </properties>
+          <output><![CDATA[StackManager Started. Spawning first block...
+Floor 1 placed! Width: 5, Score: 0
+Floor 2 placed! Width: 4.997886, Score: 100
+]]></output>
+        </test-case>
+        <test-case id="1009" name="TestSpeedIncreasesAfterInterval" fullname="StackManagerTests.TestSpeedIncreasesAfterInterval" methodname="TestSpeedIncreasesAfterInterval" classname="StackManagerTests" runstate="Runnable" seed="206530204" result="Passed" start-time="2026-01-14 01:10:54Z" end-time="2026-01-14 01:10:54Z" duration="0.008312" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+          </properties>
+          <output><![CDATA[StackManager Started. Spawning first block...
+Floor 1 placed! Width: 5, Score: 0
+Floor 2 placed! Width: 4.99799, Score: 100
+Floor 3 placed! Width: 4.994952, Score: 200
+Floor 4 placed! Width: 4.991361, Score: 300
+Speed increased to 2.1!
+Floor 5 placed! Width: 4.98756, Score: 400
+]]></output>
+        </test-case>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>
