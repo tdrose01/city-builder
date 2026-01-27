@@ -2,6 +2,119 @@
 
 All notable changes to the City Slacker project are documented here.
 
+## [2026-01-27] - Phase 8: Gameplay Enhancement - IN PROGRESS 🎮
+
+**Phase 8 is adding exciting new tile types and mechanics to deepen gameplay.**
+
+### 🎰 Task 8.1: New Tile Types (IN PROGRESS)
+
+#### New Tile Types Added
+
+**1. Lottery Tile 🎰**
+- Interactive scratch-off lottery experience
+- Purchase tickets (cost scales by city: $500 base × 1.4^(city-1))
+- Win probabilities:
+  - 75% chance: Lose (no prize)
+  - 20% chance: Small win (10x ticket cost)
+  - 5% chance: Jackpot (100x ticket cost)
+- Features:
+  - Animated scratch-off reveal (2-second animation)
+  - Particle effects for wins (20 particles) and jackpots (50 particles)
+  - Sound effects integration
+  - Can't purchase if funds insufficient
+
+**2. Tax Tile 💸**
+- Percentage-based tax collection
+- Mechanics:
+  - Deducts 10% of current funds
+  - Minimum tax: $100
+  - Maximum tax: $5,000 × 1.4^(city-1)
+- Features:
+  - Animated calculation phase
+  - Tax Haven power-up support (blocks tax)
+  - Draining animation effect
+  - Receipt-style UI display
+
+**3. Jail Tile 🔒**
+- Turn-skipping penalty with escape options
+- Three escape methods:
+  1. **Pay Bail**: $1,000 × 1.4^(city-1) for instant escape
+  2. **Use Card**: Get Out of Jail Free card (if available)
+  3. **Stay in Jail**: Skip 3 turns (can roll doubles to escape)
+- Features:
+  - Prison bars visual overlay
+  - Shake animation for jail bars
+  - Three distinct escape paths
+  - Doubles escape mechanic (can attempt on each turn)
+
+**4. Fortune Tile 🔮**
+- Random event generator with weighted probabilities
+- Event categories:
+  - **Positive (60% total weight)**: Bonus funds, free dice, shields, lucky finds
+  - **Neutral (30% total weight)**: Teleportation, tile swaps, nothing
+  - **Negative (10% total weight)**: Lose funds, skip turn
+- **13 Total Events**:
+  1. Lucky Find (+$2,000 scaled, 20%)
+  2. Street Tip (+$1,000 scaled, 15%)
+  3. Dice Delivery (+5 dice, 15%)
+  4. Protection Charm (+2 shields, 10%)
+  5. Wormhole (+5 spaces, 10%)
+  6. Time Warp (-3 spaces, 8%)
+  7. Dimension Shift (random tile, 7%)
+  8. False Alarm (nothing, 5%)
+  9. Pickpocket (-$1,000 scaled, 5%)
+  10. Stuck in Traffic (skip 1 turn, 5%)
+- Features:
+  - Mystical crystal ball animation
+  - Card flip reveal effect
+  - Particle effects for positive events
+  - Event type color coding (green/purple/red)
+
+#### Technical Implementation
+
+**New Configuration File:**
+- `web/src/config/tileTypes.js` (~340 lines)
+  - Economic scaling helper function
+  - Complete tile type configurations
+  - Fortune event pool with weighted selection
+  - Exported constants and utility functions
+
+**New Components:**
+- `web/src/components/LotteryTile.jsx` (~230 lines)
+- `web/src/components/TaxTile.jsx` (~180 lines)
+- `web/src/components/JailTile.jsx` (~230 lines)
+- `web/src/components/FortuneTile.jsx` (~280 lines)
+
+**Total Lines Added:** ~1,260 lines
+
+#### Design Features
+
+**Animations:**
+- Framer Motion for all transitions
+- Stage-based animations (purchase → action → result)
+- Particle effects for celebrations
+- Smooth modal entry/exit
+
+**Visual Design:**
+- Consistent modal styling with gradient backgrounds
+- Color-coded tile types (gold, red, gray, purple)
+- Border glow effects
+- Icon-based tile identification
+
+**Sound Integration:**
+- Click sounds for button interactions
+- Success sounds for positive outcomes
+- Error sounds for negative outcomes
+- Achievement sound for jackpots
+
+#### Next Steps
+- [ ] Integrate tiles into BoardLoop
+- [ ] Add tiles to city configurations
+- [ ] Write comprehensive tests
+- [ ] Add tile indicators to board UI
+
+---
+
 ## [2026-01-27] - Phase 6: Multi-City Content Expansion - COMPLETE 🏙️
 
 **Phase 6 expands the game world with 3 new cities, bringing the total to 5 playable cities with exponential economic scaling.**

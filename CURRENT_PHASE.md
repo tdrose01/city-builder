@@ -9,12 +9,12 @@
 
 ## ⚠️ IMPORTANT: Project Root Directory
 
-**The project root is:** `C:\city-slacker\` (or wherever you cloned the repo)
+**The project root is:** `C:\city-slick1\city-builder\` (or wherever you cloned the repo)
 
 **Active Development:**
-- **Web Prototype:** `C:\city-slacker\web\` ← This is where all current work happens
-- **Documentation:** `C:\city-slacker\conductor\` ← Track and workflow docs
-- **Current Phase:** `C:\city-slacker\conductor\tracks\phase5_polish_20260123\`
+- **Web Prototype:** `C:\city-slick1\city-builder\web\` ← This is where all current work happens
+- **Documentation:** `C:\city-slick1\city-builder\conductor\` ← Track and workflow docs
+- **Current Phase:** `C:\city-slick1\city-builder\conductor\tracks\phase8_gameplay_enhancement_20260127\`
 
 ---
 
@@ -22,23 +22,39 @@
 
 If you're an AI agent (like Cursor, GitHub Copilot, or similar) picking up this project, here's how to get started with the current phase:
 
-### 1. Review Phase 6 Completion
+### 1. Review Phase 8 Progress
 ```
-📁 Phase 6 - COMPLETE ✅
-   ✅ Task 6.1: City 3 - Crystal Plaza
-   ✅ Task 6.2: City 4 - Starlight District
-   ✅ Task 6.3: City 5 - Neon Skyline
-   ✅ Task 6.4: Integration & Polish
+📁 Phase 8 - IN PROGRESS 🚧
+   🚧 Task 8.1: New Tile Types (75% complete)
+      ✅ Tile configuration file
+      ✅ Lottery tile component
+      ✅ Tax tile component
+      ✅ Jail tile component
+      ✅ Fortune tile component
+      ⏳ Integration into BoardLoop
+      ⏳ Write tests
+   ⏳ Task 8.2: Power-Up System
+   ⏳ Task 8.3: Special Events System
+   ⏳ Task 8.4: Mini-Games
+   ⏳ Task 8.5: Enhanced Combo System
 ```
 
-### 2. Current State (Post-Phase 6)
-- **Phase 6:** ✅ Complete (all 4 tasks finished)
+### 2. Current State (Phase 8 Active)
+- **Phase 8:** 🚧 In Progress (Task 8.1: 75% complete)
 - **Test Status:** 190+/190+ passing (100%)
-- **Cities Implemented:** 5/35 (14% complete)
-- **Code Quality:** Clean, comprehensive documentation
-- **New Files:** 1 test file, CSS themes added
+- **New Tile Types:** 4 created (Lottery, Tax, Jail, Fortune)
+- **Lines Added:** ~1,260 lines (configs + components)
+- **Next:** Integration + testing
 
 ### 3. What Was Accomplished
+
+**Phase 8 progress (so far):**
+- 4 new interactive tile types with full UI components
+- Economic scaling system integrated into all tiles
+- Animated modals with framer-motion
+- Fortune event system with 13 weighted random events
+- Sound effects integration for all tiles
+- Power-up support groundwork (Tax Haven, Jail Free Card)
 
 **Phase 6 delivered:**
 - 3 new playable cities (Crystal Plaza, Starlight District, Neon Skyline)
