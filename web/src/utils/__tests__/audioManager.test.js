@@ -203,6 +203,21 @@ describe('AudioManager', () => {
       expect(mockAudioContext.createOscillator).toHaveBeenCalled();
     });
 
+    test('should play error SFX', () => {
+      audioManager.playSFX('error');
+      expect(mockAudioContext.createOscillator).toHaveBeenCalled();
+    });
+
+    test('should play achievement SFX', () => {
+      audioManager.playSFX('achievement');
+      expect(mockAudioContext.createOscillator).toHaveBeenCalled();
+    });
+
+    test('should play teleport SFX', () => {
+      audioManager.playSFX('teleport');
+      expect(mockAudioContext.createOscillator).toHaveBeenCalled();
+    });
+
     test('should play doubles SFX', () => {
       audioManager.playSFX('doubles');
       expect(mockAudioContext.createOscillator).toHaveBeenCalled();
