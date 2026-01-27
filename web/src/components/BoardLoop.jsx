@@ -409,10 +409,10 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
           if (tileElement) {
             const rect = tileElement.getBoundingClientRect();
             addParticleEffect('coins', rect.left + rect.width / 2, rect.top + rect.height / 2, { 
-              count: Math.min(20, Math.floor(fundsPayout / 500)), 
-              distance: 100,
-              duration: 1.2,
-              size: 12,
+              count: Math.min(10, Math.floor(fundsPayout / 800)), 
+              distance: 80,
+              duration: 1.0,
+              size: 10,
               customColors: ['#fbbf24', '#f59e0b', '#d97706']
             });
           }
@@ -532,10 +532,10 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
       if (diceElement) {
         const rect = diceElement.getBoundingClientRect();
         addParticleEffect('sparkles', rect.left + rect.width / 2, rect.top + rect.height / 2, { 
-          count: 15, 
-          distance: 60,
-          duration: 0.8,
-          size: 10
+          count: 8, 
+          distance: 50,
+          duration: 0.6,
+          size: 8
         });
       }
       
@@ -829,9 +829,9 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
 
     // Create confetti celebration
     addParticleEffect('confetti', window.innerWidth / 2, window.innerHeight / 3, { 
-      count: 50, 
-      distance: 200,
-      duration: 2,
+      count: 25, 
+      distance: 150,
+      duration: 1.5,
       customColors: ['#f59e0b', '#10b981', '#3b82f6', '#a855f7', '#ef4444']
     });
     
@@ -902,9 +902,9 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
 
     // Create fireworks celebration
     addParticleEffect('fireworks', window.innerWidth / 2, window.innerHeight / 2, { 
-      count: 60, 
-      distance: 150,
-      duration: 1.5,
+      count: 30, 
+      distance: 120,
+      duration: 1.2,
       customColors: ['#fbbf24', '#a855f7', '#3b82f6']
     });
     
@@ -981,7 +981,7 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
       const centerY = rect.top + rect.height / 2;
 
       // Use new particle effect system with stars
-      addParticleEffect('stars', centerX, centerY, { count: 25, distance: 80, duration: 1.2 });
+      addParticleEffect('stars', centerX, centerY, { count: 15, distance: 70, duration: 1.0 });
       setTextPop({ x: centerX, y: centerY, text: 'LEVEL UP!' });
       
       // Play upgrade sound
