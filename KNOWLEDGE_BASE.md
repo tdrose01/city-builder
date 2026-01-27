@@ -1,8 +1,8 @@
 # Knowledge Base - City Slacker Project
 
-**Last Updated:** 2026-01-27 21:23  
+**Last Updated:** 2026-01-27 22:35  
 **Current Phase:** Phase 8 - Gameplay Enhancement (Task 8.1 ✅)  
-**Total Entries:** 13
+**Total Entries:** 14
 
 ## Quick Links
 - [Recent Changes](#recent-changes) (Last 30 days)
@@ -14,9 +14,9 @@
 - [Known Issues & Workarounds](#known-issues--workarounds)
 
 ## Project Statistics
-- **Total Commits:** 42 
+- **Total Commits:** 50 
 - **Total Files:** 214
-- **Test Coverage:** Not run (vitest missing; npm install required)
+- **Test Coverage:** 196/196 passing (warnings logged; no failures)
 - **Phase:** 8 - Gameplay Enhancement (Task 8.1 ✅)
 - **Post-Launch Fixes:** 4 performance and UX improvements applied
 - **Dependencies:** 344 packages
@@ -27,6 +27,49 @@
 ---
 
 ## Recent Changes
+
+### [2026-01-27 22:35] - Phase 8 Follow-up: Fortune Rewards + Test Fixes
+
+**Type:** Feature + Test + Fix  
+**Status:** Completed  
+**Commits:** 1c41111, 4411b79, 78e177f, c8bf414, 8b879cd, 8298692, 4cda4c9  
+**Author:** AI Agent (Cursor)
+
+#### What Changed
+- Added Fortune rewards for Tax Haven and Get Out of Jail Free card
+- Consumed Tax Haven on first Tax tile and surfaced new effect text in Fortune modal
+- Guarded AudioManager init in test environments lacking full Web Audio API
+- Updated MultiCity and BoardLoop tests to handle duplicate city labels and new tile flows
+- Stabilized dice streak tests and aligned doubles bonus expectations with config
+
+#### Why
+Wire new tile-related rewards into gameplay and keep tests stable after tile layout changes.
+
+#### Impact
+- Players can gain and consume Tax Haven and Jail Free bonuses via Fortune events
+- Tests pass with new tile types and modal flows
+- Audio initialization safely no-ops when Web Audio is incomplete (tests)
+
+#### Related Files
+- `web/src/config/tileTypes.js`
+- `web/src/components/FortuneTile.jsx`
+- `web/src/components/BoardLoop.jsx`
+- `web/src/utils/audioManager.js`
+- `web/src/components/__tests__/MultiCity.test.jsx`
+- `web/src/components/__tests__/BoardLoop.test.jsx`
+- `web/src/components/__tests__/BoardLoopEffects.test.jsx`
+- `web/src/utils/__tests__/audioManager.test.js`
+
+#### Dependencies Changed
+- None
+
+#### Testing
+- `npm test` (vitest run) → **196/196 passing**
+
+#### Notes
+- Test runs emit warnings about Web Audio API support and multiple Three.js instances.
+
+---
 
 ### [2026-01-27 21:23] - Phase 8 Task 8.1: New Tile Types Integrated
 
