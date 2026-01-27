@@ -1,17 +1,17 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, memo } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { useSpring, animated } from '@react-spring/three';
 import { RoundedBox, ContactShadows, Environment, Text } from '@react-three/drei';
 import * as THREE from 'three';
 
-const Pip = ({ position }) => (
+const Pip = memo(({ position }) => (
   <mesh position={position}>
     <sphereGeometry args={[0.07, 16, 16]} />
     <meshStandardMaterial color="#222" roughness={0.8} />
   </mesh>
-);
+));
 
-const DiceFaceNumber = ({ value, face }) => {
+const DiceFaceNumber = memo(({ value, face }) => {
   const offset = 0.51;
   let pos = [0, 0, 0];
   let rot = [0, 0, 0];
@@ -36,7 +36,7 @@ const DiceFaceNumber = ({ value, face }) => {
       {value}
     </Text>
   );
-};
+});
 
 const DiceFacePips = ({ value, face }) => {
   const offset = 0.505; // Slightly outside the 1x1x1 cube
@@ -142,7 +142,7 @@ const DiceCube = ({ position, rotation, value, rolling }) => {
   );
 };
 
-export default function ThreeDice({ rolling, value1, value2 }) {
+function ThreeDice({ rolling, value1, value2 }) {
   return (
     <div className="three-dice-container" style={{ width: '100%', height: '100%', position: 'absolute', pointerEvents: 'none' }}>
       <Canvas shadows camera={{ position: [0, 4, 6], fov: 35 }}>
@@ -159,3 +159,6 @@ export default function ThreeDice({ rolling, value1, value2 }) {
     </div>
   );
 }
+
+// Memoize component to prevent unnecessary re-renders
+export default memo(ThreeDice);

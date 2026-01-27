@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-export default function ConfirmDialog({ dialog, onConfirm, onCancel }) {
+function ConfirmDialog({ dialog, onConfirm, onCancel }) {
   if (!dialog) return null;
 
   return (
@@ -116,3 +116,5 @@ export default function ConfirmDialog({ dialog, onConfirm, onCancel }) {
     </AnimatePresence>
   );
 }
+
+export default memo(ConfirmDialog);

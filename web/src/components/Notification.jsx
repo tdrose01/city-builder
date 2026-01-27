@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { memo, useMemo } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 
-export default function Notification({ notification, onClose }) {
+function Notification({ notification, onClose }) {
   if (!notification) return null;
 
-  const getNotificationStyle = (type) => {
+  const getNotificationStyle = useMemo(() => (type) => {
     switch (type) {
       case 'success':
         return {
@@ -32,7 +32,7 @@ export default function Notification({ notification, onClose }) {
           icon: 'ℹ'
         };
     }
-  };
+  }, []);
 
   const style = getNotificationStyle(notification.type);
 
@@ -94,3 +94,5 @@ export default function Notification({ notification, onClose }) {
     </AnimatePresence>
   );
 }
+
+export default memo(Notification);
