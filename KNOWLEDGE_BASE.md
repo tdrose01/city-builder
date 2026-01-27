@@ -1,8 +1,8 @@
 # Knowledge Base - City Slacker Project
 
-**Last Updated:** 2026-01-27 22:56  
-**Current Phase:** Phase 8 - Gameplay Enhancement (Task 8.1 ✅)  
-**Total Entries:** 15
+**Last Updated:** 2026-01-27 23:40  
+**Current Phase:** Phase 8 - Gameplay Enhancement (Task 8.2 ✅)  
+**Total Entries:** 17
 
 ## Quick Links
 - [Recent Changes](#recent-changes) (Last 30 days)
@@ -14,10 +14,10 @@
 - [Known Issues & Workarounds](#known-issues--workarounds)
 
 ## Project Statistics
-- **Total Commits:** 52 
+- **Total Commits:** 55 
 - **Total Files:** 214
-- **Test Coverage:** 196/196 passing (warnings logged; no failures)
-- **Phase:** 8 - Gameplay Enhancement (Task 8.1 ✅)
+- **Test Coverage:** 203/203 passing (warnings logged; no failures)
+- **Phase:** 8 - Gameplay Enhancement (Task 8.2 ✅)
 - **Post-Launch Fixes:** 4 performance and UX improvements applied
 - **Dependencies:** 344 packages
 - **Lines of Code:** 29,714+
@@ -27,6 +27,74 @@
 ---
 
 ## Recent Changes
+
+### [2026-01-27 23:38] - Phase 8 Task 8.2: Power-Up System
+
+**Type:** Feature + Test  
+**Status:** Completed  
+**Commit:** f183286  
+**Author:** AI Agent (Cursor)
+
+#### What Changed
+- Added power-up configuration and helper utilities
+- Built PowerUpShop and PowerUpIndicator components with HUD tab integration
+- Applied roll modifiers (multipliers, dice discounts, lucky doubles) in BoardLoop
+- Updated LotteryTile results to provide detailed payout data for scaling
+- Added PowerUps tests for shop/indicator/helpers
+
+#### Why
+Implement Task 8.2 power-ups to deepen moment-to-moment strategy and reward planning.
+
+#### Impact
+- Players can purchase and activate 6 power-ups (active + passive)
+- Roll outcomes now react to power-up modifiers and streak triggers
+- Test suite expanded to 203 passing tests
+
+#### Related Files
+- `web/src/config/powerUps.js`
+- `web/src/components/PowerUpShop.jsx`
+- `web/src/components/PowerUpIndicator.jsx`
+- `web/src/components/BoardLoop.jsx`
+- `web/src/components/LotteryTile.jsx`
+- `web/src/components/__tests__/PowerUps.test.jsx`
+- `web/src/index.css`
+
+#### Testing
+- `npm test` (vitest run) → **203/203 passing**
+
+---
+
+### [2026-01-27 23:39] - Documentation Refresh for Power-Up Status
+
+**Type:** Documentation  
+**Status:** Completed  
+**Commit:** bd04597  
+**Author:** AI Agent (Cursor)
+
+#### What Changed
+- Marked Task 8.2 complete across Phase 8 status docs
+- Updated test counts and next steps to Task 8.3
+- Refreshed track plan checkpoints for power-up completion
+
+#### Why
+Keep Phase 8 documentation aligned with the newly completed power-up system.
+
+#### Impact
+- Docs now reflect Task 8.2 completion and 203/203 tests passing
+- Clear next step for Special Events System work
+
+#### Related Files
+- `CURRENT_PHASE.md`
+- `STATUS.md`
+- `NEXT_STEPS.md`
+- `CHANGELOG.md`
+- `conductor/tracks/phase8_gameplay_enhancement_20260127/index.md`
+- `conductor/tracks/phase8_gameplay_enhancement_20260127/plan.md`
+
+#### Testing
+- Docs only (no code changes)
+
+---
 
 ### [2026-01-27 22:56] - Documentation Refresh for Phase 8 Status
 
