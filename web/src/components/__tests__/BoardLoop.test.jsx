@@ -28,7 +28,7 @@ afterEach(() => {
 test('player can move around the board and collect funds', async () => {
     let currentFunds = 100; // Manually track funds
     const setFundsMock = vi.fn((updater) => {
-        currentFunds = updater(currentFunds); // Apply the updater function
+        currentFunds = typeof updater === 'function' ? updater(currentFunds) : updater;
     });
     const setDiceMock = vi.fn();
     const setShieldsMock = vi.fn();
@@ -91,8 +91,8 @@ test('doubles bonus scales dice refund', async () => {
     const randomSpy = vi.spyOn(Math, 'random');
     randomSpy
         .mockReturnValueOnce(0.5) // initial comboTarget
-        .mockReturnValueOnce(0.0) // die1 = 1
-        .mockReturnValueOnce(0.0) // die2 = 1
+        .mockReturnValueOnce(0.2) // die1 = 2
+        .mockReturnValueOnce(0.2) // die2 = 2
         .mockReturnValueOnce(0.1); // new comboTarget
 
     const { rerender } = render(
@@ -137,7 +137,7 @@ test('upgrade landmark button is disabled if funds are insufficient', async () =
 
     let currentFunds = 0; // Start with 0 funds
     const setFundsMock = vi.fn((updater) => {
-        currentFunds = updater(currentFunds);
+        currentFunds = typeof updater === 'function' ? updater(currentFunds) : updater;
     });
     const setDiceMock = vi.fn();
     const setShieldsMock = vi.fn();
