@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const TextPop = ({ x, y, text, color = '#fbbf24' }) => {
+const TextPop = memo(({ x, y, text, color = '#fbbf24' }) => {
   return (
     <AnimatePresence>
       <motion.div
@@ -27,6 +27,6 @@ const TextPop = ({ x, y, text, color = '#fbbf24' }) => {
       </motion.div>
     </AnimatePresence>
   );
-};
+});
 
 export default TextPop;
