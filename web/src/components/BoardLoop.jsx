@@ -1065,6 +1065,9 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
 
   const handleTaxResult = (taxDelta) => {
     if (taxDelta === 0) {
+      if (hasTaxHavenPowerUp) {
+        setHasTaxHavenPowerUp(false);
+      }
       showNotification('Tax avoided!', 'success', 2500);
       return;
     }
@@ -1166,6 +1169,16 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
       case 'SKIP_TURNS': {
         setSkipTurnsRemaining(prev => prev + value);
         showNotification(`${event.name}: Skip ${value} turn${value === 1 ? '' : 's'}`, 'warning', 3000);
+        break;
+      }
+      case 'ACTIVATE_TAX_HAVEN': {
+        setHasTaxHavenPowerUp(true);
+        showNotification('Tax Haven activated (next tax waived)', 'success', 3000);
+        break;
+      }
+      case 'ADD_JAIL_FREE_CARD': {
+        setHasJailFreeCard(true);
+        showNotification('Get Out of Jail Free card added', 'success', 3000);
         break;
       }
       case 'NONE':
