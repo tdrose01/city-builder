@@ -66,12 +66,13 @@ describe('Multi-City System', () => {
         />
       );
       
-      expect(screen.getByText(/Neon Harbor/i)).toBeInTheDocument();
+      const scopedQueries = within(container);
+      expect(scopedQueries.getAllByText(/Neon Harbor/i).length).toBeGreaterThan(0);
       expect(container.querySelector('.theme-neon-harbor')).toBeInTheDocument();
     });
 
     test('City 2 (Deco Heights) has correct multiplier values', () => {
-      render(
+      const { container } = render(
         <BoardLoop 
           cityLevel={2} 
           funds={10000} 
@@ -84,11 +85,12 @@ describe('Multi-City System', () => {
         />
       );
       
-      expect(screen.getByText(/Deco Heights/i)).toBeInTheDocument();
+      const scopedQueries = within(container);
+      expect(scopedQueries.getAllByText(/Deco Heights/i).length).toBeGreaterThan(0);
     });
 
     test('City 3 (Crystal Plaza) has correct multiplier values', () => {
-      render(
+      const { container } = render(
         <BoardLoop 
           cityLevel={3} 
           funds={15000} 
@@ -101,11 +103,12 @@ describe('Multi-City System', () => {
         />
       );
       
-      expect(screen.getByText(/Crystal Plaza/i)).toBeInTheDocument();
+      const scopedQueries = within(container);
+      expect(scopedQueries.getAllByText(/Crystal Plaza/i).length).toBeGreaterThan(0);
     });
 
     test('City 4 (Starlight District) has correct multiplier values', () => {
-      render(
+      const { container } = render(
         <BoardLoop 
           cityLevel={4} 
           funds={20000} 
@@ -118,11 +121,12 @@ describe('Multi-City System', () => {
         />
       );
       
-      expect(screen.getByText(/Starlight District/i)).toBeInTheDocument();
+      const scopedQueries = within(container);
+      expect(scopedQueries.getAllByText(/Starlight District/i).length).toBeGreaterThan(0);
     });
 
     test('City 5 (Neon Skyline) has correct multiplier values', () => {
-      render(
+      const { container } = render(
         <BoardLoop 
           cityLevel={5} 
           funds={30000} 
@@ -135,7 +139,8 @@ describe('Multi-City System', () => {
         />
       );
       
-      expect(screen.getByText(/Neon Skyline/i)).toBeInTheDocument();
+      const scopedQueries = within(container);
+      expect(scopedQueries.getAllByText(/Neon Skyline/i).length).toBeGreaterThan(0);
     });
   });
 
