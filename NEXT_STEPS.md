@@ -1,8 +1,8 @@
 # Next Steps - Phase 8 and Beyond
 
-**Current Status:** Phase 8 In Progress - Task 8.1 complete  
+**Current Status:** Phase 8 In Progress - Task 8.2 complete  
 **Date:** January 27, 2026  
-**Build Status:** ✅ 196/196 Tests Passing
+**Build Status:** ✅ 203/203 Tests Passing
 
 ---
 
@@ -54,9 +54,10 @@
 **Current Progress:**
 - ✅ Task 8.1 complete: Lottery, Tax, Jail, Fortune tiles integrated
 - ✅ Fortune rewards: Tax Haven + Get Out of Jail Free
-- ✅ Tests passing (196/196)
+- ✅ Task 8.2 complete: Power-up shop, indicator, and roll modifiers
+- ✅ Tests passing (203/203)
 
-**Next Step:** Start Task 8.2 - Power-Up System
+**Next Step:** Start Task 8.3 - Special Events System
 
 ---
 
@@ -377,15 +378,15 @@ test('Complete progression through all 5 cities', async () => {
 
 ---
 
-## 🎯 Immediate Next Step: Task 8.2 - Power-Up System
+## 🎯 Immediate Next Step: Task 8.3 - Special Events System
 
-**What:** Implement power-up configs, UI shop, and active indicators  
+**What:** Implement special event configs, triggers, and modal UI  
 **Where:** `conductor/tracks/phase8_gameplay_enhancement_20260127/plan.md`  
 **Next Actions:**
-1. Create `web/src/config/powerUps.js`
-2. Build `PowerUpShop.jsx` + `PowerUpIndicator.jsx`
-3. Integrate power-up state into `BoardLoop.jsx`
-4. Add tests (~12 new tests)
+1. Create `web/src/config/events.js`
+2. Add event trigger logic in `BoardLoop.jsx`
+3. Build `SpecialEventModal.jsx`
+4. Add event tests (~8 new tests)
 
 ---
 

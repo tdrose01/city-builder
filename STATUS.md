@@ -2,7 +2,7 @@
 
 **Last Updated:** January 27, 2026  
 **Version:** Phase 8 In Progress - Gameplay Enhancement  
-**Build Status:** ✅ All Tests Passing (196/196) | 🚧 Phase 8 Development Active
+**Build Status:** ✅ All Tests Passing (203/203) | 🚧 Phase 8 Development Active
 
 ---
 
@@ -22,6 +22,7 @@
 - ✅ **Dice System**: Roll mechanics with doubles bonus and High Roller multipliers
 - ✅ **Tile Types**: 14+ types including Funds, Heist, Shield, Shutdown, Landmark, **Lottery 🎰, Tax 💸, Jail 🔒, Fortune 🔮** (NEW!)
   - Fortune rewards now include **Tax Haven** and **Get Out of Jail Free**
+- ✅ **Power-Up System**: 6 power-ups with shop, indicator, and roll modifiers
 - ✅ **Upgrade System**: Landmark progression with 5 levels per landmark
 - ✅ **Event Meter**: Milestone-based progression with rewards
 - ✅ **Combo System**: Mini-objective with bonus rewards
@@ -52,7 +53,7 @@
 - ✅ **Save Management**: New Game, Load Game, and save state management
 - ✅ **Analytics System**: Session tracking and metrics analysis
 - ✅ **Custom Notifications**: In-game notification system replacing browser dialogs
-- ✅ **Tab-Based HUD**: Organized UI with Stats, Missions, Stickers tabs
+- ✅ **Tab-Based HUD**: Organized UI with Events, Missions, Power-Ups, Stickers tabs
 - ✅ **Floating Action Buttons**: Quick access to Roll, Upgrade, and Autoroll
 
 #### Visual Polish
@@ -81,7 +82,7 @@
 ## 📊 Technical Metrics
 
 ### Test Coverage
-- **Total Tests:** 196
+- **Total Tests:** 203
 - **Pass Rate:** 100%
 - **Test Duration:** ~13 seconds
 - **Coverage Areas:**
@@ -115,6 +116,12 @@
 - ✅ Fortune rewards include Tax Haven + Get Out of Jail Free
 - ✅ Tile state persistence for jail/skip turns and fortune effects
 - ✅ Tests updated; 196/196 passing
+
+### Phase 8 Task 8.2: Power-Up System Complete
+- ✅ Added power-up config with 6 power-ups (active + passive)
+- ✅ Power-up shop + indicator integrated into HUD
+- ✅ Roll modifiers applied (multipliers, dice discounts, lucky doubles)
+- ✅ Power-up tests added; 203/203 passing
 
 ### Phase 5: Polish & Enhancement - COMPLETE ✨
 
@@ -248,9 +255,10 @@ c:\city-slacker\
 
 ### Phase 8: 🚧 In Progress (Gameplay Enhancement)
 - ✅ Task 8.1 complete (new tile types integrated)
+- ✅ Task 8.2 complete (power-up system)
 - ✅ Fortune rewards: Tax Haven + Jail Free
-- ✅ Tests passing (196/196)
-- ⏳ Next: Task 8.2 Power-Up System
+- ✅ Tests passing (203/203)
+- ⏳ Next: Task 8.3 Special Events System
 
 ### Phase 6: ✅ Complete
 **Focus:** Multi-City Content Expansion (Cities 6-10)  
@@ -336,11 +344,11 @@ All major issues resolved in recent updates.
 - **Working Tree:** Clean
 
 ### Recent Commits
-1. `85c22d6` - Add Cities 3, 4, 5 with progressive multipliers
-2. `cc32098` - Phase 4 Complete: Fix linting errors and improve code quality
-3. `a2ce4bb` - feat: finalized gameplay balance tuning and automated playtest suite
-4. `78e4979` - docs: Add NEXT_STEPS and Phase 3.1 completion summary
-5. `2b14418` - feat: Integrate session analytics tracking into BoardLoop
+1. `f183286` - feat(powerups): add power-up system
+2. `85c22d6` - Add Cities 3, 4, 5 with progressive multipliers
+3. `cc32098` - Phase 4 Complete: Fix linting errors and improve code quality
+4. `a2ce4bb` - feat: finalized gameplay balance tuning and automated playtest suite
+5. `78e4979` - docs: Add NEXT_STEPS and Phase 3.1 completion summary
 
 ---
 
@@ -421,6 +429,6 @@ test: Add city transition test coverage
 
 ---
 
-**Status:** Phase 8 active, Task 8.1 complete  
-**Next Milestone:** Task 8.2 - Power-Up System  
+**Status:** Phase 8 active, Tasks 8.1-8.2 complete  
+**Next Milestone:** Task 8.3 - Special Events System  
 **Blockers:** None

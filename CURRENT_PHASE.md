@@ -32,19 +32,20 @@ If you're an AI agent (like Cursor, GitHub Copilot, or similar) picking up this 
       ✅ Jail tile component
       ✅ Fortune tile component
       ✅ Integration into BoardLoop
-      ✅ Write tests (196/196 total)
-   ⏳ Task 8.2: Power-Up System
+      ✅ Write tests (203/203 total)
+   ✅ Task 8.2: Power-Up System
    ⏳ Task 8.3: Special Events System
    ⏳ Task 8.4: Mini-Games
    ⏳ Task 8.5: Enhanced Combo System
 ```
 
 ### 2. Current State (Phase 8 Active)
-- **Phase 8:** 🚧 In Progress (Task 8.1 complete)
-- **Test Status:** 196/196 passing (100%)
+- **Phase 8:** 🚧 In Progress (Tasks 8.1-8.2 complete)
+- **Test Status:** 203/203 passing (100%)
 - **New Tile Types:** 4 integrated (Lottery, Tax, Jail, Fortune)
+- **Power-Ups:** Shop, indicator, and roll modifiers wired
 - **Fortune Rewards:** Tax Haven + Get Out of Jail Free card
-- **Next:** Task 8.2 - Power-Up System
+- **Next:** Task 8.3 - Special Events System
 
 ### 3. What Was Accomplished
 
@@ -53,7 +54,9 @@ If you're an AI agent (like Cursor, GitHub Copilot, or similar) picking up this 
 - Fortune event system (12 weighted events) with Tax Haven + Jail Free rewards
 - Modal UX and audio cues wired to tile outcomes
 - New tile state persisted (jail turns, skip turns, fortune effects)
-- Tests updated and passing (196/196)
+- Power-up shop and indicator with 6 power-ups implemented
+- Power-up modifiers applied to roll rewards and dice cost
+- Tests updated and passing (203/203)
 
 **Phase 6 delivered:**
 - 3 new playable cities (Crystal Plaza, Starlight District, Neon Skyline)
@@ -215,7 +218,7 @@ git push origin master # Push to GitHub
 ## 📊 Current Metrics
 
 ### Test Coverage
-- **Tests:** 73/73 passing (100%)
+- **Tests:** 203/203 passing (100%)
 - **Coverage:** ~80% on critical paths
 - **Target:** >85% coverage
 

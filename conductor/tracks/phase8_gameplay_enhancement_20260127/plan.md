@@ -1,7 +1,7 @@
 # Phase 8: Gameplay Enhancement - Implementation Plan
 
 **Last Updated:** 2026-01-27  
-**Status:** In Progress (Task 8.1 complete)
+**Status:** In Progress (Tasks 8.1-8.2 complete)
 
 ---
 
@@ -286,7 +286,7 @@ describe('New Tile Types', () => {
 
 **Estimated Time:** 2-3 hours  
 **Priority:** High  
-**Status:** [ ] Not Started
+**Status:** [x] Complete
 
 ### Step 2.1: Create Power-Up Configuration
 
@@ -365,7 +365,7 @@ export const POWER_UPS = {
 };
 ```
 
-**Checkpoint:** `[commit SHA]` - Power-up configs added
+**Checkpoint:** `f183286` - Power-up configs added
 
 ---
 
@@ -373,7 +373,7 @@ export const POWER_UPS = {
 
 **Location:** `web/src/components/PowerUpShop.jsx` (NEW)
 
-**Checkpoint:** `[commit SHA]` - Power-up shop complete
+**Checkpoint:** `f183286` - Power-up shop complete
 
 ---
 
@@ -383,7 +383,7 @@ Shows active power-ups in HUD.
 
 **Location:** `web/src/components/PowerUpIndicator.jsx` (NEW)
 
-**Checkpoint:** `[commit SHA]` - Power-up indicator complete
+**Checkpoint:** `f183286` - Power-up indicator complete
 
 ---
 
@@ -391,13 +391,13 @@ Shows active power-ups in HUD.
 
 Add power-up state and logic to apply effects.
 
-**Checkpoint:** `[commit SHA]` - Power-ups integrated
+**Checkpoint:** `f183286` - Power-ups integrated
 
 ---
 
 ### Step 2.5: Write Power-Up Tests
 
-**Checkpoint:** `[commit SHA]` - Power-up tests passing (~12 new tests)
+**Checkpoint:** `f183286` - Power-up tests passing (~12 new tests)
 
 ---
 
@@ -495,8 +495,8 @@ Add combo tracking to BoardLoop.
 
 ## Phase 8 Completion Checklist
 
-- [ ] Task 8.1: New Tile Types complete
-- [ ] Task 8.2: Power-Up System complete
+- [x] Task 8.1: New Tile Types complete
+- [x] Task 8.2: Power-Up System complete
 - [ ] Task 8.3: Special Events System complete
 - [ ] Task 8.4: Mini-Games complete
 - [ ] Task 8.5: Enhanced Combo System complete

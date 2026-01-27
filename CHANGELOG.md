@@ -115,8 +115,31 @@ All notable changes to the City Slacker project are documented here.
 - Error sounds for negative outcomes
 - Achievement sound for jackpots
 
+### 💪 Task 8.2: Power-Up System (COMPLETE)
+
+#### Power-Up Features
+- 6 power-ups implemented (3 active, 3 passive)
+  - Hot Streak (+50% funds for 5 rolls after 3 positive tiles)
+  - Mega Multiplier (3x rewards on next roll)
+  - Shield Storm (+3 shields, 30s cooldown)
+  - Lucky Dice (guaranteed doubles)
+  - Speed Boost (50% dice cost for 10 rolls)
+  - Money Magnet (+25% funds from Funds tiles for the city)
+- New HUD tab for Power-Ups
+- Active power-up indicator with roll countdowns
+
+#### Technical Implementation
+- Added `web/src/config/powerUps.js` configuration
+- Added `PowerUpShop.jsx` + `PowerUpIndicator.jsx`
+- Integrated power-up state, cooldowns, and roll modifiers into BoardLoop
+- Updated lottery outcomes to report detailed results for scaling
+
+#### Testing
+- ✅ Added power-up tests (`PowerUps.test.jsx`)
+- ✅ Tests updated: 203/203 passing
+
 #### Next Steps
-- [ ] Task 8.2: Power-Up System (config + shop + indicator)
+- [ ] Task 8.3: Special Events System (events config + modal + triggers)
 
 ---
 
