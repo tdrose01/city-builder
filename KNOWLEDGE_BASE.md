@@ -1,8 +1,8 @@
 # Knowledge Base - City Slacker Project
 
-**Last Updated:** 2026-01-27 22:35  
+**Last Updated:** 2026-01-27 22:56  
 **Current Phase:** Phase 8 - Gameplay Enhancement (Task 8.1 ✅)  
-**Total Entries:** 14
+**Total Entries:** 15
 
 ## Quick Links
 - [Recent Changes](#recent-changes) (Last 30 days)
@@ -14,7 +14,7 @@
 - [Known Issues & Workarounds](#known-issues--workarounds)
 
 ## Project Statistics
-- **Total Commits:** 50 
+- **Total Commits:** 52 
 - **Total Files:** 214
 - **Test Coverage:** 196/196 passing (warnings logged; no failures)
 - **Phase:** 8 - Gameplay Enhancement (Task 8.1 ✅)
@@ -27,6 +27,40 @@
 ---
 
 ## Recent Changes
+
+### [2026-01-27 22:56] - Documentation Refresh for Phase 8 Status
+
+**Type:** Documentation  
+**Status:** Completed  
+**Commit:** d3490ab  
+**Author:** AI Agent (Cursor)
+
+#### What Changed
+- Updated Phase 8 status across CURRENT_PHASE, STATUS, and NEXT_STEPS
+- Marked Task 8.1 complete and highlighted Fortune rewards
+- Refreshed CHANGELOG entries for Task 8.1 completion
+- Updated Phase 8 progress report and track index/plan metadata
+
+#### Why
+Ensure all documentation reflects Task 8.1 completion, test status, and next steps.
+
+#### Impact
+- Consistent Phase 8 status across project docs
+- Clear pointer to Task 8.2 as the next action
+
+#### Related Files
+- `CURRENT_PHASE.md`
+- `STATUS.md`
+- `NEXT_STEPS.md`
+- `CHANGELOG.md`
+- `PHASE_8_TASK_8.1_PROGRESS.md`
+- `conductor/tracks/phase8_gameplay_enhancement_20260127/index.md`
+- `conductor/tracks/phase8_gameplay_enhancement_20260127/plan.md`
+
+#### Testing
+- Docs only (no code changes)
+
+---
 
 ### [2026-01-27 22:35] - Phase 8 Follow-up: Fortune Rewards + Test Fixes
 
