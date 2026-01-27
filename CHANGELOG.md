@@ -6,7 +6,7 @@ All notable changes to the City Slacker project are documented here.
 
 **Phase 8 is adding exciting new tile types and mechanics to deepen gameplay.**
 
-### 🎰 Task 8.1: New Tile Types (IN PROGRESS)
+### 🎰 Task 8.1: New Tile Types (COMPLETE)
 
 #### New Tile Types Added
 
@@ -53,17 +53,19 @@ All notable changes to the City Slacker project are documented here.
   - **Positive (60% total weight)**: Bonus funds, free dice, shields, lucky finds
   - **Neutral (30% total weight)**: Teleportation, tile swaps, nothing
   - **Negative (10% total weight)**: Lose funds, skip turn
-- **13 Total Events**:
-  1. Lucky Find (+$2,000 scaled, 20%)
-  2. Street Tip (+$1,000 scaled, 15%)
-  3. Dice Delivery (+5 dice, 15%)
-  4. Protection Charm (+2 shields, 10%)
-  5. Wormhole (+5 spaces, 10%)
-  6. Time Warp (-3 spaces, 8%)
-  7. Dimension Shift (random tile, 7%)
-  8. False Alarm (nothing, 5%)
-  9. Pickpocket (-$1,000 scaled, 5%)
-  10. Stuck in Traffic (skip 1 turn, 5%)
+- **12 Total Events**:
+  1. Lucky Find (+$2,000 scaled)
+  2. Street Tip (+$1,000 scaled)
+  3. Dice Delivery (+5 dice)
+  4. Protection Charm (+2 shields)
+  5. Tax Haven (next tax waived)
+  6. Get Out of Jail Free (card reward)
+  7. Wormhole (+5 spaces)
+  8. Time Warp (-3 spaces)
+  9. Dimension Shift (random tile)
+  10. False Alarm (nothing)
+  11. Pickpocket (-$1,000 scaled)
+  12. Stuck in Traffic (skip 1 turn)
 - Features:
   - Mystical crystal ball animation
   - Card flip reveal effect
@@ -87,6 +89,12 @@ All notable changes to the City Slacker project are documented here.
 
 **Total Lines Added:** ~1,260 lines
 
+#### Integration & Testing
+- ✅ Integrated tiles into BoardLoop for all 5 cities
+- ✅ Added tile state persistence (jail/skip turns)
+- ✅ Fortune rewards include Tax Haven + Jail Free
+- ✅ Tests updated: 196/196 passing
+
 #### Design Features
 
 **Animations:**
@@ -108,10 +116,7 @@ All notable changes to the City Slacker project are documented here.
 - Achievement sound for jackpots
 
 #### Next Steps
-- [ ] Integrate tiles into BoardLoop
-- [ ] Add tiles to city configurations
-- [ ] Write comprehensive tests
-- [ ] Add tile indicators to board UI
+- [ ] Task 8.2: Power-Up System (config + shop + indicator)
 
 ---
 
