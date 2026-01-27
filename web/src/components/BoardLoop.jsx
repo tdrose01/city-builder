@@ -1410,7 +1410,7 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
                       </div>
                     </div>
                   </div>
-                </motion.div>
+                </div>
               </div>
             </div>
 
