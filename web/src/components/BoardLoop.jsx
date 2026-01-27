@@ -392,7 +392,7 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
         setFunds(prev => prev + fundsPayout);
         setFundsTilesLanded(prev => prev + 1);
         setTileEffect({ type: 'funds', x: 400, y: 300 });
-        setTimeout(() => setTileEffect(null), 1000);
+        setTimeout(() => setTileEffect(null), 2000);
         currentSession.current.recordFundsChange(fundsPayout);
         break;
       }
@@ -409,7 +409,7 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
           setShields(prev => prev + 1);
           setTotalShieldsCollected(prev => prev + 1);
           setTileEffect({ type: 'shield', x: 400, y: 300 });
-          setTimeout(() => setTileEffect(null), 1000);
+          setTimeout(() => setTileEffect(null), 2000);
           currentSession.current.recordShieldGained();
         } else {
           setHudMessage("Max Shields!");
@@ -1112,7 +1112,7 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
   const renderedTiles = useMemo(() => tiles.map((tile, index) => {
     const position = getTilePosition(tile.id);
     const isLanded = playerPosition === tile.id;
-    const effectClass = isLanded ? tileEffect : '';
+    const effectClass = isLanded && tileEffect ? `tile-effect-${tileEffect.type}` : '';
     const isCorner = tile.id === 0 || tile.id === 5 || tile.id === 10 || tile.id === 15;
 
     // Determine tile type class
