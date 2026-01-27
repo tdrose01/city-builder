@@ -6,6 +6,8 @@ import { SessionMetrics, saveSession } from '../utils/sessionAnalytics';
 import MissionTracker from './MissionTracker';
 import ParticleEffect from './ParticleEffect';
 import TextPop from './TextPop';
+import AudioControls from './AudioControls';
+import audioManager from '../utils/audioManager';
 import ThreeDice from './ThreeDice';
 import Notification from './Notification';
 import ConfirmDialog from './ConfirmDialog';
@@ -414,6 +416,9 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
               customColors: ['#fbbf24', '#f59e0b', '#d97706']
             });
           }
+          
+          // Play funds sound
+          audioManager.playSFX('funds');
         }
         break;
       }
@@ -533,8 +538,14 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
           size: 10
         });
       }
+      
+      // Play doubles sound
+      audioManager.playSFX('doubles');
     }
 
+    // Play dice roll sound
+    audioManager.playSFX('diceRoll');
+    
     // Wait for dice tumble animation to almost finish before starting move
     await new Promise(r => setTimeout(r, 800));
     setRolling(false);
@@ -823,6 +834,9 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
       duration: 2,
       customColors: ['#f59e0b', '#10b981', '#3b82f6', '#a855f7', '#ef4444']
     });
+    
+    // Play milestone sound
+    audioManager.playSFX('milestone');
 
     setTimeout(() => {
       setHudMessage(null);
@@ -893,6 +907,9 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
       duration: 1.5,
       customColors: ['#fbbf24', '#a855f7', '#3b82f6']
     });
+    
+    // Play city unlock sound (prestige is like unlocking a new level)
+    audioManager.playSFX('cityUnlock');
 
     setTimeout(() => {
       setHudMessage(null);
@@ -966,6 +983,9 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
       // Use new particle effect system with stars
       addParticleEffect('stars', centerX, centerY, { count: 25, distance: 80, duration: 1.2 });
       setTextPop({ x: centerX, y: centerY, text: 'LEVEL UP!' });
+      
+      // Play upgrade sound
+      audioManager.playSFX('upgrade');
 
       setTimeout(() => {
         setTextPop(null);
@@ -1297,6 +1317,10 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
           />
         ))}
         {textPop && <TextPop x={textPop.x} y={textPop.y} text={textPop.text} />}
+        
+        {/* Audio Controls */}
+        <AudioControls />
+        
         <div className="board-shell">
           <div className="board-layout-main">
             {/* Main Board Area (Left/Center) */}
