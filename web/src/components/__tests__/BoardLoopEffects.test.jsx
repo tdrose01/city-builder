@@ -73,18 +73,10 @@ test('rolling the same value twice triggers a dice streak', async () => {
     const setDiceMock = vi.fn();
     
     // Mock Math.random for initial comboTarget and two rolls
-    const randomSpy = vi.spyOn(Math, 'random');
-    
-    // Initial comboTarget (useState initializer)
-    randomSpy.mockReturnValueOnce(0.5); // Target = 4
+    const randomSpy = vi.spyOn(Math, 'random').mockReturnValue(0.2);
 
     render(<BoardLoop cityLevel={1} funds={100} setFunds={setFundsMock} shields={0} setShields={vi.fn()} dice={50} setDice={setDiceMock} setCityLevel={() => {}} />);
     
-    // First roll: Die 1 = 2, Die 2 = 2 (Total 4)
-    randomSpy.mockReturnValueOnce(0.2) // die1 = 2
-             .mockReturnValueOnce(0.2) // die2 = 2
-             .mockReturnValueOnce(0.1); // new comboTarget (since 2 != 4)
-
     const rollDiceButton = screen.getByRole('button', { name: /Roll/i });
     await userEvent.click(rollDiceButton);
 
@@ -100,11 +92,6 @@ test('rolling the same value twice triggers a dice streak', async () => {
         // The button text might be just 'Roll'
         expect(rollDiceButton).toHaveTextContent(/Roll/i);
     }, { timeout: 10000 });
-
-    // Second roll: Die 1 = 2, Die 2 = 2 (Total 4)
-    randomSpy.mockReturnValueOnce(0.2) // die1 = 2
-             .mockReturnValueOnce(0.2) // die2 = 2
-             .mockReturnValueOnce(0.1); // new comboTarget (since 2 != 2)
 
     await userEvent.click(rollDiceButton);
 
