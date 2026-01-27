@@ -27,6 +27,12 @@ describe('Tile type configs', () => {
     expect(totalWeight).toBe(100);
   });
 
+  test('fortune config includes tax haven and jail free events', () => {
+    const ids = FORTUNE_CONFIG.events.map(event => event.id);
+    expect(ids).toContain('tax_haven');
+    expect(ids).toContain('jail_free_card');
+  });
+
   test('selectFortuneEvent returns a valid event', () => {
     const randomSpy = vi.spyOn(Math, 'random').mockReturnValue(0);
     const event = selectFortuneEvent();
