@@ -1,8 +1,8 @@
 # Knowledge Base - City Slacker Project
 
-**Last Updated:** 2026-01-27 21:00  
-**Current Phase:** Phase 5 ✅ COMPLETE + Post-Launch Performance Fixes  
-**Total Entries:** 12
+**Last Updated:** 2026-01-27 21:23  
+**Current Phase:** Phase 8 - Gameplay Enhancement (Task 8.1 ✅)  
+**Total Entries:** 13
 
 ## Quick Links
 - [Recent Changes](#recent-changes) (Last 30 days)
@@ -14,19 +14,71 @@
 - [Known Issues & Workarounds](#known-issues--workarounds)
 
 ## Project Statistics
-- **Total Commits:** 32 
-- **Total Files:** 199
-- **Test Coverage:** 100% (171/171 passing) ✅
-- **Phase:** 5 - Content Polish & Enhancement ✅ COMPLETE (6/6 tasks - 100%)
+- **Total Commits:** 42 
+- **Total Files:** 214
+- **Test Coverage:** Not run (vitest missing; npm install required)
+- **Phase:** 8 - Gameplay Enhancement (Task 8.1 ✅)
 - **Post-Launch Fixes:** 4 performance and UX improvements applied
 - **Dependencies:** 344 packages
 - **Lines of Code:** 29,714+
 - **Cities Implemented:** 5/5
-- **Phase Completion:** Phase 4 ✅
+- **Phase Completion:** Phase 5 ✅
 
 ---
 
 ## Recent Changes
+
+### [2026-01-27 21:23] - Phase 8 Task 8.1: New Tile Types Integrated
+
+**Type:** Feature + Test  
+**Status:** Completed  
+**Commit:** 8f32cfa  
+**Author:** AI Agent (Cursor)
+
+#### What Changed
+- Integrated Lottery, Tax, Jail, and Fortune tiles into BoardLoop layouts (all 5 cities)
+- Added modal flows and state handling for lottery payouts, tax deductions, jail turns, and fortune effects
+- Added skip-turn and jail-turn tracking to save/load state
+- Extended AudioManager with error/achievement/teleport SFX and tests
+- Added TileTypes tests plus a LotteryTile UI guard test
+- Updated Phase 8 plan to mark Task 8.1 complete (commit 273adcf)
+
+#### Why
+Complete Task 8.1 by wiring new tile mechanics into gameplay and covering core config behavior with tests.
+
+#### Impact
+- Players encounter four new interactive tile types with modal feedback
+- Game loop now supports jail turns, skip turns, and fortune teleports
+- Audio system supports new event SFX
+- No dependency changes
+
+#### Related Files
+- `web/src/components/BoardLoop.jsx`
+- `web/src/components/LotteryTile.jsx`
+- `web/src/components/TaxTile.jsx`
+- `web/src/components/JailTile.jsx`
+- `web/src/components/FortuneTile.jsx`
+- `web/src/config/tileTypes.js`
+- `web/src/components/__tests__/TileTypes.test.jsx`
+- `web/src/utils/audioManager.js`
+- `web/src/utils/__tests__/audioManager.test.js`
+- `web/src/index.css`
+- `conductor/tracks/phase8_gameplay_enhancement_20260127/plan.md`
+
+#### Dependencies Changed
+- None
+
+#### Testing
+- `npm test` (failed: `vitest` not found; install dependencies in `web/` first)
+
+#### Follow-up Tasks
+- [ ] Run `npm install` in `web/` and re-run `npm test`
+- [ ] Consider wiring Tax Haven/Jail Free card sources to power-ups/events
+
+#### Notes
+Test run failed because `node_modules` are missing in `/workspace/web` (`vitest` not found).
+
+---
 
 ### [2026-01-27 21:00] - Post-Launch Performance Fixes (Browser Testing)
 
@@ -1149,6 +1201,18 @@ Preparing project for public/private GitHub repository. Security cleanup to prev
 ---
 
 ## Phase History
+
+### Phase 8: Gameplay Enhancement (January 2026)
+
+**Status:** 🚧 In Progress  
+**Latest Update:** 2026-01-27
+
+#### Progress
+- ✅ Task 8.1 complete: Lottery, Tax, Jail, Fortune tiles integrated (commit 8f32cfa)
+- ✅ Tile-type tests added (config + LotteryTile guard)
+- ✅ Plan updated with Task 8.1 checkpoint (commit 273adcf)
+
+---
 
 ### Phase 4: Multi-City System (January 2026)
 
