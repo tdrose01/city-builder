@@ -1371,18 +1371,7 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
                     }}
                   />
                 </motion.div>
-                <motion.div
-                  className="board-center"
-                  animate={{
-                    y: [0, -8, 0],
-                    rotateX: [0, 2, 0],
-                  }}
-                  transition={{
-                    duration: 4,
-                    repeat: Infinity,
-                    ease: "easeInOut"
-                  }}
-                >
+                <div className="board-center">
                   <ThreeDice rolling={rolling} value1={die1Value} value2={die2Value} />
 
                   <div style={{ position: 'relative', zIndex: 10, pointerEvents: 'none' }}>
