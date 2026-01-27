@@ -57,6 +57,19 @@ class AudioManager {
       
       // Set initial volumes
       this.updateGainValues();
+
+      // Validate minimal Web Audio API support (helps in test environments)
+      const testOscillator = this.audioContext.createOscillator();
+      if (
+        !testOscillator?.frequency?.setValueAtTime ||
+        !testOscillator?.frequency?.exponentialRampToValueAtTime ||
+        !testOscillator?.start ||
+        !testOscillator?.stop ||
+        !this.masterGain?.gain?.setValueAtTime ||
+        !this.sfxGain?.gain?.setValueAtTime
+      ) {
+        throw new Error('AudioContext missing required Web Audio API methods');
+      }
       
       this.initialized = true;
       console.log('AudioManager initialized');
