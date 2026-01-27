@@ -7,7 +7,8 @@ describe('AudioManager', () => {
     createGain: vi.fn(() => ({
       connect: vi.fn(),
       gain: {
-        setValueAtTime: vi.fn()
+        setValueAtTime: vi.fn(),
+        exponentialRampToValueAtTime: vi.fn()
       }
     })),
     createOscillator: vi.fn(() => ({
