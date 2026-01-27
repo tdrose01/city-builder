@@ -250,4 +250,4 @@ None! All tests passing. 🎉
 For issues or questions, check:
 - [GitHub Issues](https://github.com/tdrose01/city-builder/issues)
 - Project documentation in `/docs`
-- Knowledge base: [KNOWLEDGE_BASE.md](./KNOWLEDGE_BASE.md)
+- Knowledge base: [KNOWLEDGE_BASE.md](./KNOWLEDGE_BASE.md)
