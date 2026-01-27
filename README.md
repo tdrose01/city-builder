@@ -12,13 +12,19 @@ A React-based idle/incremental city-building game inspired by Monopoly GO, featu
   - ⭐ **City 4: Starlight District** - Cosmic blue theme (2.744x multiplier)
   - 🌆 **City 5: Neon Skyline** - Futuristic emerald theme (3.8416x multiplier)
 - **Dynamic Board Mechanics**: Roll dice, land on tiles, earn resources
+- **Diverse Tile Types**: 14+ tile types including Lottery 🎰, Tax 💸, Jail 🔒, Fortune 🔮, and more
 - **Landmark Upgrades**: Build and upgrade 5 landmarks per city
 - **Mission System**: Complete missions for rewards and progression
 - **Event System**: Milestone-based events with prestige mechanics
 - **Sticker Collections**: Collect and trade stickers across themed albums
 
 ### 🎨 Recent Updates
-- **Phase 6: Multi-City Expansion** (NEW!)
+- **Phase 8: Gameplay Enhancement** (IN PROGRESS! 🚧)
+  - 4 new interactive tile types: Lottery 🎰, Tax 💸, Jail 🔒, Fortune 🔮
+  - Economic scaling system for all new tiles
+  - Animated modals with framer-motion
+  - Fortune events: 13 weighted random outcomes
+- **Phase 6: Multi-City Expansion**
   - 5 fully playable cities with exponential economic scaling (1.4x per city)
   - Unique visual themes and grid patterns for each city
   - Comprehensive multi-city test coverage

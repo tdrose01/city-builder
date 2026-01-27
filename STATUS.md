@@ -1,8 +1,8 @@
 # City Slacker - Current Status
 
 **Last Updated:** January 27, 2026  
-**Version:** Phase 6 Complete - Multi-City Expansion  
-**Build Status:** ✅ All Tests Passing (190+/190+)
+**Version:** Phase 8 In Progress - Gameplay Enhancement  
+**Build Status:** ✅ All Tests Passing (190+/190+) | 🚧 Phase 8 Development Active
 
 ---
 
@@ -20,7 +20,7 @@
 #### Core Gameplay
 - ✅ **Board Loop**: 20-tile circuit with 5 tiles per side
 - ✅ **Dice System**: Roll mechanics with doubles bonus and High Roller multipliers
-- ✅ **Tile Types**: Funds, Heist, Shield, Shutdown, Landmark tiles
+- ✅ **Tile Types**: 14+ types including Funds, Heist, Shield, Shutdown, Landmark, **Lottery 🎰, Tax 💸, Jail 🔒, Fortune 🔮** (NEW!)
 - ✅ **Upgrade System**: Landmark progression with 5 levels per landmark
 - ✅ **Event Meter**: Milestone-based progression with rewards
 - ✅ **Combo System**: Mini-objective with bonus rewards
