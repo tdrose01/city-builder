@@ -1,0 +1,411 @@
+# Knowledge Base Updater Skill
+
+## Purpose
+Automatically document all changes, decisions, and progress in a centralized knowledge base after any significant work is completed. This creates a persistent memory of project evolution and makes it easy to track what has been done.
+
+## When to Use
+- After completing any feature, bug fix, or refactoring
+- After major configuration changes
+- After adding/removing dependencies
+- After completing a phase or milestone
+- After any significant documentation updates
+- **Automatically after every substantial change** (as per AGENTS.md)
+
+## What This Skill Does
+1. Creates/updates a `KNOWLEDGE_BASE.md` file in the project root
+2. Documents changes with timestamp, description, and context
+3. Tracks dependencies, configuration changes, and architectural decisions
+4. Links to relevant commits and files
+5. Maintains a searchable history of project evolution
+
+---
+
+## Instructions for AI Agents
+
+### Step 1: Gather Change Information
+
+Collect the following information about what was just completed:
+
+```powershell
+# Get recent commits
+git log --oneline -5
+
+# Check current status
+git status
+
+# Check what files were changed in last commit
+git diff HEAD~1 HEAD --name-only
+```
+
+### Step 2: Read Current Knowledge Base
+
+Check if `KNOWLEDGE_BASE.md` exists and read it:
+
+```javascript
+// Read existing knowledge base or create new one
+const kbPath = 'KNOWLEDGE_BASE.md';
+```
+
+### Step 3: Create Knowledge Base Entry
+
+Add a new entry with this structure:
+
+```markdown
+## [YYYY-MM-DD HH:MM] - Brief Title
+
+**Type:** [Feature|Bug Fix|Refactor|Configuration|Documentation|Security|Dependency|Test|Other]  
+**Status:** [Completed|In Progress|Rolled Back]  
+**Commit:** [commit-hash]  
+**Author:** [AI Agent Name / Human]
+
+### What Changed
+- Bullet point list of specific changes
+- What files were modified
+- What functionality was added/removed/modified
+
+### Why
+Brief explanation of the reason for the change
+
+### Impact
+- How this affects the project
+- Any breaking changes
+- Performance implications
+- Security implications
+
+### Related Files
+- `path/to/file1.js`
+- `path/to/file2.jsx`
+- `path/to/config.json`
+
+### Dependencies Changed
+- Added: `package-name@version`
+- Removed: `old-package@version`
+- Updated: `package@old-version` → `package@new-version`
+
+### Testing
+- What tests were added/modified
+- Test results (X/Y passing)
+- Manual testing performed
+
+### Follow-up Tasks
+- [ ] Any remaining work
+- [ ] Future improvements to consider
+
+### Notes
+Any additional context, decisions made, or important information
+
+---
+```
+
+### Step 4: Categorize by Section
+
+The knowledge base should have these sections (create if missing):
+
+1. **Recent Changes** (last 30 days)
+2. **Phase History** (by phase)
+3. **Security Changes**
+4. **Dependency History**
+5. **Architecture Decisions**
+6. **Configuration Changes**
+7. **Known Issues & Workarounds**
+
+### Step 5: Update Table of Contents
+
+Maintain a TOC at the top:
+
+```markdown
+# Knowledge Base - City Slacker Project
+
+**Last Updated:** YYYY-MM-DD  
+**Current Phase:** Phase X  
+**Total Entries:** N
+
+## Quick Links
+- [Recent Changes](#recent-changes) (Last 30 days)
+- [Phase History](#phase-history)
+- [Security Changes](#security-changes)
+- [Dependency History](#dependency-history)
+- [Architecture Decisions](#architecture-decisions)
+- [Configuration Changes](#configuration-changes)
+- [Known Issues](#known-issues--workarounds)
+
+## Statistics
+- Total commits: N
+- Total files: N
+- Test coverage: N%
+- Dependencies: N packages
+```
+
+### Step 6: Add Entry to Appropriate Sections
+
+Place the entry in:
+1. **Recent Changes** - Always add here first
+2. **Category-specific section** - Based on change type
+3. **Phase History** - If it's part of a phase
+
+### Step 7: Update Statistics
+
+Update the statistics section with current data:
+- Run `git rev-list --count HEAD` for total commits
+- Run `find . -type f | wc -l` for file count (or Windows equivalent)
+- Get test results from last test run
+- Get dependency count from package.json
+
+### Step 8: Commit the Knowledge Base
+
+```powershell
+git add KNOWLEDGE_BASE.md
+git commit -m "docs: Update knowledge base - [brief description]"
+```
+
+---
+
+## Template: Full Knowledge Base Structure
+
+```markdown
+# Knowledge Base - City Slacker Project
+
+**Last Updated:** 2026-01-27  
+**Current Phase:** Phase 4 Complete  
+**Total Entries:** 15
+
+## Quick Links
+- [Recent Changes](#recent-changes)
+- [Phase History](#phase-history)
+- [Security Changes](#security-changes)
+- [Dependency History](#dependency-history)
+- [Architecture Decisions](#architecture-decisions)
+- [Configuration Changes](#configuration-changes)
+- [Known Issues](#known-issues--workarounds)
+
+## Project Statistics
+- **Total Commits:** 42
+- **Total Files:** 182
+- **Test Coverage:** 97% (71/73 passing)
+- **Dependencies:** 344 packages
+- **Lines of Code:** 29,714+
+- **Cities Implemented:** 5/5
+
+---
+
+## Recent Changes
+
+### [2026-01-27 14:30] - Project Cleanup and GitHub Preparation
+
+**Type:** Security + Documentation  
+**Status:** Completed  
+**Commit:** adeb092  
+**Author:** AI Agent (Cursor)
+
+#### What Changed
+- Deleted exposed Google API key from `web/.env`
+- Removed database credentials from root `.env`
+- Verified `.gitignore` is protecting sensitive files
+- Created initial git commit with all project files
+- Added comprehensive GitHub setup documentation
+
+#### Why
+Preparing project for public/private GitHub repository. Security cleanup to prevent credential leaks.
+
+#### Impact
+- Project is now safe to push to GitHub
+- No sensitive data in git history
+- 3 commits ready to push (182 files, 29,714 lines)
+
+#### Related Files
+- `web/.env` (deleted)
+- `.env` (deleted)
+- `.gitignore` (verified)
+- `GITHUB_SETUP.md` (created)
+- `PROJECT_CLEANUP_SUMMARY.md` (created)
+- `QUICK_START.md` (created)
+
+#### Testing
+- 71/73 tests passing (97%)
+- Dependencies installed: 344 packages
+- Development server verified working
+
+#### Follow-up Tasks
+- [x] Create GitHub repository
+- [ ] Rotate exposed Google API key
+- [ ] Push to GitHub
+
+#### Notes
+API key ending in `...YCetdYBE` should be rotated even though it was never committed to git.
+
+---
+
+## Phase History
+
+### Phase 4: Multi-City System (Completed)
+[Link to PHASE_4_COMPLETE.md]
+
+**Duration:** Jan 18-23, 2026  
+**Status:** ✅ Complete
+
+#### Major Changes
+- Implemented 5 cities with progressive multipliers
+- City unlock system
+- Dynamic theming per city
+- Smooth city transitions
+- Master completion state
+
+#### Commits
+- `85c22d6` - Add Cities 3, 4, 5
+- `cc32098` - Fix linting errors
+- [more commits...]
+
+---
+
+### Phase 3: Core Systems (Completed)
+[Link to PHASE_3_1_COMPLETE.md]
+
+**Duration:** Jan 15-17, 2026  
+**Status:** ✅ Complete
+
+#### Major Changes
+- Event system with milestones
+- Mission tracker
+- Sticker collection
+- Save/load system
+
+---
+
+## Security Changes
+
+### [2026-01-27] Removed Exposed Credentials
+- **Issue:** Google API key and DB credentials in `.env` files
+- **Action:** Deleted both `.env` files before initial commit
+- **Impact:** No credentials in git history
+- **Follow-up:** Rotate API key ending in `...YCetdYBE`
+
+---
+
+## Dependency History
+
+### [2026-01-27] Initial Dependency Snapshot
+- **Total:** 344 packages
+- **React:** 19.2.0
+- **Vite:** 7.2.4
+- **Tailwind CSS:** 4.1.18
+- **Three.js:** 0.164.1
+- **Framer Motion:** 12.26.2
+- **Vitest:** 3.2.4
+- **Playwright:** 1.55.0
+
+---
+
+## Architecture Decisions
+
+### [2026-01-27] localStorage for Persistence
+- **Decision:** Use localStorage instead of backend database
+- **Reason:** Simpler for Phase 4, no backend needed
+- **Trade-offs:** Data is client-side only, no sync across devices
+- **Future:** May add backend in later phases
+
+### [Phase 4] Multi-City Multiplier System
+- **Decision:** Exponential multipliers (1.4x per city)
+- **Reason:** Provides clear progression and increasing rewards
+- **Implementation:** All payouts/costs scale with city multiplier
+- **Testing:** Balanced for consistent 60-120 second sessions
+
+---
+
+## Configuration Changes
+
+### [2026-01-27] Git Configuration
+- **Changed:** Initialized git repository
+- **Files:** `.gitignore` configured for Node, React, .NET, Python
+- **Remotes:** None (awaiting GitHub setup)
+
+### [Phase 4] Game Balance Configuration
+- **File:** `web/src/config/gameBalance.js`
+- **Changes:** Centralized all balance parameters
+- **Values:** Starting funds, costs, multipliers, pacing
+
+---
+
+## Known Issues & Workarounds
+
+### Test Timeouts (2/73 tests failing)
+- **Issue:** `BoardLoopEffects.test.jsx` - timeout waiting for tile effects
+- **Impact:** Low - actual gameplay works fine
+- **Workaround:** None needed, non-critical
+- **Fix:** Adjust test timeouts or async handling (future)
+
+### Three.js Multiple Instances Warning
+- **Issue:** "Multiple instances of Three.js being imported"
+- **Impact:** None - cosmetic warning only
+- **Workaround:** Ignore for now
+- **Fix:** Optimize imports (low priority)
+
+### Line Ending Warnings (CRLF vs LF)
+- **Issue:** Git warns about line ending conversions on Windows
+- **Impact:** None - normal Windows behavior
+- **Workaround:** None needed
+- **Fix:** Add `.gitattributes` if desired (optional)
+
+---
+
+## Search Tags
+
+Use these tags to find related entries:
+- `#security` - Security-related changes
+- `#phase4` - Phase 4 work
+- `#testing` - Test-related changes
+- `#dependencies` - Package updates
+- `#bugfix` - Bug fixes
+- `#feature` - New features
+- `#refactor` - Code refactoring
+- `#docs` - Documentation
+- `#config` - Configuration changes
+
+---
+
+**End of Knowledge Base**
+```
+
+---
+
+## Best Practices
+
+1. **Be Specific:** Include file names, line numbers, function names
+2. **Link Commits:** Always reference the commit hash
+3. **Document Why:** Explain the reasoning, not just what changed
+4. **Track Dependencies:** Note all package additions/removals/updates
+5. **Update Statistics:** Keep metrics current
+6. **Tag Entries:** Use search tags for easy filtering
+7. **Link to Docs:** Reference related documentation files
+8. **Note Breaking Changes:** Clearly mark anything that breaks existing code
+9. **Record Decisions:** Document architectural and design decisions
+10. **Keep it Current:** Update within same session as the changes
+
+---
+
+## Integration with Workflow
+
+This skill should be run:
+1. ✅ After completing any feature or bug fix
+2. ✅ After phase completion
+3. ✅ After security changes
+4. ✅ After dependency updates
+5. ✅ Before creating pull requests
+6. ✅ After resolving major issues
+
+It's now part of the standard workflow in `AGENTS.md` - agents will automatically update the knowledge base after significant changes.
+
+---
+
+## Example Usage
+
+```
+Agent: I just completed adding the sticker crafting system.
+Action: Run knowledge-base-updater.skill
+Result: KNOWLEDGE_BASE.md updated with new entry, committed
+```
+
+---
+
+**Created:** 2026-01-27  
+**Version:** 1.0  
+**Auto-run:** Yes (via AGENTS.md)

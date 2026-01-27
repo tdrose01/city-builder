@@ -105,3 +105,84 @@ pm test (when added)
 - DB changes: migration + rollback notes
 - Minimal diff, no unrelated refactors
 - PR summary includes commands run
+- **Knowledge Base updated** (see Section 6)
+
+---
+
+## 6) Knowledge Base Documentation (REQUIRED)
+
+After completing ANY significant work, update the knowledge base:
+
+### 6.1 When to Update Knowledge Base
+**ALWAYS update after:**
+- ✅ Completing a feature, bug fix, or refactoring
+- ✅ Adding/removing/updating dependencies
+- ✅ Making configuration changes
+- ✅ Security-related changes
+- ✅ Completing a phase or milestone
+- ✅ Making architectural decisions
+- ✅ Resolving major issues
+
+**DO NOT skip this step.** The knowledge base is the project's memory.
+
+### 6.2 How to Update Knowledge Base
+1. **Run the skill:** Follow instructions in `knowledge-base-updater.skill`
+2. **Gather info:** Recent commits, changed files, test results
+3. **Create entry:** Use the template in the skill file
+4. **Update statistics:** Current metrics (commits, tests, dependencies)
+5. **Commit KB:** `git commit -m "docs: Update knowledge base - [description]"`
+
+### 6.3 Knowledge Base Structure
+The `KNOWLEDGE_BASE.md` file contains:
+- Recent Changes (last 30 days)
+- Phase History
+- Security Changes
+- Dependency History
+- Architecture Decisions
+- Configuration Changes
+- Known Issues & Workarounds
+
+### 6.4 Entry Template (Brief)
+```markdown
+## [YYYY-MM-DD HH:MM] - Brief Title
+
+**Type:** Feature|Bug Fix|Refactor|Configuration|Documentation|Security|Test
+**Status:** Completed|In Progress
+**Commit:** [hash]
+
+### What Changed
+- Specific changes made
+
+### Why
+- Reason for the change
+
+### Impact
+- Effects on project
+
+### Related Files
+- `path/to/file`
+
+### Testing
+- Test results
+
+### Follow-up Tasks
+- [ ] Remaining work
+```
+
+### 6.5 Best Practices
+- Be specific: include file names, function names, line numbers
+- Link commits: always reference the commit hash
+- Document why: explain reasoning, not just what changed
+- Track dependencies: note all package changes
+- Update statistics: keep metrics current
+- Tag entries: use `#security`, `#phase4`, etc. for search
+- Note breaking changes: clearly mark backwards-incompatible changes
+
+### 6.6 Integration with Git
+```powershell
+# After completing work:
+git add KNOWLEDGE_BASE.md
+git commit -m "docs: Update knowledge base - [brief description]"
+```
+
+**This is not optional.** The knowledge base ensures continuity across sessions and agents.
