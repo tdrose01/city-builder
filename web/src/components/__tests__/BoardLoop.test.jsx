@@ -2,6 +2,7 @@ import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 import BoardLoop from '../BoardLoop';
+import { PACING } from '../../config/gameBalance';
 import { vi } from 'vitest';
 
 const mockCsvData = `Tile,Tile Type,Tile Name,Payout
@@ -128,7 +129,8 @@ test('doubles bonus scales dice refund', async () => {
         />
     );
 
-    expect(currentDice).toBe(10);
+    const expectedBonus = Math.max(1, Math.round(4 * PACING.DOUBLES_BONUS_MULTIPLIER));
+    expect(currentDice).toBe(10 - 1 + expectedBonus);
     randomSpy.mockRestore();
 }, 15000);
 test('upgrade landmark button is disabled if funds are insufficient', async () => {
