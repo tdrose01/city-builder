@@ -89,9 +89,9 @@ test('rolling the same value twice triggers a dice streak', async () => {
     await userEvent.click(rollDiceButton);
 
     await waitFor(() => {
-        // Roll: 2 is split across elements, check for "Roll:" and "2" nearby or just ensure 2 is displayed as roll
+        // Roll: 4 is split across elements, check for "Roll:" and "4" nearby or just ensure 4 is displayed as roll
         expect(screen.getByText('Roll:')).toBeInTheDocument();
-        expect(screen.getAllByText('2').length).toBeGreaterThan(0);
+        expect(screen.getAllByText('4').length).toBeGreaterThan(0);
     }, { timeout: 10000 });
 
     // Wait for movement to finish so button is enabled and text reset

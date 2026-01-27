@@ -226,14 +226,16 @@ describe('AudioManager', () => {
 
     test('should not play SFX when muted', () => {
       audioManager.setMuted(true);
+      const initialCalls = mockAudioContext.createOscillator.mock.calls.length;
       audioManager.playSFX('click');
-      expect(mockAudioContext.createOscillator).not.toHaveBeenCalled();
+      expect(mockAudioContext.createOscillator).toHaveBeenCalledTimes(initialCalls);
     });
 
     test('should not play SFX when not initialized', () => {
       audioManager.initialized = false;
+      const initialCalls = mockAudioContext.createOscillator.mock.calls.length;
       audioManager.playSFX('click');
-      expect(mockAudioContext.createOscillator).not.toHaveBeenCalled();
+      expect(mockAudioContext.createOscillator).toHaveBeenCalledTimes(initialCalls);
     });
 
     test('should handle unknown SFX type gracefully', () => {
