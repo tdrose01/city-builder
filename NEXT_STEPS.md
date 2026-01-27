@@ -1,8 +1,8 @@
-# Next Steps - Phase 5 and Beyond
+# Next Steps - Phase 8 and Beyond
 
-**Current Status:** Phase 4 Complete - All 5 cities implemented, code quality improved  
-**Date:** January 23, 2026  
-**Build Status:** ✅ 73/73 Tests Passing
+**Current Status:** Phase 8 In Progress - Task 8.1 complete  
+**Date:** January 27, 2026  
+**Build Status:** ✅ 196/196 Tests Passing
 
 ---
 
@@ -47,9 +47,22 @@
 
 ---
 
+## 🎯 Phase 8: Gameplay Enhancement (Active)
+
+**Status:** 🚧 In Progress  
+**Track:** `conductor/tracks/phase8_gameplay_enhancement_20260127/`  
+**Current Progress:**
+- ✅ Task 8.1 complete: Lottery, Tax, Jail, Fortune tiles integrated
+- ✅ Fortune rewards: Tax Haven + Get Out of Jail Free
+- ✅ Tests passing (196/196)
+
+**Next Step:** Start Task 8.2 - Power-Up System
+
+---
+
 ## 🎯 Phase 5: Content Polish & Enhancement
 
-**Status:** Ready to Start  
+**Status:** ✅ Complete  
 **Prerequisites:** Phase 4 complete ✅  
 **Estimated Time:** 8-12 hours
 
@@ -364,44 +377,20 @@ test('Complete progression through all 5 cities', async () => {
 
 ---
 
-## 🎯 Immediate Next Step: Choose Phase 5 Task
+## 🎯 Immediate Next Step: Task 8.2 - Power-Up System
 
-**What:** Play 10 gameplay sessions to collect analytics data  
-**Who:** Human player (you or a tester)  
-**Time:** 30-45 minutes  
-**Why:** Need real gameplay data to identify balance issues
+**What:** Implement power-up configs, UI shop, and active indicators  
+**Where:** `conductor/tracks/phase8_gameplay_enhancement_20260127/plan.md`  
+**Next Actions:**
+1. Create `web/src/config/powerUps.js`
+2. Build `PowerUpShop.jsx` + `PowerUpIndicator.jsx`
+3. Integrate power-up state into `BoardLoop.jsx`
+4. Add tests (~12 new tests)
 
-### How to Do It
+---
 
-1. **Start the game:**
-   ```bash
-   cd web
-   npm run dev
-   # Open http://localhost:5174 (or check terminal for port)
-   ```
-
-2. **Play 10 sessions following PLAYTEST_GUIDE.md:**
-   - Sessions 1-3: Natural play (don't optimize)
-   - Sessions 4-6: Aggressive (fast completion, use auto-roll)
-   - Sessions 7-9: Conservative (slow, methodical)
-   - Session 10: Mixed (whatever feels fun)
-
-3. **After each session:**
-   - Click **Reset** button (auto-saves session)
-   - Start next session immediately
-
-4. **After all 10 sessions:**
-   - Click **Analytics** button (purple, chart icon)
-   - Review Summary tab
-   - Click **Export Report** → save as `balance-analysis-[date].md`
-   - Click **Export CSV** → save as `session-data-[date].csv`
-
-### What to Note During Play
-- Sessions that feel too short or too long
-- Running out of resources (dice/funds)
-- Waiting with nothing to do
-- Feeling overwhelmed
-- Most/least enjoyable moments
+## ℹ️ Historical Reference (Phase 3 Balance Tuning)
+The sections below cover legacy playtesting and tuning workflows from Phase 3.
 
 ---
 

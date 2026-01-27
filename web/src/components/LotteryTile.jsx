@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { LOTTERY_CONFIG } from '../config/tileTypes';
 import audioManager from '../utils/audioManager';

@@ -57,6 +57,19 @@ class AudioManager {
       
       // Set initial volumes
       this.updateGainValues();
+
+      // Validate minimal Web Audio API support (helps in test environments)
+      const testOscillator = this.audioContext.createOscillator();
+      if (
+        !testOscillator?.frequency?.setValueAtTime ||
+        !testOscillator?.frequency?.exponentialRampToValueAtTime ||
+        !testOscillator?.start ||
+        !testOscillator?.stop ||
+        !this.masterGain?.gain?.setValueAtTime ||
+        !this.sfxGain?.gain?.setValueAtTime
+      ) {
+        throw new Error('AudioContext missing required Web Audio API methods');
+      }
       
       this.initialized = true;
       console.log('AudioManager initialized');
@@ -108,6 +121,15 @@ class AudioManager {
           break;
         case 'success':
           this.playSuccess(ctx, currentTime);
+          break;
+        case 'error':
+          this.playError(ctx, currentTime);
+          break;
+        case 'achievement':
+          this.playAchievement(ctx, currentTime);
+          break;
+        case 'teleport':
+          this.playTeleport(ctx, currentTime);
           break;
         case 'doubles':
           this.playDoubles(ctx, currentTime);
@@ -271,6 +293,72 @@ class AudioManager {
     
     oscillator.start(startTime);
     oscillator.stop(startTime + 0.2);
+  }
+
+  /**
+   * Error sound - descending tone
+   */
+  playError(ctx, startTime) {
+    const oscillator = ctx.createOscillator();
+    const gainNode = ctx.createGain();
+    
+    oscillator.connect(gainNode);
+    gainNode.connect(this.sfxGain);
+    
+    oscillator.type = 'triangle';
+    oscillator.frequency.setValueAtTime(240, startTime);
+    oscillator.frequency.exponentialRampToValueAtTime(120, startTime + 0.2);
+    
+    gainNode.gain.setValueAtTime(0.35, startTime);
+    gainNode.gain.exponentialRampToValueAtTime(0.01, startTime + 0.2);
+    
+    oscillator.start(startTime);
+    oscillator.stop(startTime + 0.2);
+  }
+
+  /**
+   * Achievement sound - bright ascending chime
+   */
+  playAchievement(ctx, startTime) {
+    const frequencies = [523.25, 659.25, 783.99, 1046.5]; // C5, E5, G5, C6
+    
+    frequencies.forEach((freq, i) => {
+      const oscillator = ctx.createOscillator();
+      const gainNode = ctx.createGain();
+      
+      oscillator.connect(gainNode);
+      gainNode.connect(this.sfxGain);
+      
+      oscillator.type = 'sine';
+      oscillator.frequency.setValueAtTime(freq, startTime + i * 0.07);
+      
+      gainNode.gain.setValueAtTime(0.28, startTime + i * 0.07);
+      gainNode.gain.exponentialRampToValueAtTime(0.01, startTime + i * 0.07 + 0.25);
+      
+      oscillator.start(startTime + i * 0.07);
+      oscillator.stop(startTime + i * 0.07 + 0.25);
+    });
+  }
+
+  /**
+   * Teleport sound - quick frequency sweep
+   */
+  playTeleport(ctx, startTime) {
+    const oscillator = ctx.createOscillator();
+    const gainNode = ctx.createGain();
+    
+    oscillator.connect(gainNode);
+    gainNode.connect(this.sfxGain);
+    
+    oscillator.type = 'sawtooth';
+    oscillator.frequency.setValueAtTime(300, startTime);
+    oscillator.frequency.exponentialRampToValueAtTime(1200, startTime + 0.15);
+    
+    gainNode.gain.setValueAtTime(0.25, startTime);
+    gainNode.gain.exponentialRampToValueAtTime(0.01, startTime + 0.18);
+    
+    oscillator.start(startTime);
+    oscillator.stop(startTime + 0.18);
   }
 
   /**
