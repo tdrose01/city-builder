@@ -5,19 +5,29 @@ A React-based idle/incremental city-building game inspired by Monopoly GO, featu
 ## ✨ Features
 
 ### 🎮 Core Gameplay
-- **35 Unique Cities**: Progress through increasingly challenging cities with unique themes
+- **35 Unique Cities**: Progress through increasingly challenging cities with unique themes (5 cities currently implemented!)
+  - 🌊 **City 1: Neon Harbor** - Cyan neon theme (1.0x multiplier)
+  - 🏛️ **City 2: Deco Heights** - Art Deco gold theme (1.4x multiplier)
+  - 💎 **City 3: Crystal Plaza** - Luxury purple theme (1.96x multiplier)
+  - ⭐ **City 4: Starlight District** - Cosmic blue theme (2.744x multiplier)
+  - 🌆 **City 5: Neon Skyline** - Futuristic emerald theme (3.8416x multiplier)
 - **Dynamic Board Mechanics**: Roll dice, land on tiles, earn resources
 - **Landmark Upgrades**: Build and upgrade 5 landmarks per city
 - **Mission System**: Complete missions for rewards and progression
 - **Event System**: Milestone-based events with prestige mechanics
 - **Sticker Collections**: Collect and trade stickers across themed albums
 
-### 🎨 Phase 5 Polish Features (NEW!)
-- **Enhanced City Transitions**: Multi-stage celebration animations with city-specific effects
-- **Advanced Particle System**: 7 particle types (burst, confetti, stars, sparkles, coins, fireworks, trail)
-- **Synthesized Audio System**: 8 sound effects using Web Audio API (no external files needed)
-- **Performance Optimizations**: React.memo, performance monitoring, optimized rendering
-- **Comprehensive Testing**: 171 tests with 100% pass rate
+### 🎨 Recent Updates
+- **Phase 6: Multi-City Expansion** (NEW!)
+  - 5 fully playable cities with exponential economic scaling (1.4x per city)
+  - Unique visual themes and grid patterns for each city
+  - Comprehensive multi-city test coverage
+- **Phase 5: Polish & Enhancement**
+  - Enhanced City Transitions with multi-stage celebration animations
+  - Advanced Particle System (7 particle types: burst, confetti, stars, sparkles, coins, fireworks, trail)
+  - Synthesized Audio System (8 sound effects using Web Audio API)
+  - Performance Optimizations (React.memo, performance monitoring, optimized rendering)
+- **Comprehensive Testing**: 190+ tests with 100% pass rate
 
 ### 🎨 Visual Effects
 - **3D Dice Rolling**: Three.js-powered animated dice

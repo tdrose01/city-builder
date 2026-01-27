@@ -44,6 +44,36 @@ body {
   background: radial-gradient(circle at 50% 50%, rgba(251, 191, 36, 0.05) 0%, transparent 70%) !important;
 }
 
+.theme-crystal-plaza .city-grid {
+  background-image: 
+    linear-gradient(rgba(217, 70, 239, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(217, 70, 239, 0.1) 1px, transparent 1px);
+}
+
+.theme-crystal-plaza .city-glow {
+  background: radial-gradient(circle at 50% 50%, rgba(217, 70, 239, 0.05) 0%, transparent 70%) !important;
+}
+
+.theme-starlight-district .city-grid {
+  background-image: 
+    linear-gradient(rgba(59, 130, 246, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(59, 130, 246, 0.1) 1px, transparent 1px);
+}
+
+.theme-starlight-district .city-glow {
+  background: radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.05) 0%, transparent 70%) !important;
+}
+
+.theme-neon-skyline .city-grid {
+  background-image: 
+    linear-gradient(rgba(16, 185, 129, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(16, 185, 129, 0.1) 1px, transparent 1px);
+}
+
+.theme-neon-skyline .city-glow {
+  background: radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.05) 0%, transparent 70%) !important;
+}
+
 /* Glassmorphism utility */
 .glass-panel {
   @apply bg-white/10 backdrop-blur-md border border-white/20 shadow-xl;
