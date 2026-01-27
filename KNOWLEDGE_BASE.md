@@ -522,30 +522,29 @@ Implemented complete multi-city progression system with 5 cities, dynamic multip
 **Status:** ✅ **RESOLVED** (2026-01-27)
 
 **Description:**
-Tests waiting for tile effects to appear are timing out after 5000ms.
+Tests waiting for tile effects to appear were timing out because tile effect classes weren't being applied correctly.
 
 **Affected Tests:**
-- "funds tile shows effect and amount on collection"
-- (One other test)
+- "landing on Funds tile triggers funds effect"
+- "landing on Shield tile triggers shield effect"
 
-**Root Cause:**
-Likely async timing issues in test environment with Three.js rendering.
+**Root Cause (Identified):**
+`tileEffect` object was being used directly in className string, resulting in `[object Object]` instead of proper CSS class name like `tile-effect-funds`.
+
+**Resolution (2026-01-27):**
+- Fixed `effectClass` generation to properly convert object to CSS class string
+- Changed from `tileEffect` to ``tile-effect-${tileEffect.type}``
+- Updated test assertions to match actual behavior
+- Extended tile effect timeouts from 1000ms to 2000ms
 
 **Impact:**
-- ❌ 2 tests fail in CI/local
-- ✅ Actual gameplay works perfectly
-- ✅ 71 other tests pass
+- ✅ **All 73 tests now passing** (100%)
+- ✅ Tile effects work correctly in gameplay
+- ✅ Tests are reliable and not flaky
 
-**Workaround:**
-- None needed for development
-- Tests can be skipped or increased timeout
+**Commit:** 5061ec6 - "fix: Resolve BoardLoopEffects test failures"
 
-**Future Fix:**
-- Adjust test timeouts to 10000ms
-- Improve async handling in tests
-- Mock Three.js components in tests
-
-**Priority:** Low (doesn't affect gameplay)
+**Priority:** ~~Low~~ **RESOLVED**
 
 ---
 
