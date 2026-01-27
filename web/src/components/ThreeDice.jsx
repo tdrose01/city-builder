@@ -144,8 +144,25 @@ const DiceCube = ({ position, rotation, value, rolling }) => {
 
 function ThreeDice({ rolling, value1, value2 }) {
   return (
-    <div className="three-dice-container" style={{ width: '100%', height: '100%', position: 'absolute', pointerEvents: 'none' }}>
-      <Canvas shadows camera={{ position: [0, 4, 6], fov: 35 }}>
+    <div className="three-dice-container" style={{ 
+      width: '100%', 
+      height: '100%', 
+      position: 'absolute', 
+      pointerEvents: 'none',
+      transform: 'translateZ(0)',
+      backfaceVisibility: 'hidden',
+      WebkitFontSmoothing: 'antialiased'
+    }}>
+      <Canvas 
+        shadows 
+        camera={{ position: [0, 4, 6], fov: 35 }}
+        gl={{ 
+          antialias: true, 
+          alpha: true,
+          powerPreference: 'high-performance'
+        }}
+        dpr={[1, 2]}
+      >
         <Environment preset="city" />
         <ambientLight intensity={0.5} />
         <pointLight position={[10, 10, 10]} castShadow intensity={1} />
