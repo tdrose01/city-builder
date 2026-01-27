@@ -11,7 +11,7 @@ import audioManager from '../utils/audioManager';
  * 
  * @param {number} cityLevel - Current city level for max tax scaling
  * @param {number} currentFunds - Player's current funds
- * @param {boolean} hasT taxHavenPowerUp - Whether player has Tax Haven power-up active
+ * @param {boolean} hasTaxHavenPowerUp - Whether player has Tax Haven power-up active
  * @param {function} onResult - Callback with tax amount (negative)
  * @param {function} onClose - Callback to close the modal
  */

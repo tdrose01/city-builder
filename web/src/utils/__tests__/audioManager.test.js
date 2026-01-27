@@ -7,7 +7,8 @@ describe('AudioManager', () => {
     createGain: vi.fn(() => ({
       connect: vi.fn(),
       gain: {
-        setValueAtTime: vi.fn()
+        setValueAtTime: vi.fn(),
+        exponentialRampToValueAtTime: vi.fn()
       }
     })),
     createOscillator: vi.fn(() => ({
@@ -203,6 +204,21 @@ describe('AudioManager', () => {
       expect(mockAudioContext.createOscillator).toHaveBeenCalled();
     });
 
+    test('should play error SFX', () => {
+      audioManager.playSFX('error');
+      expect(mockAudioContext.createOscillator).toHaveBeenCalled();
+    });
+
+    test('should play achievement SFX', () => {
+      audioManager.playSFX('achievement');
+      expect(mockAudioContext.createOscillator).toHaveBeenCalled();
+    });
+
+    test('should play teleport SFX', () => {
+      audioManager.playSFX('teleport');
+      expect(mockAudioContext.createOscillator).toHaveBeenCalled();
+    });
+
     test('should play doubles SFX', () => {
       audioManager.playSFX('doubles');
       expect(mockAudioContext.createOscillator).toHaveBeenCalled();
@@ -210,14 +226,16 @@ describe('AudioManager', () => {
 
     test('should not play SFX when muted', () => {
       audioManager.setMuted(true);
+      const initialCalls = mockAudioContext.createOscillator.mock.calls.length;
       audioManager.playSFX('click');
-      expect(mockAudioContext.createOscillator).not.toHaveBeenCalled();
+      expect(mockAudioContext.createOscillator).toHaveBeenCalledTimes(initialCalls);
     });
 
     test('should not play SFX when not initialized', () => {
       audioManager.initialized = false;
+      const initialCalls = mockAudioContext.createOscillator.mock.calls.length;
       audioManager.playSFX('click');
-      expect(mockAudioContext.createOscillator).not.toHaveBeenCalled();
+      expect(mockAudioContext.createOscillator).toHaveBeenCalledTimes(initialCalls);
     });
 
     test('should handle unknown SFX type gracefully', () => {

@@ -277,6 +277,8 @@ export default function FortuneTile({
                       {event.effect.type === 'TELEPORT' && `Move ${event.effect.value > 0 ? 'forward' : 'backward'} ${Math.abs(event.effect.value)} spaces`}
                       {event.effect.type === 'RANDOM_TELEPORT' && 'Teleport to random tile'}
                       {event.effect.type === 'SKIP_TURNS' && `Skip ${event.effect.value} turn${event.effect.value > 1 ? 's' : ''}`}
+                      {event.effect.type === 'ACTIVATE_TAX_HAVEN' && 'Tax Haven activated (next tax waived)'}
+                      {event.effect.type === 'ADD_JAIL_FREE_CARD' && 'Get Out of Jail Free card'}
                     </div>
                   </div>
                 )}
