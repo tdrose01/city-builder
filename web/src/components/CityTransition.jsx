@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useEffect, useCallback } from 'react';
+import { motion } from 'framer-motion';
 
 /**
  * CityTransition Component
@@ -60,6 +60,20 @@ export default function CityTransition({
     ? window.matchMedia('(prefers-reduced-motion: reduce)').matches 
     : false;
 
+  const generateParticles = useCallback(() => {
+    if (prefersReducedMotion) return;
+
+    const newParticles = Array.from({ length: 30 }, (_, i) => ({
+      id: i,
+      x: Math.random() * 100,
+      y: Math.random() * 100,
+      delay: Math.random() * 0.5,
+      duration: 0.8 + Math.random() * 0.4,
+      symbol: config.particles
+    }));
+    setParticles(newParticles);
+  }, [prefersReducedMotion, config.particles]);
+
   useEffect(() => {
     if (!isActive) return;
 
@@ -90,29 +104,15 @@ export default function CityTransition({
     };
 
     sequence();
-  }, [isActive, targetCityLevel, onComplete, prefersReducedMotion]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isActive, targetCityLevel, generateParticles, prefersReducedMotion]);
 
-  const generateParticles = () => {
-    if (prefersReducedMotion) return;
-
-    const newParticles = Array.from({ length: 30 }, (_, i) => ({
-      id: i,
-      x: Math.random() * 100,
-      y: Math.random() * 100,
-      delay: Math.random() * 0.5,
-      duration: 0.8 + Math.random() * 0.4,
-      symbol: config.particles
-    }));
-    setParticles(newParticles);
-  };
-
-  if (!isActive || stage === 'idle' || stage === 'complete') {
+  if (!isActive || stage === 'complete') {
     return null;
   }
 
   return (
-    <AnimatePresence>
-      <motion.div
+    <motion.div
         className="city-transition-overlay"
         style={{
           position: 'fixed',
@@ -131,6 +131,9 @@ export default function CityTransition({
         exit={{ opacity: 0 }}
         transition={{ duration: prefersReducedMotion ? 0.1 : 0.3 }}
       >
+        {/* Idle & Fade Out Stages - just dark overlay, no content needed */}
+        {(stage === 'idle' || stage === 'fadeOut') && <div style={{ width: '100%', height: '100%' }} />}
+
         {/* Celebration Stage */}
         {stage === 'celebration' && (
           <motion.div
@@ -163,7 +166,7 @@ export default function CityTransition({
               {config.emoji}
             </motion.div>
 
-            <motion.h1
+            <motion.div
               style={{
                 fontSize: '48px',
                 fontWeight: 'bold',
@@ -177,9 +180,9 @@ export default function CityTransition({
               transition={{ duration: 0.6, repeat: Infinity, repeatDelay: 0.4 }}
             >
               {config.name}
-            </motion.h1>
+            </motion.div>
 
-            <motion.p
+            <motion.div
               style={{
                 fontSize: '24px',
                 color: '#ffffff',
@@ -190,7 +193,7 @@ export default function CityTransition({
               transition={{ delay: 0.3 }}
             >
               {config.message}
-            </motion.p>
+            </motion.div>
           </motion.div>
         )}
 
@@ -257,7 +260,6 @@ export default function CityTransition({
           />
         )}
       </motion.div>
-    </AnimatePresence>
   );
 }
 
