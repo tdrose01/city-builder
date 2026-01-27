@@ -80,10 +80,10 @@ test('rolling the same value twice triggers a dice streak', async () => {
 
     render(<BoardLoop cityLevel={1} funds={100} setFunds={setFundsMock} shields={0} setShields={vi.fn()} dice={50} setDice={setDiceMock} setCityLevel={() => {}} />);
     
-    // First roll: Die 1 = 1, Die 2 = 1 (Total 2)
-    randomSpy.mockReturnValueOnce(0.0) // die1 = 1
-             .mockReturnValueOnce(0.0) // die2 = 1
-             .mockReturnValueOnce(0.1); // new comboTarget (since 1 != 4)
+    // First roll: Die 1 = 2, Die 2 = 2 (Total 4)
+    randomSpy.mockReturnValueOnce(0.2) // die1 = 2
+             .mockReturnValueOnce(0.2) // die2 = 2
+             .mockReturnValueOnce(0.1); // new comboTarget (since 2 != 4)
 
     const rollDiceButton = screen.getByRole('button', { name: /Roll/i });
     await userEvent.click(rollDiceButton);
@@ -101,10 +101,10 @@ test('rolling the same value twice triggers a dice streak', async () => {
         expect(rollDiceButton).toHaveTextContent(/Roll/i);
     }, { timeout: 10000 });
 
-    // Second roll: Die 1 = 1, Die 2 = 1 (Total 2)
-    randomSpy.mockReturnValueOnce(0.0) // die1 = 1
-             .mockReturnValueOnce(0.0) // die2 = 1
-             .mockReturnValueOnce(0.1); // new comboTarget (since 1 != 1)
+    // Second roll: Die 1 = 2, Die 2 = 2 (Total 4)
+    randomSpy.mockReturnValueOnce(0.2) // die1 = 2
+             .mockReturnValueOnce(0.2) // die2 = 2
+             .mockReturnValueOnce(0.1); // new comboTarget (since 2 != 2)
 
     await userEvent.click(rollDiceButton);
 
