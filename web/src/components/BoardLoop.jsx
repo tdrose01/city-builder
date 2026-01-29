@@ -17,6 +17,9 @@ import LotteryTile from './LotteryTile';
 import TaxTile from './TaxTile';
 import JailTile from './JailTile';
 import FortuneTile from './FortuneTile';
+import PowerUpShop from './PowerUpShop';
+import PowerUpIndicator from './PowerUpIndicator';
+import { POWER_UPS, getPowerUpCost } from '../config/powerUps';
 
 
 const CITIES = {
@@ -270,6 +273,11 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
   const [jailTurnsRemaining, setJailTurnsRemaining] = useState(0);
   const [hasJailFreeCard, setHasJailFreeCard] = useState(false);
   const [hasTaxHavenPowerUp, setHasTaxHavenPowerUp] = useState(false);
+  const [activePowerUps, setActivePowerUps] = useState([]);
+  const [powerUpCooldowns, setPowerUpCooldowns] = useState({});
+  const [purchasedPowerUps, setPurchasedPowerUps] = useState({});
+  const [positiveStreak, setPositiveStreak] = useState(0);
+  const [diceCostRemainder, setDiceCostRemainder] = useState(0);
   
   // City transition state
   const [cityTransitionActive, setCityTransitionActive] = useState(false);
@@ -320,6 +328,11 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
       if (savedState.jailTurnsRemaining !== undefined) setJailTurnsRemaining(savedState.jailTurnsRemaining);
       if (savedState.hasJailFreeCard !== undefined) setHasJailFreeCard(savedState.hasJailFreeCard);
       if (savedState.hasTaxHavenPowerUp !== undefined) setHasTaxHavenPowerUp(savedState.hasTaxHavenPowerUp);
+      if (savedState.activePowerUps !== undefined) setActivePowerUps(savedState.activePowerUps);
+      if (savedState.powerUpCooldowns !== undefined) setPowerUpCooldowns(savedState.powerUpCooldowns);
+      if (savedState.purchasedPowerUps !== undefined) setPurchasedPowerUps(savedState.purchasedPowerUps);
+      if (savedState.positiveStreak !== undefined) setPositiveStreak(savedState.positiveStreak);
+      if (savedState.diceCostRemainder !== undefined) setDiceCostRemainder(savedState.diceCostRemainder);
 
       showNotification("Game Loaded!", 'success', 2000);
     }
@@ -349,6 +362,11 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
         jailTurnsRemaining,
         hasJailFreeCard,
         hasTaxHavenPowerUp,
+        activePowerUps,
+        powerUpCooldowns,
+        purchasedPowerUps,
+        positiveStreak,
+        diceCostRemainder,
         playerPosition,
         tiles // Persist tile state (including upgrades)
       };
@@ -365,6 +383,7 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
     milestoneRewardsClaimed, setCompletionRewardsClaimed,
     totalRolls, totalUpgrades, totalShieldsCollected, fundsTilesLanded,
     skipTurnsRemaining, jailTurnsRemaining, hasJailFreeCard, hasTaxHavenPowerUp,
+    activePowerUps, powerUpCooldowns, purchasedPowerUps, positiveStreak, diceCostRemainder,
     playerPosition, tiles
   ]);
 
@@ -390,6 +409,111 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
     });
   };
 
+  const powerUpConfigById = useMemo(() => {
+    return new Map(Object.values(POWER_UPS).map((powerUp) => [powerUp.id, powerUp]));
+  }, []);
+
+  const activePowerUpMap = useMemo(() => {
+    return new Map(activePowerUps.map((powerUp) => [powerUp.id, powerUp]));
+  }, [activePowerUps]);
+
+  const activePowerUpEffects = useMemo(() => {
+    return activePowerUps.reduce((accumulator, powerUp) => {
+      const config = powerUpConfigById.get(powerUp.id);
+      if (!config?.effect) return accumulator;
+      const { effect } = config;
+
+      if (effect.rewardMultiplier) {
+        accumulator.rewardMultiplier *= effect.rewardMultiplier;
+      }
+      if (effect.fundsMultiplier) {
+        accumulator.fundsMultiplier *= effect.fundsMultiplier;
+      }
+      if (effect.fundsFromFundsTiles) {
+        accumulator.fundsFromFundsTiles *= effect.fundsFromFundsTiles;
+      }
+      if (effect.diceCostMultiplier) {
+        accumulator.diceCostMultiplier *= effect.diceCostMultiplier;
+      }
+      if (effect.guaranteeDoubles) {
+        accumulator.guaranteeDoubles = true;
+      }
+      return accumulator;
+    }, {
+      rewardMultiplier: 1,
+      fundsMultiplier: 1,
+      fundsFromFundsTiles: 1,
+      diceCostMultiplier: 1,
+      guaranteeDoubles: false,
+    });
+  }, [activePowerUps, powerUpConfigById]);
+
+  const activatePowerUp = useCallback((powerUpId, options = {}) => {
+    const config = powerUpConfigById.get(powerUpId);
+    if (!config) return;
+
+    setActivePowerUps((prev) => {
+      const existing = prev.find((powerUp) => powerUp.id === powerUpId);
+      const remainingRolls = config.duration === Infinity ? null : config.duration ?? null;
+      if (existing) {
+        if (remainingRolls !== null) {
+          return prev.map((powerUp) =>
+            powerUp.id === powerUpId ? { ...powerUp, remainingRolls } : powerUp
+          );
+        }
+        return prev;
+      }
+      return [...prev, { id: powerUpId, remainingRolls }];
+    });
+
+    if (!options.silent) {
+      showNotification(`${config.name} activated!`, 'success', 2500);
+    }
+  }, [powerUpConfigById]);
+
+  const registerPositiveOutcome = useCallback((isPositive) => {
+    if (isPositive) {
+      setPositiveStreak((prev) => {
+        const next = prev + 1;
+        if (next >= (POWER_UPS.HOT_STREAK.trigger?.consecutivePositiveTiles ?? 3)) {
+          activatePowerUp(POWER_UPS.HOT_STREAK.id);
+          return 0;
+        }
+        return next;
+      });
+    } else {
+      setPositiveStreak(0);
+    }
+  }, [activatePowerUp]);
+
+  const applyRewardMultiplier = useCallback((value) => {
+    if (value <= 0) return value;
+    return Math.round(value * activePowerUpEffects.rewardMultiplier);
+  }, [activePowerUpEffects.rewardMultiplier]);
+
+  const applyFundsMultiplier = useCallback((value, options = {}) => {
+    if (value <= 0) return value;
+    let total = value * activePowerUpEffects.fundsMultiplier;
+    if (options.isFundsTile) {
+      total *= activePowerUpEffects.fundsFromFundsTiles;
+    }
+    return Math.round(total);
+  }, [activePowerUpEffects.fundsMultiplier, activePowerUpEffects.fundsFromFundsTiles]);
+
+  const advancePowerUpRolls = useCallback(() => {
+    setActivePowerUps((prev) => {
+      const updated = prev
+        .map((powerUp) => {
+          if (powerUp.remainingRolls === null || powerUp.remainingRolls === undefined) {
+            return powerUp;
+          }
+          return { ...powerUp, remainingRolls: powerUp.remainingRolls - 1 };
+        })
+        .filter((powerUp) => powerUp.remainingRolls === null || powerUp.remainingRolls > 0);
+      return updated;
+    });
+  }, []);
+
   const getScaledReward = (baseAmount, prestigeLevel) => {
     return calculateScaledReward(baseAmount, prestigeLevel);
   };
@@ -408,27 +532,30 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
     switch (tile.type) {
       case 'Start': {
         const startPayout = tile.payout || ECONOMY.START_TILE_PAYOUT_BASE;
-        setFunds(prev => prev + startPayout);
+        const adjustedStart = applyRewardMultiplier(applyFundsMultiplier(startPayout));
+        setFunds(prev => prev + adjustedStart);
         setTileEffect({ type: 'funds', x: 400, y: 300 });
         setTimeout(() => setTileEffect(null), 1000);
-        currentSession.current.recordFundsChange(startPayout);
+        currentSession.current.recordFundsChange(adjustedStart);
+        registerPositiveOutcome(true);
         break;
       }
       case 'Funds': {
         const fundsPayout = tile.payout || 1000;
-        setFunds(prev => prev + fundsPayout);
+        const adjustedFunds = applyRewardMultiplier(applyFundsMultiplier(fundsPayout, { isFundsTile: true }));
+        setFunds(prev => prev + adjustedFunds);
         setFundsTilesLanded(prev => prev + 1);
         setTileEffect({ type: 'funds', x: 400, y: 300 });
         setTimeout(() => setTileEffect(null), 2000);
-        currentSession.current.recordFundsChange(fundsPayout);
+        currentSession.current.recordFundsChange(adjustedFunds);
         
         // Add coin particles for large funds gains (>= 5000)
-        if (fundsPayout >= 5000) {
+        if (adjustedFunds >= 5000) {
           const tileElement = document.querySelector(`.tile-id-${tile.id}`);
           if (tileElement) {
             const rect = tileElement.getBoundingClientRect();
             addParticleEffect('coins', rect.left + rect.width / 2, rect.top + rect.height / 2, { 
-              count: Math.min(10, Math.floor(fundsPayout / 800)), 
+              count: Math.min(10, Math.floor(adjustedFunds / 800)), 
               distance: 80,
               duration: 1.0,
               size: 10,
@@ -439,26 +566,37 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
           // Play funds sound
           audioManager.playSFX('funds');
         }
+        registerPositiveOutcome(true);
         break;
       }
       case 'Heist': {
         const heistAmount = Math.floor(funds * 0.1);
-        setFunds(prev => prev + heistAmount);
-        setHudMessage(`Heist! +${heistAmount} Funds`);
+        const adjustedHeist = applyRewardMultiplier(applyFundsMultiplier(heistAmount));
+        setFunds(prev => prev + adjustedHeist);
+        setHudMessage(`Heist! +${adjustedHeist} Funds`);
         setTimeout(() => setHudMessage(null), 2000);
-        currentSession.current.recordFundsChange(heistAmount);
+        currentSession.current.recordFundsChange(adjustedHeist);
+        registerPositiveOutcome(true);
         break;
       }
       case 'Shield':
         if (shields < ECONOMY.MAX_SHIELDS) {
-          setShields(prev => prev + 1);
+          const shieldGain = Math.max(1, applyRewardMultiplier(1));
+          setShields(prev => {
+            const maxShields = ECONOMY.MAX_SHIELDS;
+            const next = Math.min(maxShields, prev + shieldGain);
+            const gained = next - prev;
+            if (gained > 0) currentSession.current.recordShieldGained(gained);
+            return next;
+          });
           setTotalShieldsCollected(prev => prev + 1);
           setTileEffect({ type: 'shield', x: 400, y: 300 });
           setTimeout(() => setTileEffect(null), 2000);
-          currentSession.current.recordShieldGained();
+          registerPositiveOutcome(true);
         } else {
           setHudMessage("Max Shields!");
           setTimeout(() => setHudMessage(null), 1500);
+          registerPositiveOutcome(false);
         }
         break;
       case 'Rent': {
@@ -467,14 +605,17 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
         setHudMessage(`Rent! -${rentCost} Funds`);
         setTimeout(() => setHudMessage(null), 2000);
         currentSession.current.recordFundsChange(-rentCost);
+        registerPositiveOutcome(false);
         break;
       }
       case 'Bonus': {
         const bonusPayout = 1500;
-        setFunds(prev => prev + bonusPayout);
-        setHudMessage(`Bonus! +${bonusPayout} Funds`);
+        const adjustedBonus = applyRewardMultiplier(applyFundsMultiplier(bonusPayout));
+        setFunds(prev => prev + adjustedBonus);
+        setHudMessage(`Bonus! +${adjustedBonus} Funds`);
         setTimeout(() => setHudMessage(null), 2000);
-        currentSession.current.recordFundsChange(bonusPayout);
+        currentSession.current.recordFundsChange(adjustedBonus);
+        registerPositiveOutcome(true);
         break;
       }
       case 'Shutdown':
@@ -483,9 +624,11 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
           setHudMessage("Shutdown blocked by Shield!");
           setTimeout(() => setHudMessage(null), 2000);
           currentSession.current.recordShieldUsed();
+          registerPositiveOutcome(false);
         } else {
           setHudMessage("Shutdown! No shield.");
           setTimeout(() => setHudMessage(null), 2000);
+          registerPositiveOutcome(false);
         }
         break;
       case 'Sticker':
@@ -494,17 +637,21 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
         setHudMessage("Sticker Pack earned!");
         setTimeout(() => setHudMessage(null), 2000);
         currentSession.current.recordStickerPackEarned();
+        registerPositiveOutcome(true);
         break;
       case 'Card':
         setHudMessage("Card tile - random event");
         setTimeout(() => setHudMessage(null), 2000);
+        registerPositiveOutcome(false);
         break;
       case 'Dice': {
         const dicePayout = tile.payout || ECONOMY.DICE_TILE_PAYOUT_BASE;
-        setDice(prev => prev + dicePayout);
-        setHudMessage(`Free Dice! +${dicePayout}`);
+        const adjustedDice = applyRewardMultiplier(dicePayout);
+        setDice(prev => prev + adjustedDice);
+        setHudMessage(`Free Dice! +${adjustedDice}`);
         setTimeout(() => setHudMessage(null), 2000);
-        currentSession.current.recordDiceChange(dicePayout);
+        currentSession.current.recordDiceChange(adjustedDice);
+        registerPositiveOutcome(true);
         break;
       }
       case 'Lottery':
@@ -526,7 +673,7 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
       default:
         break;
     }
-  }, [tiles, funds, shields, currentSession]);
+  }, [tiles, funds, shields, currentSession, applyRewardMultiplier, applyFundsMultiplier, registerPositiveOutcome]);
 
   // Define handleRollDice with useCallback before useEffects that call it
   const handleRollDice = useCallback(async () => {
@@ -553,7 +700,7 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
 
     // Roll the dice
     const die1 = Math.floor(Math.random() * 6) + 1;
-    const die2 = Math.floor(Math.random() * 6) + 1;
+    const die2 = activePowerUpEffects.guaranteeDoubles ? die1 : Math.floor(Math.random() * 6) + 1;
     const totalRoll = die1 + die2;
 
     setDie1Value(die1);
@@ -599,13 +746,22 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
     await new Promise(r => setTimeout(r, 800));
     setRolling(false);
 
-    setDice(prev => prev - 1 + doublesBonus);
+    const rollCost = activePowerUpEffects.diceCostMultiplier;
+    const totalCost = rollCost + diceCostRemainder;
+    const diceToDeduct = Math.floor(totalCost);
+    const nextRemainder = Number((totalCost - diceToDeduct).toFixed(2));
+    setDiceCostRemainder(nextRemainder);
+
+    setDice(prev => prev - diceToDeduct + doublesBonus);
     setEventProgress(prev => prev + PACING.pointsPerRoll);
     setTotalRolls(prev => prev + 1);
+    advancePowerUpRolls();
 
     // Analytics: Record roll
     currentSession.current.recordRoll(totalRoll, rolledDoubles);
-    currentSession.current.recordDiceChange(-1);
+    if (diceToDeduct > 0) {
+      currentSession.current.recordDiceChange(-diceToDeduct);
+    }
     if (doublesBonus > 0) {
       currentSession.current.recordDiceChange(doublesBonus);
     }
@@ -664,7 +820,10 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
     comboTarget,
     currentCombo,
     comboRewardClaimed,
-    jailTurnsRemaining
+    jailTurnsRemaining,
+    activePowerUpEffects,
+    diceCostRemainder,
+    advancePowerUpRolls
   ]);
 
   useEffect(() => {
@@ -686,6 +845,11 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
       // Create a deep copy of tiles to ensure fresh state for new city
       setTiles(CITIES[cityLevel].tiles.map(tile => ({ ...tile })));
       setPlayerPosition(0); // Reset position for new city
+      setActivePowerUps([]);
+      setPowerUpCooldowns({});
+      setPurchasedPowerUps({});
+      setPositiveStreak(0);
+      setDiceCostRemainder(0);
     }
   }, [cityLevel]);
 
@@ -695,6 +859,12 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
     const timer = setTimeout(() => setDicePulse(false), 1200)
     return () => clearTimeout(timer)
   }, [rollValue])
+
+  useEffect(() => {
+    if (activePowerUpEffects.diceCostMultiplier === 1 && diceCostRemainder !== 0) {
+      setDiceCostRemainder(0);
+    }
+  }, [activePowerUpEffects.diceCostMultiplier, diceCostRemainder]);
 
   // Autoroll logic
   useEffect(() => {
@@ -792,6 +962,11 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
         setJailTurnsRemaining(0);
         setHasJailFreeCard(false);
         setHasTaxHavenPowerUp(false);
+        setActivePowerUps([]);
+        setPowerUpCooldowns({});
+        setPurchasedPowerUps({});
+        setPositiveStreak(0);
+        setDiceCostRemainder(0);
 
         showNotification("New Game Started!", 'success', 3000);
         setAutoRollEnabled(false);
@@ -1052,14 +1227,78 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
     }, duration);
   };
 
+  const handlePurchasePowerUp = (powerUpId) => {
+    const powerUp = powerUpConfigById.get(powerUpId);
+    if (!powerUp) return;
+
+    if (powerUp.cost === 0 && powerUp.trigger) {
+      showNotification(`${powerUp.name} triggers automatically.`, 'info', 2000);
+      return;
+    }
+
+    if (activePowerUpMap.has(powerUpId)) {
+      showNotification(`${powerUp.name} is already active.`, 'warning', 2000);
+      return;
+    }
+
+    if (powerUp.maxPerCity && purchasedPowerUps[powerUpId]) {
+      showNotification(`${powerUp.name} already owned in this city.`, 'warning', 2000);
+      return;
+    }
+
+    const cooldownUntil = powerUpCooldowns[powerUpId];
+    if (cooldownUntil && cooldownUntil > Date.now()) {
+      showNotification(`${powerUp.name} is cooling down.`, 'warning', 2000);
+      return;
+    }
+
+    const cost = getPowerUpCost(powerUp, cityLevel);
+    if (funds < cost) {
+      showNotification('Not enough funds for this power-up.', 'warning', 2000);
+      return;
+    }
+
+    if (cost > 0) {
+      setFunds(prev => Math.max(0, prev - cost));
+      currentSession.current.recordFundsChange(-cost);
+    }
+
+    if (powerUp.effect?.shields) {
+      const shieldGain = Math.max(1, powerUp.effect.shields);
+      setShields(prev => {
+        const maxShields = ECONOMY.MAX_SHIELDS;
+        const next = Math.min(maxShields, prev + shieldGain);
+        const gained = next - prev;
+        if (gained > 0) currentSession.current.recordShieldGained(gained);
+        return next;
+      });
+      showNotification(`${powerUp.name}: +${shieldGain} Shields`, 'success', 2500);
+    }
+
+    if (powerUp.duration !== undefined) {
+      activatePowerUp(powerUpId);
+    }
+
+    if (powerUp.maxPerCity) {
+      setPurchasedPowerUps(prev => ({ ...prev, [powerUpId]: true }));
+    }
+
+    if (powerUp.cooldown) {
+      setPowerUpCooldowns(prev => ({ ...prev, [powerUpId]: Date.now() + powerUp.cooldown * 1000 }));
+    }
+  };
+
   const handleLotteryResult = (netGain) => {
     if (netGain === 0) return;
-    setFunds(prev => Math.max(0, prev + netGain));
-    currentSession.current.recordFundsChange(netGain);
-    if (netGain > 0) {
-      showNotification(`Lottery win! +$${netGain.toLocaleString()}`, 'success', 3000);
+    const adjustedGain = applyRewardMultiplier(applyFundsMultiplier(netGain));
+    setFunds(prev => Math.max(0, prev + adjustedGain));
+    currentSession.current.recordFundsChange(adjustedGain);
+    if (adjustedGain > 0) {
+      showNotification(`Lottery win! +$${adjustedGain.toLocaleString()}`, 'success', 3000);
+      registerPositiveOutcome(true);
     } else {
-      showNotification(`Lottery loss: -$${Math.abs(netGain).toLocaleString()}`, 'warning', 3000);
+      showNotification(`Lottery loss: -$${Math.abs(adjustedGain).toLocaleString()}`, 'warning', 3000);
+      registerPositiveOutcome(false);
     }
   };
 
@@ -1069,11 +1308,13 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
         setHasTaxHavenPowerUp(false);
       }
       showNotification('Tax avoided!', 'success', 2500);
+      registerPositiveOutcome(true);
       return;
     }
     setFunds(prev => Math.max(0, prev + taxDelta));
     currentSession.current.recordFundsChange(taxDelta);
     showNotification(`Tax paid: -$${Math.abs(taxDelta).toLocaleString()}`, 'warning', 3000);
+    registerPositiveOutcome(false);
   };
 
   const handleJailResult = (result) => {
@@ -1084,17 +1325,20 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
       currentSession.current.recordFundsChange(-result.fundsLost);
       setJailTurnsRemaining(0);
       showNotification(`Bail paid: -$${result.fundsLost.toLocaleString()}`, 'warning', 3000);
+      registerPositiveOutcome(false);
     }
 
     if (result.type === 'card') {
       setHasJailFreeCard(false);
       setJailTurnsRemaining(0);
       showNotification('Used Get Out of Jail Free card!', 'success', 3000);
+      registerPositiveOutcome(false);
     }
 
     if (result.type === 'stay') {
       setJailTurnsRemaining(result.turnsSkipped || 0);
       showNotification(`Jail time: ${result.turnsSkipped} turns`, 'warning', 3000);
+      registerPositiveOutcome(false);
     }
   };
 
@@ -1123,9 +1367,10 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
 
     switch (effect.type) {
       case 'ADD_FUNDS': {
-        setFunds(prev => prev + value);
-        currentSession.current.recordFundsChange(value);
-        showNotification(`${event.name}: +$${value.toLocaleString()}`, 'success', 3000);
+        const adjustedFunds = applyRewardMultiplier(applyFundsMultiplier(value));
+        setFunds(prev => prev + adjustedFunds);
+        currentSession.current.recordFundsChange(adjustedFunds);
+        showNotification(`${event.name}: +$${adjustedFunds.toLocaleString()}`, 'success', 3000);
         break;
       }
       case 'LOSE_FUNDS': {
@@ -1135,20 +1380,22 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
         break;
       }
       case 'ADD_DICE': {
-        setDice(prev => prev + value);
-        currentSession.current.recordDiceChange(value);
-        showNotification(`${event.name}: +${value} Dice`, 'success', 3000);
+        const adjustedDice = applyRewardMultiplier(value);
+        setDice(prev => prev + adjustedDice);
+        currentSession.current.recordDiceChange(adjustedDice);
+        showNotification(`${event.name}: +${adjustedDice} Dice`, 'success', 3000);
         break;
       }
       case 'ADD_SHIELDS': {
+        const adjustedShields = Math.max(1, applyRewardMultiplier(value));
         setShields(prev => {
           const maxShields = ECONOMY.MAX_SHIELDS;
-          const next = Math.min(maxShields, prev + value);
+          const next = Math.min(maxShields, prev + adjustedShields);
           const gained = next - prev;
           if (gained > 0) currentSession.current.recordShieldGained(gained);
           return next;
         });
-        showNotification(`${event.name}: +${value} Shields`, 'success', 3000);
+        showNotification(`${event.name}: +${adjustedShields} Shields`, 'success', 3000);
         break;
       }
       case 'TELEPORT': {
@@ -1185,6 +1432,13 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
       default:
         showNotification(event.name, 'info', 2000);
         break;
+    }
+
+    if (event.type === 'positive') {
+      registerPositiveOutcome(true);
+    }
+    if (event.type === 'negative') {
+      registerPositiveOutcome(false);
     }
   };
 
@@ -1704,6 +1958,8 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
                   </div>
                 </div>
 
+                <PowerUpIndicator activePowerUps={activePowerUps} />
+
                 {/* Compact Action Bar */}
                 <div className="board-actions-compact">
                   <button
@@ -1838,6 +2094,16 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
                     </svg>
                     <span>Stickers</span>
                     {hasNewSticker && <span className="tab-badge-dot" style={{ backgroundColor: cityData.themeColor }}></span>}
+                  </button>
+                  <button
+                    className={`tab-btn ${activeTab === 'powerups' ? 'tab-btn-active' : ''}`}
+                    onClick={() => setActiveTab('powerups')}
+                    style={activeTab === 'powerups' ? { borderBottomColor: cityData.themeColor, color: cityData.themeColor } : {}}
+                  >
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                    <span>Power-Ups</span>
                   </button>
                 </div>
 
@@ -2028,6 +2294,19 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
                           );
                         })}
                       </div>
+                    </div>
+                  )}
+
+                  {activeTab === 'powerups' && (
+                    <div className="tab-panel">
+                      <PowerUpShop
+                        cityLevel={cityLevel}
+                        funds={funds}
+                        activePowerUps={activePowerUps}
+                        cooldowns={powerUpCooldowns}
+                        purchasedPowerUps={purchasedPowerUps}
+                        onPurchase={handlePurchasePowerUp}
+                      />
                     </div>
                   )}
                 </div>
