@@ -116,7 +116,7 @@ All notable changes to the City Slacker project are documented here.
 - Achievement sound for jackpots
 
 #### Next Steps
-- [ ] Task 8.2: Power-Up System (config + shop + indicator)
+- [ ] Task 8.2: Power-Up System (config + shop + indicator) — in progress (foundation merged)
 
 ---
 

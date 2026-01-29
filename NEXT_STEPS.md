@@ -56,7 +56,7 @@
 - ✅ Fortune rewards: Tax Haven + Get Out of Jail Free
 - ✅ Tests passing (196/196)
 
-**Next Step:** Start Task 8.2 - Power-Up System
+**Next Step:** Continue Task 8.2 - Power-Up System (finish effects + tests)
 
 ---
 
@@ -377,15 +377,15 @@ test('Complete progression through all 5 cities', async () => {
 
 ---
 
-## 🎯 Immediate Next Step: Task 8.2 - Power-Up System
+## 🎯 Immediate Next Step: Task 8.2 - Power-Up System (in progress)
 
-**What:** Implement power-up configs, UI shop, and active indicators  
+**What:** Finish power-up effects and test coverage  
 **Where:** `conductor/tracks/phase8_gameplay_enhancement_20260127/plan.md`  
 **Next Actions:**
-1. Create `web/src/config/powerUps.js`
-2. Build `PowerUpShop.jsx` + `PowerUpIndicator.jsx`
-3. Integrate power-up state into `BoardLoop.jsx`
-4. Add tests (~12 new tests)
+1. ✅ Create `web/src/config/powerUps.js`
+2. ✅ Build `PowerUpShop.jsx` + `PowerUpIndicator.jsx`
+3. ✅ Integrate power-up state into `BoardLoop.jsx`
+4. ⏳ Finish effect tuning + add remaining tests (~12 new tests)
 
 ---
 
