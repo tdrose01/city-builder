@@ -33,7 +33,7 @@ If you're an AI agent (like Cursor, GitHub Copilot, or similar) picking up this 
       ✅ Fortune tile component
       ✅ Integration into BoardLoop
       ✅ Write tests (196/196 total)
-   ⏳ Task 8.2: Power-Up System
+   ⏳ Task 8.2: Power-Up System (in progress - foundation merged)
    ⏳ Task 8.3: Special Events System
    ⏳ Task 8.4: Mini-Games
    ⏳ Task 8.5: Enhanced Combo System
@@ -44,7 +44,7 @@ If you're an AI agent (like Cursor, GitHub Copilot, or similar) picking up this 
 - **Test Status:** 196/196 passing (100%)
 - **New Tile Types:** 4 integrated (Lottery, Tax, Jail, Fortune)
 - **Fortune Rewards:** Tax Haven + Get Out of Jail Free card
-- **Next:** Task 8.2 - Power-Up System
+- **Next:** Continue Task 8.2 - Power-Up System (wire remaining effects + tests)
 
 ### 3. What Was Accomplished
 

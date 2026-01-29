@@ -250,7 +250,7 @@ c:\city-slacker\
 - ✅ Task 8.1 complete (new tile types integrated)
 - ✅ Fortune rewards: Tax Haven + Jail Free
 - ✅ Tests passing (196/196)
-- ⏳ Next: Task 8.2 Power-Up System
+- ⏳ Next: Continue Task 8.2 Power-Up System (finish effects + tests)
 
 ### Phase 6: ✅ Complete
 **Focus:** Multi-City Content Expansion (Cities 6-10)  
@@ -422,5 +422,5 @@ test: Add city transition test coverage
 ---
 
 **Status:** Phase 8 active, Task 8.1 complete  
-**Next Milestone:** Task 8.2 - Power-Up System  
+**Next Milestone:** Task 8.2 - Power-Up System (in progress)  
 **Blockers:** None
