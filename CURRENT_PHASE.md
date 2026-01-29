@@ -25,43 +25,35 @@ If you're an AI agent (like Cursor, GitHub Copilot, or similar) picking up this 
 ### 1. Review Phase 8 Progress
 ```
 📁 Phase 8 - IN PROGRESS 🚧
-   ✅ Task 8.1: New Tile Types (100% COMPLETE!)
+   ✅ Task 8.1: New Tile Types (complete)
       ✅ Tile configuration file
       ✅ Lottery tile component
       ✅ Tax tile component
       ✅ Jail tile component
       ✅ Fortune tile component
       ✅ Integration into BoardLoop
-      ✅ Comprehensive tests (38 new tests)
-   ⏳ Task 8.2: Power-Up System (NEXT)
+      ✅ Write tests (196/196 total)
+   ⏳ Task 8.2: Power-Up System
    ⏳ Task 8.3: Special Events System
    ⏳ Task 8.4: Mini-Games
    ⏳ Task 8.5: Enhanced Combo System
 ```
 
 ### 2. Current State (Phase 8 Active)
-- **Phase 8:** 🚧 In Progress (Task 8.1: ✅ COMPLETE, Task 8.2: Next)
-- **Test Status:** 225/233 passing (96.6% - 8 cosmetic failures)
-- **New Tile Types:** 4 fully integrated (Lottery, Tax, Jail, Fortune)
-- **Lines Added:** ~1,639 lines (configs + components + integration + tests)
+- **Phase 8:** 🚧 In Progress (Task 8.1 complete)
+- **Test Status:** 196/196 passing (100%)
+- **New Tile Types:** 4 integrated (Lottery, Tax, Jail, Fortune)
+- **Fortune Rewards:** Tax Haven + Get Out of Jail Free card
 - **Next:** Task 8.2 - Power-Up System
 
 ### 3. What Was Accomplished
 
-**Phase 8 Task 8.1 (COMPLETE):**
-- ✅ 4 new interactive tile types fully integrated into game
-  - 🎰 Lottery: Gambling with tiered odds (75%/20%/5%)
-  - 💸 Tax: 10% deduction with min/max caps
-  - 🔒 Jail: Turn skip with bail/escape mechanics
-  - 🔮 Fortune: 10 weighted random events
-- ✅ Complete modal system with AnimatePresence
-- ✅ Jail status tracking and persistence
-- ✅ Economic scaling system (1.4x per city)
-- ✅ All 5 cities updated with new tiles
-- ✅ 38 comprehensive tests (100% pass rate)
-- ✅ Save/load integration
-- ✅ Sound effects and particle effects
-- ✅ Power-up framework (ready for Task 8.2)
+**Phase 8 progress (so far):**
+- 4 new interactive tile types integrated into BoardLoop
+- Fortune event system (12 weighted events) with Tax Haven + Jail Free rewards
+- Modal UX and audio cues wired to tile outcomes
+- New tile state persisted (jail turns, skip turns, fortune effects)
+- Tests updated and passing (196/196)
 
 **Phase 6 delivered:**
 - 3 new playable cities (Crystal Plaza, Starlight District, Neon Skyline)

@@ -1,9 +1,8 @@
 # Phase 8 - Task 8.1: New Tile Types - Progress Report
 
 **Task:** Add 4 new interactive tile types to enhance gameplay  
-**Status:** ✅ **100% COMPLETE**  
-**Date:** January 27, 2026  
-**Completion Time:** ~4 hours
+**Status:** ✅ Complete (7/7 subtasks done)  
+**Date:** January 27, 2026
 
 ---
 
@@ -106,7 +105,7 @@
 
 **Features:**
 - Random event generator with weighted probabilities
-- 13 total events across 3 categories
+- 12 total events across 3 categories
 - Mystical crystal ball animation
 - Card flip reveal effect
 - Event-specific particles and sounds
@@ -116,17 +115,19 @@
 - **Neutral (30%):** Teleportation, tile swaps, nothing
 - **Negative (10%):** Lose funds, skip turn
 
-**13 Events:**
-1. **Lucky Find** - +$2,000 scaled (20%)
-2. **Street Tip** - +$1,000 scaled (15%)
-3. **Dice Delivery** - +5 dice (15%)
-4. **Protection Charm** - +2 shields (10%)
-5. **Wormhole** - +5 spaces (10%)
-6. **Time Warp** - -3 spaces (8%)
-7. **Dimension Shift** - Random tile (7%)
-8. **False Alarm** - Nothing (5%)
-9. **Pickpocket** - -$1,000 scaled (5%)
-10. **Stuck in Traffic** - Skip 1 turn (5%)
+**12 Events:**
+1. **Lucky Find** - +$2,000 scaled
+2. **Street Tip** - +$1,000 scaled
+3. **Dice Delivery** - +5 dice
+4. **Protection Charm** - +2 shields
+5. **Tax Haven** - Next tax waived
+6. **Get Out of Jail Free** - Card reward
+7. **Wormhole** - +5 spaces
+8. **Time Warp** - -3 spaces
+9. **Dimension Shift** - Random tile
+10. **False Alarm** - Nothing
+11. **Pickpocket** - -$1,000 scaled
+12. **Stuck in Traffic** - Skip 1 turn
 
 **UI Elements:**
 - Purple-themed modal with mystical effects
@@ -137,52 +138,12 @@
 
 ---
 
-## ✅ Completed Work (Final)
+## ✅ Remaining Work
 
-### 6. Integration into BoardLoop ✅
-**Time Taken:** 2 hours
-
-**Completed Tasks:**
-- ✅ Added new tile types to all 5 CITIES configurations
-- ✅ Updated tile landing logic in `resolveTileLanding`
-- ✅ Implemented tile-specific state (jail status, modals)
-- ✅ Added modal rendering with AnimatePresence
-- ✅ Updated save/load to include jail status
-- ✅ Tested integration - all tiles working
-
-**Integration Points:**
-- Lines 1-15: Component imports
-- Lines 283-284: State management
-- Lines 501-535: Tile resolution cases
-- Lines 546-552: Jail check in roll handler
-- Lines 325-343: Save state
-- Lines 309: Load state
-- Lines 1871-1990: Modal rendering
-- Lines 24-162: City configurations
-
----
-
-### 7. Comprehensive Tests ✅
-**Time Taken:** 1 hour
-
-**Test Coverage Achieved:**
-- ✅ **38 new tests created**
-- ✅ **100% pass rate** (38/38 passing)
-- ✅ Tile configuration tests (scaling, exports)
-- ✅ Lottery tile tests (probabilities, EV, cost)
-- ✅ Tax tile tests (rate, bounds, scaling)
-- ✅ Jail tile tests (bail, escape, turns)
-- ✅ Fortune tile tests (events, weights, distribution)
-- ✅ Statistical validation (10,000 iterations)
-
-**Test File:**
-- `web/src/components/__tests__/TileTypes.test.jsx` (379 lines)
-
-**Coverage:**
-- Configuration logic: 100%
-- Economic scaling: 100%
-- Event selection: 100%
-- Probability distribution: Validated statistically
+All Task 8.1 subtasks completed:
+- ✅ Integrated tiles into BoardLoop for all cities
+- ✅ Added tile-specific state and persistence (jail/skip turns)
+- ✅ Added tests for configs and UI guards
 
 ---
 
@@ -201,51 +162,46 @@
 
 ### Features Implemented
 - 4 new tile types
-- 13 fortune events
+- 12 fortune events
 - 3 escape methods (jail)
 - Economic scaling for all tiles
-- Power-up support framework
+- Power-up support framework (Tax Haven + Jail Free rewards)
 - Sound effects integration
 - Particle effects
 
 ---
 
-## 🎯 Success Criteria - ALL MET ✅
+## 🎯 Success Criteria
 
 ### Completed ✅
 - ✅ All 4 tile types designed and implemented
 - ✅ Economic scaling working correctly
 - ✅ Animations smooth and polished
 - ✅ Sound effects integrated
-- ✅ Power-up support framework added
+- ✅ Power-up support added
 - ✅ UI/UX consistent with game style
-- ✅ Tiles integrated into game loop
-- ✅ Comprehensive test coverage (38 new tests, 100% pass rate)
-- ✅ No critical regressions (8 cosmetic test failures in MultiCity tests)
-- ✅ Documentation complete
+
+### Pending ⏳
+- ⏳ Task 8.2: Power-Up System
+- ⏳ Task 8.3: Special Events System
+- ⏳ Task 8.4: Mini-Games
+- ⏳ Task 8.5: Enhanced Combo System
 
 ---
 
 ## 🚀 Next Steps
 
-### Task 8.1 Complete! ✅
-All objectives met. Ready for Task 8.2.
+### Immediate
+1. Start Task 8.2 - Power-Up System
+2. Create power-up configs and shop UI
+3. Integrate power-up state into BoardLoop
+4. Add tests for power-up logic
 
-### Phase 8 Continuation
-1. **Task 8.2: Power-Up System** (2-3 hours)
-   - Implement Tax Haven power-up
-   - Implement Jail Free Card
-   - Add 4 additional power-ups
-   - Power-up shop UI
-   - Power-up indicator HUD
-
-2. **Task 8.3: Special Events System** (2-3 hours)
-3. **Task 8.4: Mini-Games** (2-3 hours)
-4. **Task 8.5: Enhanced Combo System** (1-2 hours)
-
-### Optional Cleanup
-- Update MultiCity.test.jsx to expect new tile types (8 tests)
-- This is cosmetic only - functionality works perfectly
+### Long-term (Phase 8 continuation)
+1. Task 8.2: Power-Up System
+2. Task 8.3: Special Events System
+3. Task 8.4: Mini-Games
+4. Task 8.5: Enhanced Combo System
 
 ---
 
@@ -295,12 +251,12 @@ All objectives met. Ready for Task 8.2.
 
 ## 🎉 Conclusion
 
-**Task 8.1 is 75% complete** with strong foundations laid for 4 exciting new tile types. The components are polished, animated, and ready for integration. Once integrated and tested, these tiles will significantly enhance gameplay depth and player engagement.
+**Task 8.1 is complete** with all 4 new tile types integrated, tested, and wired into gameplay. Fortune rewards now include Tax Haven and Get Out of Jail Free, adding more strategic depth.
 
-**Next milestone:** Complete integration and testing to reach 100%.
+**Next milestone:** Task 8.2 - Power-Up System.
 
 ---
 
 **Last Updated:** January 27, 2026  
-**Status:** In Progress  
-**Commits:** 2 (tile components + documentation)
+**Status:** Complete  
+**Commits:** 8f32cfa, 1c41111, 4cda4c9

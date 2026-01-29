@@ -2,7 +2,7 @@
 
 **Last Updated:** January 27, 2026  
 **Version:** Phase 8 In Progress - Gameplay Enhancement  
-**Build Status:** ✅ All Tests Passing (190+/190+) | 🚧 Phase 8 Development Active
+**Build Status:** ✅ All Tests Passing (196/196) | 🚧 Phase 8 Development Active
 
 ---
 
@@ -21,6 +21,7 @@
 - ✅ **Board Loop**: 20-tile circuit with 5 tiles per side
 - ✅ **Dice System**: Roll mechanics with doubles bonus and High Roller multipliers
 - ✅ **Tile Types**: 14+ types including Funds, Heist, Shield, Shutdown, Landmark, **Lottery 🎰, Tax 💸, Jail 🔒, Fortune 🔮** (NEW!)
+  - Fortune rewards now include **Tax Haven** and **Get Out of Jail Free**
 - ✅ **Upgrade System**: Landmark progression with 5 levels per landmark
 - ✅ **Event Meter**: Milestone-based progression with rewards
 - ✅ **Combo System**: Mini-objective with bonus rewards
@@ -80,9 +81,9 @@
 ## 📊 Technical Metrics
 
 ### Test Coverage
-- **Total Tests:** 171
+- **Total Tests:** 196
 - **Pass Rate:** 100%
-- **Test Duration:** ~22 seconds
+- **Test Duration:** ~13 seconds
 - **Coverage Areas:**
   - BoardLoop component and effects (30+ tests)
   - City Transitions (25 tests)
@@ -108,6 +109,12 @@
 ---
 
 ## 🔧 Recent Changes (Jan 27, 2026)
+
+### Phase 8 Task 8.1: New Tile Types Complete
+- ✅ Integrated Lottery, Tax, Jail, Fortune tiles into BoardLoop (all cities)
+- ✅ Fortune rewards include Tax Haven + Get Out of Jail Free
+- ✅ Tile state persistence for jail/skip turns and fortune effects
+- ✅ Tests updated; 196/196 passing
 
 ### Phase 5: Polish & Enhancement - COMPLETE ✨
 
@@ -239,9 +246,15 @@ c:\city-slacker\
 - Production-ready performance optimizations
 - Comprehensive documentation
 
-### Phase 6: 📋 Ready to Start
+### Phase 8: 🚧 In Progress (Gameplay Enhancement)
+- ✅ Task 8.1 complete (new tile types integrated)
+- ✅ Fortune rewards: Tax Haven + Jail Free
+- ✅ Tests passing (196/196)
+- ⏳ Next: Task 8.2 Power-Up System
+
+### Phase 6: ✅ Complete
 **Focus:** Multi-City Content Expansion (Cities 6-10)  
-**Status:** Ready to begin
+**Status:** Complete
 **Estimated:** 10-15 hours
 
 ---
@@ -319,12 +332,8 @@ All major issues resolved in recent updates.
 
 ## 📝 Git Status
 
-### Branch: master
-- **Ahead of origin/master:** 42 commits
-- **Modified Files (uncommitted):**
-  - `web/src/components/BoardLoop.jsx` (linting fixes)
-  - `web/src/components/Notification.jsx` (import fix)
-  - `web/src/utils/sessionAnalytics.js` (crash prevention)
+### Branch: cursor/next-steps-groundwork-1d53
+- **Working Tree:** Clean
 
 ### Recent Commits
 1. `85c22d6` - Add Cities 3, 4, 5 with progressive multipliers
@@ -412,6 +421,6 @@ test: Add city transition test coverage
 
 ---
 
-**Status:** Production-ready, Phase 5 complete  
-**Next Milestone:** Phase 6 - Multi-city content expansion (Cities 6-10)  
+**Status:** Phase 8 active, Task 8.1 complete  
+**Next Milestone:** Task 8.2 - Power-Up System  
 **Blockers:** None

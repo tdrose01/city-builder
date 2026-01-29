@@ -33,6 +33,15 @@ Enhance City Slacker's core gameplay loop with exciting new mechanics, tile type
 
 ---
 
+## ✅ Current Progress
+
+- Task 8.1 complete: Lottery, Tax, Jail, Fortune tiles integrated
+- Fortune rewards include Tax Haven + Get Out of Jail Free
+- Tests passing: 196/196
+- Next: Task 8.2 - Power-Up System
+
+---
+
 ## 🎮 Feature Specifications
 
 ### Task 8.1: New Tile Types (3-4h)

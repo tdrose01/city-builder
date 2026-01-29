@@ -6,7 +6,7 @@ All notable changes to the City Slacker project are documented here.
 
 **Phase 8 is adding exciting new tile types and mechanics to deepen gameplay.**
 
-### ✅ Task 8.1: New Tile Types (COMPLETE - 100%)
+### 🎰 Task 8.1: New Tile Types (COMPLETE)
 
 #### New Tile Types Added
 
@@ -53,17 +53,19 @@ All notable changes to the City Slacker project are documented here.
   - **Positive (60% total weight)**: Bonus funds, free dice, shields, lucky finds
   - **Neutral (30% total weight)**: Teleportation, tile swaps, nothing
   - **Negative (10% total weight)**: Lose funds, skip turn
-- **13 Total Events**:
-  1. Lucky Find (+$2,000 scaled, 20%)
-  2. Street Tip (+$1,000 scaled, 15%)
-  3. Dice Delivery (+5 dice, 15%)
-  4. Protection Charm (+2 shields, 10%)
-  5. Wormhole (+5 spaces, 10%)
-  6. Time Warp (-3 spaces, 8%)
-  7. Dimension Shift (random tile, 7%)
-  8. False Alarm (nothing, 5%)
-  9. Pickpocket (-$1,000 scaled, 5%)
-  10. Stuck in Traffic (skip 1 turn, 5%)
+- **12 Total Events**:
+  1. Lucky Find (+$2,000 scaled)
+  2. Street Tip (+$1,000 scaled)
+  3. Dice Delivery (+5 dice)
+  4. Protection Charm (+2 shields)
+  5. Tax Haven (next tax waived)
+  6. Get Out of Jail Free (card reward)
+  7. Wormhole (+5 spaces)
+  8. Time Warp (-3 spaces)
+  9. Dimension Shift (random tile)
+  10. False Alarm (nothing)
+  11. Pickpocket (-$1,000 scaled)
+  12. Stuck in Traffic (skip 1 turn)
 - Features:
   - Mystical crystal ball animation
   - Card flip reveal effect
@@ -87,6 +89,12 @@ All notable changes to the City Slacker project are documented here.
 
 **Total Lines Added:** ~1,260 lines
 
+#### Integration & Testing
+- ✅ Integrated tiles into BoardLoop for all 5 cities
+- ✅ Added tile state persistence (jail/skip turns)
+- ✅ Fortune rewards include Tax Haven + Jail Free
+- ✅ Tests updated: 196/196 passing
+
 #### Design Features
 
 **Animations:**
@@ -107,59 +115,8 @@ All notable changes to the City Slacker project are documented here.
 - Error sounds for negative outcomes
 - Achievement sound for jackpots
 
-#### Integration Completed ✅
-
-**BoardLoop.jsx Updates:**
-- ✅ Added 4 tile component imports
-- ✅ Created `activeTileModal` state for modal management
-- ✅ Created `jailStatus` state for jail tracking
-- ✅ Added 4 new case statements in `resolveTileLanding`
-- ✅ Implemented modal rendering with AnimatePresence
-- ✅ Integrated fortune event effects (ADD_FUNDS, ADD_DICE, etc.)
-- ✅ Updated jail check in `handleRollDice`
-- ✅ Added jail status to save/load system
-- ✅ Updated all 5 cities with new tile positions
-
-**Tile Placement (All Cities):**
-- Position 2: Lottery (replaced Rent)
-- Position 9: Fortune (replaced Card)
-- Position 13: Tax (replaced Shutdown)
-- Position 18: Jail (replaced Funds)
-
-**Total Integration:** ~120 lines added to BoardLoop.jsx
-
-#### Testing Completed ✅
-
-**New Test File:**
-- `web/src/components/__tests__/TileTypes.test.jsx` (379 lines)
-- 38 comprehensive tests covering:
-  - Economic scaling validation
-  - Lottery probability calculations
-  - Tax calculation with min/max bounds
-  - Jail escape mechanics
-  - Fortune event selection (weighted random)
-  - Statistical distribution testing (10,000 iterations)
-
-**Test Results:**
-- ✅ 38/38 new tests passing (100%)
-- ✅ 225/233 total tests passing (96.6%)
-- ⚠️ 8 cosmetic failures in MultiCity.test.jsx (expects old tile names)
-
-#### Completion Metrics 📊
-
-- **Status**: ✅ 100% COMPLETE
-- **Time**: ~4 hours
-- **Lines Added**: ~1,639 (config + components + integration + tests)
-- **Tests**: 38 new tests (100% pass rate)
-- **Git Commit**: 8deab28
-- **Documentation**: Complete (TASK_8.1_COMPLETION_SUMMARY.md)
-
-#### What's Next: Task 8.2 - Power-Up System 💪
-- Tax Haven power-up (blocks Tax tile)
-- Jail Free Card (escapes Jail)
-- 4 additional power-ups
-- Power-up shop UI
-- Power-up indicator HUD
+#### Next Steps
+- [ ] Task 8.2: Power-Up System (config + shop + indicator)
 
 ---
 

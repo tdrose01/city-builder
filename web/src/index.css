@@ -791,6 +791,26 @@ body {
   background: rgba(200, 140, 30, 0.25);
 }
 
+.board-tile-lottery {
+  border-color: rgba(251, 191, 36, 0.6);
+  background: rgba(160, 110, 20, 0.25);
+}
+
+.board-tile-tax {
+  border-color: rgba(239, 68, 68, 0.6);
+  background: rgba(120, 30, 30, 0.25);
+}
+
+.board-tile-jail {
+  border-color: rgba(107, 114, 128, 0.6);
+  background: rgba(55, 65, 81, 0.25);
+}
+
+.board-tile-fortune {
+  border-color: rgba(168, 85, 247, 0.6);
+  background: rgba(88, 28, 135, 0.25);
+}
+
 @keyframes tile-land-bounce {
   0% { transform: translateZ(10px) scale(1); }
   30% { transform: translateZ(40px) scale(1.1); }

@@ -29,22 +29,22 @@ const CITIES = {
       { id: 0, type: 'Start', name: 'START', payout: 2000 },
       { id: 1, type: 'Funds', name: 'Funds', payout: 1200 },
       { id: 2, type: 'Lottery', name: 'Lottery' },
-      { id: 3, type: 'Bonus', name: 'Bonus' },
+      { id: 3, type: 'Tax', name: 'Tax' },
       { id: 4, type: 'Shield', name: 'Shield', payout: 1 },
       { id: 5, type: 'Corner', name: 'BONUS' },
       { id: 6, type: 'Funds', name: 'Funds', payout: 1500 },
       { id: 7, type: 'Heist', name: 'Heist' },
       { id: 8, type: 'Landmark', name: 'Upgrade', level: 0, upgradeCost: [1000, 2000, 4000, 8000, 16000], maxLevel: 5 },
-      { id: 9, type: 'Fortune', name: 'Fortune' },
-      { id: 10, type: 'Corner', name: 'HEIST' },
+      { id: 9, type: 'Card', name: 'Card' },
+      { id: 10, type: 'Jail', name: 'Jail' },
       { id: 11, type: 'Sticker', name: 'Sticker' },
       { id: 12, type: 'Funds', name: 'Funds', payout: 2000 },
-      { id: 13, type: 'Tax', name: 'Tax' },
+      { id: 13, type: 'Shutdown', name: 'Shutdown' },
       { id: 14, type: 'Bonus', name: 'Bonus' },
-      { id: 15, type: 'Corner', name: 'HEIST' },
+      { id: 15, type: 'Fortune', name: 'Fortune' },
       { id: 16, type: 'Shield', name: 'Shield', payout: 1 },
       { id: 17, type: 'Dice', name: 'Free Dice', payout: 4 },
-      { id: 18, type: 'Jail', name: 'Jail' },
+      { id: 18, type: 'Funds', name: 'Funds', payout: 2500 },
       { id: 19, type: 'Rent', name: 'Rent' },
     ]
   },
@@ -57,22 +57,22 @@ const CITIES = {
       { id: 0, type: 'Start', name: 'START', payout: 2800 },
       { id: 1, type: 'Funds', name: 'Funds', payout: 1680 },
       { id: 2, type: 'Lottery', name: 'Lottery' },
-      { id: 3, type: 'Bonus', name: 'Bonus' },
+      { id: 3, type: 'Tax', name: 'Tax' },
       { id: 4, type: 'Shield', name: 'Shield', payout: 1 },
       { id: 5, type: 'Corner', name: 'BONUS' },
       { id: 6, type: 'Funds', name: 'Funds', payout: 2100 },
       { id: 7, type: 'Heist', name: 'Heist' },
       { id: 8, type: 'Landmark', name: 'Upgrade', level: 0, upgradeCost: [1400, 2800, 5600, 11200, 22400], maxLevel: 5 },
-      { id: 9, type: 'Fortune', name: 'Fortune' },
-      { id: 10, type: 'Corner', name: 'HEIST' },
+      { id: 9, type: 'Card', name: 'Card' },
+      { id: 10, type: 'Jail', name: 'Jail' },
       { id: 11, type: 'Sticker', name: 'Sticker' },
       { id: 12, type: 'Funds', name: 'Funds', payout: 2800 },
-      { id: 13, type: 'Tax', name: 'Tax' },
+      { id: 13, type: 'Shutdown', name: 'Shutdown' },
       { id: 14, type: 'Bonus', name: 'Bonus' },
-      { id: 15, type: 'Corner', name: 'HEIST' },
+      { id: 15, type: 'Fortune', name: 'Fortune' },
       { id: 16, type: 'Shield', name: 'Shield', payout: 1 },
       { id: 17, type: 'Dice', name: 'Free Dice', payout: 5 },
-      { id: 18, type: 'Jail', name: 'Jail' },
+      { id: 18, type: 'Funds', name: 'Funds', payout: 3500 },
       { id: 19, type: 'Rent', name: 'Rent' },
     ]
   },
@@ -85,22 +85,22 @@ const CITIES = {
       { id: 0, type: 'Start', name: 'START', payout: 3920 },      // 2000 * 1.96
       { id: 1, type: 'Funds', name: 'Funds', payout: 2352 },      // 1200 * 1.96
       { id: 2, type: 'Lottery', name: 'Lottery' },
-      { id: 3, type: 'Bonus', name: 'Bonus' },
+      { id: 3, type: 'Tax', name: 'Tax' },
       { id: 4, type: 'Shield', name: 'Shield', payout: 1 },
       { id: 5, type: 'Corner', name: 'BONUS' },
       { id: 6, type: 'Funds', name: 'Funds', payout: 2940 },      // 1500 * 1.96
       { id: 7, type: 'Heist', name: 'Heist' },
       { id: 8, type: 'Landmark', name: 'Upgrade', level: 0, upgradeCost: [1960, 3920, 7840, 15680, 31360], maxLevel: 5 },
-      { id: 9, type: 'Fortune', name: 'Fortune' },
-      { id: 10, type: 'Corner', name: 'HEIST' },
+      { id: 9, type: 'Card', name: 'Card' },
+      { id: 10, type: 'Jail', name: 'Jail' },
       { id: 11, type: 'Sticker', name: 'Sticker' },
       { id: 12, type: 'Funds', name: 'Funds', payout: 3920 },     // 2000 * 1.96
-      { id: 13, type: 'Tax', name: 'Tax' },
+      { id: 13, type: 'Shutdown', name: 'Shutdown' },
       { id: 14, type: 'Bonus', name: 'Bonus' },
-      { id: 15, type: 'Corner', name: 'HEIST' },
+      { id: 15, type: 'Fortune', name: 'Fortune' },
       { id: 16, type: 'Shield', name: 'Shield', payout: 1 },
       { id: 17, type: 'Dice', name: 'Free Dice', payout: 7 },     // 4 * 1.75 (rounded)
-      { id: 18, type: 'Jail', name: 'Jail' },
+      { id: 18, type: 'Funds', name: 'Funds', payout: 4900 },     // 2500 * 1.96
       { id: 19, type: 'Rent', name: 'Rent' },
     ]
   },
@@ -113,22 +113,22 @@ const CITIES = {
       { id: 0, type: 'Start', name: 'START', payout: 5488 },      // 2000 * 2.744
       { id: 1, type: 'Funds', name: 'Funds', payout: 3293 },      // 1200 * 2.744
       { id: 2, type: 'Lottery', name: 'Lottery' },
-      { id: 3, type: 'Bonus', name: 'Bonus' },
+      { id: 3, type: 'Tax', name: 'Tax' },
       { id: 4, type: 'Shield', name: 'Shield', payout: 1 },
       { id: 5, type: 'Corner', name: 'BONUS' },
       { id: 6, type: 'Funds', name: 'Funds', payout: 4116 },      // 1500 * 2.744
       { id: 7, type: 'Heist', name: 'Heist' },
       { id: 8, type: 'Landmark', name: 'Upgrade', level: 0, upgradeCost: [2744, 5488, 10976, 21952, 43904], maxLevel: 5 },
-      { id: 9, type: 'Fortune', name: 'Fortune' },
-      { id: 10, type: 'Corner', name: 'HEIST' },
+      { id: 9, type: 'Card', name: 'Card' },
+      { id: 10, type: 'Jail', name: 'Jail' },
       { id: 11, type: 'Sticker', name: 'Sticker' },
       { id: 12, type: 'Funds', name: 'Funds', payout: 5488 },     // 2000 * 2.744
-      { id: 13, type: 'Tax', name: 'Tax' },
+      { id: 13, type: 'Shutdown', name: 'Shutdown' },
       { id: 14, type: 'Bonus', name: 'Bonus' },
-      { id: 15, type: 'Corner', name: 'HEIST' },
+      { id: 15, type: 'Fortune', name: 'Fortune' },
       { id: 16, type: 'Shield', name: 'Shield', payout: 1 },
       { id: 17, type: 'Dice', name: 'Free Dice', payout: 10 },    // 4 * 2.5 (rounded)
-      { id: 18, type: 'Jail', name: 'Jail' },
+      { id: 18, type: 'Funds', name: 'Funds', payout: 6860 },     // 2500 * 2.744
       { id: 19, type: 'Rent', name: 'Rent' },
     ]
   },
@@ -141,22 +141,22 @@ const CITIES = {
       { id: 0, type: 'Start', name: 'START', payout: 7683 },      // 2000 * 3.8416
       { id: 1, type: 'Funds', name: 'Funds', payout: 4610 },      // 1200 * 3.8416
       { id: 2, type: 'Lottery', name: 'Lottery' },
-      { id: 3, type: 'Bonus', name: 'Bonus' },
+      { id: 3, type: 'Tax', name: 'Tax' },
       { id: 4, type: 'Shield', name: 'Shield', payout: 1 },
       { id: 5, type: 'Corner', name: 'BONUS' },
       { id: 6, type: 'Funds', name: 'Funds', payout: 5762 },      // 1500 * 3.8416
       { id: 7, type: 'Heist', name: 'Heist' },
       { id: 8, type: 'Landmark', name: 'Upgrade', level: 0, upgradeCost: [3842, 7683, 15366, 30733, 61466], maxLevel: 5 },
-      { id: 9, type: 'Fortune', name: 'Fortune' },
-      { id: 10, type: 'Corner', name: 'HEIST' },
+      { id: 9, type: 'Card', name: 'Card' },
+      { id: 10, type: 'Jail', name: 'Jail' },
       { id: 11, type: 'Sticker', name: 'Sticker' },
       { id: 12, type: 'Funds', name: 'Funds', payout: 7683 },     // 2000 * 3.8416
-      { id: 13, type: 'Tax', name: 'Tax' },
+      { id: 13, type: 'Shutdown', name: 'Shutdown' },
       { id: 14, type: 'Bonus', name: 'Bonus' },
-      { id: 15, type: 'Corner', name: 'HEIST' },
+      { id: 15, type: 'Fortune', name: 'Fortune' },
       { id: 16, type: 'Shield', name: 'Shield', payout: 1 },
       { id: 17, type: 'Dice', name: 'Free Dice', payout: 14 },    // 4 * 3.5 (rounded)
-      { id: 18, type: 'Jail', name: 'Jail' },
+      { id: 18, type: 'Funds', name: 'Funds', payout: 9604 },     // 2500 * 3.8416
       { id: 19, type: 'Rent', name: 'Rent' },
     ]
   }
@@ -264,6 +264,12 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
   const [fundsTilesLanded, setFundsTilesLanded] = useState(0);
   const [showStickerCollection] = useState(false);
   const [hasNewSticker, setHasNewSticker] = useState(false);
+  const [activeTileModal, setActiveTileModal] = useState(null);
+  const [pendingFortuneEffect, setPendingFortuneEffect] = useState(null);
+  const [skipTurnsRemaining, setSkipTurnsRemaining] = useState(0);
+  const [jailTurnsRemaining, setJailTurnsRemaining] = useState(0);
+  const [hasJailFreeCard, setHasJailFreeCard] = useState(false);
+  const [hasTaxHavenPowerUp, setHasTaxHavenPowerUp] = useState(false);
   
   // City transition state
   const [cityTransitionActive, setCityTransitionActive] = useState(false);
@@ -279,10 +285,6 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
   const [_showTiles, setShowTiles] = useState(true);
   const [lastSaved, setLastSaved] = useState(null);
   const [showAnalytics, setShowAnalytics] = useState(false);
-  
-  // Phase 8: New tile type modals
-  const [activeTileModal, setActiveTileModal] = useState(null); // { type: 'lottery'|'tax'|'jail'|'fortune', data: {...} }
-  const [jailStatus, setJailStatus] = useState({ inJail: false, turnsRemaining: 0 }); // Track jail state
 
   // Analytics: Session tracking
   const currentSession = useRef(new SessionMetrics());
@@ -306,7 +308,6 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
       if (savedState.eventPrestigeLevel !== undefined) setEventPrestigeLevel(savedState.eventPrestigeLevel);
       if (savedState.playerStickers !== undefined) setPlayerStickers(savedState.playerStickers);
       if (savedState.stickerPacksAvailable !== undefined) setStickerPacksAvailable(savedState.stickerPacksAvailable);
-      if (savedState.jailStatus !== undefined) setJailStatus(savedState.jailStatus); // Phase 8: Restore jail status
       if (savedState.dust !== undefined) setDust(savedState.dust);
       if (savedState.setTokens !== undefined) setSetTokens(savedState.setTokens);
       if (savedState.milestoneRewardsClaimed !== undefined) setMilestoneRewardsClaimed(savedState.milestoneRewardsClaimed);
@@ -315,6 +316,10 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
       if (savedState.totalUpgrades !== undefined) setTotalUpgrades(savedState.totalUpgrades);
       if (savedState.totalShieldsCollected !== undefined) setTotalShieldsCollected(savedState.totalShieldsCollected);
       if (savedState.fundsTilesLanded !== undefined) setFundsTilesLanded(savedState.fundsTilesLanded);
+      if (savedState.skipTurnsRemaining !== undefined) setSkipTurnsRemaining(savedState.skipTurnsRemaining);
+      if (savedState.jailTurnsRemaining !== undefined) setJailTurnsRemaining(savedState.jailTurnsRemaining);
+      if (savedState.hasJailFreeCard !== undefined) setHasJailFreeCard(savedState.hasJailFreeCard);
+      if (savedState.hasTaxHavenPowerUp !== undefined) setHasTaxHavenPowerUp(savedState.hasTaxHavenPowerUp);
 
       showNotification("Game Loaded!", 'success', 2000);
     }
@@ -340,9 +345,12 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
         totalUpgrades,
         totalShieldsCollected,
         fundsTilesLanded,
+        skipTurnsRemaining,
+        jailTurnsRemaining,
+        hasJailFreeCard,
+        hasTaxHavenPowerUp,
         playerPosition,
-        tiles, // Persist tile state (including upgrades)
-        jailStatus // Phase 8: Persist jail status
+        tiles // Persist tile state (including upgrades)
       };
       const success = saveGame(stateToSave);
       if (success) {
@@ -356,6 +364,7 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
     playerStickers, stickerPacksAvailable, dust, setTokens,
     milestoneRewardsClaimed, setCompletionRewardsClaimed,
     totalRolls, totalUpgrades, totalShieldsCollected, fundsTilesLanded,
+    skipTurnsRemaining, jailTurnsRemaining, hasJailFreeCard, hasTaxHavenPowerUp,
     playerPosition, tiles
   ]);
 
@@ -498,57 +507,40 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
         currentSession.current.recordDiceChange(dicePayout);
         break;
       }
-      case 'Lottery': {
-        // Open Lottery modal
-        setActiveTileModal({ 
-          type: 'lottery', 
-          data: { cityLevel, currentFunds: funds } 
-        });
-        audioManager.playSFX('click');
+      case 'Lottery':
+        setActiveTileModal('lottery');
+        setAutoRollEnabled(false);
         break;
-      }
-      case 'Tax': {
-        // Open Tax modal
-        setActiveTileModal({ 
-          type: 'tax', 
-          data: { cityLevel, currentFunds: funds } 
-        });
-        audioManager.playSFX('error');
+      case 'Tax':
+        setActiveTileModal('tax');
+        setAutoRollEnabled(false);
         break;
-      }
-      case 'Jail': {
-        // Open Jail modal
-        setActiveTileModal({ 
-          type: 'jail', 
-          data: { cityLevel, currentFunds: funds } 
-        });
-        audioManager.playSFX('error');
+      case 'Jail':
+        setActiveTileModal('jail');
+        setAutoRollEnabled(false);
         break;
-      }
-      case 'Fortune': {
-        // Open Fortune modal
-        setActiveTileModal({ 
-          type: 'fortune', 
-          data: { cityLevel } 
-        });
-        audioManager.playSFX('click');
+      case 'Fortune':
+        setActiveTileModal('fortune');
+        setAutoRollEnabled(false);
         break;
-      }
       default:
         break;
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [tiles, funds, shields, currentSession, cityLevel]);
+  }, [tiles, funds, shields, currentSession]);
 
   // Define handleRollDice with useCallback before useEffects that call it
   const handleRollDice = useCallback(async () => {
-    // Check if player is in jail
-    if (jailStatus.inJail && jailStatus.turnsRemaining > 0) {
-      showNotification(`You're in jail! ${jailStatus.turnsRemaining} turn(s) remaining.`, 'warning');
-      setJailStatus(prev => ({ ...prev, turnsRemaining: prev.turnsRemaining - 1 }));
+    if (activeTileModal || cityTransitionActive) {
       return;
     }
-    
+
+    if (skipTurnsRemaining > 0) {
+      const nextTurns = Math.max(0, skipTurnsRemaining - 1);
+      setSkipTurnsRemaining(nextTurns);
+      showNotification(`Turn skipped. ${nextTurns} remaining.`, 'warning', 2000);
+      return;
+    }
+
     if (dice <= 0 || isMoving) {
       if (dice <= 0) showNotification("No dice left! Wait for daily refresh or buy more.", 'warning');
       return;
@@ -576,8 +568,11 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
     }
 
     // Doubles bonus
+    const isInJail = jailTurnsRemaining > 0;
+    const rolledDoubles = die1 === die2;
+
     let doublesBonus = 0;
-    if (die1 === die2) {
+    if (rolledDoubles && !isInJail) {
       doublesBonus = Math.max(1, Math.round(totalRoll * PACING.doublesBonusMultiplier));
       showNotification(`Doubles! You get ${doublesBonus} extra dice!`, 'success', 2000);
       
@@ -609,10 +604,22 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
     setTotalRolls(prev => prev + 1);
 
     // Analytics: Record roll
-    currentSession.current.recordRoll(totalRoll, die1 === die2);
+    currentSession.current.recordRoll(totalRoll, rolledDoubles);
     currentSession.current.recordDiceChange(-1);
     if (doublesBonus > 0) {
       currentSession.current.recordDiceChange(doublesBonus);
+    }
+
+    if (isInJail) {
+      if (rolledDoubles) {
+        setJailTurnsRemaining(0);
+        showNotification("Doubles! You escaped jail.", 'success', 2000);
+      } else {
+        const nextTurns = Math.max(0, jailTurnsRemaining - 1);
+        setJailTurnsRemaining(nextTurns);
+        showNotification(`Still in jail... ${nextTurns} turn${nextTurns === 1 ? '' : 's'} remaining.`, 'warning', 2000);
+        return;
+      }
     }
 
     // Walk the player piece
@@ -645,13 +652,34 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
       }
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dice, isMoving, rollValue, playerPosition, cityLevel, comboTarget, currentCombo, comboRewardClaimed, jailStatus]);
+  }, [
+    activeTileModal,
+    cityTransitionActive,
+    skipTurnsRemaining,
+    dice,
+    isMoving,
+    rollValue,
+    playerPosition,
+    cityLevel,
+    comboTarget,
+    currentCombo,
+    comboRewardClaimed,
+    jailTurnsRemaining
+  ]);
 
   useEffect(() => {
     if (showStickerCollection || activeTab === 'stickers') {
       setHasNewSticker(false);
     }
   }, [showStickerCollection, activeTab]);
+
+  useEffect(() => {
+    if ((activeTileModal || cityTransitionActive) && autoRollEnabled) {
+      setAutoRollEnabled(false);
+      setHudMessage("Autoroll paused - event in progress");
+      setTimeout(() => setHudMessage(null), 2000);
+    }
+  }, [activeTileModal, cityTransitionActive, autoRollEnabled]);
 
   useEffect(() => {
     if (CITIES[cityLevel]) {
@@ -758,6 +786,12 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
         setTotalShieldsCollected(0);
         setFundsTilesLanded(0);
         setLastSaved(null);
+        setActiveTileModal(null);
+        setPendingFortuneEffect(null);
+        setSkipTurnsRemaining(0);
+        setJailTurnsRemaining(0);
+        setHasJailFreeCard(false);
+        setHasTaxHavenPowerUp(false);
 
         showNotification("New Game Started!", 'success', 3000);
         setAutoRollEnabled(false);
@@ -1018,6 +1052,167 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
     }, duration);
   };
 
+  const handleLotteryResult = (netGain) => {
+    if (netGain === 0) return;
+    setFunds(prev => Math.max(0, prev + netGain));
+    currentSession.current.recordFundsChange(netGain);
+    if (netGain > 0) {
+      showNotification(`Lottery win! +$${netGain.toLocaleString()}`, 'success', 3000);
+    } else {
+      showNotification(`Lottery loss: -$${Math.abs(netGain).toLocaleString()}`, 'warning', 3000);
+    }
+  };
+
+  const handleTaxResult = (taxDelta) => {
+    if (taxDelta === 0) {
+      if (hasTaxHavenPowerUp) {
+        setHasTaxHavenPowerUp(false);
+      }
+      showNotification('Tax avoided!', 'success', 2500);
+      return;
+    }
+    setFunds(prev => Math.max(0, prev + taxDelta));
+    currentSession.current.recordFundsChange(taxDelta);
+    showNotification(`Tax paid: -$${Math.abs(taxDelta).toLocaleString()}`, 'warning', 3000);
+  };
+
+  const handleJailResult = (result) => {
+    if (!result) return;
+
+    if (result.type === 'bail') {
+      setFunds(prev => Math.max(0, prev - result.fundsLost));
+      currentSession.current.recordFundsChange(-result.fundsLost);
+      setJailTurnsRemaining(0);
+      showNotification(`Bail paid: -$${result.fundsLost.toLocaleString()}`, 'warning', 3000);
+    }
+
+    if (result.type === 'card') {
+      setHasJailFreeCard(false);
+      setJailTurnsRemaining(0);
+      showNotification('Used Get Out of Jail Free card!', 'success', 3000);
+    }
+
+    if (result.type === 'stay') {
+      setJailTurnsRemaining(result.turnsSkipped || 0);
+      showNotification(`Jail time: ${result.turnsSkipped} turns`, 'warning', 3000);
+    }
+  };
+
+  const applyTeleport = (offset) => {
+    const newPosition = (playerPosition + offset + TILE_COUNT) % TILE_COUNT;
+    setPlayerPosition(newPosition);
+    resolveTileLanding(newPosition);
+
+    const tileElement = document.querySelector(`.tile-id-${newPosition}`);
+    if (tileElement) {
+      const rect = tileElement.getBoundingClientRect();
+      addParticleEffect('sparkles', rect.left + rect.width / 2, rect.top + rect.height / 2, {
+        count: 12,
+        distance: 60,
+        duration: 0.8
+      });
+    }
+  };
+
+  const applyFortuneEffect = (fortune) => {
+    if (!fortune?.event?.effect) return;
+
+    const { event, effectValue } = fortune;
+    const { effect } = event;
+    const value = effectValue ?? effect.value ?? 0;
+
+    switch (effect.type) {
+      case 'ADD_FUNDS': {
+        setFunds(prev => prev + value);
+        currentSession.current.recordFundsChange(value);
+        showNotification(`${event.name}: +$${value.toLocaleString()}`, 'success', 3000);
+        break;
+      }
+      case 'LOSE_FUNDS': {
+        setFunds(prev => Math.max(0, prev - value));
+        currentSession.current.recordFundsChange(-value);
+        showNotification(`${event.name}: -$${value.toLocaleString()}`, 'warning', 3000);
+        break;
+      }
+      case 'ADD_DICE': {
+        setDice(prev => prev + value);
+        currentSession.current.recordDiceChange(value);
+        showNotification(`${event.name}: +${value} Dice`, 'success', 3000);
+        break;
+      }
+      case 'ADD_SHIELDS': {
+        setShields(prev => {
+          const maxShields = ECONOMY.MAX_SHIELDS;
+          const next = Math.min(maxShields, prev + value);
+          const gained = next - prev;
+          if (gained > 0) currentSession.current.recordShieldGained(gained);
+          return next;
+        });
+        showNotification(`${event.name}: +${value} Shields`, 'success', 3000);
+        break;
+      }
+      case 'TELEPORT': {
+        applyTeleport(value);
+        showNotification(event.name, 'info', 2500);
+        break;
+      }
+      case 'RANDOM_TELEPORT': {
+        const candidates = tiles.filter(t => t.id !== playerPosition);
+        const randomTile = candidates[Math.floor(Math.random() * candidates.length)];
+        if (randomTile) {
+          const offset = randomTile.id - playerPosition;
+          applyTeleport(offset);
+        }
+        showNotification(event.name, 'info', 2500);
+        break;
+      }
+      case 'SKIP_TURNS': {
+        setSkipTurnsRemaining(prev => prev + value);
+        showNotification(`${event.name}: Skip ${value} turn${value === 1 ? '' : 's'}`, 'warning', 3000);
+        break;
+      }
+      case 'ACTIVATE_TAX_HAVEN': {
+        setHasTaxHavenPowerUp(true);
+        showNotification('Tax Haven activated (next tax waived)', 'success', 3000);
+        break;
+      }
+      case 'ADD_JAIL_FREE_CARD': {
+        setHasJailFreeCard(true);
+        showNotification('Get Out of Jail Free card added', 'success', 3000);
+        break;
+      }
+      case 'NONE':
+      default:
+        showNotification(event.name, 'info', 2000);
+        break;
+    }
+  };
+
+  const handleFortuneResult = (result) => {
+    if (!result) return;
+    const payload = {
+      event: result.event,
+      effectValue: result.effectValue
+    };
+
+    if (activeTileModal !== 'fortune') {
+      applyFortuneEffect(payload);
+    } else {
+      setPendingFortuneEffect(payload);
+    }
+  };
+
+  const handleFortuneClose = () => {
+    setActiveTileModal(null);
+  };
+
+  useEffect(() => {
+    if (pendingFortuneEffect && activeTileModal !== 'fortune') {
+      applyFortuneEffect(pendingFortuneEffect);
+      setPendingFortuneEffect(null);
+    }
+  }, [pendingFortuneEffect, activeTileModal, applyFortuneEffect]);
+
   const handleUpgradeLandmark = () => {
     const currentTile = tiles.find(t => t.id === playerPosition);
     if (!currentTile || currentTile.type !== 'Landmark' || currentTile.level >= currentTile.maxLevel) {
@@ -1256,6 +1451,10 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
     if (tile.type === 'Funds') tileTypeClass = 'board-tile-funds';
     else if (tile.type === 'Rent') tileTypeClass = 'board-tile-rent';
     else if (tile.type === 'Bonus') tileTypeClass = 'board-tile-bonus';
+    else if (tile.type === 'Lottery') tileTypeClass = 'board-tile-lottery';
+    else if (tile.type === 'Tax') tileTypeClass = 'board-tile-tax';
+    else if (tile.type === 'Jail') tileTypeClass = 'board-tile-jail';
+    else if (tile.type === 'Fortune') tileTypeClass = 'board-tile-fortune';
     else if (tile.type === 'Heist') tileTypeClass = 'board-tile-heist';
     else if (tile.type === 'Shutdown') tileTypeClass = 'board-tile-shutdown';
     else if (tile.type === 'StickerPack') tileTypeClass = 'board-tile-sticker';
@@ -1510,11 +1709,11 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
                   <button
                     className="action-btn action-btn-primary"
                     onClick={handleRollDice}
-                    disabled={rolling || isMoving || dice <= 0 || autoRollEnabled}
+                    disabled={rolling || isMoving || dice <= 0 || autoRollEnabled || activeTileModal || cityTransitionActive}
                     style={{
                       backgroundColor: cityData.themeColor,
                       color: '#000',
-                      opacity: (rolling || isMoving || dice <= 0 || autoRollEnabled) ? 0.5 : 1
+                      opacity: (rolling || isMoving || dice <= 0 || autoRollEnabled || activeTileModal || cityTransitionActive) ? 0.5 : 1
                     }}
                     title="Roll Dice"
                   >
@@ -1879,125 +2078,40 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
         <AnalyticsViewer onClose={() => setShowAnalytics(false)} />
       )}
 
-      {/* Phase 8: New Tile Type Modals */}
-      <AnimatePresence>
-        {activeTileModal?.type === 'lottery' && (
-          <LotteryTile
-            cityLevel={activeTileModal.data.cityLevel}
-            currentFunds={activeTileModal.data.currentFunds}
-            onResult={(netGain) => {
-              setFunds(prev => prev + netGain);
-              currentSession.current.recordFundsChange(netGain);
-              if (netGain > 0) {
-                audioManager.playSFX('success');
-                // Add particle effect for wins
-                const centerX = window.innerWidth / 2;
-                const centerY = window.innerHeight / 2;
-                addParticleEffect('burst', centerX, centerY, { 
-                  count: netGain > 10000 ? 50 : 20, 
-                  distance: 120,
-                  duration: 1.5
-                });
-              }
-            }}
-            onClose={() => setActiveTileModal(null)}
-          />
-        )}
-
-        {activeTileModal?.type === 'tax' && (
-          <TaxTile
-            cityLevel={activeTileModal.data.cityLevel}
-            currentFunds={activeTileModal.data.currentFunds}
-            hasTaxHaven={false} // TODO: Integrate with power-up system in Task 8.2
-            onResult={(taxAmount) => {
-              setFunds(prev => Math.max(0, prev - taxAmount));
-              currentSession.current.recordFundsChange(-taxAmount);
-              audioManager.playSFX('error');
-            }}
-            onClose={() => setActiveTileModal(null)}
-          />
-        )}
-
-        {activeTileModal?.type === 'jail' && (
-          <JailTile
-            cityLevel={activeTileModal.data.cityLevel}
-            currentFunds={activeTileModal.data.currentFunds}
-            hasJailFreeCard={false} // TODO: Integrate with power-up system in Task 8.2
-            onEscape={(method, cost) => {
-              if (method === 'bail' && cost > 0) {
-                setFunds(prev => prev - cost);
-                currentSession.current.recordFundsChange(-cost);
-              }
-              audioManager.playSFX('success');
-              setJailStatus({ inJail: false, turnsRemaining: 0 });
-            }}
-            onStayInJail={(turns) => {
-              setJailStatus({ inJail: true, turnsRemaining: turns });
-              audioManager.playSFX('error');
-            }}
-            onClose={() => setActiveTileModal(null)}
-          />
-        )}
-
-        {activeTileModal?.type === 'fortune' && (
-          <FortuneTile
-            cityLevel={activeTileModal.data.cityLevel}
-            onResult={(effect) => {
-              // Apply fortune event effects
-              switch (effect.type) {
-                case 'ADD_FUNDS': {
-                  const amount = effect.value;
-                  setFunds(prev => prev + amount);
-                  currentSession.current.recordFundsChange(amount);
-                  audioManager.playSFX('success');
-                  break;
-                }
-                case 'ADD_DICE': {
-                  setDice(prev => prev + effect.value);
-                  currentSession.current.recordDiceChange(effect.value);
-                  audioManager.playSFX('success');
-                  break;
-                }
-                case 'ADD_SHIELDS': {
-                  setShields(prev => Math.min(ECONOMY.MAX_SHIELDS, prev + effect.value));
-                  audioManager.playSFX('success');
-                  break;
-                }
-                case 'LOSE_FUNDS': {
-                  const amount = Math.min(funds, effect.value);
-                  setFunds(prev => Math.max(0, prev - amount));
-                  currentSession.current.recordFundsChange(-amount);
-                  audioManager.playSFX('error');
-                  break;
-                }
-                case 'TELEPORT': {
-                  const newPos = (playerPosition + effect.value + TILE_COUNT) % TILE_COUNT;
-                  setPlayerPosition(newPos);
-                  resolveTileLanding(newPos);
-                  audioManager.playSFX('teleport');
-                  break;
-                }
-                case 'RANDOM_TELEPORT': {
-                  const randomPos = Math.floor(Math.random() * TILE_COUNT);
-                  setPlayerPosition(randomPos);
-                  resolveTileLanding(randomPos);
-                  audioManager.playSFX('teleport');
-                  break;
-                }
-                case 'SKIP_TURNS': {
-                  setJailStatus({ inJail: true, turnsRemaining: effect.value });
-                  audioManager.playSFX('error');
-                  break;
-                }
-                default:
-                  // NONE or unhandled
-                  break;
-              }
-            }}
-            onClose={() => setActiveTileModal(null)}
-          />
-        )}
-      </AnimatePresence>
+      {/* Tile Modals */}
+      {activeTileModal === 'lottery' && (
+        <LotteryTile
+          cityLevel={cityLevel}
+          currentFunds={funds}
+          onResult={handleLotteryResult}
+          onClose={() => setActiveTileModal(null)}
+        />
+      )}
+      {activeTileModal === 'tax' && (
+        <TaxTile
+          cityLevel={cityLevel}
+          currentFunds={funds}
+          hasTaxHavenPowerUp={hasTaxHavenPowerUp}
+          onResult={handleTaxResult}
+          onClose={() => setActiveTileModal(null)}
+        />
+      )}
+      {activeTileModal === 'jail' && (
+        <JailTile
+          cityLevel={cityLevel}
+          currentFunds={funds}
+          hasJailFreeCard={hasJailFreeCard}
+          onResult={handleJailResult}
+          onClose={() => setActiveTileModal(null)}
+        />
+      )}
+      {activeTileModal === 'fortune' && (
+        <FortuneTile
+          cityLevel={cityLevel}
+          onResult={handleFortuneResult}
+          onClose={handleFortuneClose}
+        />
+      )}
 
       {/* City Transition Animation */}
       <CityTransition

@@ -124,7 +124,7 @@ export const FORTUNE_CONFIG = {
       type: 'positive',
       name: 'Lucky Find!',
       description: 'You found a briefcase full of cash!',
-      weight: 20,
+      weight: 18,
       effect: {
         type: 'ADD_FUNDS',
         getValue: (cityLevel) => scaleByCity(2000, cityLevel),
@@ -137,7 +137,7 @@ export const FORTUNE_CONFIG = {
       type: 'positive',
       name: 'Street Tip',
       description: 'A friendly local gave you some cash.',
-      weight: 15,
+      weight: 14,
       effect: {
         type: 'ADD_FUNDS',
         getValue: (cityLevel) => scaleByCity(1000, cityLevel),
@@ -150,7 +150,7 @@ export const FORTUNE_CONFIG = {
       type: 'positive',
       name: 'Dice Delivery',
       description: 'A delivery truck dropped dice!',
-      weight: 15,
+      weight: 12,
       effect: {
         type: 'ADD_DICE',
         value: 5,
@@ -163,13 +163,37 @@ export const FORTUNE_CONFIG = {
       type: 'positive',
       name: 'Protection Charm',
       description: 'You found protective shields!',
-      weight: 10,
+      weight: 8,
       effect: {
         type: 'ADD_SHIELDS',
         value: 2,
       },
       particle: 'burst',
       sound: 'success',
+    },
+    {
+      id: 'tax_haven',
+      type: 'positive',
+      name: 'Tax Haven',
+      description: 'Your next tax payment is waived.',
+      weight: 4,
+      effect: {
+        type: 'ACTIVATE_TAX_HAVEN',
+      },
+      particle: 'sparkles',
+      sound: 'success',
+    },
+    {
+      id: 'jail_free_card',
+      type: 'positive',
+      name: 'Get Out of Jail Free',
+      description: 'Keep this card for your next jail visit.',
+      weight: 4,
+      effect: {
+        type: 'ADD_JAIL_FREE_CARD',
+      },
+      particle: 'stars',
+      sound: 'achievement',
     },
     
     // NEUTRAL EVENTS (30 total weight)
