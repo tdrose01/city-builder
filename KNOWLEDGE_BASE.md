@@ -1,8 +1,8 @@
 # Knowledge Base - City Slacker Project
 
-**Last Updated:** 2026-01-27 22:56  
-**Current Phase:** Phase 8 - Gameplay Enhancement (Task 8.1 ✅)  
-**Total Entries:** 15
+**Last Updated:** 2026-01-29 19:57  
+**Current Phase:** Phase 8 - Gameplay Enhancement (Task 8.2 🚧)  
+**Total Entries:** 18
 
 ## Quick Links
 - [Recent Changes](#recent-changes) (Last 30 days)
@@ -14,10 +14,10 @@
 - [Known Issues & Workarounds](#known-issues--workarounds)
 
 ## Project Statistics
-- **Total Commits:** 52 
-- **Total Files:** 214
-- **Test Coverage:** 196/196 passing (warnings logged; no failures)
-- **Phase:** 8 - Gameplay Enhancement (Task 8.1 ✅)
+- **Total Commits:** 59 
+- **Total Files:** 16325
+- **Test Coverage:** Not run (docs-only update)
+- **Phase:** 8 - Gameplay Enhancement (Task 8.2 🚧)
 - **Post-Launch Fixes:** 4 performance and UX improvements applied
 - **Dependencies:** 344 packages
 - **Lines of Code:** 29,714+
@@ -27,6 +27,94 @@
 ---
 
 ## Recent Changes
+
+### [2026-01-29 19:57] - Task 8.2 Next Actions Refined
+
+**Type:** Documentation  
+**Status:** Completed  
+**Commit:** c693e3c  
+**Author:** AI Agent (Codex)
+
+#### What Changed
+- Updated Task 8.2 immediate next actions to mark completed steps and focus on remaining effects/tests
+
+#### Why
+Keep the Task 8.2 checklist accurate after the power-up foundation work.
+
+#### Impact
+- Clarifies remaining work for Task 8.2
+- No code or dependency changes
+
+#### Related Files
+- `NEXT_STEPS.md`
+
+#### Testing
+- Not run (docs-only update)
+
+---
+
+### [2026-01-29 19:55] - Task 8.2 Documentation Sync
+
+**Type:** Documentation  
+**Status:** Completed  
+**Commit:** a653874  
+**Author:** AI Agent (Codex)
+
+#### What Changed
+- Updated Phase 8 status to note Task 8.2 is in progress with power-up foundation merged
+- Clarified next steps and milestones for completing power-up effects and tests
+
+#### Why
+Keep phase tracking docs aligned with current Task 8.2 progress.
+
+#### Impact
+- Documentation reflects current power-up system status
+- No gameplay or dependency changes
+
+#### Related Files
+- `CHANGELOG.md`
+- `CURRENT_PHASE.md`
+- `STATUS.md`
+- `NEXT_STEPS.md`
+
+#### Testing
+- Not run (docs-only update)
+
+---
+
+### [2026-01-29 14:07] - Task 8.2 Power-Up System Foundation
+
+**Type:** Feature + UI + Test + Configuration  
+**Status:** Completed  
+**Commit:** 6aeac49  
+**Author:** AI Agent (Codex)
+
+#### What Changed
+- Added power-up configuration catalog with costs, durations, and effects
+- Built PowerUpShop and PowerUpIndicator UI components with HUD integration
+- Integrated power-up state, activation, and reward modifiers into BoardLoop with save/load support
+- Added power-up unit tests and supporting styles
+
+#### Why
+Start Task 8.2 by wiring the core power-up system, UI, and gameplay hooks.
+
+#### Impact
+- Players can purchase power-ups and see active boosts in the HUD
+- Reward calculations now respect active power-up modifiers
+- No dependency changes
+
+#### Related Files
+- `web/src/config/powerUps.js`
+- `web/src/components/PowerUpShop.jsx`
+- `web/src/components/PowerUpIndicator.jsx`
+- `web/src/components/BoardLoop.jsx`
+- `web/src/components/__tests__/PowerUps.test.jsx`
+- `web/src/index.css`
+
+#### Testing
+- `npm test -- src/components/__tests__/PowerUps.test.jsx`
+
+---
 
 ### [2026-01-27 22:56] - Documentation Refresh for Phase 8 Status
 
@@ -1282,12 +1370,13 @@ Preparing project for public/private GitHub repository. Security cleanup to prev
 ### Phase 8: Gameplay Enhancement (January 2026)
 
 **Status:** 🚧 In Progress  
-**Latest Update:** 2026-01-27
+**Latest Update:** 2026-01-29
 
 #### Progress
 - ✅ Task 8.1 complete: Lottery, Tax, Jail, Fortune tiles integrated (commit 8f32cfa)
 - ✅ Tile-type tests added (config + LotteryTile guard)
 - ✅ Plan updated with Task 8.1 checkpoint (commit 273adcf)
+- 🚧 Task 8.2 underway: power-up configs, HUD indicator, shop UI, and BoardLoop integration (commit 6aeac49)
 
 ---
 
@@ -1507,6 +1596,19 @@ Implemented complete multi-city progression system with 5 cities, dynamic multip
 ---
 
 ## Configuration Changes
+
+### [2026-01-29] Power-Up Configuration Added
+
+**Changed:** Added power-up configuration catalog for Task 8.2  
+**Files Modified:**
+- `web/src/config/powerUps.js`
+- `web/src/components/BoardLoop.jsx`
+
+**Notes:**
+- Defines costs, durations, and effects for six power-ups
+- Supports HUD/shop display and gameplay modifiers
+
+---
 
 ### [2026-01-27] Git Repository Initialization
 
