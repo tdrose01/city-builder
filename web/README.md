@@ -10,6 +10,24 @@ npm install
 npm run dev
 ```
 
+## Deploy to Netlify (CLI)
+
+```
+npm install -g netlify-cli
+netlify login
+
+npm run build
+npm run deploy:netlify
+```
+
+## Smoke Test Checklist
+
+- App loads and board renders in the first 3 seconds.
+- Dice roll works and player token moves.
+- Funds, shields, and dice counters update after a roll.
+- Mission tracker updates after collecting shields.
+- City upgrade unlocks and changes the multiplier.
+
 ## Gameplay Highlights
 
 - Dice-based board loop with funds, heists, shutdowns, and upgrades.
