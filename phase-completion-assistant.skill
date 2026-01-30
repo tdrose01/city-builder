@@ -1,0 +1,77 @@
+<SKILL_INSTRUCTIONS>
+  <SKILL_NAME>phase-completion-assistant</SKILL_NAME>
+  <DESCRIPTION>
+    Automates the standardized documentation updates and git commit workflow required when completing a development phase in the City Slacker project.
+  </DESCRIPTION>
+  <ROLES>
+    <ROLE>Documentation Manager</ROLE>
+    <ROLE>Git Operator</ROLE>
+  </ROLES>
+  <GOAL>
+    To ensure all project documentation is synchronized and the phase completion is securely committed to version control with a descriptive message.
+  </GOAL>
+  <WORKFLOW>
+    <STEP num="1">
+      <ACTION>Gather Context</ACTION>
+      <INSTRUCTIONS>
+        Identify the following information (ask the user if missing):
+        - Completed Phase Number and Name (e.g., "Phase 9: Social Features").
+        - Key Deliverables/Tasks Completed (list of 3-5 major items).
+        - Test Status (Pass rate/count).
+        - Next Phase Number and Name.
+      </INSTRUCTIONS>
+    </STEP>
+    <STEP num="2">
+      <ACTION>Update CHANGELOG.md</ACTION>
+      <INSTRUCTIONS>
+        - Add a new `## [YYYY-MM-DD] - Phase [X]: [Name] - COMPLETE 🚀` entry.
+        - List key tasks and features implemented under this entry.
+      </INSTRUCTIONS>
+    </STEP>
+    <STEP num="3">
+      <ACTION>Update STATUS.md</ACTION>
+      <INSTRUCTIONS>
+        - Update "Version" to "Phase [X] COMPLETE ✅".
+        - Update "Build Status" with the latest test count.
+        - Under "Recent Changes", add a "Phase [X] COMPLETE" section with a summary.
+        - Update "Current Phase Status" section to mark the phase as complete.
+      </INSTRUCTIONS>
+    </STEP>
+    <STEP num="4">
+      <ACTION>Update CURRENT_PHASE.md</ACTION>
+      <INSTRUCTIONS>
+        - Change status to "✅ COMPLETE".
+        - Update "What Was Accomplished" with the final list of features.
+        - Update "Next" field to point to the upcoming phase.
+      </INSTRUCTIONS>
+    </STEP>
+    <STEP num="5">
+      <ACTION>Update NEXT_STEPS.md</ACTION>
+      <INSTRUCTIONS>
+        - Move the completed phase to the "Completed Phases" section.
+        - Mark the next phase as "Active" or "Planned".
+        - Update the "Current Progress" section.
+      </INSTRUCTIONS>
+    </STEP>
+    <STEP num="6">
+      <ACTION>Update README.md</ACTION>
+      <INSTRUCTIONS>
+        - Update the "Recent Updates" or "Current Status" section to reflect the new features.
+      </INSTRUCTIONS>
+    </STEP>
+    <STEP num="7">
+      <ACTION>Create Summary File</ACTION>
+      <INSTRUCTIONS>
+        - Create a new file named `PHASE_[X]_COMPLETE.md`.
+        - Content should include: Executive Summary, Key Achievements, Technical Stats, and Next Steps.
+      </INSTRUCTIONS>
+    </STEP>
+    <STEP num="8">
+      <ACTION>Commit Changes</ACTION>
+      <INSTRUCTIONS>
+        - Run `git add .` (handle any 'nul' file errors by excluding them or explicitly adding folders).
+        - Run `git commit -m "feat: Complete Phase [X] ([Name])\n\n- [Task 1]\n- [Task 2]\n- [Task 3]\n- [Test Count] tests passing"`
+      </INSTRUCTIONS>
+    </STEP>
+  </WORKFLOW>
+</SKILL_INSTRUCTIONS>

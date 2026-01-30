@@ -186,3 +186,28 @@ git commit -m "docs: Update knowledge base - [brief description]"
 ```
 
 **This is not optional.** The knowledge base ensures continuity across sessions and agents.
+
+---
+
+## 7) Available Skills (Context7)
+
+Use these specialized skills to automate standardized workflows.
+
+### 7.1 Knowledge Base Updater
+- **File:** `knowledge-base-updater.skill`
+- **Use when:** Completing any task, phase, or significant change.
+- **Action:** Automates the creation of knowledge base entries.
+
+### 7.2 Phase Completion Assistant
+- **File:** `phase-completion-assistant.skill`
+- **Use when:** Finishing a development phase (e.g., Phase 9 to Phase 10).
+- **Action:** Automates documentation synchronization (CHANGELOG, STATUS, README, NEXT_STEPS) and git commit workflow.
+- **Workflow:**
+  1. Updates all status files.
+  2. Generates `PHASE_[X]_COMPLETE.md` summary.
+  3. Prepares standardized git commit message.
+
+### 7.3 Ralph Orchestration Assistant
+- **File:** `ralph-orchestration-assistant.skill`
+- **Use when:** Coordinating development cycles and task tracking.
+- **Action:** Manages the Ralph loop workflow.
