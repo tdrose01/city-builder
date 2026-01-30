@@ -296,6 +296,7 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
 
   // Analytics: Session tracking
   const currentSession = useRef(new SessionMetrics());
+  const skipCityResetRef = useRef(false);
 
   // Persistence: Load game on mount
   useEffect(() => {
@@ -306,6 +307,7 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
 
     const savedState = loadGame();
     if (savedState) {
+      skipCityResetRef.current = true;
       if (savedState.funds !== undefined) setFunds(savedState.funds);
       if (savedState.dice !== undefined) setDice(savedState.dice);
       if (savedState.shields !== undefined) setShields(savedState.shields);
@@ -720,7 +722,8 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
 
     let doublesBonus = 0;
     if (rolledDoubles && !isInJail) {
-      doublesBonus = Math.max(1, Math.round(totalRoll * PACING.doublesBonusMultiplier));
+      const baseDoublesBonus = Math.max(1, Math.round(totalRoll * PACING.doublesBonusMultiplier));
+      doublesBonus = applyRewardMultiplier(baseDoublesBonus);
       showNotification(`Doubles! You get ${doublesBonus} extra dice!`, 'success', 2000);
       
       // Add sparkle effect for doubles
@@ -797,8 +800,9 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
       if (die1 === comboTarget || die2 === comboTarget) {
         setCurrentCombo(prev => prev + 1);
         if (currentCombo + 1 >= 3 && !comboRewardClaimed) {
-          setFunds(prev => prev + 2000);
-          showNotification("Combo x3! +2000 Funds!", 'success', 2000);
+          const comboReward = applyRewardMultiplier(applyFundsMultiplier(2000));
+          setFunds(prev => prev + comboReward);
+          showNotification(`Combo x3! +${comboReward} Funds!`, 'success', 2000);
           setComboRewardClaimed(true);
         }
       } else {
@@ -822,6 +826,8 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
     comboRewardClaimed,
     jailTurnsRemaining,
     activePowerUpEffects,
+    applyRewardMultiplier,
+    applyFundsMultiplier,
     diceCostRemainder,
     advancePowerUpRolls
   ]);
@@ -842,6 +848,10 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
 
   useEffect(() => {
     if (CITIES[cityLevel]) {
+      if (skipCityResetRef.current) {
+        skipCityResetRef.current = false;
+        return;
+      }
       // Create a deep copy of tiles to ensure fresh state for new city
       setTiles(CITIES[cityLevel].tiles.map(tile => ({ ...tile })));
       setPlayerPosition(0); // Reset position for new city
@@ -1436,8 +1446,7 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
 
     if (event.type === 'positive') {
       registerPositiveOutcome(true);
-    }
-    if (event.type === 'negative') {
+    } else {
       registerPositiveOutcome(false);
     }
   };

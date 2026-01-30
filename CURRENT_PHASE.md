@@ -1,6 +1,6 @@
 # Current Development Phase
 
-**Last Updated:** 2026-01-27  
+**Last Updated:** 2026-01-30  
 **Current Phase:** Phase 8 - Gameplay Enhancement  
 **Status:** 🚀 IN PROGRESS  
 **Track Location:** `conductor/tracks/phase8_gameplay_enhancement_20260127/`
@@ -33,27 +33,29 @@ If you're an AI agent (like Cursor, GitHub Copilot, or similar) picking up this 
       ✅ Fortune tile component
       ✅ Integration into BoardLoop
       ✅ Write tests (196/196 total)
-   ⏳ Task 8.2: Power-Up System (in progress - foundation merged)
+   ✅ Task 8.2: Power-Up System (complete)
    ⏳ Task 8.3: Special Events System
    ⏳ Task 8.4: Mini-Games
    ⏳ Task 8.5: Enhanced Combo System
 ```
 
 ### 2. Current State (Phase 8 Active)
-- **Phase 8:** 🚧 In Progress (Task 8.1 complete)
-- **Test Status:** 196/196 passing (100%)
+- **Phase 8:** 🚧 In Progress (Task 8.1 + Task 8.2 complete)
+- **Test Status:** 201/201 passing (100%)
 - **New Tile Types:** 4 integrated (Lottery, Tax, Jail, Fortune)
 - **Fortune Rewards:** Tax Haven + Get Out of Jail Free card
-- **Next:** Continue Task 8.2 - Power-Up System (wire remaining effects + tests)
+- **Power-Ups:** Shop + HUD + 6 effects wired into gameplay
+- **Next:** Task 8.3 - Special Events System
 
 ### 3. What Was Accomplished
 
 **Phase 8 progress (so far):**
 - 4 new interactive tile types integrated into BoardLoop
 - Fortune event system (12 weighted events) with Tax Haven + Jail Free rewards
+- Power-up system complete (shop, HUD indicator, and 6 power-up effects)
 - Modal UX and audio cues wired to tile outcomes
-- New tile state persisted (jail turns, skip turns, fortune effects)
-- Tests updated and passing (196/196)
+- New tile state persisted (jail turns, skip turns, fortune effects, power-ups)
+- Tests updated and passing (201/201)
 
 **Phase 6 delivered:**
 - 3 new playable cities (Crystal Plaza, Starlight District, Neon Skyline)

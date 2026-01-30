@@ -1,7 +1,7 @@
 # Phase 8: Gameplay Enhancement - Implementation Plan
 
-**Last Updated:** 2026-01-27  
-**Status:** In Progress (Task 8.1 complete)
+**Last Updated:** 2026-01-30  
+**Status:** In Progress (Tasks 8.1-8.2 complete)
 
 ---
 
@@ -286,7 +286,7 @@ describe('New Tile Types', () => {
 
 **Estimated Time:** 2-3 hours  
 **Priority:** High  
-**Status:** [ ] Not Started
+**Status:** [x] Complete
 
 ### Step 2.1: Create Power-Up Configuration
 
@@ -495,8 +495,8 @@ Add combo tracking to BoardLoop.
 
 ## Phase 8 Completion Checklist
 
-- [ ] Task 8.1: New Tile Types complete
-- [ ] Task 8.2: Power-Up System complete
+- [x] Task 8.1: New Tile Types complete
+- [x] Task 8.2: Power-Up System complete
 - [ ] Task 8.3: Special Events System complete
 - [ ] Task 8.4: Mini-Games complete
 - [ ] Task 8.5: Enhanced Combo System complete
