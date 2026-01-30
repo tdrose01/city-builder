@@ -340,12 +340,19 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
   const [showAnalytics, setShowAnalytics] = useState(false);
 
   const notificationTimeoutRef = useRef(null);
+  const resumeAutoRollAfterPrestigeRef = useRef(false);
+  const diceRef = useRef(dice);
+  const autoPrestigeTriggeredRef = useRef(false);
 
   // Analytics: Session tracking
   const currentSession = useRef(new SessionMetrics());
   const skipCityResetRef = useRef(false);
 
   // Persistence: Load game on mount
+  useEffect(() => {
+    diceRef.current = dice;
+  }, [dice]);
+
   useEffect(() => {
     if (!isStorageAvailable()) {
       showNotification("Storage unavailable! Progress will not be saved.", 'warning', 5000);
@@ -887,17 +894,27 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
       }
       case 'Shield':
         if (shields < ECONOMY.MAX_SHIELDS) {
-          const shieldGain = Math.max(1, applyRewardMultiplier(1));
-          setShields(prev => {
-            const maxShields = ECONOMY.MAX_SHIELDS;
-            const next = Math.min(maxShields, prev + shieldGain);
-            const gained = next - prev;
-            if (gained > 0) currentSession.current.recordShieldGained(gained);
-            return next;
-          });
-          setTotalShieldsCollected(prev => prev + 1);
+          const baseGain = 2;
+          const adjustedGain = Math.round(applyRewardMultiplier(baseGain) * comboMultiplier);
+          const actualGain = Math.max(1, adjustedGain);
+          const remaining = Math.max(0, ECONOMY.MAX_SHIELDS - shields);
+          const effectiveGain = Math.min(actualGain, remaining);
+
+          if (effectiveGain <= 0) {
+            setHudMessage("Max Shields!");
+            setTimeout(() => setHudMessage(null), 1500);
+            registerPositiveOutcome(false);
+            break;
+          }
+
+          setShields(prev => Math.min(ECONOMY.MAX_SHIELDS, prev + effectiveGain));
+          setTotalShieldsCollected(prev => prev + effectiveGain);
+          currentSession.current.recordShieldGained(effectiveGain);
           setTileEffect({ type: 'shield', x: 400, y: 300 });
           setTimeout(() => setTileEffect(null), 2000);
+          if (comboMultiplier > 1) {
+            showNotification(`Combo x${nextCount}! +${effectiveGain} Shields`, 'success', 2000);
+          }
           registerPositiveOutcome(true);
         } else {
           setHudMessage("Max Shields!");
@@ -1486,6 +1503,7 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
 
     // Stop autoroll if active
     if (autoRollEnabled) {
+      resumeAutoRollAfterPrestigeRef.current = true;
       setAutoRollEnabled(false);
     }
 
@@ -1518,7 +1536,27 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
       setHudMessage(null);
       setTextPop(null);
     }, 3000);
+
+    if (resumeAutoRollAfterPrestigeRef.current) {
+      setTimeout(() => {
+        if (diceRef.current > 0) {
+          setAutoRollEnabled(true);
+        }
+        resumeAutoRollAfterPrestigeRef.current = false;
+      }, 300);
+    }
   };
+
+  useEffect(() => {
+    if (canPrestige && !autoPrestigeTriggeredRef.current) {
+      autoPrestigeTriggeredRef.current = true;
+      performPrestige(eventPrestigeLevel + 1);
+    }
+
+    if (!canPrestige) {
+      autoPrestigeTriggeredRef.current = false;
+    }
+  }, [canPrestige, eventPrestigeLevel]);
 
   const handleCityTransition = (targetCityLevel) => {
     // 1. Close confirmation dialog
@@ -2443,7 +2481,7 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
                   </div>
                   <div className="metric-chip">
                     <span className="label">Shields</span>
-                    <span className="value">{shields}/5</span>
+                    <span className="value">{shields}/{ECONOMY.MAX_SHIELDS}</span>
                   </div>
                   <div className="metric-chip">
                     <span className="label">Stickers</span>
@@ -2713,6 +2751,7 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
                         rolls={totalRolls}
                         upgrades={totalUpgrades}
                         shieldsCollected={totalShieldsCollected}
+                        currentShields={shields}
                         fundsTilesLanded={fundsTilesLanded}
                         missionState={missionState}
                         setMissionState={setMissionState}
@@ -2860,7 +2899,7 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
                 </div>
 
                 {/* Floating Action Buttons */}
-                {canPrestige && (
+                {false && canPrestige && (
                   <button
                     className="fab-prestige"
                     onClick={handlePrestige}

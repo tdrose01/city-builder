@@ -1,5 +1,5 @@
 import { describe, test, expect, vi, beforeEach } from 'vitest';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import MissionTracker from '../MissionTracker';
 
 describe('Advanced Mission System', () => {
@@ -7,6 +7,7 @@ describe('Advanced Mission System', () => {
     rolls: 100,
     upgrades: 10,
     shieldsCollected: 5,
+    currentShields: 5,
     fundsTilesLanded: 20,
     missionResetCount: 0,
     missionState: {
@@ -87,5 +88,34 @@ describe('Advanced Mission System', () => {
     // Should trigger update
     expect(setMissionState).toHaveBeenCalled();
     expect(onMissionComplete).toHaveBeenCalled();
+  });
+
+  test('uses current shields when higher than collected for shield missions', async () => {
+    const setMissionState = vi.fn();
+    const onMissionComplete = vi.fn();
+
+    const props = {
+      ...defaultProps,
+      rolls: 0,
+      upgrades: 0,
+      shieldsCollected: 0,
+      currentShields: 8,
+      fundsTilesLanded: 0,
+      missionState: {
+        daily: { startRolls: 0, startUpgrades: 0, startShields: 0, startFundsTiles: 0, completed: [], resetCount: 0 },
+        weekly: { startRolls: 0, startUpgrades: 0, startDailyCycles: 0, completed: [] },
+        monthly: { startRolls: 0, startUpgrades: 0, startDailyCycles: 0, completed: [] }
+      },
+      setMissionState,
+      onMissionComplete
+    };
+
+    render(<MissionTracker {...props} />);
+
+    await waitFor(() => {
+      expect(onMissionComplete).toHaveBeenCalledTimes(1);
+    });
+
+    expect(onMissionComplete).toHaveBeenCalledWith({ type: 'shields', amount: 2 });
   });
 });

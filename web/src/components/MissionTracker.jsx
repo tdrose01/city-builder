@@ -6,6 +6,7 @@ export default function MissionTracker({
   rolls, 
   upgrades, 
   shieldsCollected, 
+  currentShields,
   fundsTilesLanded, 
   missionState, 
   setMissionState,
@@ -16,6 +17,7 @@ export default function MissionTracker({
 }) {
   const [activeTab, setActiveTab] = useState('daily');
   const [allDailyCompletedNotified, setAllDailyCompletedNotified] = useState(false);
+  const effectiveShields = Math.max(shieldsCollected || 0, currentShields || 0);
 
   // Helper to calculate progress
   const getProgress = (type, startVal, currentVal) => {
@@ -39,7 +41,7 @@ export default function MissionTracker({
           current = getProgress(mission.type, startValues.startUpgrades || 0, upgrades);
           break;
         case 'shields':
-          current = getProgress(mission.type, startValues.startShields || 0, shieldsCollected);
+          current = getProgress(mission.type, startValues.startShields || 0, effectiveShields);
           break;
         case 'fundsTiles':
           current = getProgress(mission.type, startValues.startFundsTiles || 0, fundsTilesLanded);
@@ -91,7 +93,7 @@ export default function MissionTracker({
       setAllDailyCompletedNotified(true);
       if (onAllMissionsComplete) onAllMissionsComplete();
     }
-  }, [rolls, upgrades, shieldsCollected, fundsTilesLanded, missionResetCount]); // Deps trigger recalc
+  }, [rolls, upgrades, shieldsCollected, currentShields, fundsTilesLanded, missionResetCount]); // Deps trigger recalc
 
   // Reset Logic for Daily
   const handleResetDaily = () => {
@@ -100,7 +102,7 @@ export default function MissionTracker({
       daily: {
         startRolls: rolls,
         startUpgrades: upgrades,
-        startShields: shieldsCollected,
+        startShields: effectiveShields,
         startFundsTiles: fundsTilesLanded,
         completed: [],
         resetCount: (prev.daily.resetCount || 0) + 1

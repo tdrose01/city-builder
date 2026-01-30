@@ -23,7 +23,7 @@ export const ECONOMY = {
   START_TILE_PAYOUT_BASE: 2000,
   CITY_MULTIPLIER: 1.4, // Payouts and costs scale by this per city level
   MILESTONE_THRESHOLDS: [15, 30, 50, 75, 100],
-  MAX_SHIELDS: 5,
+  MAX_SHIELDS: 8,
   DICE_TILE_PAYOUT_BASE: 4,
 };
 
