@@ -2,7 +2,7 @@
 
 **Last Updated:** 2026-01-30
 **Current Phase:** Phase 9 - Social Features & Advanced Progression (Complete + Hotfixes)
-**Total Entries:** 28
+**Total Entries:** 29
 
 ## Quick Links
 - [Recent Changes](#recent-changes) (Last 30 days)
@@ -14,7 +14,7 @@
 - [Known Issues & Workarounds](#known-issues--workarounds)
 
 ## Project Statistics
-- **Total Commits:** 77 
+- **Total Commits:** 79 
 - **Total Files:** 15673
 - **Test Coverage:** ⚠️ Not revalidated after docs update (last known: 5/5 passing - AdvancedMissions.test.jsx)
 - **Phase:** 9 - Social Features & Advanced Progression (Complete + Hotfixes)
@@ -27,6 +27,39 @@
 ---
 
 ## Recent Changes
+
+### [2026-01-30 17:12] - Netlify Smoke Test Checklist
+
+**Type:** Documentation + Configuration  
+**Status:** Completed  
+**Commit:** b902914  
+**Author:** AI Agent (Codex)
+
+#### What Changed
+- Added Netlify CLI deploy steps and smoke checklist to `web/README.md`
+- Ignored local Netlify metadata via `.netlify` in `.gitignore`
+
+#### Why
+Provide a lightweight, repeatable browser smoke test workflow without GitHub.
+
+#### Impact
+- Clear guidance for quick manual testing
+- Prevents accidental commit of local Netlify state
+
+#### Related Files
+- `web/README.md`
+- `.gitignore`
+
+#### Dependencies Changed
+- None
+
+#### Testing
+- Not run (documentation/config-only updates)
+
+#### Follow-up Tasks
+- [ ] Run a Netlify CLI deploy to validate the checklist
+
+---
 
 ### [2026-01-30 16:53] - Netlify CLI Deploy Helpers
 
@@ -1964,6 +1997,17 @@ Implemented complete multi-city progression system with 5 cities, dynamic multip
 ---
 
 ## Configuration Changes
+
+### [2026-01-30] Ignore Netlify Local State
+
+**Changed:** Added `.netlify` to `.gitignore`  
+**Files Modified:**
+- `.gitignore`
+
+**Notes:**
+- Prevents accidental commits of local Netlify metadata
+
+---
 
 ### [2026-01-30] Netlify CLI Deploy Helpers
 
