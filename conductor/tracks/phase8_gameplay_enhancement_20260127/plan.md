@@ -403,37 +403,51 @@ Add power-up state and logic to apply effects.
 
 ## Task 8.3: Special Events System
 
-**Estimated Time:** 2-3 hours  
-**Priority:** Medium  
-**Status:** [ ] Not Started
+**Estimated Time:** 2-3 hours
+**Priority:** Medium
+**Status:** [x] Complete
 
 ### Step 3.1: Create Event Configuration
 
-**Location:** `web/src/config/events.js` (NEW)
+**Location:** `web/src/config/specialEvents.js` (NEW)
+- 4 city-wide events (Golden Hour, Tax Holiday, Sticker Frenzy, Jackpot Day)
+- 6 random events (Bank Error, Street Performer, Parade, Construction, Lucky Find, Pickpocket)
+- 2 milestone event types (roll milestones, upgrade milestones)
+- Selection functions with weighted probabilities
 
-**Checkpoint:** `[commit SHA]` - Event configs added
+**Checkpoint:** [x] Event configs added
 
 ---
 
 ### Step 3.2: Implement Event Trigger Logic
 
-Add event probability system to BoardLoop.
+- City-wide events: 3% chance per roll after 20-roll cooldown
+- Random events: 5% chance per roll with weighted selection
+- Milestone events: Triggered on threshold crossings (50 rolls, 10 upgrades)
+- City-wide effects integrated into multiplier system
 
-**Checkpoint:** `[commit SHA]` - Event triggers working
+**Checkpoint:** [x] Event triggers working
 
 ---
 
 ### Step 3.3: Create SpecialEventModal Component
 
 **Location:** `web/src/components/SpecialEventModal.jsx` (NEW)
+- Full modal with backdrop for city-wide events
+- Compact toast for random/milestone events (auto-dismiss 3s)
+- Framer Motion animations
+- Active event HUD indicator in game board
 
-**Checkpoint:** `[commit SHA]` - Event modal complete
+**Checkpoint:** [x] Event modal complete
 
 ---
 
 ### Step 3.4: Write Event Tests
 
-**Checkpoint:** `[commit SHA]` - Event tests passing (~8 new tests)
+- 16 new tests covering config validation, event selection, modal rendering, milestone logic, city scaling
+- Test suite: 217/217 passing
+
+**Checkpoint:** [x] Event tests passing (16 new tests)
 
 ---
 
@@ -497,7 +511,7 @@ Add combo tracking to BoardLoop.
 
 - [x] Task 8.1: New Tile Types complete
 - [x] Task 8.2: Power-Up System complete
-- [ ] Task 8.3: Special Events System complete
+- [x] Task 8.3: Special Events System complete
 - [ ] Task 8.4: Mini-Games complete
 - [ ] Task 8.5: Enhanced Combo System complete
 - [ ] 230+ tests passing (100%)

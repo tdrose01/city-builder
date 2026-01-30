@@ -1,8 +1,8 @@
 ﻿# Knowledge Base - City Slacker Project
 
-**Last Updated:** 2026-01-30 12:10  
-**Current Phase:** Phase 8 - Gameplay Enhancement (Task 8.2 complete)  
-**Total Entries:** 19
+**Last Updated:** 2026-01-30
+**Current Phase:** Phase 8 - Gameplay Enhancement (Task 8.3 complete)
+**Total Entries:** 20
 
 ## Quick Links
 - [Recent Changes](#recent-changes) (Last 30 days)
@@ -16,8 +16,8 @@
 ## Project Statistics
 - **Total Commits:** 61 
 - **Total Files:** 220
-- **Test Coverage:** 100% (201/201 passing)
-- **Phase:** 8 - Gameplay Enhancement (Task 8.2 complete)
+- **Test Coverage:** 100% (217/217 passing)
+- **Phase:** 8 - Gameplay Enhancement (Task 8.3 complete)
 - **Post-Launch Fixes:** 4 performance and UX improvements applied
 - **Dependencies:** 344 packages
 - **Lines of Code:** 29,714+
@@ -27,6 +27,55 @@
 ---
 
 ## Recent Changes
+
+### [2026-01-30] - Task 8.3 Special Events System Completed
+
+**Type:** Feature + Test + Documentation
+**Status:** Completed
+**Author:** AI Agent (Claude)
+
+#### What Changed
+- Created special events configuration (`web/src/config/specialEvents.js`) with 4 city-wide events, 6 random events, and 2 milestone event types
+- Created SpecialEventModal component with two display modes (full modal for city-wide, compact toast for random/milestone)
+- Integrated event trigger logic into BoardLoop (city-wide at 3% after 20-roll cooldown, random at 5%, milestone on thresholds)
+- City-wide event effects flow through existing multiplier system (Golden Hour, Tax Holiday, Sticker Frenzy, Jackpot Day)
+- Added active event HUD indicator with icon, name, and remaining rolls
+- Full save/load persistence for all event state
+- Tax Holiday blocks both Tax and Rent tiles; Sticker Frenzy doubles sticker drops
+
+#### Why
+Task 8.3 adds dynamic, unpredictable gameplay elements that keep each session feeling fresh. City-wide events create exciting temporary buffs, random events add per-roll surprises, and milestone events reward cumulative progress.
+
+#### Impact
+- 3 event categories with 12 total event types
+- Events modify existing game systems (multipliers, tax, stickers, lottery)
+- Upgrade blocking mechanic via Construction random event
+- Milestone tracking for rolls and upgrades
+
+#### Related Files
+- `web/src/config/specialEvents.js` (NEW)
+- `web/src/components/SpecialEventModal.jsx` (NEW)
+- `web/src/components/__tests__/SpecialEvents.test.jsx` (NEW)
+- `web/src/components/BoardLoop.jsx` (MODIFIED)
+- `CHANGELOG.md`
+- `CURRENT_PHASE.md`
+- `conductor/tracks/phase8_gameplay_enhancement_20260127/plan.md`
+- `conductor/tracks/phase8_gameplay_enhancement_20260127/index.md`
+
+#### Dependencies Changed
+- None
+
+#### Testing
+- `npm test` (web/) -> **217/217 passing** (+16 new tests)
+
+#### Follow-up Tasks
+- [ ] Task 8.4: Mini-Games
+- [ ] Task 8.5: Enhanced Combo System
+
+#### Notes
+- Pre-existing unhandled rejection warning in BoardLoop.test.jsx (async teardown issue, not related to this change)
+
+---
 
 ### [2026-01-30 12:10] - Task 8.2 Power-Up Effects Completed
 

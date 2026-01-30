@@ -19,7 +19,15 @@ import JailTile from './JailTile';
 import FortuneTile from './FortuneTile';
 import PowerUpShop from './PowerUpShop';
 import PowerUpIndicator from './PowerUpIndicator';
+import SpecialEventModal from './SpecialEventModal';
 import { POWER_UPS, getPowerUpCost } from '../config/powerUps';
+import {
+  CITY_WIDE_EVENTS,
+  EVENT_TRIGGER,
+  selectCityWideEvent,
+  selectRandomEvent,
+  checkMilestoneEvents,
+} from '../config/specialEvents';
 
 
 const CITIES = {
@@ -278,7 +286,15 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
   const [purchasedPowerUps, setPurchasedPowerUps] = useState({});
   const [positiveStreak, setPositiveStreak] = useState(0);
   const [diceCostRemainder, setDiceCostRemainder] = useState(0);
-  
+
+  // Special events state
+  const [activeSpecialEvent, setActiveSpecialEvent] = useState(null);
+  const [specialEventDisplay, setSpecialEventDisplay] = useState(null);
+  const [rollsSinceLastCityEvent, setRollsSinceLastCityEvent] = useState(0);
+  const [lastMilestoneRolls, setLastMilestoneRolls] = useState(0);
+  const [lastMilestoneUpgrades, setLastMilestoneUpgrades] = useState(0);
+  const [upgradeBlocked, setUpgradeBlocked] = useState(false);
+
   // City transition state
   const [cityTransitionActive, setCityTransitionActive] = useState(false);
   const [targetCity, setTargetCity] = useState(null);
@@ -335,6 +351,10 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
       if (savedState.purchasedPowerUps !== undefined) setPurchasedPowerUps(savedState.purchasedPowerUps);
       if (savedState.positiveStreak !== undefined) setPositiveStreak(savedState.positiveStreak);
       if (savedState.diceCostRemainder !== undefined) setDiceCostRemainder(savedState.diceCostRemainder);
+      if (savedState.activeSpecialEvent !== undefined) setActiveSpecialEvent(savedState.activeSpecialEvent);
+      if (savedState.rollsSinceLastCityEvent !== undefined) setRollsSinceLastCityEvent(savedState.rollsSinceLastCityEvent);
+      if (savedState.lastMilestoneRolls !== undefined) setLastMilestoneRolls(savedState.lastMilestoneRolls);
+      if (savedState.lastMilestoneUpgrades !== undefined) setLastMilestoneUpgrades(savedState.lastMilestoneUpgrades);
 
       showNotification("Game Loaded!", 'success', 2000);
     }
@@ -369,6 +389,10 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
         purchasedPowerUps,
         positiveStreak,
         diceCostRemainder,
+        activeSpecialEvent,
+        rollsSinceLastCityEvent,
+        lastMilestoneRolls,
+        lastMilestoneUpgrades,
         playerPosition,
         tiles // Persist tile state (including upgrades)
       };
@@ -386,6 +410,7 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
     totalRolls, totalUpgrades, totalShieldsCollected, fundsTilesLanded,
     skipTurnsRemaining, jailTurnsRemaining, hasJailFreeCard, hasTaxHavenPowerUp,
     activePowerUps, powerUpCooldowns, purchasedPowerUps, positiveStreak, diceCostRemainder,
+    activeSpecialEvent, rollsSinceLastCityEvent, lastMilestoneRolls, lastMilestoneUpgrades,
     playerPosition, tiles
   ]);
 
@@ -420,7 +445,7 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
   }, [activePowerUps]);
 
   const activePowerUpEffects = useMemo(() => {
-    return activePowerUps.reduce((accumulator, powerUp) => {
+    const result = activePowerUps.reduce((accumulator, powerUp) => {
       const config = powerUpConfigById.get(powerUp.id);
       if (!config?.effect) return accumulator;
       const { effect } = config;
@@ -448,7 +473,26 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
       diceCostMultiplier: 1,
       guaranteeDoubles: false,
     });
-  }, [activePowerUps, powerUpConfigById]);
+
+    // Apply city-wide special event multipliers
+    if (activeSpecialEvent?.effects?.rewardMultiplier) {
+      result.rewardMultiplier *= activeSpecialEvent.effects.rewardMultiplier;
+    }
+    if (activeSpecialEvent?.effects?.guaranteeLotteryWin) {
+      result.guaranteeLotteryWin = true;
+    }
+    if (activeSpecialEvent?.effects?.blockTax) {
+      result.blockTax = true;
+    }
+    if (activeSpecialEvent?.effects?.blockRent) {
+      result.blockRent = true;
+    }
+    if (activeSpecialEvent?.effects?.stickerMultiplier) {
+      result.stickerMultiplier = activeSpecialEvent.effects.stickerMultiplier;
+    }
+
+    return result;
+  }, [activePowerUps, powerUpConfigById, activeSpecialEvent]);
 
   const activatePowerUp = useCallback((powerUpId, options = {}) => {
     const config = powerUpConfigById.get(powerUpId);
@@ -515,6 +559,137 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
       return updated;
     });
   }, []);
+
+  // Special events: advance city-wide event duration and check for new events
+  const advanceSpecialEvent = useCallback(() => {
+    if (activeSpecialEvent) {
+      const remaining = activeSpecialEvent.remainingRolls - 1;
+      if (remaining <= 0) {
+        setActiveSpecialEvent(null);
+        showNotification(`${activeSpecialEvent.name} has ended.`, 'info', 2500);
+      } else {
+        setActiveSpecialEvent(prev => ({ ...prev, remainingRolls: remaining }));
+      }
+    }
+    setRollsSinceLastCityEvent(prev => prev + 1);
+    setUpgradeBlocked(false);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeSpecialEvent]);
+
+  const checkSpecialEvents = useCallback((currentTotalRolls, currentTotalUpgrades) => {
+    // 1. Try to trigger a city-wide event
+    if (!activeSpecialEvent && rollsSinceLastCityEvent >= EVENT_TRIGGER.CITY_WIDE_COOLDOWN) {
+      if (Math.random() < EVENT_TRIGGER.CITY_WIDE_CHANCE) {
+        const event = selectCityWideEvent();
+        const newEvent = {
+          ...event,
+          remainingRolls: event.duration,
+          category: 'city_wide',
+        };
+        setActiveSpecialEvent(newEvent);
+        setSpecialEventDisplay({ ...newEvent, category: 'city_wide' });
+        setRollsSinceLastCityEvent(0);
+        setAutoRollEnabled(false);
+        return; // Only one event per roll
+      }
+    }
+
+    // 2. Try to trigger a random event
+    if (Math.random() < EVENT_TRIGGER.RANDOM_EVENT_CHANCE) {
+      const event = selectRandomEvent();
+      const displayEvent = { ...event, category: 'random' };
+
+      // Apply random event effects immediately
+      switch (event.effect.type) {
+        case 'ADD_FUNDS': {
+          const value = event.effect.getValue(cityLevel);
+          setFunds(prev => prev + value);
+          currentSession.current.recordFundsChange(value);
+          displayEvent.effectText = `+$${value.toLocaleString()}`;
+          break;
+        }
+        case 'SKIP_AND_GAIN': {
+          const skipTurns = event.effect.getSkipTurns();
+          const fundsValue = event.effect.getFundsValue(cityLevel);
+          setSkipTurnsRemaining(prev => prev + skipTurns);
+          setFunds(prev => prev + fundsValue);
+          currentSession.current.recordFundsChange(fundsValue);
+          displayEvent.effectText = `Skip ${skipTurns} turn, +$${fundsValue.toLocaleString()}`;
+          break;
+        }
+        case 'TELEPORT': {
+          // Teleport will be handled after tile landing
+          displayEvent.effectText = `Move forward ${event.effect.value} spaces`;
+          const newPos = (playerPosition + event.effect.value + 20) % 20;
+          setPlayerPosition(newPos);
+          break;
+        }
+        case 'BLOCK_UPGRADE': {
+          setUpgradeBlocked(true);
+          displayEvent.effectText = 'Upgrades blocked this turn';
+          break;
+        }
+        case 'GRANT_POWER_UP': {
+          const powerUpKeys = Object.keys(POWER_UPS);
+          const randomKey = powerUpKeys[Math.floor(Math.random() * powerUpKeys.length)];
+          const powerUp = POWER_UPS[randomKey];
+          activatePowerUp(powerUp.id, { silent: true });
+          displayEvent.effectText = `Gained ${powerUp.name}!`;
+          break;
+        }
+        case 'LOSE_PERCENT_FUNDS': {
+          const maxLoss = event.effect.getMaxLoss(cityLevel);
+          const loss = Math.min(maxLoss, Math.floor(funds * event.effect.percent));
+          setFunds(prev => Math.max(0, prev - loss));
+          currentSession.current.recordFundsChange(-loss);
+          displayEvent.effectText = `-$${loss.toLocaleString()}`;
+          break;
+        }
+        default:
+          break;
+      }
+
+      setSpecialEventDisplay(displayEvent);
+      return;
+    }
+
+    // 3. Check milestone events
+    const milestones = checkMilestoneEvents(
+      currentTotalRolls, currentTotalUpgrades,
+      lastMilestoneRolls, lastMilestoneUpgrades
+    );
+
+    if (milestones.length > 0) {
+      for (const milestone of milestones) {
+        if (milestone.reward.type === 'CHEST') {
+          const bonusFunds = milestone.reward.getFunds(cityLevel);
+          setFunds(prev => prev + bonusFunds);
+          setDice(prev => prev + milestone.reward.dice);
+          setShields(prev => Math.min(ECONOMY.MAX_SHIELDS, prev + milestone.reward.shields));
+          currentSession.current.recordFundsChange(bonusFunds);
+          currentSession.current.recordDiceChange(milestone.reward.dice);
+          setSpecialEventDisplay({
+            ...milestone,
+            category: 'milestone',
+            color: '#fbbf24',
+            effectText: `+$${bonusFunds.toLocaleString()}, +${milestone.reward.dice} Dice, +${milestone.reward.shields} Shield`,
+          });
+        } else if (milestone.reward.type === 'STICKER_PACK') {
+          setStickerPacksAvailable(prev => prev + milestone.reward.packs);
+          setHasNewSticker(true);
+          setSpecialEventDisplay({
+            ...milestone,
+            category: 'milestone',
+            color: '#ec4899',
+            effectText: `+${milestone.reward.packs} Sticker Pack!`,
+          });
+        }
+      }
+      setLastMilestoneRolls(currentTotalRolls);
+      setLastMilestoneUpgrades(currentTotalUpgrades);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeSpecialEvent, rollsSinceLastCityEvent, cityLevel, funds, playerPosition, lastMilestoneRolls, lastMilestoneUpgrades, activatePowerUp]);
 
   const getScaledReward = (baseAmount, prestigeLevel) => {
     return calculateScaledReward(baseAmount, prestigeLevel);
@@ -602,6 +777,12 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
         }
         break;
       case 'Rent': {
+        if (activePowerUpEffects.blockRent) {
+          setHudMessage("Rent waived! (Tax Holiday)");
+          setTimeout(() => setHudMessage(null), 2000);
+          registerPositiveOutcome(true);
+          break;
+        }
         const rentCost = 500;
         setFunds(prev => Math.max(0, prev - rentCost));
         setHudMessage(`Rent! -${rentCost} Funds`);
@@ -633,14 +814,16 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
           registerPositiveOutcome(false);
         }
         break;
-      case 'Sticker':
-        setStickerPacksAvailable(prev => prev + 1);
+      case 'Sticker': {
+        const stickerPacks = activePowerUpEffects.stickerMultiplier || 1;
+        setStickerPacksAvailable(prev => prev + stickerPacks);
         setHasNewSticker(true);
-        setHudMessage("Sticker Pack earned!");
+        setHudMessage(stickerPacks > 1 ? `${stickerPacks} Sticker Packs earned!` : "Sticker Pack earned!");
         setTimeout(() => setHudMessage(null), 2000);
         currentSession.current.recordStickerPackEarned();
         registerPositiveOutcome(true);
         break;
+      }
       case 'Card':
         setHudMessage("Card tile - random event");
         setTimeout(() => setHudMessage(null), 2000);
@@ -675,7 +858,7 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
       default:
         break;
     }
-  }, [tiles, funds, shields, currentSession, applyRewardMultiplier, applyFundsMultiplier, registerPositiveOutcome]);
+  }, [tiles, funds, shields, currentSession, applyRewardMultiplier, applyFundsMultiplier, registerPositiveOutcome, activePowerUpEffects]);
 
   // Define handleRollDice with useCallback before useEffects that call it
   const handleRollDice = useCallback(async () => {
@@ -811,6 +994,10 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
         setComboRewardClaimed(false);
       }
     }
+
+    // Special events: advance active event and check for new ones
+    advanceSpecialEvent();
+    checkSpecialEvents(totalRolls + 1, totalUpgrades);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     activeTileModal,
@@ -829,7 +1016,11 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
     applyRewardMultiplier,
     applyFundsMultiplier,
     diceCostRemainder,
-    advancePowerUpRolls
+    advancePowerUpRolls,
+    advanceSpecialEvent,
+    checkSpecialEvents,
+    totalRolls,
+    totalUpgrades
   ]);
 
   useEffect(() => {
@@ -977,6 +1168,12 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
         setPurchasedPowerUps({});
         setPositiveStreak(0);
         setDiceCostRemainder(0);
+        setActiveSpecialEvent(null);
+        setSpecialEventDisplay(null);
+        setRollsSinceLastCityEvent(0);
+        setLastMilestoneRolls(0);
+        setLastMilestoneUpgrades(0);
+        setUpgradeBlocked(false);
 
         showNotification("New Game Started!", 'success', 3000);
         setAutoRollEnabled(false);
@@ -1477,6 +1674,10 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
   }, [pendingFortuneEffect, activeTileModal, applyFortuneEffect]);
 
   const handleUpgradeLandmark = () => {
+    if (upgradeBlocked) {
+      showNotification('Construction blocks upgrades this turn!', 'warning', 2500);
+      return;
+    }
     const currentTile = tiles.find(t => t.id === playerPosition);
     if (!currentTile || currentTile.type !== 'Landmark' || currentTile.level >= currentTile.maxLevel) {
       return;
@@ -1969,6 +2170,25 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
 
                 <PowerUpIndicator activePowerUps={activePowerUps} />
 
+                {activeSpecialEvent && (
+                  <div data-testid="special-event-indicator" style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                    padding: '4px 10px',
+                    background: `${activeSpecialEvent.color}22`,
+                    border: `1px solid ${activeSpecialEvent.color}`,
+                    borderRadius: '8px',
+                    fontSize: '12px',
+                    color: activeSpecialEvent.color,
+                    margin: '4px 0',
+                  }}>
+                    <span>{activeSpecialEvent.icon}</span>
+                    <span style={{ fontWeight: 'bold' }}>{activeSpecialEvent.name}</span>
+                    <span style={{ opacity: 0.8 }}>({activeSpecialEvent.remainingRolls} rolls)</span>
+                  </div>
+                )}
+
                 {/* Compact Action Bar */}
                 <div className="board-actions-compact">
                   <button
@@ -2371,6 +2591,7 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
         <LotteryTile
           cityLevel={cityLevel}
           currentFunds={funds}
+          guaranteeWin={!!activePowerUpEffects.guaranteeLotteryWin}
           onResult={handleLotteryResult}
           onClose={() => setActiveTileModal(null)}
         />
@@ -2379,7 +2600,7 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
         <TaxTile
           cityLevel={cityLevel}
           currentFunds={funds}
-          hasTaxHavenPowerUp={hasTaxHavenPowerUp}
+          hasTaxHavenPowerUp={hasTaxHavenPowerUp || !!activePowerUpEffects.blockTax}
           onResult={handleTaxResult}
           onClose={() => setActiveTileModal(null)}
         />
@@ -2398,6 +2619,14 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
           cityLevel={cityLevel}
           onResult={handleFortuneResult}
           onClose={handleFortuneClose}
+        />
+      )}
+
+      {/* Special Event Modal */}
+      {specialEventDisplay && (
+        <SpecialEventModal
+          event={specialEventDisplay}
+          onClose={() => setSpecialEventDisplay(null)}
         />
       )}
 

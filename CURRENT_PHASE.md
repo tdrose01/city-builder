@@ -34,18 +34,23 @@ If you're an AI agent (like Cursor, GitHub Copilot, or similar) picking up this 
       ✅ Integration into BoardLoop
       ✅ Write tests (196/196 total)
    ✅ Task 8.2: Power-Up System (complete)
-   ⏳ Task 8.3: Special Events System
+   ✅ Task 8.3: Special Events System (complete)
+      ✅ Event configuration (city-wide, random, milestone)
+      ✅ SpecialEventModal component
+      ✅ BoardLoop integration + save/load
+      ✅ 16 new tests (217/217 total)
    ⏳ Task 8.4: Mini-Games
    ⏳ Task 8.5: Enhanced Combo System
 ```
 
 ### 2. Current State (Phase 8 Active)
-- **Phase 8:** 🚧 In Progress (Task 8.1 + Task 8.2 complete)
-- **Test Status:** 201/201 passing (100%)
+- **Phase 8:** 🚧 In Progress (Tasks 8.1-8.3 complete)
+- **Test Status:** 217/217 passing (100%)
 - **New Tile Types:** 4 integrated (Lottery, Tax, Jail, Fortune)
 - **Fortune Rewards:** Tax Haven + Get Out of Jail Free card
 - **Power-Ups:** Shop + HUD + 6 effects wired into gameplay
-- **Next:** Task 8.3 - Special Events System
+- **Special Events:** City-wide buffs, random events, milestone rewards
+- **Next:** Task 8.4 - Mini-Games
 
 ### 3. What Was Accomplished
 
@@ -53,9 +58,10 @@ If you're an AI agent (like Cursor, GitHub Copilot, or similar) picking up this 
 - 4 new interactive tile types integrated into BoardLoop
 - Fortune event system (12 weighted events) with Tax Haven + Jail Free rewards
 - Power-up system complete (shop, HUD indicator, and 6 power-up effects)
+- Special events system (4 city-wide events, 6 random events, 2 milestone types)
 - Modal UX and audio cues wired to tile outcomes
-- New tile state persisted (jail turns, skip turns, fortune effects, power-ups)
-- Tests updated and passing (201/201)
+- New tile state persisted (jail turns, skip turns, fortune effects, power-ups, events)
+- Tests updated and passing (217/217)
 
 **Phase 6 delivered:**
 - 3 new playable cities (Crystal Plaza, Starlight District, Neon Skyline)

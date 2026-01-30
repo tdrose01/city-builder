@@ -117,6 +117,59 @@ All notable changes to the City Slacker project are documented here.
 
 #### Next Steps
 - [x] Task 8.2: Power-Up System (config + shop + indicator + effects + tests) — COMPLETE
+- [x] Task 8.3: Special Events System — COMPLETE
+
+---
+
+### 🎪 Task 8.3: Special Events System (COMPLETE)
+
+#### Three Event Categories
+
+**1. City-Wide Events (Rare Buffs)**
+Temporary gameplay-altering effects triggered randomly after a 20-roll cooldown (3% chance per roll):
+- **Golden Hour** ☀️: +100% all rewards for 10 rolls
+- **Tax Holiday** 🏖️: No taxes or rent for 5 rolls
+- **Sticker Frenzy** 🎉: 2x sticker drops for 15 rolls
+- **Jackpot Day** 🎰: Lottery always wins for 3 rolls
+
+**2. Random Events (Common Per-Roll)**
+Immediate effects with a 5% trigger chance per roll, weighted selection from 6 events:
+- **Bank Error** 🏦: Gain $500-$2000 (scaled by city)
+- **Street Performer** 🎭: Skip 1 turn but gain $1000 (scaled)
+- **Parade** 🎊: Move forward 5 spaces
+- **Construction** 🚧: Upgrades blocked this turn
+- **Lucky Find** 🍀: Gain a random power-up
+- **Pickpocket** 🕵️: Lose 10% funds (max $1000 scaled)
+
+**3. Milestone Events (Threshold-Based)**
+Triggered on cumulative achievement thresholds:
+- **Every 50 rolls**: Bonus chest (funds + dice + shield)
+- **Every 10 upgrades**: Special sticker pack
+
+#### Technical Implementation
+
+**New Configuration File:**
+- `web/src/config/specialEvents.js` — Event definitions, weighted selection, milestone checking
+
+**New Component:**
+- `web/src/components/SpecialEventModal.jsx` — Two display modes:
+  - Full modal with backdrop for city-wide events
+  - Compact toast for random/milestone events
+
+**BoardLoop Integration:**
+- City-wide effects flow through existing multiplier system
+- Active event HUD indicator (icon + name + remaining rolls)
+- Full save/load persistence for event state
+- Tax Holiday blocks both Tax and Rent tiles
+- Jackpot Day forces lottery wins via `guaranteeLotteryWin` flag
+
+#### Integration & Testing
+- ✅ 16 new tests added (217/217 total passing)
+- ✅ Events integrated into roll flow
+- ✅ City-wide effects modify reward multipliers
+- ✅ Random events apply immediate effects
+- ✅ Milestone events trigger on thresholds
+- ✅ Event state persists through save/load
 
 ---
 
