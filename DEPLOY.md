@@ -1,10 +1,28 @@
 # Deployment Instructions
 
+## Netlify CLI Deployment (No GitHub Required)
+
+1. **Install Netlify CLI**:
+   `npm install -g netlify-cli`
+
+2. **Authenticate**:
+   - `netlify login`
+   - Or set a token if you cannot open a browser:
+     `NETLIFY_AUTH_TOKEN=your-token`
+
+3. **Build**:
+   - `npm --prefix web ci`
+   - `npm --prefix web run build`
+
+4. **Deploy**:
+   - Draft URL: `netlify deploy --dir web/dist`
+   - Production URL: `netlify deploy --dir web/dist --prod`
+
 ## Manual Deployment to Netlify
 
 1. **Locate the Build Folder**:
    The production build is located at:
-   `c:/city-slacker/web/dist`
+   `web/dist`
 
 2. **Upload to Netlify**:
    - Go to [app.netlify.com](https://app.netlify.com).

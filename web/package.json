@@ -11,7 +11,9 @@
     "test": "vitest run",
     "test:unit": "vitest run",
     "test:unit:watch": "vitest",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "deploy:netlify": "netlify deploy --dir dist",
+    "deploy:netlify:prod": "netlify deploy --dir dist --prod"
   },
   "dependencies": {
     "@react-spring/three": "^10.0.3",
