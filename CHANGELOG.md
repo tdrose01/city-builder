@@ -2,6 +2,32 @@
 
 All notable changes to the City Slacker project are documented here.
 
+## [2026-01-30] - Phase 9: Social Features & Advanced Progression - COMPLETE 🚀
+
+**Phase 9 introduces long-term retention loops via social mechanics and global prestige.**
+
+### 👥 Task 9.1: Friend System (COMPLETE)
+- **Social Tab**: New HUD section for social interactions.
+- **Leaderboard**: Displays 5 mock friends with dynamic stats (Net Worth, City Level).
+- **Gifting**: Send/receive daily gifts (5 Dice) with 24h reset logic.
+- **Components**: `SocialTab.jsx`, `LeaderboardItem.jsx`, `social.js` config.
+
+### 🌍 Task 9.2: Global Prestige (COMPLETE)
+- **End-Game Loop**: Unlocks after completing City 5.
+- **Reset Mechanic**: Resets city progress to Tier 1 but grants permanent buffs.
+- **Multiplier**: **+50% Income** per Global Prestige tier.
+- **Persistence**: Persists across all game resets.
+
+### 📋 Task 9.3: Advanced Missions (COMPLETE)
+- **New Cycles**: Added **Weekly** and **Monthly** mission tabs.
+- **Persistence**: Mission state now persisted at root level (fixes daily reset bugs).
+- **Refactor**: Rewrote `MissionTracker.jsx` to be data-driven from `missions.js` config.
+
+### 🎨 Task 9.4: Visual Polish (COMPLETE)
+- **Dice Upgrade**: Improved 3D dice materials with emissive glow and better roughness maps.
+
+---
+
 ## [2026-01-30] - Phase 8: Gameplay Enhancement - COMPLETE 🎮
 
 **Phase 8 has successfully expanded the core loop with deep interactive mechanics, mini-games, and strategic power-ups.**

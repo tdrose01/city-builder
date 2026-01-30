@@ -61,6 +61,11 @@ export class SessionMetrics {
     this.stickersEarned += count;
   }
 
+  recordStickerPackEarned(count = 1) {
+    // Assuming 3 stickers per pack for analytics approximation
+    this.stickersEarned += count * 3;
+  }
+
   recordFundsChange(delta) {
     if (delta > 0) {
       this.fundsEarned += delta;

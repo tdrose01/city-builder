@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useMemo, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { saveGame, loadGame, clearSave, isStorageAvailable } from '../utils/saveSystem';
-import { INITIAL_STATE, PACING as BALANCE_PACING, ECONOMY, PRESTIGE, getScaledReward as calculateScaledReward } from '../config/gameBalance';
+import { INITIAL_STATE, PACING as BALANCE_PACING, ECONOMY, PRESTIGE, getScaledReward as calculateScaledReward, getGlobalPrestigeMultiplier } from '../config/gameBalance';
 import { SessionMetrics, saveSession } from '../utils/sessionAnalytics';
 import MissionTracker from './MissionTracker';
 import ParticleEffect from './ParticleEffect';
@@ -23,7 +23,9 @@ import SpecialEventModal from './SpecialEventModal';
 import SlotMachine from './SlotMachine';
 import WheelOfFortune from './WheelOfFortune';
 import ComboTracker from './ComboTracker';
+import SocialTab from './Social/SocialTab';
 import { POWER_UPS, getPowerUpCost } from '../config/powerUps';
+import { generateMockFriends, SOCIAL_CONFIG } from '../config/social';
 import {
   CITY_WIDE_EVENTS,
   EVENT_TRIGGER,
@@ -291,6 +293,11 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
   const [comboChain, setComboChain] = useState({ type: null, count: 0 });
   const [diceCostRemainder, setDiceCostRemainder] = useState(0);
 
+  // Social state
+  const [friends, setFriends] = useState([]);
+  const [dailyGiftCount, setDailyGiftCount] = useState(0);
+  const [lastGiftReset, setLastGiftReset] = useState(Date.now());
+
   // Combo multiplier helper
   const getComboMultiplier = (count) => {
     if (count <= 1) return 1.0;
@@ -308,6 +315,14 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
   const [lastMilestoneUpgrades, setLastMilestoneUpgrades] = useState(0);
   const [upgradeBlocked, setUpgradeBlocked] = useState(false);
   const [wheelSpunThisCity, setWheelSpunThisCity] = useState(false);
+  const [globalPrestigeLevel, setGlobalPrestigeLevel] = useState(0);
+  
+  // Mission state (Daily, Weekly, Monthly persistence)
+  const [missionState, setMissionState] = useState({
+    daily: { startRolls: 0, startUpgrades: 0, startShields: 0, startFundsTiles: 0, completed: [], resetCount: 0 },
+    weekly: { startRolls: 0, startUpgrades: 0, startDailyCycles: 0, completed: [] },
+    monthly: { startRolls: 0, startUpgrades: 0, startDailyCycles: 0, completed: [] }
+  });
 
   // City transition state
   const [cityTransitionActive, setCityTransitionActive] = useState(false);
@@ -372,10 +387,48 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
       if (savedState.lastMilestoneRolls !== undefined) setLastMilestoneRolls(savedState.lastMilestoneRolls);
       if (savedState.lastMilestoneUpgrades !== undefined) setLastMilestoneUpgrades(savedState.lastMilestoneUpgrades);
       if (savedState.wheelSpunThisCity !== undefined) setWheelSpunThisCity(savedState.wheelSpunThisCity);
+      if (savedState.globalPrestigeLevel !== undefined) setGlobalPrestigeLevel(savedState.globalPrestigeLevel);
+      if (savedState.missionState !== undefined) setMissionState(savedState.missionState);
+      
+      // Social state load
+      if (savedState.friends && savedState.friends.length > 0) {
+        setFriends(savedState.friends);
+      } else {
+        setFriends(generateMockFriends(savedState.cityLevel || 1, SOCIAL_CONFIG.FRIEND_COUNT));
+      }
+      if (savedState.dailyGiftCount !== undefined) setDailyGiftCount(savedState.dailyGiftCount);
+      if (savedState.lastGiftReset !== undefined) setLastGiftReset(savedState.lastGiftReset);
 
       showNotification("Game Loaded!", 'success', 2000);
+    } else {
+      // New game initialization for friends
+      setFriends(generateMockFriends(1, SOCIAL_CONFIG.FRIEND_COUNT));
     }
   }, []); // Only once on mount
+
+  useEffect(() => {
+    const checkDailyReset = () => {
+      const lastResetDate = new Date(lastGiftReset);
+      const now = new Date();
+      
+      // Check if it's a different day
+      if (lastResetDate.getDate() !== now.getDate() || 
+          lastResetDate.getMonth() !== now.getMonth() || 
+          lastResetDate.getFullYear() !== now.getFullYear()) {
+        
+        setDailyGiftCount(0);
+        setFriends(prev => prev.map(f => ({
+          ...f,
+          giftSent: false,
+          giftReceived: Math.random() > 0.5 // Random chance to receive new gifts
+        })));
+        setLastGiftReset(Date.now());
+        showNotification("Daily social limits reset!", 'info');
+      }
+    };
+    
+    checkDailyReset();
+  }, [lastGiftReset]);
 
   // Persistence: Auto-save on state change (debounced)
   useEffect(() => {
@@ -412,7 +465,12 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
         lastMilestoneUpgrades,
         wheelSpunThisCity,
         playerPosition,
-        tiles // Persist tile state (including upgrades)
+        tiles, // Persist tile state (including upgrades)
+        friends,
+        dailyGiftCount,
+        lastGiftReset,
+        globalPrestigeLevel,
+        missionState
       };
       const success = saveGame(stateToSave);
       if (success) {
@@ -429,7 +487,8 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
     skipTurnsRemaining, jailTurnsRemaining, hasJailFreeCard, hasTaxHavenPowerUp,
     activePowerUps, powerUpCooldowns, purchasedPowerUps, positiveStreak, diceCostRemainder,
     activeSpecialEvent, rollsSinceLastCityEvent, lastMilestoneRolls, lastMilestoneUpgrades,
-    wheelSpunThisCity, playerPosition, tiles
+    wheelSpunThisCity, playerPosition, tiles, friends, dailyGiftCount, lastGiftReset, globalPrestigeLevel,
+    missionState
   ]);
 
   // Prestige helper functions
@@ -566,8 +625,15 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
 
   const applyRewardMultiplier = useCallback((value) => {
     if (value <= 0) return value;
-    return Math.round(value * activePowerUpEffects.rewardMultiplier);
-  }, [activePowerUpEffects.rewardMultiplier]);
+    let total = value * activePowerUpEffects.rewardMultiplier;
+    
+    // Apply global prestige
+    if (globalPrestigeLevel > 0) {
+      total *= getGlobalPrestigeMultiplier(globalPrestigeLevel);
+    }
+    
+    return Math.round(total);
+  }, [activePowerUpEffects.rewardMultiplier, globalPrestigeLevel]);
 
   const applyFundsMultiplier = useCallback((value, options = {}) => {
     if (value <= 0) return value;
@@ -575,6 +641,16 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
     if (options.isFundsTile) {
       total *= activePowerUpEffects.fundsFromFundsTiles;
     }
+    
+    // Apply global prestige to funds too (it's multiplicative)
+    // Note: applyRewardMultiplier is often called with applyFundsMultiplier result,
+    // but some logic might call them independently.
+    // If we apply it here AND in applyRewardMultiplier, we double dip.
+    // Let's check usages. Usually it's applyRewardMultiplier(applyFundsMultiplier(base)).
+    // So we should ONLY apply it in applyRewardMultiplier to be safe and consistent.
+    // BUT, some funds calculations might not use applyRewardMultiplier?
+    // Let's stick to applying it in applyRewardMultiplier for now as the single source of truth for "output scaling".
+    
     return Math.round(total);
   }, [activePowerUpEffects.fundsMultiplier, activePowerUpEffects.fundsFromFundsTiles]);
 
@@ -1800,6 +1876,91 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
     }
   }, [pendingFortuneEffect, activeTileModal, applyFortuneEffect]);
 
+  const handleSendGift = (friendId) => {
+    setFriends(prev => prev.map(f => 
+      f.id === friendId ? { ...f, giftSent: true } : f
+    ));
+    showNotification("Gift sent! +1 Karma", 'success');
+  };
+
+  const handleReceiveGift = (friendId) => {
+    if (dailyGiftCount >= SOCIAL_CONFIG.MAX_DAILY_GIFTS_RECEIVED) {
+      showNotification("Daily gift limit reached!", 'warning');
+      return;
+    }
+
+    setFriends(prev => prev.map(f => 
+      f.id === friendId ? { ...f, giftReceived: false } : f
+    ));
+    setDailyGiftCount(prev => prev + 1);
+    setDice(prev => prev + SOCIAL_CONFIG.GIFT_DICE_AMOUNT);
+    currentSession.current.recordDiceChange(SOCIAL_CONFIG.GIFT_DICE_AMOUNT);
+    showNotification(`Received ${SOCIAL_CONFIG.GIFT_DICE_AMOUNT} Dice!`, 'success');
+  };
+
+  const performGlobalPrestige = () => {
+    // 1. Calculate new prestige level
+    const nextLevel = globalPrestigeLevel + 1;
+    const multiplier = getGlobalPrestigeMultiplier(nextLevel);
+
+    // 2. Reset game state (but keep meta-progression)
+    setCityLevel(1);
+    setFunds(INITIAL_STATE.FUNDS);
+    setDice(INITIAL_STATE.DICE);
+    setShields(INITIAL_STATE.SHIELDS);
+    setEventProgress(0);
+    setPlayerPosition(0);
+    
+    // Reset ephemeral state
+    setTotalRolls(0);
+    setTotalUpgrades(0);
+    setTotalShieldsCollected(0);
+    setFundsTilesLanded(0);
+    setActivePowerUps([]);
+    setPowerUpCooldowns({});
+    setPurchasedPowerUps({});
+    
+    // 3. Set new prestige level
+    setGlobalPrestigeLevel(nextLevel);
+    
+    // 4. Celebration
+    setHudMessage(`GLOBAL PRESTIGE ${nextLevel}!`);
+    addParticleEffect('fireworks', window.innerWidth / 2, window.innerHeight / 2, { 
+      count: 50, 
+      distance: 200, 
+      duration: 2.0,
+      customColors: ['#fbbf24', '#d946ef', '#3b82f6', '#10b981']
+    });
+    audioManager.playSFX('cityUnlock');
+    
+    showNotification(`Welcome to Prestige Tier ${nextLevel}! Earnings x${multiplier.toFixed(1)}`, 'success', 5000);
+  };
+
+  const handleGlobalPrestigeConfirmation = () => {
+    const nextLevel = globalPrestigeLevel + 1;
+    const multiplier = getGlobalPrestigeMultiplier(nextLevel);
+    
+    showConfirm(
+      "🌍 GLOBAL PRESTIGE AVAILABLE!",
+      `You have conquered all cities! Are you ready to ascend?\n\n` +
+      `Stats for Prestige Tier ${nextLevel}:\n` +
+      `• Global Income: x${multiplier.toFixed(1)}\n` +
+      `• Dice Cap: Unchanged\n` +
+      `• Stickers: KEPT\n` +
+      `• Friends: KEPT\n\n` +
+      `WARNING: City progress and funds will be RESET.`,
+      () => {
+        performGlobalPrestige();
+        setConfirmDialog(null);
+      },
+      {
+        confirmText: `ASCEND TO TIER ${nextLevel}`,
+        confirmColor: '#fbbf24', // Gold
+        confirmBorder: '#fbbf24'
+      }
+    );
+  };
+
   const handleUpgradeLandmark = () => {
     if (upgradeBlocked) {
       showNotification('Construction blocks upgrades this turn!', 'warning', 2500);
@@ -1873,7 +2034,8 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
             }
           );
         } else {
-          showNotification("🎉 You've maxed out all 5 cities! You are a City Slacker Master! Infinite play mode activated.", 'success', 5000);
+          // All cities complete - Trigger Global Prestige
+          handleGlobalPrestigeConfirmation();
         }
       }
 
@@ -2463,6 +2625,17 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
                     </svg>
                     <span>Power-Ups</span>
                   </button>
+                  <button
+                    className={`tab-btn ${activeTab === 'social' ? 'tab-btn-active' : ''}`}
+                    onClick={() => setActiveTab('social')}
+                    style={activeTab === 'social' ? { borderBottomColor: cityData.themeColor, color: cityData.themeColor } : {}}
+                  >
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                    </svg>
+                    <span>Social</span>
+                    {friends.some(f => f.giftReceived) && <span className="tab-badge-dot" style={{ backgroundColor: cityData.themeColor }}></span>}
+                  </button>
                 </div>
 
                 {/* Tab Content */}
@@ -2541,12 +2714,15 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
                         upgrades={totalUpgrades}
                         shieldsCollected={totalShieldsCollected}
                         fundsTilesLanded={fundsTilesLanded}
+                        missionState={missionState}
+                        setMissionState={setMissionState}
                         onMissionComplete={handleMissionComplete}
                         onAllMissionsComplete={handleAllMissionsComplete}
                         onResetAvailable={(available, handler) => {
                           setMissionResetAvailable(available);
                           setMissionResetHandler(() => handler);
                         }}
+                        missionResetCount={missionState.daily.resetCount || 0}
                       />
                     </div>
                   )}
@@ -2664,6 +2840,20 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
                         cooldowns={powerUpCooldowns}
                         purchasedPowerUps={purchasedPowerUps}
                         onPurchase={handlePurchasePowerUp}
+                      />
+                    </div>
+                  )}
+
+                  {activeTab === 'social' && (
+                    <div className="tab-panel">
+                      <SocialTab 
+                        friends={friends}
+                        cityLevel={cityLevel}
+                        netWorth={funds} // Simple net worth proxy for now
+                        themeColor={cityData.themeColor}
+                        onSendGift={handleSendGift}
+                        onReceiveGift={handleReceiveGift}
+                        dailyGiftCount={dailyGiftCount}
                       />
                     </div>
                   )}

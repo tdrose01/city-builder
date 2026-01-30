@@ -23,6 +23,11 @@ A React-based idle/incremental city-building game inspired by Monopoly GO, featu
 - **Sticker Collections**: Collect and trade stickers across themed albums
 
 ### 🎨 Recent Updates
+- **Phase 9: Social & Advanced Progression** (COMPLETE ✅)
+  - **Friend System**: Mock leaderboard with daily gifting mechanics.
+  - **Global Prestige**: End-game reset with permanent +50% income multipliers.
+  - **Advanced Missions**: Weekly and Monthly objective cycles.
+  - **Visuals**: Enhanced 3D dice rendering.
 - **Phase 8: Gameplay Enhancement** (COMPLETE ✅)
   - **New Tile Types**: Lottery 🎰, Tax 💸, Jail 🔒, Fortune 🔮 fully integrated.
   - **Power-Up System**: 6 unique power-ups (Hot Streak, Mega Multiplier, etc.) with Shop UI.

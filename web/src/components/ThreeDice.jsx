@@ -119,7 +119,13 @@ const DiceCube = ({ position, rotation, value, rolling }) => {
     <animated.group position={springPosition} rotation={springRotation}>
       <animated.mesh ref={meshRef} castShadow>
         <RoundedBox args={[1, 1, 1]} radius={0.12} smoothness={4}>
-          <meshStandardMaterial color="white" roughness={0.1} metalness={0.05} />
+          <meshStandardMaterial 
+            color="#ffffff" 
+            emissive="#111111" 
+            roughness={0.15} 
+            metalness={0.3} 
+            envMapIntensity={2.0}
+          />
         </RoundedBox>
         
         {/* Pips for all faces (subtle) */}

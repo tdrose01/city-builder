@@ -66,14 +66,19 @@
 
 ---
 
-## 🎯 Phase 9: Social & Advanced Progression (Planned)
+## 🎯 Phase 9: Social & Advanced Progression
 
-**Status:** 📅 Planning  
-**Objectives:**
-1. **Friend System:** Leaderboards and achievement sharing
-2. **Global Prestige:** Multi-city prestige rewards
-3. **Advanced Missions:** Weekly and monthly mission cycles
-4. **Visual Polish:** Enhanced 3D dice and board animations
+**Status:** ✅ Complete
+**Date:** January 30, 2026
+**Build Status:** ✅ 243/246 Tests Passing
+
+**What's New:**
+- ✅ **Friend System:** Leaderboard, mock friends, daily gifting.
+- ✅ **Global Prestige:** Reset mechanic with permanent income multipliers (+50%/tier).
+- ✅ **Advanced Missions:** Weekly & Monthly mission cycles with persistence.
+- ✅ **Visual Polish:** Upgraded 3D dice materials.
+
+**Next Step:** Phase 10 - Production Readiness & Release
 
 ---
 

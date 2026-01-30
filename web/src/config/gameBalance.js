@@ -33,6 +33,11 @@ export const PRESTIGE = {
   MIN_POINTS_REQUIRED: 120
 };
 
+export const GLOBAL_PRESTIGE = {
+  MULTIPLIER_PER_LEVEL: 0.5, // +50% per level
+  REQUIRED_CITY_LEVEL: 5
+};
+
 /**
  * Calculates scaled reward based on prestige level
  * @param {number} baseAmount 
@@ -42,4 +47,13 @@ export const PRESTIGE = {
 export const getScaledReward = (baseAmount, prestigeLevel) => {
   const multiplier = Math.min(PRESTIGE.MAX_MULTIPLIER, 1.0 + (prestigeLevel * PRESTIGE.MULTIPLIER_PER_LEVEL));
   return Math.floor(baseAmount * multiplier);
+};
+
+/**
+ * Calculates global prestige multiplier
+ * @param {number} globalPrestigeLevel 
+ * @returns {number} Multiplier (e.g., 1.5 for level 1)
+ */
+export const getGlobalPrestigeMultiplier = (globalPrestigeLevel) => {
+  return 1.0 + (globalPrestigeLevel * GLOBAL_PRESTIGE.MULTIPLIER_PER_LEVEL);
 };

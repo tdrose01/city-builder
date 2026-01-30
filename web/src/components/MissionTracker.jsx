@@ -1,105 +1,132 @@
 /* eslint-disable react-hooks/set-state-in-effect */
 import React, { useState, useEffect } from 'react';
+import { DAILY_MISSIONS, WEEKLY_MISSIONS, MONTHLY_MISSIONS } from '../config/missions';
 
-const MISSIONS = [
-  { id: 1, description: "Roll the dice 10 times", target: 10, current: 0, completed: false, reward: { type: 'dice', amount: 5 } },
-  { id: 2, description: "Upgrade a landmark", target: 1, current: 0, completed: false, reward: { type: 'funds', amount: 1500 } },
-  { id: 3, description: "Collect 5 shields", target: 5, current: 0, completed: false, reward: { type: 'shields', amount: 2 } },
-  { id: 4, description: "Land on a Funds tile 3 times", target: 3, current: 0, completed: false, reward: { type: 'funds', amount: 2000 } },
-];
+export default function MissionTracker({ 
+  rolls, 
+  upgrades, 
+  shieldsCollected, 
+  fundsTilesLanded, 
+  missionState, 
+  setMissionState,
+  onMissionComplete, 
+  onAllMissionsComplete, 
+  onResetAvailable,
+  missionResetCount
+}) {
+  const [activeTab, setActiveTab] = useState('daily');
+  const [allDailyCompletedNotified, setAllDailyCompletedNotified] = useState(false);
 
-export default function MissionTracker({ rolls, upgrades, shieldsCollected, fundsTilesLanded, onMissionComplete, onAllMissionsComplete, onResetAvailable }) {
-  const [missions, setMissions] = useState(MISSIONS);
-  const [allCompletedNotified, setAllCompletedNotified] = useState(false);
-  const [missionResetCount, setMissionResetCount] = useState(0);
-  
-  // Track starting values for current cycle
-  const [cycleStartRolls, setCycleStartRolls] = useState(0);
-  const [cycleStartUpgrades, setCycleStartUpgrades] = useState(0);
-  const [cycleStartShields, setCycleStartShields] = useState(0);
-  const [cycleStartFundsTiles, setCycleStartFundsTiles] = useState(0);
-
-  useEffect(() => {
-    let hasChanges = false;
-    const updatedMissions = missions.map(mission => {
-      if (mission.completed) return mission;
-      
-      let newCurrent = mission.current;
-
-      if (mission.id === 1) { // Roll the dice mission
-        newCurrent = Math.min(rolls - cycleStartRolls, mission.target);
-      } else if (mission.id === 2) { // Upgrade a landmark mission
-        newCurrent = Math.min(upgrades - cycleStartUpgrades, mission.target);
-      } else if (mission.id === 3) { // Collect shields mission
-        newCurrent = Math.min(shieldsCollected - cycleStartShields, mission.target);
-      } else if (mission.id === 4) { // Land on a Funds tile mission
-        newCurrent = Math.min(fundsTilesLanded - cycleStartFundsTiles, mission.target);
-      }
-
-      if (newCurrent !== mission.current) {
-        hasChanges = true;
-        
-        if (newCurrent >= mission.target) {
-          if (onMissionComplete) {
-            onMissionComplete(mission.reward);
-          }
-          return { ...mission, current: newCurrent, completed: true };
-        }
-        return { ...mission, current: newCurrent };
-      }
-      
-      return mission;
-    });
-
-    // Only update state if there's an actual change
-    if (hasChanges) {
-      setMissions(updatedMissions);
-      
-      const isAllCompletedNow = updatedMissions.every(m => m.completed);
-      if (isAllCompletedNow && !allCompletedNotified) {
-        setAllCompletedNotified(true);
-        if (onAllMissionsComplete) {
-          onAllMissionsComplete();
-        }
-      }
-    }
-  }, [rolls, upgrades, shieldsCollected, fundsTilesLanded, cycleStartRolls, cycleStartUpgrades, cycleStartShields, cycleStartFundsTiles]);
-
-  const allMissionsComplete = missions.every(m => m.completed);
-  
-  const handleResetMissions = () => {
-    // Set new cycle start values to current cumulative stats
-    setCycleStartRolls(rolls);
-    setCycleStartUpgrades(upgrades);
-    setCycleStartShields(shieldsCollected);
-    setCycleStartFundsTiles(fundsTilesLanded);
-    
-    // Reset missions
-    setMissions(MISSIONS.map(m => ({ ...m, completed: false, current: 0 })));
-    setAllCompletedNotified(false);
-    setMissionResetCount(prev => prev + 1);
+  // Helper to calculate progress
+  const getProgress = (type, startVal, currentVal) => {
+    return Math.max(0, currentVal - startVal);
   };
 
-  // Notify parent when reset is available
-  React.useEffect(() => {
-    if (onResetAvailable) {
-      onResetAvailable(allMissionsComplete, handleResetMissions);
-    }
-  }, [allMissionsComplete]);
+  // Helper to process missions of a specific type (daily, weekly, monthly)
+  const processMissions = (category, missionConfig, startValues) => {
+    return missionConfig.map(mission => {
+      // Check if already completed in state
+      if (missionState[category].completed.includes(mission.id)) {
+        return { ...mission, current: mission.target, completed: true };
+      }
 
-  return (
-    <div className="mission-tracker">
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-        <h3 style={{ margin: 0 }}>Active Missions</h3>
-        {missionResetCount > 0 && (
-          <span style={{ fontSize: '11px', color: '#fbbf24', fontWeight: 'bold' }}>
-            Cycle {missionResetCount + 1}
-          </span>
-        )}
-      </div>
+      let current = 0;
+      switch (mission.type) {
+        case 'rolls':
+          current = getProgress(mission.type, startValues.startRolls || 0, rolls);
+          break;
+        case 'upgrades':
+          current = getProgress(mission.type, startValues.startUpgrades || 0, upgrades);
+          break;
+        case 'shields':
+          current = getProgress(mission.type, startValues.startShields || 0, shieldsCollected);
+          break;
+        case 'fundsTiles':
+          current = getProgress(mission.type, startValues.startFundsTiles || 0, fundsTilesLanded);
+          break;
+        case 'dailyCycles':
+          current = getProgress(mission.type, startValues.startDailyCycles || 0, missionResetCount);
+          break;
+        default:
+          break;
+      }
+
+      return { ...mission, current: Math.min(current, mission.target), completed: current >= mission.target };
+    });
+  };
+
+  const dailyMissions = processMissions('daily', DAILY_MISSIONS, missionState.daily);
+  const weeklyMissions = processMissions('weekly', WEEKLY_MISSIONS, missionState.weekly);
+  const monthlyMissions = processMissions('monthly', MONTHLY_MISSIONS, missionState.monthly);
+
+  // Effect to handle completions
+  useEffect(() => {
+    const handleCompletion = (category, missions) => {
+      const newlyCompleted = missions.filter(m => m.completed && !missionState[category].completed.includes(m.id));
+      
+      if (newlyCompleted.length > 0) {
+        // Update state to mark as completed
+        setMissionState(prev => ({
+          ...prev,
+          [category]: {
+            ...prev[category],
+            completed: [...prev[category].completed, ...newlyCompleted.map(m => m.id)]
+          }
+        }));
+
+        // Grant rewards
+        newlyCompleted.forEach(m => {
+          if (onMissionComplete) onMissionComplete(m.reward);
+        });
+      }
+    };
+
+    handleCompletion('daily', dailyMissions);
+    handleCompletion('weekly', weeklyMissions);
+    handleCompletion('monthly', monthlyMissions);
+
+    // Check all daily completed
+    const allDailyComplete = dailyMissions.every(m => m.completed);
+    if (allDailyComplete && !allDailyCompletedNotified) {
+      setAllDailyCompletedNotified(true);
+      if (onAllMissionsComplete) onAllMissionsComplete();
+    }
+  }, [rolls, upgrades, shieldsCollected, fundsTilesLanded, missionResetCount]); // Deps trigger recalc
+
+  // Reset Logic for Daily
+  const handleResetDaily = () => {
+    setMissionState(prev => ({
+      ...prev,
+      daily: {
+        startRolls: rolls,
+        startUpgrades: upgrades,
+        startShields: shieldsCollected,
+        startFundsTiles: fundsTilesLanded,
+        completed: [],
+        resetCount: (prev.daily.resetCount || 0) + 1
+      }
+    }));
+    setAllDailyCompletedNotified(false);
+  };
+
+  // Notify parent about reset availability
+  const allDailyComplete = dailyMissions.every(m => m.completed);
+  useEffect(() => {
+    if (onResetAvailable) {
+      onResetAvailable(allDailyComplete, handleResetDaily);
+    }
+  }, [allDailyComplete]);
+
+  const renderMissionList = (missions) => (
+    <div className="mission-list">
       {missions.map(mission => (
         <div key={mission.id} className={`mission-item ${mission.completed ? 'completed' : ''}`}>
-          <div className="mission-desc">{mission.description}</div>
+          <div className="mission-desc">
+            {mission.description}
+            <div className="mission-reward-preview">
+              {mission.reward.type === 'funds' ? '$' : ''}{mission.reward.amount} {mission.reward.type}
+            </div>
+          </div>
           <div className="mission-progress">
             <span className="mission-current">{mission.current}</span>
             <span className="mission-separator">/</span>
@@ -112,6 +139,48 @@ export default function MissionTracker({ rolls, upgrades, shieldsCollected, fund
           </div>
         </div>
       ))}
+    </div>
+  );
+
+  return (
+    <div className="mission-tracker">
+      <div className="mission-tabs" style={{ display: 'flex', gap: '8px', marginBottom: '12px' }}>
+        {['daily', 'weekly', 'monthly'].map(tab => (
+          <button
+            key={tab}
+            onClick={() => setActiveTab(tab)}
+            style={{
+              flex: 1,
+              padding: '6px',
+              fontSize: '11px',
+              backgroundColor: activeTab === tab ? '#fbbf24' : 'rgba(255,255,255,0.1)',
+              color: activeTab === tab ? '#000' : '#fff',
+              border: 'none',
+              borderRadius: '6px',
+              textTransform: 'capitalize',
+              fontWeight: 'bold',
+              cursor: 'pointer'
+            }}
+          >
+            {tab}
+          </button>
+        ))}
+      </div>
+
+      <div className="mission-content">
+        {activeTab === 'daily' && (
+          <>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+              <span style={{ fontSize: '11px', color: '#fbbf24', fontWeight: 'bold' }}>
+                Cycle {missionResetCount + 1}
+              </span>
+            </div>
+            {renderMissionList(dailyMissions)}
+          </>
+        )}
+        {activeTab === 'weekly' && renderMissionList(weeklyMissions)}
+        {activeTab === 'monthly' && renderMissionList(monthlyMissions)}
+      </div>
     </div>
   );
 }
