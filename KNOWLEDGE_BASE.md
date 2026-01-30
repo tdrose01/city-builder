@@ -1,8 +1,8 @@
-# Knowledge Base - City Slacker Project
+﻿# Knowledge Base - City Slacker Project
 
-**Last Updated:** 2026-01-29 19:57  
-**Current Phase:** Phase 8 - Gameplay Enhancement (Task 8.2 🚧)  
-**Total Entries:** 18
+**Last Updated:** 2026-01-30 12:10  
+**Current Phase:** Phase 8 - Gameplay Enhancement (Task 8.2 complete)  
+**Total Entries:** 19
 
 ## Quick Links
 - [Recent Changes](#recent-changes) (Last 30 days)
@@ -14,20 +14,65 @@
 - [Known Issues & Workarounds](#known-issues--workarounds)
 
 ## Project Statistics
-- **Total Commits:** 59 
-- **Total Files:** 16325
-- **Test Coverage:** Not run (docs-only update)
-- **Phase:** 8 - Gameplay Enhancement (Task 8.2 🚧)
+- **Total Commits:** 61 
+- **Total Files:** 220
+- **Test Coverage:** 100% (201/201 passing)
+- **Phase:** 8 - Gameplay Enhancement (Task 8.2 complete)
 - **Post-Launch Fixes:** 4 performance and UX improvements applied
 - **Dependencies:** 344 packages
 - **Lines of Code:** 29,714+
 - **Cities Implemented:** 5/5
-- **Phase Completion:** Phase 5 ✅
+- **Phase Completion:** Phase 5 âœ…
 
 ---
 
 ## Recent Changes
 
+### [2026-01-30 12:10] - Task 8.2 Power-Up Effects Completed
+
+**Type:** Feature + Test + Documentation  
+**Status:** Completed  
+**Commit:** (pending)  
+**Author:** AI Agent (Codex)
+
+#### What Changed
+- Updated power-up effects: Mega Multiplier doubles funds tile payouts, Lucky Dice guarantees doubles, Double Bonus scales via reward multiplier, and Combo Bonus scales with reward + funds multipliers
+- Reset positive streak tracking on neutral/negative Fortune outcomes
+- Added save-load guard to avoid wiping state on initial load
+- Added BoardLoop power-up effect tests for Mega Multiplier and Lucky Dice
+- Marked Task 8.2 complete across Phase 8 docs and checklists
+
+#### Why
+Finish Task 8.2 by wiring remaining power-up effects, stabilizing persistence, and proving behavior with tests.
+
+#### Impact
+- Power-up effects now apply consistently to rewards and multipliers
+- Save loads preserve city/board state without unintended resets
+- Test suite expanded and green
+
+#### Related Files
+- `web/src/components/BoardLoop.jsx`
+- `web/src/components/__tests__/BoardLoopEffects.test.jsx`
+- `CHANGELOG.md`
+- `CURRENT_PHASE.md`
+- `NEXT_STEPS.md`
+- `STATUS.md`
+- `conductor/tracks/phase8_gameplay_enhancement_20260127/index.md`
+- `conductor/tracks/phase8_gameplay_enhancement_20260127/plan.md`
+
+#### Dependencies Changed
+- None
+
+#### Testing
+- `npm test` (web/) -> **201/201 passing**
+
+#### Follow-up Tasks
+- [ ] Task 8.3: Special events (design + implementation)
+
+#### Notes
+- Test run emits warnings about AudioContext support, multiple Three.js instances, and React `jsx` attribute in tests.
+
+---
 ### [2026-01-29 19:57] - Task 8.2 Next Actions Refined
 
 **Type:** Documentation  
@@ -186,7 +231,7 @@ Wire new tile-related rewards into gameplay and keep tests stable after tile lay
 - None
 
 #### Testing
-- `npm test` (vitest run) → **196/196 passing**
+- `npm test` (vitest run) â†’ **196/196 passing**
 
 #### Notes
 - Test runs emit warnings about Web Audio API support and multiple Three.js instances.
@@ -266,11 +311,11 @@ After completing Phase 5, the user tested the game in the browser and identified
 - Added GPU acceleration to player piece (`translateZ(0)`, `backface-visibility: hidden`)
 - Optimized board-tile rendering (`contain: layout style paint`)
 - Reduced particle counts by ~50%:
-  - Sparkles: 15 → 8 particles
-  - Stars: 25 → 15 particles
-  - Confetti: 50 → 25 particles
-  - Fireworks: 60 → 30 particles
-  - Coins: 20 → 10 particles
+  - Sparkles: 15 â†’ 8 particles
+  - Stars: 25 â†’ 15 particles
+  - Confetti: 50 â†’ 25 particles
+  - Fireworks: 60 â†’ 30 particles
+  - Coins: 20 â†’ 10 particles
 - Reduced particle duration and distance
 - Added `image-rendering: crisp-edges` to player piece
 - Changed `transform-style` from `preserve-3d` to `flat` for tiles
@@ -296,17 +341,17 @@ After completing Phase 5, the user tested the game in the browser and identified
 - Added `-webkit-font-smoothing: antialiased`
 
 #### Results
-✅ **Performance:**
+âœ… **Performance:**
 - Smooth 60 FPS gameplay
 - Reduced particle overhead
 - Lower CPU/GPU usage
 
-✅ **Rendering Quality:**
+âœ… **Rendering Quality:**
 - Crisp, sharp player piece (no blur)
 - Clear 3D dice during animation
 - Professional visual quality
 
-✅ **User Experience:**
+âœ… **User Experience:**
 - Board stays perfectly still
 - No unwanted scrolling
 - Stable dice area
@@ -323,11 +368,11 @@ After completing Phase 5, the user tested the game in the browser and identified
 - **Stability:** 100% stable board (no movement)
 - **Performance:** Maintained 60 FPS
 
-**Post-Launch Status:** All browser issues resolved ✅
+**Post-Launch Status:** All browser issues resolved âœ…
 
 ---
 
-### [2026-01-27 20:00] - Phase 5.6: Documentation Polish - PHASE 5 COMPLETE! 🎉
+### [2026-01-27 20:00] - Phase 5.6: Documentation Polish - PHASE 5 COMPLETE! ðŸŽ‰
 
 **Type:** Documentation + Final Phase 5 Deliverable  
 **Status:** Completed  
@@ -335,59 +380,59 @@ After completing Phase 5, the user tested the game in the browser and identified
 **Author:** AI Agent (Cursor)
 
 #### What Changed
-- ✅ **README.md**: Complete rewrite with Phase 5 features
-- ✅ **CHANGELOG.md**: Comprehensive Phase 5 documentation
-- ✅ **DEVELOPER_GUIDE.md**: NEW 300+ line comprehensive guide
-- ✅ **STATUS.md**: Updated with Phase 5 completion status
-- ✅ **CURRENT_PHASE.md**: Updated to reflect completion
-- ✅ **KNOWLEDGE_BASE.md**: Final Phase 5 entry (this!)
+- âœ… **README.md**: Complete rewrite with Phase 5 features
+- âœ… **CHANGELOG.md**: Comprehensive Phase 5 documentation
+- âœ… **DEVELOPER_GUIDE.md**: NEW 300+ line comprehensive guide
+- âœ… **STATUS.md**: Updated with Phase 5 completion status
+- âœ… **CURRENT_PHASE.md**: Updated to reflect completion
+- âœ… **KNOWLEDGE_BASE.md**: Final Phase 5 entry (this!)
 
 #### Documentation Improvements
 
 **README.md Updates:**
-- ✨ Complete project overview
-- 🎮 Feature list with Phase 5 additions
-- 🚀 Quick start guide
-- 📁 Project structure breakdown
-- 🎮 How to play guide
-- 🧪 Testing guide
-- 🛠️ Technology stack
-- 📊 Game balance info
-- 🚧 Status and roadmap
+- âœ¨ Complete project overview
+- ðŸŽ® Feature list with Phase 5 additions
+- ðŸš€ Quick start guide
+- ðŸ“ Project structure breakdown
+- ðŸŽ® How to play guide
+- ðŸ§ª Testing guide
+- ðŸ› ï¸ Technology stack
+- ðŸ“Š Game balance info
+- ðŸš§ Status and roadmap
 
 **CHANGELOG.md Updates:**
-- 📋 Comprehensive Phase 5 entry
-- ✨ All 6 tasks documented in detail
-- 📊 Statistics and impact summary
-- 📁 Files added/modified lists
-- 🎯 Phase 5 deliverables summary
+- ðŸ“‹ Comprehensive Phase 5 entry
+- âœ¨ All 6 tasks documented in detail
+- ðŸ“Š Statistics and impact summary
+- ðŸ“ Files added/modified lists
+- ðŸŽ¯ Phase 5 deliverables summary
 
 **NEW: DEVELOPER_GUIDE.md** (300+ lines)
-- 📋 Complete table of contents
-- 🚀 Getting started guide
-- 🏗️ Project architecture
-- 💻 Development workflow
-- 🧩 Component guide (BoardLoop, CityTransition, ParticleEffect, Audio)
-- 🧪 Testing guide with templates
-- ⚡ Performance best practices
-- 🔊 Audio system architecture
-- 🎨 Animation system guide
-- 💾 State management patterns
-- 🔍 Troubleshooting section
-- 📚 Additional resources
+- ðŸ“‹ Complete table of contents
+- ðŸš€ Getting started guide
+- ðŸ—ï¸ Project architecture
+- ðŸ’» Development workflow
+- ðŸ§© Component guide (BoardLoop, CityTransition, ParticleEffect, Audio)
+- ðŸ§ª Testing guide with templates
+- âš¡ Performance best practices
+- ðŸ”Š Audio system architecture
+- ðŸŽ¨ Animation system guide
+- ðŸ’¾ State management patterns
+- ðŸ” Troubleshooting section
+- ðŸ“š Additional resources
 
 **STATUS.md Updates:**
-- 📊 Test coverage: 73 → 171 tests
-- ✨ Phase 5 features added to overview
-- 🔧 Recent changes section updated
-- 🎯 Phase status: Phase 5 complete
-- ✅ Success criteria updated
+- ðŸ“Š Test coverage: 73 â†’ 171 tests
+- âœ¨ Phase 5 features added to overview
+- ðŸ”§ Recent changes section updated
+- ðŸŽ¯ Phase status: Phase 5 complete
+- âœ… Success criteria updated
 
 **CURRENT_PHASE.md Updates:**
-- ✅ Phase 5 marked complete
-- 📊 Metrics updated (171 tests)
-- 🎉 Completion summary added
-- 🚀 Next phase pointer (Phase 6)
+- âœ… Phase 5 marked complete
+- ðŸ“Š Metrics updated (171 tests)
+- ðŸŽ‰ Completion summary added
+- ðŸš€ Next phase pointer (Phase 6)
 
 #### Documentation Metrics
 - **README.md**: 400+ lines (was 58)
@@ -396,7 +441,7 @@ After completing Phase 5, the user tested the game in the browser and identified
 - **Total Documentation**: ~2,000 lines of comprehensive docs
 
 #### Phase 5.6 Status
-**TASK 5.6: FULLY COMPLETE ✅**
+**TASK 5.6: FULLY COMPLETE âœ…**
 - [x] Update README with Phase 5 features
 - [x] Update CHANGELOG with all Phase 5 work
 - [x] Add JSDoc comments to new components (already done)
@@ -404,7 +449,7 @@ After completing Phase 5, the user tested the game in the browser and identified
 
 ---
 
-### 🎊 PHASE 5 FINAL SUMMARY 🎊
+### ðŸŽŠ PHASE 5 FINAL SUMMARY ðŸŽŠ
 
 **Phase 5: Content Polish & Enhancement - COMPLETE!**
 
@@ -414,13 +459,13 @@ After completing Phase 5, the user tested the game in the browser and identified
 **Files Added:** 9 files  
 **Lines of Code:** ~2,500 total (code + docs)
 
-#### All Tasks Complete ✅
-1. ✅ Task 5.1: Enhanced City Transitions (25 tests)
-2. ✅ Task 5.2: Particle Effect Enhancements (31 tests)
-3. ✅ Task 5.3: Audio System (42 tests)
-4. ✅ Task 5.4: Performance Optimization (monitoring + memo)
-5. ✅ Task 5.5: Additional Test Coverage (171 total)
-6. ✅ Task 5.6: Documentation Polish (comprehensive docs)
+#### All Tasks Complete âœ…
+1. âœ… Task 5.1: Enhanced City Transitions (25 tests)
+2. âœ… Task 5.2: Particle Effect Enhancements (31 tests)
+3. âœ… Task 5.3: Audio System (42 tests)
+4. âœ… Task 5.4: Performance Optimization (monitoring + memo)
+5. âœ… Task 5.5: Additional Test Coverage (171 total)
+6. âœ… Task 5.6: Documentation Polish (comprehensive docs)
 
 #### Phase 5 Impact
 **Code Quality:**
@@ -473,7 +518,7 @@ After completing Phase 5, the user tested the game in the browser and identified
 - Expanded content and progression
 - Estimated: 10-15 hours
 
-**Phase 5 is officially complete!** 🎉  
+**Phase 5 is officially complete!** ðŸŽ‰  
 **Project is production-ready for deployment or Phase 6 development.**
 
 ---
@@ -486,35 +531,35 @@ After completing Phase 5, the user tested the game in the browser and identified
 **Author:** AI Agent (Cursor)
 
 #### What Changed
-- ✅ Audited all test coverage
-- ✅ Maintained 100% pass rate (171/171)
-- ✅ All Phase 5 features fully tested
-- ✅ Removed unstable test files
-- ✅ Verified production build
+- âœ… Audited all test coverage
+- âœ… Maintained 100% pass rate (171/171)
+- âœ… All Phase 5 features fully tested
+- âœ… Removed unstable test files
+- âœ… Verified production build
 
 #### Test Coverage Summary
 **12 test files, 171 tests passing:**
 
 | Feature | Tests | Status |
 |---------|-------|--------|
-| **City Transitions** | 25 | ✅ 100% |
-| **Particle Effects** | 31 | ✅ 100% |
-| **Audio Manager** | 42 | ✅ 100% |
-| **BoardLoop Core** | 30+ | ✅ 100% |
-| **Save System** | 27 | ✅ 100% |
-| **Session Analytics** | 7 | ✅ 100% |
-| **3D Dice** | 9+ | ✅ 100% |
+| **City Transitions** | 25 | âœ… 100% |
+| **Particle Effects** | 31 | âœ… 100% |
+| **Audio Manager** | 42 | âœ… 100% |
+| **BoardLoop Core** | 30+ | âœ… 100% |
+| **Save System** | 27 | âœ… 100% |
+| **Session Analytics** | 7 | âœ… 100% |
+| **3D Dice** | 9+ | âœ… 100% |
 
 **Total:** 171 tests, 100% passing
 
 #### Quality Metrics
-- ✅ **No failing tests**
-- ✅ **Production build successful**
-- ✅ **All Phase 5 features tested**
-- ✅ **Clean git history**
+- âœ… **No failing tests**
+- âœ… **Production build successful**
+- âœ… **All Phase 5 features tested**
+- âœ… **Clean git history**
 
 #### Phase 5.5 Status
-**TASK 5.5: FULLY COMPLETE ✅**
+**TASK 5.5: FULLY COMPLETE âœ…**
 - [x] Audit current test coverage
 - [x] Verify all new features tested
 - [x] Maintain 100% pass rate
@@ -538,14 +583,14 @@ After completing Phase 5, the user tested the game in the browser and identified
 **Author:** AI Agent (Cursor)
 
 #### What Changed
-- ✅ Added React.memo to 6 components
-- ✅ Created performance monitoring utility (170 lines)
-- ✅ Memoized expensive calculations
-- ✅ Optimized 3D dice rendering
-- ✅ Reduced unnecessary re-renders
-- ✅ FPS & memory tracking
-- ✅ All 171 tests passing (100%)
-- ✅ Production build successful
+- âœ… Added React.memo to 6 components
+- âœ… Created performance monitoring utility (170 lines)
+- âœ… Memoized expensive calculations
+- âœ… Optimized 3D dice rendering
+- âœ… Reduced unnecessary re-renders
+- âœ… FPS & memory tracking
+- âœ… All 171 tests passing (100%)
+- âœ… Production build successful
 
 #### Components Optimized with React.memo
 | Component | Lines | Benefit |
@@ -647,14 +692,14 @@ export default memo(Component);
 - **NEW**: `web/src/utils/performanceMonitor.js` (170 lines)
 
 #### Build & Quality
-- ✅ **Production build successful**
-- ✅ **All 171 tests passing** (100%)
-- ✅ **No breaking changes**
-- ✅ **Bundle size**: 1,446KB JS (428KB gzipped)
-- ✅ **No new dependencies**
+- âœ… **Production build successful**
+- âœ… **All 171 tests passing** (100%)
+- âœ… **No breaking changes**
+- âœ… **Bundle size**: 1,446KB JS (428KB gzipped)
+- âœ… **No new dependencies**
 
 #### Phase 5.4 Status
-**TASK 5.4: FULLY COMPLETE ✅**
+**TASK 5.4: FULLY COMPLETE âœ…**
 - [x] Analyze current performance
 - [x] Add React.memo to components (6 components)
 - [x] Optimize callbacks
@@ -683,29 +728,29 @@ export default memo(Component);
 **Author:** AI Agent (Cursor)
 
 #### What Changed
-- ✅ Created AudioManager utility (450 lines)
-- ✅ Created AudioControls UI component (280 lines)
-- ✅ **8 synthesized sound effects** using Web Audio API
-- ✅ Volume controls (master, music, SFX)
-- ✅ Mute/unmute functionality
-- ✅ localStorage persistence
-- ✅ Integrated with 6 game events
-- ✅ **Added 42 new tests** (129 → 171 total)
-- ✅ All tests passing (100%)
+- âœ… Created AudioManager utility (450 lines)
+- âœ… Created AudioControls UI component (280 lines)
+- âœ… **8 synthesized sound effects** using Web Audio API
+- âœ… Volume controls (master, music, SFX)
+- âœ… Mute/unmute functionality
+- âœ… localStorage persistence
+- âœ… Integrated with 6 game events
+- âœ… **Added 42 new tests** (129 â†’ 171 total)
+- âœ… All tests passing (100%)
 
 #### Sound Effects (Web Audio API Synthesis)
 **No external audio files required - all sounds synthesized in-browser**
 
 | Sound | Type | Description | Technical |
 |-------|------|-------------|-----------|
-| 🎲 Dice Roll | SFX | Quick rattle | Square wave, 200→100Hz, 0.1s |
-| ⭐ Upgrade | SFX | Rising chime | Sine wave, 440→880Hz, 0.2s |
-| 💰 Funds | SFX | Coin clink | Sine wave, 800→400Hz, 0.05s |
-| 🏙️ City Unlock | SFX | 3-note fanfare | C5, E5, G5 (0.3s each) |
-| 🎯 Milestone | SFX | 4-note arpeggio | A4, C#5, E5, A5 (0.4s total) |
-| 🔘 Click | SFX | Short blip | Sine 600Hz, 0.03s |
-| ✅ Success | SFX | 2-note confirm | C5→E5, 0.2s |
-| 🎲 Doubles | SFX | Dual harmonic | 440Hz + 880Hz, 0.15s |
+| ðŸŽ² Dice Roll | SFX | Quick rattle | Square wave, 200â†’100Hz, 0.1s |
+| â­ Upgrade | SFX | Rising chime | Sine wave, 440â†’880Hz, 0.2s |
+| ðŸ’° Funds | SFX | Coin clink | Sine wave, 800â†’400Hz, 0.05s |
+| ðŸ™ï¸ City Unlock | SFX | 3-note fanfare | C5, E5, G5 (0.3s each) |
+| ðŸŽ¯ Milestone | SFX | 4-note arpeggio | A4, C#5, E5, A5 (0.4s total) |
+| ðŸ”˜ Click | SFX | Short blip | Sine 600Hz, 0.03s |
+| âœ… Success | SFX | 2-note confirm | C5â†’E5, 0.2s |
+| ðŸŽ² Doubles | SFX | Dual harmonic | 440Hz + 880Hz, 0.15s |
 
 #### AudioManager Features
 **Core functionality:**
@@ -753,26 +798,26 @@ export default memo(Component);
 
 #### Game Integration
 **Sound events mapped:**
-1. **Dice roll** → diceRoll sound
-2. **Doubles roll** → doubles sound + sparkles
-3. **Large funds** (>=5k) → funds sound + coins
-4. **Landmark upgrade** → upgrade sound + stars
-5. **Mission complete** → milestone sound + confetti
-6. **Prestige level** → cityUnlock sound + fireworks
+1. **Dice roll** â†’ diceRoll sound
+2. **Doubles roll** â†’ doubles sound + sparkles
+3. **Large funds** (>=5k) â†’ funds sound + coins
+4. **Landmark upgrade** â†’ upgrade sound + stars
+5. **Mission complete** â†’ milestone sound + confetti
+6. **Prestige level** â†’ cityUnlock sound + fireworks
 
 #### Technical Implementation
 **AudioManager architecture:**
 ```javascript
 AudioContext
-  ├── masterGain (master volume)
-  │   ├── musicGain (music volume)
-  │   └── sfxGain (SFX volume)
-  └── destination (speakers)
+  â”œâ”€â”€ masterGain (master volume)
+  â”‚   â”œâ”€â”€ musicGain (music volume)
+  â”‚   â””â”€â”€ sfxGain (SFX volume)
+  â””â”€â”€ destination (speakers)
 ```
 
 **Sound synthesis pattern:**
 ```javascript
-Oscillator → GainNode → sfxGain → masterGain → destination
+Oscillator â†’ GainNode â†’ sfxGain â†’ masterGain â†’ destination
 ```
 
 **Browser compatibility:**
@@ -794,12 +839,12 @@ Oscillator → GainNode → sfxGain → masterGain → destination
 - **Edge Cases** (2 tests): Unknown SFX, not initialized
 
 #### Quality Metrics
-- ✅ **171/171 tests passing** (100%)
-- ✅ **42 new tests** (+32.6% increase)
-- ✅ **No external dependencies** (Web Audio API native)
-- ✅ **No audio files** (all synthesized)
-- ✅ **Zero-latency** sound playback
-- ✅ **Production-ready** quality
+- âœ… **171/171 tests passing** (100%)
+- âœ… **42 new tests** (+32.6% increase)
+- âœ… **No external dependencies** (Web Audio API native)
+- âœ… **No audio files** (all synthesized)
+- âœ… **Zero-latency** sound playback
+- âœ… **Production-ready** quality
 
 #### Files Modified/Created
 - **NEW**: `web/src/utils/audioManager.js` (450 lines)
@@ -810,7 +855,7 @@ Oscillator → GainNode → sfxGain → masterGain → destination
   - Integrated sounds with game events
 
 #### Phase 5.3 Status
-**TASK 5.3: FULLY COMPLETE ✅**
+**TASK 5.3: FULLY COMPLETE âœ…**
 - [x] Create AudioManager utility
 - [x] Implement Web Audio API synthesis
 - [x] Create 8 sound effects
@@ -842,32 +887,32 @@ Oscillator → GainNode → sfxGain → masterGain → destination
 **Author:** AI Agent (Cursor)
 
 #### What Changed
-- ✅ Created comprehensive ParticleEffect component (330 lines)
-- ✅ **7 particle types** implemented: burst, confetti, stars, sparkles, coins, fireworks, trail
-- ✅ **City-specific color palettes** for all 5 cities
-- ✅ Integrated particles throughout game for major events
-- ✅ **Added 31 new tests** (98 → 129 total)
-- ✅ All tests passing (100%)
-- ✅ Replaced old ParticleBurst with flexible system
+- âœ… Created comprehensive ParticleEffect component (330 lines)
+- âœ… **7 particle types** implemented: burst, confetti, stars, sparkles, coins, fireworks, trail
+- âœ… **City-specific color palettes** for all 5 cities
+- âœ… Integrated particles throughout game for major events
+- âœ… **Added 31 new tests** (98 â†’ 129 total)
+- âœ… All tests passing (100%)
+- âœ… Replaced old ParticleBurst with flexible system
 
 #### Particle Types & Usage
 **Particle Types:**
-- **Burst** → Radial explosion (default)
-- **Confetti** → Falling celebration pieces
-- **Stars** → Twinkling star shapes with rotation
-- **Sparkles** → Quick sparkle flashes
-- **Coins** → Spinning coin effect with upward arc
-- **Fireworks** → Upward explosion with trails
-- **Trail** → Following trail effect
+- **Burst** â†’ Radial explosion (default)
+- **Confetti** â†’ Falling celebration pieces
+- **Stars** â†’ Twinkling star shapes with rotation
+- **Sparkles** â†’ Quick sparkle flashes
+- **Coins** â†’ Spinning coin effect with upward arc
+- **Fireworks** â†’ Upward explosion with trails
+- **Trail** â†’ Following trail effect
 
 **Game Event Integration:**
 | Event | Particle Type | Colors | Count |
 |-------|--------------|--------|-------|
-| Landmark Upgrade | ⭐ Stars | City-themed | 25 |
-| Mission Complete | 🎊 Confetti | Rainbow | 50 |
-| Prestige Level | 🎆 Fireworks | Gold/Purple/Blue | 60 |
-| Doubles Roll | ✨ Sparkles | City-themed | 15 |
-| Large Funds (>=5k) | 💰 Coins | Gold tones | 10-20 |
+| Landmark Upgrade | â­ Stars | City-themed | 25 |
+| Mission Complete | ðŸŽŠ Confetti | Rainbow | 50 |
+| Prestige Level | ðŸŽ† Fireworks | Gold/Purple/Blue | 60 |
+| Doubles Roll | âœ¨ Sparkles | City-themed | 15 |
+| Large Funds (>=5k) | ðŸ’° Coins | Gold tones | 10-20 |
 
 #### City Color Palettes
 ```javascript
@@ -915,13 +960,13 @@ City 5: Cyan (#06b6d4, #22d3ee, #67e8f9)
 - **Position** (3 tests): XY coordinates, edge cases, large coords
 
 #### Quality Metrics
-- ✅ **129/129 tests passing** (100%)
-- ✅ **31 new tests** (+31.6% increase)
-- ✅ **No regressions** in existing functionality
-- ✅ **7 particle types** fully functional
-- ✅ **5 city color palettes** integrated
-- ✅ **Accessibility compliant** (WCAG AA)
-- ✅ **Production-ready** quality
+- âœ… **129/129 tests passing** (100%)
+- âœ… **31 new tests** (+31.6% increase)
+- âœ… **No regressions** in existing functionality
+- âœ… **7 particle types** fully functional
+- âœ… **5 city color palettes** integrated
+- âœ… **Accessibility compliant** (WCAG AA)
+- âœ… **Production-ready** quality
 
 #### Files Modified
 - **NEW**: `web/src/components/ParticleEffect.jsx` (330 lines)
@@ -933,7 +978,7 @@ City 5: Cyan (#06b6d4, #22d3ee, #67e8f9)
   - Updated landmark, mission, prestige, doubles, funds events
 
 #### Phase 5.2 Status
-**TASK 5.2: FULLY COMPLETE ✅**
+**TASK 5.2: FULLY COMPLETE âœ…**
 - [x] Analyze current particle system
 - [x] Create reusable ParticleEffect component
 - [x] Implement 7 particle types
@@ -964,12 +1009,12 @@ City 5: Cyan (#06b6d4, #22d3ee, #67e8f9)
 **Author:** AI Agent (Cursor)
 
 #### What Changed
-- ✅ Added 25 comprehensive tests for CityTransition component
-- ✅ **Test count: 73 → 98 tests** (34% increase)
-- ✅ All 98 tests passing (100%)
-- ✅ Fixed Framer Motion compatibility (motion.h1/p → motion.div)
-- ✅ Added proper async handling with act() wrapper
-- ✅ Increased test timeouts for animation sequences
+- âœ… Added 25 comprehensive tests for CityTransition component
+- âœ… **Test count: 73 â†’ 98 tests** (34% increase)
+- âœ… All 98 tests passing (100%)
+- âœ… Fixed Framer Motion compatibility (motion.h1/p â†’ motion.div)
+- âœ… Added proper async handling with act() wrapper
+- âœ… Increased test timeouts for animation sequences
 
 #### Test Coverage Breakdown
 **New Tests Added (25 total):**
@@ -998,11 +1043,11 @@ City 5: Cyan (#06b6d4, #22d3ee, #67e8f9)
 - **Impact**: Works in both browser and test environments
 
 #### Quality Metrics
-- ✅ **98/98 tests passing** (100%)
-- ✅ **25 new tests** covering all CityTransition functionality
-- ✅ **No regressions** in existing tests
-- ✅ **Comprehensive coverage**: Rendering, animations, accessibility, edge cases
-- ✅ **Production-ready**: Component fully tested and verified
+- âœ… **98/98 tests passing** (100%)
+- âœ… **25 new tests** covering all CityTransition functionality
+- âœ… **No regressions** in existing tests
+- âœ… **Comprehensive coverage**: Rendering, animations, accessibility, edge cases
+- âœ… **Production-ready**: Component fully tested and verified
 
 #### Testing Strategy
 ```javascript
@@ -1026,7 +1071,7 @@ describe('CityTransition Component', () => {
 ```
 
 #### Phase 5.1 Status
-**TASK 5.1: FULLY COMPLETE ✅**
+**TASK 5.1: FULLY COMPLETE âœ…**
 - [x] Enhanced city transition animation system
 - [x] City-specific celebration effects
 - [x] Accessibility & performance optimizations
@@ -1050,12 +1095,12 @@ describe('CityTransition Component', () => {
 **Author:** AI Agent (Cursor)
 
 #### What Changed
-- ✅ Created `CityTransition.jsx` component (294 lines)
-- ✅ Multi-stage animation system: fade-out → celebration → zoom → fade-in
-- ✅ City-specific celebration effects (4 unique themes)
-- ✅ Integrated into BoardLoop city transition flow
-- ✅ Accessibility support (prefers-reduced-motion)
-- ✅ All 73 tests still passing
+- âœ… Created `CityTransition.jsx` component (294 lines)
+- âœ… Multi-stage animation system: fade-out â†’ celebration â†’ zoom â†’ fade-in
+- âœ… City-specific celebration effects (4 unique themes)
+- âœ… Integrated into BoardLoop city transition flow
+- âœ… Accessibility support (prefers-reduced-motion)
+- âœ… All 73 tests still passing
 
 #### Why
 Phase 5 focuses on polish and enhanced animations. City transitions are a key moment in the game (unlocking new cities) and deserve a celebratory, polished experience. The old transition was instant - now it's a 2-second spectacle with themed particles and animations.
@@ -1063,7 +1108,7 @@ Phase 5 focuses on polish and enhanced animations. City transitions are a key mo
 #### Technical Implementation
 
 **Component Architecture:**
-- State machine with 5 stages: `idle` → `fadeOut` → `celebration` → `zoom` → `fadeIn` → `complete`
+- State machine with 5 stages: `idle` â†’ `fadeOut` â†’ `celebration` â†’ `zoom` â†’ `fadeIn` â†’ `complete`
 - Async sequence using `await` and `setTimeout`
 - Non-blocking (callback `onComplete` triggers game state updates)
 - Framer Motion for GPU-accelerated animations
@@ -1071,10 +1116,10 @@ Phase 5 focuses on polish and enhanced animations. City transitions are a key mo
 **City-Specific Configurations:**
 | City | Theme Color | Particle | Message | Emoji |
 |------|-------------|----------|---------|-------|
-| City 2 | Gold (#fbbf24) | ✨ | Welcome to the Golden Age! | 🏛️ |
-| City 3 | Purple (#a855f7) | ⭐ | Enter the Crystal Realm! | 💎 |
-| City 4 | Blue (#3b82f6) | 🎆 | Reach for the Stars! | 🌟 |
-| City 5 | Cyan (#06b6d4) | ⚡ | The Future Awaits! | 🌃 |
+| City 2 | Gold (#fbbf24) | âœ¨ | Welcome to the Golden Age! | ðŸ›ï¸ |
+| City 3 | Purple (#a855f7) | â­ | Enter the Crystal Realm! | ðŸ’Ž |
+| City 4 | Blue (#3b82f6) | ðŸŽ† | Reach for the Stars! | ðŸŒŸ |
+| City 5 | Cyan (#06b6d4) | âš¡ | The Future Awaits! | ðŸŒƒ |
 
 **Animation Timeline:**
 1. **Fade Out** (300ms): Dark overlay fades in
@@ -1103,18 +1148,18 @@ Phase 5 focuses on polish and enhanced animations. City transitions are a key mo
   - Renders `<CityTransition>` component at root level
 
 #### Testing
-- ✅ All 73 existing tests pass
-- ✅ Fixed `window.matchMedia` test environment issue
-- ✅ Defensive check: `typeof window !== 'undefined' && window.matchMedia`
-- ⏳ TODO: Add dedicated CityTransition component tests (Task 5.1 final step)
+- âœ… All 73 existing tests pass
+- âœ… Fixed `window.matchMedia` test environment issue
+- âœ… Defensive check: `typeof window !== 'undefined' && window.matchMedia`
+- â³ TODO: Add dedicated CityTransition component tests (Task 5.1 final step)
 
 #### Impact
-- ✅ Enhanced user experience during city unlocks
-- ✅ Professional, polished feel
-- ✅ Clear visual feedback for major progression milestone
-- ✅ Celebrates player achievement
-- ✅ No performance degradation
-- ✅ Accessible (reduced motion support)
+- âœ… Enhanced user experience during city unlocks
+- âœ… Professional, polished feel
+- âœ… Clear visual feedback for major progression milestone
+- âœ… Celebrates player achievement
+- âœ… No performance degradation
+- âœ… Accessible (reduced motion support)
 
 #### Related Files
 - `web/src/components/CityTransition.jsx` (NEW, 262 lines)
@@ -1154,11 +1199,11 @@ Two tests in `BoardLoopEffects.test.jsx` were timing out because:
 3. Tests couldn't find the expected CSS class
 
 #### Impact
-- ✅ **100% test pass rate** (73/73)
-- ✅ Tile effects now properly apply CSS classes
-- ✅ Visual effects work correctly in gameplay
-- ✅ Tests are more reliable and less flaky
-- ✅ Improved code quality
+- âœ… **100% test pass rate** (73/73)
+- âœ… Tile effects now properly apply CSS classes
+- âœ… Visual effects work correctly in gameplay
+- âœ… Tests are more reliable and less flaky
+- âœ… Improved code quality
 
 #### Related Files
 - `web/src/components/BoardLoop.jsx` (line 1115 - effectClass generation)
@@ -1179,11 +1224,11 @@ const effectClass = isLanded && tileEffect ? `tile-effect-${tileEffect.type}` : 
 ```
 
 #### Testing
-- ✅ `npm test` - All 73 tests passing
-- ✅ Shield tile effect test passing
-- ✅ Funds tile effect test passing  
-- ✅ Dice streak test passing
-- ✅ No regressions in other tests
+- âœ… `npm test` - All 73 tests passing
+- âœ… Shield tile effect test passing
+- âœ… Funds tile effect test passing  
+- âœ… Dice streak test passing
+- âœ… No regressions in other tests
 
 #### Follow-up Tasks
 - [x] Fix tile effect class bug
@@ -1217,12 +1262,12 @@ This was a subtle bug where JavaScript object was being interpolated into a stri
 To back up code to cloud, enable version control collaboration, and prepare for potential deployment or sharing.
 
 #### Impact
-- ✅ All code now safely backed up on GitHub
-- ✅ Repository accessible at https://github.com/tdrose01/city-builder
-- ✅ 187 files with 29,714+ lines of code pushed
-- ✅ Complete git history preserved
-- ✅ Private repository (only you can access)
-- ✅ MIT License added from GitHub
+- âœ… All code now safely backed up on GitHub
+- âœ… Repository accessible at https://github.com/tdrose01/city-builder
+- âœ… 187 files with 29,714+ lines of code pushed
+- âœ… Complete git history preserved
+- âœ… Private repository (only you can access)
+- âœ… MIT License added from GitHub
 
 #### Related Files
 - `.git/config` (remote added)
@@ -1231,14 +1276,14 @@ To back up code to cloud, enable version control collaboration, and prepare for 
 
 #### Configuration Changes
 - Remote origin: https://github.com/tdrose01/city-builder.git
-- Branch renamed: master → main
+- Branch renamed: master â†’ main
 - Tracking: main branch tracks origin/main
 
 #### Testing
-- ✅ Remote added successfully
-- ✅ Branch renamed without issues
-- ✅ Push completed successfully
-- ✅ Git status shows "up to date with origin/main"
+- âœ… Remote added successfully
+- âœ… Branch renamed without issues
+- âœ… Push completed successfully
+- âœ… Git status shows "up to date with origin/main"
 
 #### Follow-up Tasks
 - [x] Create GitHub repository
@@ -1328,11 +1373,11 @@ This creates a self-documenting workflow where every significant change is track
 Preparing project for public/private GitHub repository. Security cleanup to prevent credential leaks. Making it easy for users to push to GitHub after cleanup.
 
 #### Impact
-- ✅ Project is now safe to push to GitHub
-- ✅ No sensitive data in git history
-- ✅ 3 commits ready to push (182 files, 29,714 lines)
-- ✅ Comprehensive documentation for GitHub setup
-- ⚠️ Google API key needs rotation (ending in `...YCetdYBE`)
+- âœ… Project is now safe to push to GitHub
+- âœ… No sensitive data in git history
+- âœ… 3 commits ready to push (182 files, 29,714 lines)
+- âœ… Comprehensive documentation for GitHub setup
+- âš ï¸ Google API key needs rotation (ending in `...YCetdYBE`)
 
 #### Related Files
 - `web/.env` (deleted)
@@ -1346,10 +1391,10 @@ Preparing project for public/private GitHub repository. Security cleanup to prev
 - None (dependencies already installed: 344 packages)
 
 #### Testing
-- ✅ 71/73 tests passing (97%)
-- ✅ Dependencies installed and verified
-- ✅ Development server confirmed working
-- ✅ Git repository initialized successfully
+- âœ… 71/73 tests passing (97%)
+- âœ… Dependencies installed and verified
+- âœ… Development server confirmed working
+- âœ… Git repository initialized successfully
 
 #### Follow-up Tasks
 - [x] Create GitHub repository (https://github.com/tdrose01/city-builder)
@@ -1369,20 +1414,20 @@ Preparing project for public/private GitHub repository. Security cleanup to prev
 
 ### Phase 8: Gameplay Enhancement (January 2026)
 
-**Status:** 🚧 In Progress  
-**Latest Update:** 2026-01-29
+**Status:** In Progress  
+**Latest Update:** 2026-01-30
 
 #### Progress
-- ✅ Task 8.1 complete: Lottery, Tax, Jail, Fortune tiles integrated (commit 8f32cfa)
-- ✅ Tile-type tests added (config + LotteryTile guard)
-- ✅ Plan updated with Task 8.1 checkpoint (commit 273adcf)
-- 🚧 Task 8.2 underway: power-up configs, HUD indicator, shop UI, and BoardLoop integration (commit 6aeac49)
+- âœ… Task 8.1 complete: Lottery, Tax, Jail, Fortune tiles integrated (commit 8f32cfa)
+- âœ… Tile-type tests added (config + LotteryTile guard)
+- âœ… Plan updated with Task 8.1 checkpoint (commit 273adcf)
+- âœ… Task 8.2 complete: power-up effects, persistence guard, and BoardLoop tests (commit pending)
 
 ---
 
 ### Phase 4: Multi-City System (January 2026)
 
-**Status:** ✅ Complete  
+**Status:** âœ… Complete  
 **Duration:** Jan 18-23, 2026  
 **Documentation:** `PHASE_4_COMPLETE.md`
 
@@ -1390,16 +1435,16 @@ Preparing project for public/private GitHub repository. Security cleanup to prev
 Implemented complete multi-city progression system with 5 cities, dynamic multipliers, theming, and smooth transitions.
 
 #### Major Features
-- 🏙️ **5 Cities Implemented:**
+- ðŸ™ï¸ **5 Cities Implemented:**
   - City 1: Brick & Steel (1.0x multiplier, green theme)
   - City 2: Deco Heights (1.4x multiplier, gold theme)
   - City 3: Crystal Plaza (1.96x multiplier, purple theme)
   - City 4: Starlight District (2.744x multiplier, blue theme)
   - City 5: Neon Skyline (3.8416x multiplier, cyan theme)
-- 🔓 **City Unlock System:** Max all landmarks to unlock next city
-- 🎨 **Dynamic Theming:** Each city has unique color scheme
-- ✨ **Smooth Transitions:** Animated city changes with confirmation dialogs
-- 🏆 **Master Completion:** Special message when all cities completed
+- ðŸ”“ **City Unlock System:** Max all landmarks to unlock next city
+- ðŸŽ¨ **Dynamic Theming:** Each city has unique color scheme
+- âœ¨ **Smooth Transitions:** Animated city changes with confirmation dialogs
+- ðŸ† **Master Completion:** Special message when all cities completed
 
 #### Technical Implementation
 - Exponential multiplier progression (1.4x per city)
@@ -1421,7 +1466,7 @@ Implemented complete multi-city progression system with 5 cities, dynamic multip
 
 ### Phase 3: Core Systems (January 2026)
 
-**Status:** ✅ Complete  
+**Status:** âœ… Complete  
 **Documentation:** `PHASE_3_1_COMPLETE.md`, `CITIES_35_COMPLETE.md`
 
 #### Major Features
@@ -1435,7 +1480,7 @@ Implemented complete multi-city progression system with 5 cities, dynamic multip
 
 ### Phases 1-2: Foundation (December 2025 - January 2026)
 
-**Status:** ✅ Complete  
+**Status:** âœ… Complete  
 **Documentation:** `PHASE_2_3_SUMMARY.md`
 
 #### Major Features
@@ -1460,9 +1505,9 @@ Implemented complete multi-city progression system with 5 cities, dynamic multip
 - No credentials committed to git history
 
 **Impact:**
-- ✅ Clean git history with no secrets
-- ✅ Safe to push to public/private GitHub
-- ⚠️ API key ending in `...YCetdYBE` should be rotated
+- âœ… Clean git history with no secrets
+- âœ… Safe to push to public/private GitHub
+- âš ï¸ API key ending in `...YCetdYBE` should be rotated
 
 **Prevention:**
 - `.gitignore` configured to exclude all `.env` files
@@ -1505,8 +1550,8 @@ Implemented complete multi-city progression system with 5 cities, dynamic multip
 - **PostCSS:** 8.5.6
 
 #### Security Audit
-- ✅ No known vulnerabilities (as of 2026-01-27)
-- ✅ All packages up to date
+- âœ… No known vulnerabilities (as of 2026-01-27)
+- âœ… All packages up to date
 
 ---
 
@@ -1537,14 +1582,14 @@ Implemented complete multi-city progression system with 5 cities, dynamic multip
 - Good for single-device gameplay
 
 **Trade-offs:**
-- ❌ Data is client-side only (no sync across devices)
-- ❌ Data cleared if browser cache cleared
-- ❌ No server-side validation
-- ❌ Limited to ~5-10MB storage
-- ✅ Simple implementation
-- ✅ Fast performance
-- ✅ No backend costs
-- ✅ Works offline
+- âŒ Data is client-side only (no sync across devices)
+- âŒ Data cleared if browser cache cleared
+- âŒ No server-side validation
+- âŒ Limited to ~5-10MB storage
+- âœ… Simple implementation
+- âœ… Fast performance
+- âœ… No backend costs
+- âœ… Works offline
 
 **Implementation:**
 - `web/src/utils/saveSystem.js` - Save/load logic
@@ -1572,9 +1617,9 @@ Implemented complete multi-city progression system with 5 cities, dynamic multip
 **Multiplier Structure:**
 - City 1: 1.0x (base)
 - City 2: 1.4x
-- City 3: 1.96x (1.4²)
-- City 4: 2.744x (1.4³)
-- City 5: 3.8416x (1.4⁴)
+- City 3: 1.96x (1.4Â²)
+- City 4: 2.744x (1.4Â³)
+- City 5: 3.8416x (1.4â´)
 
 **Rationale:**
 - Exponential growth provides clear progression feeling
@@ -1589,9 +1634,9 @@ Implemented complete multi-city progression system with 5 cities, dynamic multip
 - Tested and balanced for consistent gameplay
 
 **Results:**
-- ✅ Players feel clear progression
-- ✅ Session length consistent (60-120 seconds)
-- ✅ Economy remains balanced across all cities
+- âœ… Players feel clear progression
+- âœ… Session length consistent (60-120 seconds)
+- âœ… Economy remains balanced across all cities
 
 ---
 
@@ -1617,7 +1662,7 @@ Implemented complete multi-city progression system with 5 cities, dynamic multip
 - `.gitignore` (verified - excludes node_modules, .env, dist, etc.)
 - `.git/` (created)
 
-**Remotes:** origin → https://github.com/tdrose01/city-builder.git
+**Remotes:** origin â†’ https://github.com/tdrose01/city-builder.git
 
 **Branch:** main (renamed from master, tracking origin/main)
 
@@ -1647,11 +1692,11 @@ Implemented complete multi-city progression system with 5 cities, dynamic multip
 
 ## Known Issues & Workarounds
 
-### 1. Test Timeouts (2/73 tests failing) - RESOLVED ✅
+### 1. Test Timeouts (2/73 tests failing) - RESOLVED âœ…
 
 **Issue:** `BoardLoopEffects.test.jsx` had 2 tests timing out  
 **Severity:** Low (non-critical)  
-**Status:** ✅ **RESOLVED** (2026-01-27)
+**Status:** âœ… **RESOLVED** (2026-01-27)
 
 **Description:**
 Tests waiting for tile effects to appear were timing out because tile effect classes weren't being applied correctly.
@@ -1670,9 +1715,9 @@ Tests waiting for tile effects to appear were timing out because tile effect cla
 - Extended tile effect timeouts from 1000ms to 2000ms
 
 **Impact:**
-- ✅ **All 73 tests now passing** (100%)
-- ✅ Tile effects work correctly in gameplay
-- ✅ Tests are reliable and not flaky
+- âœ… **All 73 tests now passing** (100%)
+- âœ… Tile effects work correctly in gameplay
+- âœ… Tests are reliable and not flaky
 
 **Commit:** 5061ec6 - "fix: Resolve BoardLoopEffects test failures"
 
@@ -1690,9 +1735,9 @@ Tests waiting for tile effects to appear were timing out because tile effect cla
 Webpack/Vite is importing Three.js multiple times, causing a warning.
 
 **Impact:**
-- ⚠️ Console warning appears
-- ✅ No performance impact
-- ✅ All 3D dice functionality works
+- âš ï¸ Console warning appears
+- âœ… No performance impact
+- âœ… All 3D dice functionality works
 
 **Workaround:**
 - Ignore the warning
@@ -1716,9 +1761,9 @@ Webpack/Vite is importing Three.js multiple times, causing a warning.
 Git shows warnings like "LF will be replaced by CRLF" when staging files.
 
 **Impact:**
-- ⚠️ Verbose git output
-- ✅ No functional impact
-- ✅ Normal Windows behavior
+- âš ï¸ Verbose git output
+- âœ… No functional impact
+- âœ… Normal Windows behavior
 
 **Workaround:**
 - None needed (expected behavior)
@@ -1777,3 +1822,8 @@ cd web && npm test
 
 *This document is automatically updated by AI agents after every significant change.*  
 *See `knowledge-base-updater.skill` and `AGENTS.md` Section 6 for details.*
+
+
+
+
+
