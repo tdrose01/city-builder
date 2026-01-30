@@ -1,8 +1,8 @@
 ﻿# Knowledge Base - City Slacker Project
 
 **Last Updated:** 2026-01-30
-**Current Phase:** Phase 8 - Gameplay Enhancement (Task 8.4 complete)
-**Total Entries:** 26
+**Current Phase:** Phase 9 - Social Features & Advanced Progression (Complete + Hotfixes)
+**Total Entries:** 27
 
 ## Quick Links
 - [Recent Changes](#recent-changes) (Last 30 days)
@@ -14,10 +14,10 @@
 - [Known Issues & Workarounds](#known-issues--workarounds)
 
 ## Project Statistics
-- **Total Commits:** 71 
+- **Total Commits:** 75 
 - **Total Files:** 15673
-- **Test Coverage:** 100% (5/5 passing - AdvancedMissions.test.jsx)
-- **Phase:** 8 - Gameplay Enhancement (Task 8.4 complete)
+- **Test Coverage:** ⚠️ Not revalidated after docs update (last known: 5/5 passing - AdvancedMissions.test.jsx)
+- **Phase:** 9 - Social Features & Advanced Progression (Complete + Hotfixes)
 - **Post-Launch Fixes:** 4 performance and UX improvements applied
 - **Dependencies:** 344 packages
 - **Lines of Code:** 29,714+
@@ -27,6 +27,43 @@
 ---
 
 ## Recent Changes
+
+### [2026-01-30 16:24] - Project Docs Updated for Hotfixes
+
+**Type:** Documentation  
+**Status:** Completed  
+**Commit:** 6a1b94c  
+**Author:** AI Agent (Codex)
+
+#### What Changed
+- Updated `README.md` with hotfix summary (auto-prestige + shield pacing)
+- Added hotfix entry to `CHANGELOG.md`
+- Refreshed `STATUS.md`, `CURRENT_PHASE.md`, and `NEXT_STEPS.md` to reflect post-phase fixes
+
+#### Why
+Recent gameplay hotfixes needed to be reflected across project documentation for consistency.
+
+#### Impact
+- Documentation now matches current gameplay behavior
+- Current phase and status reflect completed Phase 9 with hotfixes
+
+#### Related Files
+- `README.md`
+- `CHANGELOG.md`
+- `STATUS.md`
+- `CURRENT_PHASE.md`
+- `NEXT_STEPS.md`
+
+#### Dependencies Changed
+- None
+
+#### Testing
+- Not run (documentation-only updates)
+
+#### Follow-up Tasks
+- [ ] None
+
+---
 
 ### [2026-01-30 16:15] - Shields Easier to Earn
 
