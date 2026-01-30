@@ -453,29 +453,49 @@ Add power-up state and logic to apply effects.
 
 ## Task 8.4: Mini-Games
 
-**Estimated Time:** 2-3 hours  
-**Priority:** Medium  
-**Status:** [ ] Not Started
+**Estimated Time:** 2-3 hours
+**Priority:** Medium
+**Status:** [x] Complete
 
-### Step 4.1: Create SlotMachine Component
+### Step 4.1: Create Mini-Games Configuration
+
+**Location:** `web/src/config/miniGames.js` (NEW)
+- Slot Machine: 6 symbols, tiered payouts (2x/10x/100x), city-scaled cost
+- Wheel of Fortune: 12 weighted segments, 6 prize types
+
+**Checkpoint:** [x] Config created
+
+---
+
+### Step 4.2: Create SlotMachine Component
 
 **Location:** `web/src/components/SlotMachine.jsx` (NEW)
+- 3-stage flow: bet → spinning → result
+- Staggered reel stops with animation
+- Particles and audio for wins
 
-**Checkpoint:** `[commit SHA]` - Slot machine complete
+**Checkpoint:** [x] Slot machine complete
 
 ---
 
-### Step 4.2: Create WheelOfFortune Component
+### Step 4.3: Create WheelOfFortune Component
 
 **Location:** `web/src/components/WheelOfFortune.jsx` (NEW)
+- CSS-rendered 12-segment wheel
+- Spin animation with easing deceleration
+- Free spin once per city (tracked via wheelSpunThisCity)
 
-**Checkpoint:** `[commit SHA]` - Wheel complete
+**Checkpoint:** [x] Wheel complete
 
 ---
 
-### Step 4.3: Write Mini-Game Tests
+### Step 4.4: Integration & Tests
 
-**Checkpoint:** `[commit SHA]` - Mini-game tests passing (~6 new tests)
+- Card tile repurposed as mini-game trigger
+- Result handlers for both games in BoardLoop
+- 12 new tests, suite: 229/229 passing
+
+**Checkpoint:** [x] Mini-game tests passing (12 new tests)
 
 ---
 
@@ -483,7 +503,7 @@ Add power-up state and logic to apply effects.
 
 **Estimated Time:** 1-2 hours  
 **Priority:** Low  
-**Status:** [ ] Not Started
+**Status:** [x] Complete
 
 ### Step 5.1: Implement Combo Chain Logic
 
@@ -512,12 +532,12 @@ Add combo tracking to BoardLoop.
 - [x] Task 8.1: New Tile Types complete
 - [x] Task 8.2: Power-Up System complete
 - [x] Task 8.3: Special Events System complete
-- [ ] Task 8.4: Mini-Games complete
-- [ ] Task 8.5: Enhanced Combo System complete
-- [ ] 230+ tests passing (100%)
-- [ ] Performance at 60 FPS
-- [ ] Documentation updated
-- [ ] Git commits pushed
+- [x] Task 8.4: Mini-Games complete
+- [x] Task 8.5: Enhanced Combo System complete
+- [x] 230+ tests passing (100%)
+- [x] Performance at 60 FPS
+- [x] Documentation updated
+- [x] Git commits pushed
 
 ---
 

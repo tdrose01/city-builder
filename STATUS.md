@@ -1,15 +1,15 @@
 # City Slacker - Current Status
 
-**Last Updated:** January 27, 2026  
-**Version:** Phase 8 In Progress - Gameplay Enhancement  
-**Build Status:** ✅ All Tests Passing (196/196) | 🚧 Phase 8 Development Active
+**Last Updated:** January 30, 2026  
+**Version:** Phase 8 COMPLETE ✅  
+**Build Status:** ✅ All Tests Passing (233/233)
 
 ---
 
 ## ⚠️ Project Root Location
 
-**Project Root:** `C:\city-slacker\` (or your clone location)  
-**Active Development:** `C:\city-slacker\web\` (React web prototype)
+**Project Root:** `C:\city-slick1\city-builder\` (or your clone location)  
+**Active Development:** `C:\city-slick1\city-builder\web\` (React web prototype)
 
 ---
 
@@ -20,11 +20,13 @@
 #### Core Gameplay
 - ✅ **Board Loop**: 20-tile circuit with 5 tiles per side
 - ✅ **Dice System**: Roll mechanics with doubles bonus and High Roller multipliers
-- ✅ **Tile Types**: 14+ types including Funds, Heist, Shield, Shutdown, Landmark, **Lottery 🎰, Tax 💸, Jail 🔒, Fortune 🔮** (NEW!)
-  - Fortune rewards now include **Tax Haven** and **Get Out of Jail Free**
+- ✅ **Tile Types**: 14+ types including Funds, Heist, Shield, Shutdown, Landmark, **Lottery 🎰, Tax 💸, Jail 🔒, Fortune 🔮**
+- ✅ **Power-Up System**: 6 unique power-ups (Hot Streak, Mega Multiplier, Shield Storm, Lucky Dice, Speed Boost, Money Magnet)
+- ✅ **Special Events**: City-wide buffs (Golden Hour, Tax Holiday), random events, and milestone rewards
+- ✅ **Mini-Games**: Slot Machine and Wheel of Fortune integrated via Card tile
+- ✅ **Enhanced Combo System**: Consecutive tile landing chains with visual HUD tracker and bonus rewards
 - ✅ **Upgrade System**: Landmark progression with 5 levels per landmark
 - ✅ **Event Meter**: Milestone-based progression with rewards
-- ✅ **Combo System**: Mini-objective with bonus rewards
 - ✅ **Mission Tracker**: Short objectives with completion rewards and infinite resets
 
 #### Meta Systems
@@ -38,9 +40,9 @@
 #### Multi-City Progression (Phase 6 - COMPLETE!)
 - ✅ **City 1 - Neon Harbor**: Base city with 1.0x multiplier (cyan theme)
 - ✅ **City 2 - Deco Heights**: 1.4x multiplier (gold theme)
-- ✅ **City 3 - Crystal Plaza**: 1.96x multiplier (purple theme) - NEW!
-- ✅ **City 4 - Starlight District**: 2.744x multiplier (blue theme) - NEW!
-- ✅ **City 5 - Neon Skyline**: 3.8416x multiplier (emerald theme) - NEW!
+- ✅ **City 3 - Crystal Plaza**: 1.96x multiplier (purple theme)
+- ✅ **City 4 - Starlight District**: 2.744x multiplier (blue theme)
+- ✅ **City 5 - Neon Skyline**: 3.8416x multiplier (emerald theme)
 - ✅ **Exponential Economic Scaling**: 1.4x multiplier per city level
 - ✅ **City Unlock System**: Unlock by maxing all landmarks in previous city
 - ✅ **City Transitions**: Multi-stage celebrations with city-specific effects
@@ -108,13 +110,15 @@
 
 ---
 
-## 🔧 Recent Changes (Jan 27, 2026)
+## 🔧 Recent Changes (Jan 30, 2026)
 
-### Phase 8 Task 8.1: New Tile Types Complete
-- ✅ Integrated Lottery, Tax, Jail, Fortune tiles into BoardLoop (all cities)
-- ✅ Fortune rewards include Tax Haven + Get Out of Jail Free
-- ✅ Tile state persistence for jail/skip turns and fortune effects
-- ✅ Tests updated; 196/196 passing
+### Phase 8: Gameplay Enhancement COMPLETE ✅
+- ✅ **Task 8.1:** New Tile Types (Lottery, Tax, Jail, Fortune) integrated
+- ✅ **Task 8.2:** Power-Up System (6 unique effects, Shop UI) complete
+- ✅ **Task 8.3:** Special Events (City-wide buffs, random events) working
+- ✅ **Task 8.4:** Mini-Games (Slot Machine, Wheel of Fortune) playable
+- ✅ **Task 8.5:** Enhanced Combo System (Tile landing chains, HUD tracker) complete
+- ✅ **Stability:** Fixed notification timeout leaks, 233/233 tests passing
 
 ### Phase 5: Polish & Enhancement - COMPLETE ✨
 

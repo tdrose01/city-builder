@@ -23,16 +23,13 @@ A React-based idle/incremental city-building game inspired by Monopoly GO, featu
 - **Sticker Collections**: Collect and trade stickers across themed albums
 
 ### 🎨 Recent Updates
-- **Phase 8: Gameplay Enhancement** (IN PROGRESS! 🚧)
-  - ✅ **Task 8.1 COMPLETE:** 4 new interactive tile types fully integrated
-    - 🎰 **Lottery**: Gambling tile with tiered odds (75% lose, 20% win 10x, 5% jackpot 100x)
-    - 💸 **Tax**: Pay 10% of funds (min $100, max scales by city)
-    - 🔒 **Jail**: Skip 3 turns OR pay bail OR escape with doubles
-    - 🔮 **Fortune**: 10 weighted random events (60% positive, 30% neutral, 10% negative)
-  - Economic scaling for all tiles (1.4x multiplier per city)
-  - Jail status tracking and persistence
-  - 38 new comprehensive tests (100% pass rate)
-  - Next: Task 8.2 - Power-Up System
+- **Phase 8: Gameplay Enhancement** (COMPLETE ✅)
+  - **New Tile Types**: Lottery 🎰, Tax 💸, Jail 🔒, Fortune 🔮 fully integrated.
+  - **Power-Up System**: 6 unique power-ups (Hot Streak, Mega Multiplier, etc.) with Shop UI.
+  - **Special Events**: City-wide buffs (Golden Hour), random events, and milestone rewards.
+  - **Mini-Games**: Slot Machine and Wheel of Fortune integrated via Card tile.
+  - **Combo System**: Skill-based chain multipliers with visual HUD tracker.
+  - **Testing**: 62 new tests added, total 233 passing (100%).
 - **Phase 6: Multi-City Expansion**
   - 5 fully playable cities with exponential economic scaling (1.4x per city)
   - Unique visual themes and grid patterns for each city

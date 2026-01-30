@@ -20,6 +20,9 @@ import FortuneTile from './FortuneTile';
 import PowerUpShop from './PowerUpShop';
 import PowerUpIndicator from './PowerUpIndicator';
 import SpecialEventModal from './SpecialEventModal';
+import SlotMachine from './SlotMachine';
+import WheelOfFortune from './WheelOfFortune';
+import ComboTracker from './ComboTracker';
 import { POWER_UPS, getPowerUpCost } from '../config/powerUps';
 import {
   CITY_WIDE_EVENTS,
@@ -285,7 +288,17 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
   const [powerUpCooldowns, setPowerUpCooldowns] = useState({});
   const [purchasedPowerUps, setPurchasedPowerUps] = useState({});
   const [positiveStreak, setPositiveStreak] = useState(0);
+  const [comboChain, setComboChain] = useState({ type: null, count: 0 });
   const [diceCostRemainder, setDiceCostRemainder] = useState(0);
+
+  // Combo multiplier helper
+  const getComboMultiplier = (count) => {
+    if (count <= 1) return 1.0;
+    if (count === 2) return 1.1;
+    if (count === 3) return 1.25;
+    if (count === 4) return 1.5;
+    return 2.0;
+  };
 
   // Special events state
   const [activeSpecialEvent, setActiveSpecialEvent] = useState(null);
@@ -294,6 +307,7 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
   const [lastMilestoneRolls, setLastMilestoneRolls] = useState(0);
   const [lastMilestoneUpgrades, setLastMilestoneUpgrades] = useState(0);
   const [upgradeBlocked, setUpgradeBlocked] = useState(false);
+  const [wheelSpunThisCity, setWheelSpunThisCity] = useState(false);
 
   // City transition state
   const [cityTransitionActive, setCityTransitionActive] = useState(false);
@@ -309,6 +323,8 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
   const [_showTiles, setShowTiles] = useState(true);
   const [lastSaved, setLastSaved] = useState(null);
   const [showAnalytics, setShowAnalytics] = useState(false);
+
+  const notificationTimeoutRef = useRef(null);
 
   // Analytics: Session tracking
   const currentSession = useRef(new SessionMetrics());
@@ -355,6 +371,7 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
       if (savedState.rollsSinceLastCityEvent !== undefined) setRollsSinceLastCityEvent(savedState.rollsSinceLastCityEvent);
       if (savedState.lastMilestoneRolls !== undefined) setLastMilestoneRolls(savedState.lastMilestoneRolls);
       if (savedState.lastMilestoneUpgrades !== undefined) setLastMilestoneUpgrades(savedState.lastMilestoneUpgrades);
+      if (savedState.wheelSpunThisCity !== undefined) setWheelSpunThisCity(savedState.wheelSpunThisCity);
 
       showNotification("Game Loaded!", 'success', 2000);
     }
@@ -393,6 +410,7 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
         rollsSinceLastCityEvent,
         lastMilestoneRolls,
         lastMilestoneUpgrades,
+        wheelSpunThisCity,
         playerPosition,
         tiles // Persist tile state (including upgrades)
       };
@@ -411,7 +429,7 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
     skipTurnsRemaining, jailTurnsRemaining, hasJailFreeCard, hasTaxHavenPowerUp,
     activePowerUps, powerUpCooldowns, purchasedPowerUps, positiveStreak, diceCostRemainder,
     activeSpecialEvent, rollsSinceLastCityEvent, lastMilestoneRolls, lastMilestoneUpgrades,
-    playerPosition, tiles
+    wheelSpunThisCity, playerPosition, tiles
   ]);
 
   // Prestige helper functions
@@ -421,11 +439,25 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
 
   // Notification helpers - defined early for use in useEffects
   const showNotification = (message, type = 'info', duration = 3000) => {
+    if (notificationTimeoutRef.current) {
+      clearTimeout(notificationTimeoutRef.current);
+    }
     setNotification({ message, type, duration });
     if (duration !== Infinity) {
-      setTimeout(() => setNotification(null), duration);
+      notificationTimeoutRef.current = setTimeout(() => {
+        setNotification(null);
+        notificationTimeoutRef.current = null;
+      }, duration);
     }
   };
+
+  useEffect(() => {
+    return () => {
+      if (notificationTimeoutRef.current) {
+        clearTimeout(notificationTimeoutRef.current);
+      }
+    };
+  }, []);
 
   const showConfirm = (title, message, onConfirm, options = {}) => {
     setConfirmDialog({
@@ -702,6 +734,20 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
     const tile = tiles.find(t => t.id === position);
     if (!tile) return;
 
+    // Update combo chain
+    const isSameType = comboChain.type === tile.type;
+    const nextCount = isSameType ? comboChain.count + 1 : 1;
+    setComboChain({ type: tile.type, count: nextCount });
+
+    if (nextCount >= 5 && isSameType) {
+      const powerUpKeys = Object.keys(POWER_UPS).filter(k => POWER_UPS[k].id !== 'hot_streak');
+      const randomKey = powerUpKeys[Math.floor(Math.random() * powerUpKeys.length)];
+      activatePowerUp(POWER_UPS[randomKey].id);
+      showNotification(`Chain x${nextCount}! Bonus Power-Up!`, 'success', 3000);
+    }
+
+    const comboMultiplier = getComboMultiplier(nextCount);
+
     setStoppedOnName(tile.name);
     setTileGlow(position);
     setTimeout(() => setTileGlow(null), 1500);
@@ -709,17 +755,20 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
     switch (tile.type) {
       case 'Start': {
         const startPayout = tile.payout || ECONOMY.START_TILE_PAYOUT_BASE;
-        const adjustedStart = applyRewardMultiplier(applyFundsMultiplier(startPayout));
+        const adjustedStart = Math.round(applyRewardMultiplier(applyFundsMultiplier(startPayout)) * comboMultiplier);
         setFunds(prev => prev + adjustedStart);
         setTileEffect({ type: 'funds', x: 400, y: 300 });
         setTimeout(() => setTileEffect(null), 1000);
         currentSession.current.recordFundsChange(adjustedStart);
+        if (comboMultiplier > 1) {
+          showNotification(`Combo x${nextCount}! +${Math.round((comboMultiplier - 1) * 100)}% Bonus`, 'success', 2000);
+        }
         registerPositiveOutcome(true);
         break;
       }
       case 'Funds': {
         const fundsPayout = tile.payout || 1000;
-        const adjustedFunds = applyRewardMultiplier(applyFundsMultiplier(fundsPayout, { isFundsTile: true }));
+        const adjustedFunds = Math.round(applyRewardMultiplier(applyFundsMultiplier(fundsPayout, { isFundsTile: true })) * comboMultiplier);
         setFunds(prev => prev + adjustedFunds);
         setFundsTilesLanded(prev => prev + 1);
         setTileEffect({ type: 'funds', x: 400, y: 300 });
@@ -743,14 +792,18 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
           // Play funds sound
           audioManager.playSFX('funds');
         }
+
+        if (comboMultiplier > 1) {
+          showNotification(`Combo x${nextCount}! +${Math.round((comboMultiplier - 1) * 100)}% Bonus`, 'success', 2000);
+        }
         registerPositiveOutcome(true);
         break;
       }
       case 'Heist': {
         const heistAmount = Math.floor(funds * 0.1);
-        const adjustedHeist = applyRewardMultiplier(applyFundsMultiplier(heistAmount));
+        const adjustedHeist = Math.round(applyRewardMultiplier(applyFundsMultiplier(heistAmount)) * comboMultiplier);
         setFunds(prev => prev + adjustedHeist);
-        setHudMessage(`Heist! +${adjustedHeist} Funds`);
+        setHudMessage(`Heist! +${adjustedHeist} Funds${comboMultiplier > 1 ? ` (x${comboMultiplier})` : ''}`);
         setTimeout(() => setHudMessage(null), 2000);
         currentSession.current.recordFundsChange(adjustedHeist);
         registerPositiveOutcome(true);
@@ -793,9 +846,9 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
       }
       case 'Bonus': {
         const bonusPayout = 1500;
-        const adjustedBonus = applyRewardMultiplier(applyFundsMultiplier(bonusPayout));
+        const adjustedBonus = Math.round(applyRewardMultiplier(applyFundsMultiplier(bonusPayout)) * comboMultiplier);
         setFunds(prev => prev + adjustedBonus);
-        setHudMessage(`Bonus! +${adjustedBonus} Funds`);
+        setHudMessage(`Bonus! +${adjustedBonus} Funds${comboMultiplier > 1 ? ` (x${comboMultiplier})` : ''}`);
         setTimeout(() => setHudMessage(null), 2000);
         currentSession.current.recordFundsChange(adjustedBonus);
         registerPositiveOutcome(true);
@@ -825,15 +878,18 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
         break;
       }
       case 'Card':
-        setHudMessage("Card tile - random event");
-        setTimeout(() => setHudMessage(null), 2000);
-        registerPositiveOutcome(false);
+        if (!wheelSpunThisCity && Math.random() < 0.5) {
+          setActiveTileModal('wheel');
+        } else {
+          setActiveTileModal('slot_machine');
+        }
+        setAutoRollEnabled(false);
         break;
       case 'Dice': {
         const dicePayout = tile.payout || ECONOMY.DICE_TILE_PAYOUT_BASE;
-        const adjustedDice = applyRewardMultiplier(dicePayout);
+        const adjustedDice = Math.round(applyRewardMultiplier(dicePayout) * comboMultiplier);
         setDice(prev => prev + adjustedDice);
-        setHudMessage(`Free Dice! +${adjustedDice}`);
+        setHudMessage(`Free Dice! +${adjustedDice}${comboMultiplier > 1 ? ` (x${comboMultiplier})` : ''}`);
         setTimeout(() => setHudMessage(null), 2000);
         currentSession.current.recordDiceChange(adjustedDice);
         registerPositiveOutcome(true);
@@ -1174,6 +1230,7 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
         setLastMilestoneRolls(0);
         setLastMilestoneUpgrades(0);
         setUpgradeBlocked(false);
+        setWheelSpunThisCity(false);
 
         showNotification("New Game Started!", 'success', 3000);
         setAutoRollEnabled(false);
@@ -1404,6 +1461,7 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
 
     // 2. Reset ephemeral state
     setStickerPacksAvailable(prev => prev + 1); // Bonus pack for new city
+    setWheelSpunThisCity(false);
 
     // 3. Show welcome notification
     showNotification(`Welcome to ${CITIES[targetCity].name}! +1 Sticker Pack!`, 'success', 5000);
@@ -1497,11 +1555,12 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
 
   const handleLotteryResult = (netGain) => {
     if (netGain === 0) return;
-    const adjustedGain = applyRewardMultiplier(applyFundsMultiplier(netGain));
+    const comboMultiplier = getComboMultiplier(comboChain.count);
+    const adjustedGain = Math.round(applyRewardMultiplier(applyFundsMultiplier(netGain)) * (netGain > 0 ? comboMultiplier : 1));
     setFunds(prev => Math.max(0, prev + adjustedGain));
     currentSession.current.recordFundsChange(adjustedGain);
     if (adjustedGain > 0) {
-      showNotification(`Lottery win! +$${adjustedGain.toLocaleString()}`, 'success', 3000);
+      showNotification(`Lottery win! +$${adjustedGain.toLocaleString()}${comboMultiplier > 1 ? ` (Combo x${comboMultiplier})` : ''}`, 'success', 3000);
       registerPositiveOutcome(true);
     } else {
       showNotification(`Lottery loss: -$${Math.abs(adjustedGain).toLocaleString()}`, 'warning', 3000);
@@ -1571,13 +1630,14 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
     const { event, effectValue } = fortune;
     const { effect } = event;
     const value = effectValue ?? effect.value ?? 0;
+    const comboMultiplier = getComboMultiplier(comboChain.count);
 
     switch (effect.type) {
       case 'ADD_FUNDS': {
-        const adjustedFunds = applyRewardMultiplier(applyFundsMultiplier(value));
+        const adjustedFunds = Math.round(applyRewardMultiplier(applyFundsMultiplier(value)) * comboMultiplier);
         setFunds(prev => prev + adjustedFunds);
         currentSession.current.recordFundsChange(adjustedFunds);
-        showNotification(`${event.name}: +$${adjustedFunds.toLocaleString()}`, 'success', 3000);
+        showNotification(`${event.name}: +$${adjustedFunds.toLocaleString()}${comboMultiplier > 1 ? ` (Combo x${comboMultiplier})` : ''}`, 'success', 3000);
         break;
       }
       case 'LOSE_FUNDS': {
@@ -1587,10 +1647,10 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
         break;
       }
       case 'ADD_DICE': {
-        const adjustedDice = applyRewardMultiplier(value);
+        const adjustedDice = Math.round(applyRewardMultiplier(value) * comboMultiplier);
         setDice(prev => prev + adjustedDice);
         currentSession.current.recordDiceChange(adjustedDice);
-        showNotification(`${event.name}: +${adjustedDice} Dice`, 'success', 3000);
+        showNotification(`${event.name}: +${adjustedDice} Dice${comboMultiplier > 1 ? ` (Combo x${comboMultiplier})` : ''}`, 'success', 3000);
         break;
       }
       case 'ADD_SHIELDS': {
@@ -1664,6 +1724,73 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
 
   const handleFortuneClose = () => {
     setActiveTileModal(null);
+  };
+
+  const handleSlotResult = (netGain) => {
+    const comboMultiplier = getComboMultiplier(comboChain.count);
+    const adjustedGain = Math.round(applyRewardMultiplier(applyFundsMultiplier(netGain)) * (netGain > 0 ? comboMultiplier : 1));
+    setFunds(prev => Math.max(0, prev + adjustedGain));
+    currentSession.current.recordFundsChange(adjustedGain);
+    if (adjustedGain > 0) {
+      showNotification(`Slot Machine win! +$${adjustedGain.toLocaleString()}${comboMultiplier > 1 ? ` (Combo x${comboMultiplier})` : ''}`, 'success', 3000);
+      registerPositiveOutcome(true);
+    } else {
+      showNotification(`Slot Machine: -$${Math.abs(adjustedGain).toLocaleString()}`, 'warning', 3000);
+      registerPositiveOutcome(false);
+    }
+  };
+
+  const handleWheelResult = (result) => {
+    if (!result) return;
+    setWheelSpunThisCity(true);
+    const comboMultiplier = getComboMultiplier(comboChain.count);
+
+    switch (result.type) {
+      case 'funds': {
+        const adjustedValue = Math.round(result.value * comboMultiplier);
+        setFunds(prev => prev + adjustedValue);
+        currentSession.current.recordFundsChange(adjustedValue);
+        showNotification(`Wheel: +$${adjustedValue.toLocaleString()}${comboMultiplier > 1 ? ` (Combo x${comboMultiplier})` : ''}`, 'success', 3000);
+        registerPositiveOutcome(true);
+        break;
+      }
+      case 'dice': {
+        const adjustedValue = Math.round(result.value * comboMultiplier);
+        setDice(prev => prev + adjustedValue);
+        currentSession.current.recordDiceChange(adjustedValue);
+        showNotification(`Wheel: +${adjustedValue} Dice${comboMultiplier > 1 ? ` (Combo x${comboMultiplier})` : ''}`, 'success', 3000);
+        registerPositiveOutcome(true);
+        break;
+      }
+      case 'shields':
+        setShields(prev => Math.min(ECONOMY.MAX_SHIELDS, prev + result.value));
+        showNotification(`Wheel: +${result.value} Shields`, 'success', 3000);
+        registerPositiveOutcome(true);
+        break;
+      case 'power_up': {
+        const powerUpKeys = Object.keys(POWER_UPS);
+        const randomKey = powerUpKeys[Math.floor(Math.random() * powerUpKeys.length)];
+        activatePowerUp(POWER_UPS[randomKey].id);
+        registerPositiveOutcome(true);
+        break;
+      }
+      case 'sticker_pack':
+        setStickerPacksAvailable(prev => prev + 1);
+        setHasNewSticker(true);
+        showNotification('Wheel: Sticker Pack!', 'success', 3000);
+        registerPositiveOutcome(true);
+        break;
+      case 'bankrupt': {
+        const loss = result.value;
+        setFunds(prev => Math.max(0, prev - loss));
+        currentSession.current.recordFundsChange(-loss);
+        showNotification(`BANKRUPT! Lost $${loss.toLocaleString()}`, 'warning', 3000);
+        registerPositiveOutcome(false);
+        break;
+      }
+      default:
+        break;
+    }
   };
 
   useEffect(() => {
@@ -2090,6 +2217,8 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
                 </motion.div>
                 <div className="board-center">
                   <ThreeDice rolling={rolling} value1={die1Value} value2={die2Value} />
+
+                  <ComboTracker comboChain={comboChain} getComboMultiplier={getComboMultiplier} />
 
                   <div style={{ position: 'relative', zIndex: 10, pointerEvents: 'none' }}>
                     <div className="board-center-logo">City Slacker</div>
@@ -2619,6 +2748,22 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
           cityLevel={cityLevel}
           onResult={handleFortuneResult}
           onClose={handleFortuneClose}
+        />
+      )}
+      {activeTileModal === 'slot_machine' && (
+        <SlotMachine
+          cityLevel={cityLevel}
+          currentFunds={funds}
+          onResult={handleSlotResult}
+          onClose={() => setActiveTileModal(null)}
+        />
+      )}
+      {activeTileModal === 'wheel' && (
+        <WheelOfFortune
+          cityLevel={cityLevel}
+          currentFunds={funds}
+          onResult={handleWheelResult}
+          onClose={() => setActiveTileModal(null)}
         />
       )}
 

@@ -24,7 +24,7 @@ If you're an AI agent (like Cursor, GitHub Copilot, or similar) picking up this 
 
 ### 1. Review Phase 8 Progress
 ```
-📁 Phase 8 - IN PROGRESS 🚧
+📁 Phase 8 - COMPLETE ✅
    ✅ Task 8.1: New Tile Types (complete)
       ✅ Tile configuration file
       ✅ Lottery tile component
@@ -39,18 +39,28 @@ If you're an AI agent (like Cursor, GitHub Copilot, or similar) picking up this 
       ✅ SpecialEventModal component
       ✅ BoardLoop integration + save/load
       ✅ 16 new tests (217/217 total)
-   ⏳ Task 8.4: Mini-Games
-   ⏳ Task 8.5: Enhanced Combo System
+   ✅ Task 8.4: Mini-Games (complete)
+      ✅ Slot Machine (3 reels, 6 symbols, tiered payouts)
+      ✅ Wheel of Fortune (12 segments, once per city)
+      ✅ Card tile repurposed as mini-game trigger
+      ✅ 12 new tests (229/229 total)
+   ✅ Task 8.5: Enhanced Combo System (complete)
+      ✅ Combo chain logic in BoardLoop
+      ✅ ComboTracker HUD component
+      ✅ Chain 5+ bonus power-up
+      ✅ 4 new tests (233/233 total)
 ```
 
-### 2. Current State (Phase 8 Active)
-- **Phase 8:** 🚧 In Progress (Tasks 8.1-8.3 complete)
-- **Test Status:** 217/217 passing (100%)
+### 2. Current State (Phase 8 Complete)
+- **Phase 8:** ✅ Complete
+- **Test Status:** 233/233 passing (100%)
 - **New Tile Types:** 4 integrated (Lottery, Tax, Jail, Fortune)
 - **Fortune Rewards:** Tax Haven + Get Out of Jail Free card
 - **Power-Ups:** Shop + HUD + 6 effects wired into gameplay
 - **Special Events:** City-wide buffs, random events, milestone rewards
-- **Next:** Task 8.4 - Mini-Games
+- **Mini-Games:** Slot Machine + Wheel of Fortune via Card tile
+- **Combo System:** Tile landing chains with visual HUD tracker
+- **Next:** Phase 9 - Social Features & Advanced Progression
 
 ### 3. What Was Accomplished
 
@@ -59,9 +69,10 @@ If you're an AI agent (like Cursor, GitHub Copilot, or similar) picking up this 
 - Fortune event system (12 weighted events) with Tax Haven + Jail Free rewards
 - Power-up system complete (shop, HUD indicator, and 6 power-up effects)
 - Special events system (4 city-wide events, 6 random events, 2 milestone types)
+- Mini-games (Slot Machine + Wheel of Fortune) via Card tile
 - Modal UX and audio cues wired to tile outcomes
-- New tile state persisted (jail turns, skip turns, fortune effects, power-ups, events)
-- Tests updated and passing (217/217)
+- New tile state persisted (jail turns, skip turns, fortune effects, power-ups, events, wheel)
+- Tests updated and passing (229/229)
 
 **Phase 6 delivered:**
 - 3 new playable cities (Crystal Plaza, Starlight District, Neon Skyline)

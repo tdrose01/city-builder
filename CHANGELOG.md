@@ -2,9 +2,30 @@
 
 All notable changes to the City Slacker project are documented here.
 
-## [2026-01-27] - Phase 8: Gameplay Enhancement - IN PROGRESS 🎮
+## [2026-01-30] - Phase 8: Gameplay Enhancement - COMPLETE 🎮
 
-**Phase 8 is adding exciting new tile types and mechanics to deepen gameplay.**
+**Phase 8 has successfully expanded the core loop with deep interactive mechanics, mini-games, and strategic power-ups.**
+
+### 🔗 Task 8.5: Enhanced Combo System (COMPLETE)
+
+#### Features
+- **Combo Chains**: Tracks consecutive landings on the same tile type (e.g., Funds → Funds).
+- **Dynamic Multipliers**:
+  - Chain 2: **1.10x**
+  - Chain 3: **1.25x**
+  - Chain 4: **1.50x**
+  - Chain 5+: **2.00x**
+- **Bonus Rewards**: Reaching a chain of 5+ grants a random **FREE Power-Up**.
+- **Visual Feedback**: New `ComboTracker` HUD component with animated counters and progress bars.
+- **Integration**: Applies multipliers to Start, Funds, Heist, Bonus, Dice, and Mini-Game rewards.
+
+#### Technical
+- **State Tracking**: `comboChain` state in BoardLoop ({ type, count }).
+- **Visuals**: Framer Motion animations for chain increases and bonuses.
+- **Stability**: Fixed notification timeout memory leaks affecting tests.
+- **Testing**: Added unit tests for combo logic and component rendering.
+
+---
 
 ### 🎰 Task 8.1: New Tile Types (COMPLETE)
 
@@ -118,6 +139,40 @@ All notable changes to the City Slacker project are documented here.
 #### Next Steps
 - [x] Task 8.2: Power-Up System (config + shop + indicator + effects + tests) — COMPLETE
 - [x] Task 8.3: Special Events System — COMPLETE
+- [x] Task 8.4: Mini-Games — COMPLETE
+
+---
+
+### 🎰 Task 8.4: Mini-Games (COMPLETE)
+
+#### Slot Machine 🎰
+- 3-reel slot machine with 6 symbols (🍒 🍋 🔔 💎 7️⃣ ⭐)
+- Spin cost: $1,000 (scaled by city level)
+- Payouts:
+  - Double Match: 2x bet
+  - Triple Match: 10x bet
+  - Three 💎 Jackpot: 100x bet
+- Staggered reel stop animation (500ms between reels)
+- Particle effects and audio for wins
+
+#### Wheel of Fortune 🎡
+- 12 weighted prize segments, free spin once per city
+- Prizes: $5,000 (3x), 10 Dice (2x), 2 Shields (2x), Power-Up (2x), Sticker Pack (2x), BANKRUPT (1x)
+- CSS-rendered wheel with spin animation and easing deceleration
+- BANKRUPT loses 50% of current funds
+
+#### Integration
+- Card tile repurposed as mini-game trigger
+- Random selection between Slot Machine and Wheel of Fortune
+- Wheel only offered if not yet used this city
+- `wheelSpunThisCity` state resets on city transition
+- Full save/load persistence
+
+#### Technical Implementation
+- `web/src/config/miniGames.js` — Config + selection functions
+- `web/src/components/SlotMachine.jsx` — 3-stage modal (bet/spinning/result)
+- `web/src/components/WheelOfFortune.jsx` — 2-stage modal (spin/result)
+- 12 new tests (229/229 total passing)
 
 ---
 
