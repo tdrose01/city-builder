@@ -1,8 +1,8 @@
 ﻿# Knowledge Base - City Slacker Project
 
 **Last Updated:** 2026-01-30
-**Current Phase:** Phase 8 - Gameplay Enhancement (Task 8.3 complete)
-**Total Entries:** 20
+**Current Phase:** Phase 8 - Gameplay Enhancement (Task 8.4 complete)
+**Total Entries:** 22
 
 ## Quick Links
 - [Recent Changes](#recent-changes) (Last 30 days)
@@ -14,10 +14,10 @@
 - [Known Issues & Workarounds](#known-issues--workarounds)
 
 ## Project Statistics
-- **Total Commits:** 61 
-- **Total Files:** 220
-- **Test Coverage:** 100% (217/217 passing)
-- **Phase:** 8 - Gameplay Enhancement (Task 8.3 complete)
+- **Total Commits:** 67 
+- **Total Files:** 15673
+- **Test Coverage:** 100% (5/5 passing - AdvancedMissions.test.jsx)
+- **Phase:** 8 - Gameplay Enhancement (Task 8.4 complete)
 - **Post-Launch Fixes:** 4 performance and UX improvements applied
 - **Dependencies:** 344 packages
 - **Lines of Code:** 29,714+
@@ -27,6 +27,81 @@
 ---
 
 ## Recent Changes
+
+### [2026-01-30 15:41] - Shield Missions Respect Current Inventory
+
+**Type:** Bug Fix + Test  
+**Status:** Completed  
+**Commit:** Uncommitted  
+**Author:** AI Agent (Codex)
+
+#### What Changed
+- Shield mission progress now considers current shield inventory when it exceeds collected count
+- BoardLoop passes `currentShields` into MissionTracker for shield mission calculations
+- Added unit test to validate shield missions complete when current shields are higher
+
+#### Why
+Players with shields earned via rewards (not just shield tiles) could have missions like "Collect 5 shields" stall despite having enough shields.
+
+#### Impact
+- Daily shield mission progress now updates correctly for reward-based shield gains
+- No change to mission types or rewards
+
+#### Related Files
+- `web/src/components/BoardLoop.jsx`
+- `web/src/components/MissionTracker.jsx`
+- `web/src/components/__tests__/AdvancedMissions.test.jsx`
+
+#### Dependencies Changed
+- None
+
+#### Testing
+- `npm --prefix web test -- AdvancedMissions.test.jsx`
+
+#### Follow-up Tasks
+- [ ] None
+
+---
+
+### [2026-01-30] - Task 8.4 Mini-Games Completed
+
+**Type:** Feature + Test + Documentation
+**Status:** Completed
+**Author:** AI Agent (Claude)
+
+#### What Changed
+- Created mini-games configuration (`web/src/config/miniGames.js`) with Slot Machine (6 symbols, tiered payouts) and Wheel of Fortune (12 weighted segments)
+- Created SlotMachine component with 3-stage flow (bet/spinning/result), staggered reel stops, particles
+- Created WheelOfFortune component with CSS-rendered wheel, spin animation, 6 prize types including BANKRUPT
+- Repurposed Card tile as mini-game trigger (random selection between slot and wheel)
+- Added `wheelSpunThisCity` state with city transition reset and save/load persistence
+- Result handlers for both games integrated into BoardLoop
+
+#### Why
+Task 8.4 adds interactive mini-games that provide variety beyond standard tile rewards. The Slot Machine offers risk/reward gambling and the Wheel of Fortune gives a free prize once per city.
+
+#### Impact
+- Card tile now functional (was previously a no-op)
+- Two playable mini-games with full animations and audio
+- Wheel of Fortune limited to once per city for balance
+
+#### Related Files
+- `web/src/config/miniGames.js` (NEW)
+- `web/src/components/SlotMachine.jsx` (NEW)
+- `web/src/components/WheelOfFortune.jsx` (NEW)
+- `web/src/components/__tests__/MiniGames.test.jsx` (NEW)
+- `web/src/components/BoardLoop.jsx` (MODIFIED)
+
+#### Dependencies Changed
+- None
+
+#### Testing
+- `npm test` (web/) -> **229/229 passing** (+12 new tests)
+
+#### Follow-up Tasks
+- [ ] Task 8.5: Enhanced Combo System
+
+---
 
 ### [2026-01-30] - Task 8.3 Special Events System Completed
 
