@@ -2,7 +2,7 @@
 
 **Last Updated:** 2026-01-30
 **Current Phase:** Phase 8 - Gameplay Enhancement (Task 8.4 complete)
-**Total Entries:** 23
+**Total Entries:** 24
 
 ## Quick Links
 - [Recent Changes](#recent-changes) (Last 30 days)
@@ -14,7 +14,7 @@
 - [Known Issues & Workarounds](#known-issues--workarounds)
 
 ## Project Statistics
-- **Total Commits:** 68 
+- **Total Commits:** 69 
 - **Total Files:** 15673
 - **Test Coverage:** 100% (5/5 passing - AdvancedMissions.test.jsx)
 - **Phase:** 8 - Gameplay Enhancement (Task 8.4 complete)
@@ -27,6 +27,38 @@
 ---
 
 ## Recent Changes
+
+### [2026-01-30 16:06] - Event Prestige Auto-Activates
+
+**Type:** Bug Fix  
+**Status:** Completed  
+**Commit:** Uncommitted  
+**Author:** AI Agent (Codex)
+
+#### What Changed
+- Auto-trigger event prestige when all milestones are claimed and event progress meets threshold
+- Guarded against repeat triggers during the same eligibility window
+
+#### Why
+Players reported they still had to press the prestige button. This change removes the manual step.
+
+#### Impact
+- Prestige triggers automatically as soon as eligibility is met
+- No changes to prestige rewards or requirements
+
+#### Related Files
+- `web/src/components/BoardLoop.jsx`
+
+#### Dependencies Changed
+- None
+
+#### Testing
+- Not run (manual verification recommended)
+
+#### Follow-up Tasks
+- [ ] Consider adding an option to toggle auto-prestige behavior
+
+---
 
 ### [2026-01-30 15:54] - Prestige No Longer Disables Auto-Roll
 
