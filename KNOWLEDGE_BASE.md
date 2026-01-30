@@ -2,7 +2,7 @@
 
 **Last Updated:** 2026-01-30
 **Current Phase:** Phase 8 - Gameplay Enhancement (Task 8.4 complete)
-**Total Entries:** 25
+**Total Entries:** 26
 
 ## Quick Links
 - [Recent Changes](#recent-changes) (Last 30 days)
@@ -14,7 +14,7 @@
 - [Known Issues & Workarounds](#known-issues--workarounds)
 
 ## Project Statistics
-- **Total Commits:** 70 
+- **Total Commits:** 71 
 - **Total Files:** 15673
 - **Test Coverage:** 100% (5/5 passing - AdvancedMissions.test.jsx)
 - **Phase:** 8 - Gameplay Enhancement (Task 8.4 complete)
@@ -27,6 +27,40 @@
 ---
 
 ## Recent Changes
+
+### [2026-01-30 16:15] - Shields Easier to Earn
+
+**Type:** Configuration + Bug Fix  
+**Status:** Completed  
+**Commit:** Uncommitted  
+**Author:** AI Agent (Codex)
+
+#### What Changed
+- Increased max shields from 5 to 8
+- Shield tiles now grant 2 shields and mission tracking counts the full gain
+- Shield HUD now reflects the configured max shields
+
+#### Why
+City progression felt too slow because shields were accumulating too slowly.
+
+#### Impact
+- Faster shield accumulation and more buffer against shutdowns
+- Daily shield mission completes sooner due to larger gains
+
+#### Related Files
+- `web/src/config/gameBalance.js`
+- `web/src/components/BoardLoop.jsx`
+
+#### Dependencies Changed
+- None
+
+#### Testing
+- Not run (manual balance verification recommended)
+
+#### Follow-up Tasks
+- [ ] Validate pacing for city upgrades after shield buff
+
+---
 
 ### [2026-01-30 16:08] - Hide Prestige Button After Auto-Prestige
 
