@@ -2,7 +2,7 @@
 
 **Last Updated:** 2026-01-30
 **Current Phase:** Phase 9 - Social Features & Advanced Progression (Complete + Hotfixes)
-**Total Entries:** 27
+**Total Entries:** 28
 
 ## Quick Links
 - [Recent Changes](#recent-changes) (Last 30 days)
@@ -14,7 +14,7 @@
 - [Known Issues & Workarounds](#known-issues--workarounds)
 
 ## Project Statistics
-- **Total Commits:** 75 
+- **Total Commits:** 77 
 - **Total Files:** 15673
 - **Test Coverage:** ⚠️ Not revalidated after docs update (last known: 5/5 passing - AdvancedMissions.test.jsx)
 - **Phase:** 9 - Social Features & Advanced Progression (Complete + Hotfixes)
@@ -27,6 +27,39 @@
 ---
 
 ## Recent Changes
+
+### [2026-01-30 16:53] - Netlify CLI Deploy Helpers
+
+**Type:** Documentation + Configuration  
+**Status:** Completed  
+**Commit:** d6d6731  
+**Author:** AI Agent (Codex)
+
+#### What Changed
+- Added Netlify CLI deployment instructions to `DEPLOY.md`
+- Added `deploy:netlify` and `deploy:netlify:prod` scripts in `web/package.json`
+
+#### Why
+Provide a repeatable way to publish a test site without GitHub or EC2 exposure.
+
+#### Impact
+- Enables one-command test deployments via Netlify CLI
+- Reduces friction for browser-based smoke testing
+
+#### Related Files
+- `DEPLOY.md`
+- `web/package.json`
+
+#### Dependencies Changed
+- None
+
+#### Testing
+- Not run (documentation/config-only updates)
+
+#### Follow-up Tasks
+- [ ] Verify a CLI deploy end-to-end on the target machine
+
+---
 
 ### [2026-01-30 16:24] - Project Docs Updated for Hotfixes
 
@@ -1931,6 +1964,19 @@ Implemented complete multi-city progression system with 5 cities, dynamic multip
 ---
 
 ## Configuration Changes
+
+### [2026-01-30] Netlify CLI Deploy Helpers
+
+**Changed:** Added Netlify CLI deployment helpers  
+**Files Modified:**
+- `DEPLOY.md`
+- `web/package.json`
+
+**Notes:**
+- New scripts: `deploy:netlify` and `deploy:netlify:prod`
+- CLI instructions include login and token-based auth
+
+---
 
 ### [2026-01-29] Power-Up Configuration Added
 
