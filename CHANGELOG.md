@@ -28,6 +28,23 @@ All notable changes to the City Slacker project are documented here.
 
 ---
 
+## [2026-01-30] - Gameplay Hotfixes (Post-Phase 9)
+
+### Shields & City Progression
+- **Shield pacing buff**: Shield tiles now grant 2 shields (was 1).
+- **Shield cap**: Increased max shields from 5 → 8.
+- **UI**: Shield HUD now reflects the configured max.
+
+### Prestige Flow
+- **Auto-prestige**: Event prestige now triggers automatically when eligible.
+- **Auto-roll**: Auto-roll resumes after prestige if it was enabled and dice remain.
+- **UI**: Prestige FAB hidden (manual button no longer needed).
+
+### Missions
+- **Shield missions**: Progress now respects current shield inventory (not only tile pickups).
+
+---
+
 ## [2026-01-30] - Phase 8: Gameplay Enhancement - COMPLETE 🎮
 
 **Phase 8 has successfully expanded the core loop with deep interactive mechanics, mini-games, and strategic power-ups.**

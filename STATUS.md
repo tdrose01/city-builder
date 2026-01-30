@@ -1,8 +1,8 @@
 # City Slacker - Current Status
 
 **Last Updated:** January 30, 2026
-**Version:** Phase 9 COMPLETE ✅
-**Build Status:** ✅ 243 Tests Passing (98.8%)
+**Version:** Phase 9 COMPLETE ✅ (Post-Phase Hotfixes Applied)
+**Build Status:** ⚠️ Not revalidated after hotfixes (last known: 243 tests passing)
 
 ---
 
@@ -38,6 +38,11 @@
 - ✅ **Crafting System**: Use Dust to craft missing stickers
 - ✅ **Token Redemption**: Exchange Set Tokens for specific stickers
 - ✅ **Event Prestige**: Reset milestones for enhanced rewards (up to 3.0x multiplier)
+
+#### Recent Hotfixes
+- ✅ **Auto-Prestige**: Event prestige now triggers automatically when eligible
+- ✅ **Shield Pacing**: Shield tiles grant 2 shields; max shields increased to 8
+- ✅ **Shield Missions**: Progress respects current shield inventory
 #### Multi-City Progression (Phase 6 - COMPLETE!)
 - ✅ **City 1 - Neon Harbor**: Base city with 1.0x multiplier (cyan theme)
 - ✅ **City 2 - Deco Heights**: 1.4x multiplier (gold theme)

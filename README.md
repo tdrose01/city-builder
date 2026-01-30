@@ -28,6 +28,10 @@ A React-based idle/incremental city-building game inspired by Monopoly GO, featu
   - **Global Prestige**: End-game reset with permanent +50% income multipliers.
   - **Advanced Missions**: Weekly and Monthly objective cycles.
   - **Visuals**: Enhanced 3D dice rendering.
+- **Gameplay Hotfixes (2026-01-30)**:
+  - **Auto-Prestige**: Event prestige triggers automatically when eligible.
+  - **Shield Pacing**: Shield tiles grant 2 shields; max shields increased to 8.
+  - **Shield Missions**: Progress respects current shield inventory.
 - **Phase 8: Gameplay Enhancement** (COMPLETE ✅)
   - **New Tile Types**: Lottery 🎰, Tax 💸, Jail 🔒, Fortune 🔮 fully integrated.
   - **Power-Up System**: 6 unique power-ups (Hot Streak, Mega Multiplier, etc.) with Shop UI.

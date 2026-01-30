@@ -1,8 +1,8 @@
 # Next Steps - Phase 8 and Beyond
 
-**Current Status:** Phase 8 In Progress - Tasks 8.1-8.2 complete  
+**Current Status:** Phase 9 Complete + Hotfixes Applied  
 **Date:** January 30, 2026  
-**Build Status:** ✅ 201/201 Tests Passing
+**Build Status:** ⚠️ Not revalidated after hotfixes (last known: 243 passing)
 
 ---
 
@@ -77,6 +77,19 @@
 - ✅ **Global Prestige:** Reset mechanic with permanent income multipliers (+50%/tier).
 - ✅ **Advanced Missions:** Weekly & Monthly mission cycles with persistence.
 - ✅ **Visual Polish:** Upgraded 3D dice materials.
+
+---
+
+## 🔧 Post-Phase Hotfixes (2026-01-30)
+
+**Focus:** Speed up city progression and reduce friction
+
+**Changes:**
+- Shield tiles now grant 2 shields
+- Max shields increased to 8
+- Shield missions respect current inventory (not just tile pickups)
+- Event prestige auto-triggers; prestige button hidden
+- Auto-roll resumes after prestige if it was enabled
 
 **Next Step:** Phase 10 - Production Readiness & Release
 
