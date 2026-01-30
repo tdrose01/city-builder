@@ -2,7 +2,7 @@
 
 **Last Updated:** 2026-01-30
 **Current Phase:** Phase 8 - Gameplay Enhancement (Task 8.4 complete)
-**Total Entries:** 22
+**Total Entries:** 23
 
 ## Quick Links
 - [Recent Changes](#recent-changes) (Last 30 days)
@@ -14,7 +14,7 @@
 - [Known Issues & Workarounds](#known-issues--workarounds)
 
 ## Project Statistics
-- **Total Commits:** 67 
+- **Total Commits:** 68 
 - **Total Files:** 15673
 - **Test Coverage:** 100% (5/5 passing - AdvancedMissions.test.jsx)
 - **Phase:** 8 - Gameplay Enhancement (Task 8.4 complete)
@@ -27,6 +27,38 @@
 ---
 
 ## Recent Changes
+
+### [2026-01-30 15:54] - Prestige No Longer Disables Auto-Roll
+
+**Type:** Bug Fix  
+**Status:** Completed  
+**Commit:** Uncommitted  
+**Author:** AI Agent (Codex)
+
+#### What Changed
+- Preserve auto-roll after event prestige to avoid the game feeling slower post-prestige
+- Track dice count safely via ref to prevent auto-roll re-enabling when no dice remain
+
+#### Why
+Players reported the game slowing down after hitting the prestige button; auto-roll was being disabled during prestige and never restored.
+
+#### Impact
+- Auto-roll resumes after prestige if it was enabled and dice remain
+- No changes to prestige eligibility or reward scaling
+
+#### Related Files
+- `web/src/components/BoardLoop.jsx`
+
+#### Dependencies Changed
+- None
+
+#### Testing
+- Not run (behavioral change; manual repro recommended)
+
+#### Follow-up Tasks
+- [ ] Consider adding a UI test for auto-roll persistence across prestige
+
+---
 
 ### [2026-01-30 15:41] - Shield Missions Respect Current Inventory
 
