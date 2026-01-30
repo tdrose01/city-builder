@@ -2,7 +2,7 @@
 
 **Last Updated:** 2026-01-30
 **Current Phase:** Phase 8 - Gameplay Enhancement (Task 8.4 complete)
-**Total Entries:** 24
+**Total Entries:** 25
 
 ## Quick Links
 - [Recent Changes](#recent-changes) (Last 30 days)
@@ -14,7 +14,7 @@
 - [Known Issues & Workarounds](#known-issues--workarounds)
 
 ## Project Statistics
-- **Total Commits:** 69 
+- **Total Commits:** 70 
 - **Total Files:** 15673
 - **Test Coverage:** 100% (5/5 passing - AdvancedMissions.test.jsx)
 - **Phase:** 8 - Gameplay Enhancement (Task 8.4 complete)
@@ -27,6 +27,37 @@
 ---
 
 ## Recent Changes
+
+### [2026-01-30 16:08] - Hide Prestige Button After Auto-Prestige
+
+**Type:** Bug Fix  
+**Status:** Completed  
+**Commit:** Uncommitted  
+**Author:** AI Agent (Codex)
+
+#### What Changed
+- Hid the prestige FAB since prestige now auto-triggers when eligible
+
+#### Why
+The manual button was redundant once auto-prestige is enabled.
+
+#### Impact
+- Players no longer see or interact with the prestige button
+- Auto-prestige remains the only flow
+
+#### Related Files
+- `web/src/components/BoardLoop.jsx`
+
+#### Dependencies Changed
+- None
+
+#### Testing
+- Not run (UI change only)
+
+#### Follow-up Tasks
+- [ ] Consider making auto-prestige optional via a setting
+
+---
 
 ### [2026-01-30 16:06] - Event Prestige Auto-Activates
 
