@@ -316,7 +316,7 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
   const [upgradeBlocked, setUpgradeBlocked] = useState(false);
   const [wheelSpunThisCity, setWheelSpunThisCity] = useState(false);
   const [globalPrestigeLevel, setGlobalPrestigeLevel] = useState(0);
-  
+
   // Mission state (Daily, Weekly, Monthly persistence)
   const [missionState, setMissionState] = useState({
     daily: { startRolls: 0, startUpgrades: 0, startShields: 0, startFundsTiles: 0, completed: [], resetCount: 0 },
@@ -396,7 +396,7 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
       if (savedState.wheelSpunThisCity !== undefined) setWheelSpunThisCity(savedState.wheelSpunThisCity);
       if (savedState.globalPrestigeLevel !== undefined) setGlobalPrestigeLevel(savedState.globalPrestigeLevel);
       if (savedState.missionState !== undefined) setMissionState(savedState.missionState);
-      
+
       // Social state load
       if (savedState.friends && savedState.friends.length > 0) {
         setFriends(savedState.friends);
@@ -417,12 +417,12 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
     const checkDailyReset = () => {
       const lastResetDate = new Date(lastGiftReset);
       const now = new Date();
-      
+
       // Check if it's a different day
-      if (lastResetDate.getDate() !== now.getDate() || 
-          lastResetDate.getMonth() !== now.getMonth() || 
-          lastResetDate.getFullYear() !== now.getFullYear()) {
-        
+      if (lastResetDate.getDate() !== now.getDate() ||
+        lastResetDate.getMonth() !== now.getMonth() ||
+        lastResetDate.getFullYear() !== now.getFullYear()) {
+
         setDailyGiftCount(0);
         setFriends(prev => prev.map(f => ({
           ...f,
@@ -433,7 +433,7 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
         showNotification("Daily social limits reset!", 'info');
       }
     };
-    
+
     checkDailyReset();
   }, [lastGiftReset]);
 
@@ -633,12 +633,12 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
   const applyRewardMultiplier = useCallback((value) => {
     if (value <= 0) return value;
     let total = value * activePowerUpEffects.rewardMultiplier;
-    
+
     // Apply global prestige
     if (globalPrestigeLevel > 0) {
       total *= getGlobalPrestigeMultiplier(globalPrestigeLevel);
     }
-    
+
     return Math.round(total);
   }, [activePowerUpEffects.rewardMultiplier, globalPrestigeLevel]);
 
@@ -648,7 +648,7 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
     if (options.isFundsTile) {
       total *= activePowerUpEffects.fundsFromFundsTiles;
     }
-    
+
     // Apply global prestige to funds too (it's multiplicative)
     // Note: applyRewardMultiplier is often called with applyFundsMultiplier result,
     // but some logic might call them independently.
@@ -657,7 +657,7 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
     // So we should ONLY apply it in applyRewardMultiplier to be safe and consistent.
     // BUT, some funds calculations might not use applyRewardMultiplier?
     // Let's stick to applying it in applyRewardMultiplier for now as the single source of truth for "output scaling".
-    
+
     return Math.round(total);
   }, [activePowerUpEffects.fundsMultiplier, activePowerUpEffects.fundsFromFundsTiles]);
 
@@ -688,7 +688,7 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
     }
     setRollsSinceLastCityEvent(prev => prev + 1);
     setUpgradeBlocked(false);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeSpecialEvent]);
 
   const checkSpecialEvents = useCallback((currentTotalRolls, currentTotalUpgrades) => {
@@ -803,7 +803,7 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
       setLastMilestoneRolls(currentTotalRolls);
       setLastMilestoneUpgrades(currentTotalUpgrades);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeSpecialEvent, rollsSinceLastCityEvent, cityLevel, funds, playerPosition, lastMilestoneRolls, lastMilestoneUpgrades, activatePowerUp]);
 
   const getScaledReward = (baseAmount, prestigeLevel) => {
@@ -857,21 +857,21 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
         setTileEffect({ type: 'funds', x: 400, y: 300 });
         setTimeout(() => setTileEffect(null), 2000);
         currentSession.current.recordFundsChange(adjustedFunds);
-        
+
         // Add coin particles for large funds gains (>= 5000)
         if (adjustedFunds >= 5000) {
           const tileElement = document.querySelector(`.tile-id-${tile.id}`);
           if (tileElement) {
             const rect = tileElement.getBoundingClientRect();
-            addParticleEffect('coins', rect.left + rect.width / 2, rect.top + rect.height / 2, { 
-              count: Math.min(10, Math.floor(adjustedFunds / 800)), 
+            addParticleEffect('coins', rect.left + rect.width / 2, rect.top + rect.height / 2, {
+              count: Math.min(10, Math.floor(adjustedFunds / 800)),
               distance: 80,
               duration: 1.0,
               size: 10,
               customColors: ['#fbbf24', '#f59e0b', '#d97706']
             });
           }
-          
+
           // Play funds sound
           audioManager.playSFX('funds');
         }
@@ -1054,29 +1054,29 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
 
     let doublesBonus = 0;
     if (rolledDoubles && !isInJail) {
-      const baseDoublesBonus = Math.max(1, Math.round(totalRoll * PACING.doublesBonusMultiplier));
+      const baseDoublesBonus = Math.max(1, Math.round(totalRoll * BALANCE_PACING.DOUBLES_BONUS_MULTIPLIER));
       doublesBonus = applyRewardMultiplier(baseDoublesBonus);
       showNotification(`Doubles! You get ${doublesBonus} extra dice!`, 'success', 2000);
-      
+
       // Add sparkle effect for doubles
       const diceElement = document.querySelector('.dice-roller');
       if (diceElement) {
         const rect = diceElement.getBoundingClientRect();
-        addParticleEffect('sparkles', rect.left + rect.width / 2, rect.top + rect.height / 2, { 
-          count: 8, 
+        addParticleEffect('sparkles', rect.left + rect.width / 2, rect.top + rect.height / 2, {
+          count: 8,
           distance: 50,
           duration: 0.6,
           size: 8
         });
       }
-      
+
       // Play doubles sound
       audioManager.playSFX('doubles');
     }
 
     // Play dice roll sound
     audioManager.playSFX('diceRoll');
-    
+
     // Wait for dice tumble animation to almost finish before starting move
     await new Promise(r => setTimeout(r, 800));
     setRolling(false);
@@ -1090,7 +1090,6 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
     setDice(prev => prev - diceToDeduct + doublesBonus);
     setEventProgress(prev => prev + PACING.pointsPerRoll);
     setTotalRolls(prev => prev + 1);
-    advancePowerUpRolls();
 
     // Analytics: Record roll
     currentSession.current.recordRoll(totalRoll, rolledDoubles);
@@ -1127,27 +1126,11 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
     // Resolve landing
     resolveTileLanding(currentPos);
 
-    // Combo logic (City 2+)
-    if (cityLevel >= 2) {
-      if (die1 === comboTarget || die2 === comboTarget) {
-        setCurrentCombo(prev => prev + 1);
-        if (currentCombo + 1 >= 3 && !comboRewardClaimed) {
-          const comboReward = applyRewardMultiplier(applyFundsMultiplier(2000));
-          setFunds(prev => prev + comboReward);
-          showNotification(`Combo x3! +${comboReward} Funds!`, 'success', 2000);
-          setComboRewardClaimed(true);
-        }
-      } else {
-        setCurrentCombo(0);
-        setComboTarget(Math.floor(Math.random() * 6) + 1);
-        setComboRewardClaimed(false);
-      }
-    }
-
-    // Special events: advance active event and check for new ones
+    // Advance power-ups and special events AFTER resolution so 1-roll durations cover the landing
+    advancePowerUpRolls();
     advanceSpecialEvent();
     checkSpecialEvents(totalRolls + 1, totalUpgrades);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     activeTileModal,
     cityTransitionActive,
@@ -1448,13 +1431,13 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
     setTextPop({ x: window.innerWidth / 2, y: window.innerHeight / 2, text: "MISSIONS MASTER!", color: "#d946ef" });
 
     // Create confetti celebration
-    addParticleEffect('confetti', window.innerWidth / 2, window.innerHeight / 3, { 
-      count: 25, 
+    addParticleEffect('confetti', window.innerWidth / 2, window.innerHeight / 3, {
+      count: 25,
       distance: 150,
       duration: 1.5,
       customColors: ['#f59e0b', '#10b981', '#3b82f6', '#a855f7', '#ef4444']
     });
-    
+
     // Play milestone sound
     audioManager.playSFX('milestone');
 
@@ -1522,13 +1505,13 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
     });
 
     // Create fireworks celebration
-    addParticleEffect('fireworks', window.innerWidth / 2, window.innerHeight / 2, { 
-      count: 30, 
+    addParticleEffect('fireworks', window.innerWidth / 2, window.innerHeight / 2, {
+      count: 30,
       distance: 120,
       duration: 1.2,
       customColors: ['#fbbf24', '#a855f7', '#3b82f6']
     });
-    
+
     // Play city unlock sound (prestige is like unlocking a new level)
     audioManager.playSFX('cityUnlock');
 
@@ -1596,9 +1579,9 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
       cityLevel,
       ...props
     };
-    
+
     setActiveParticles(prev => [...prev, particleEffect]);
-    
+
     // Auto-remove after duration
     const duration = (props.duration || 1) * 1000 + 500; // Add buffer
     setTimeout(() => {
@@ -1915,7 +1898,7 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
   }, [pendingFortuneEffect, activeTileModal, applyFortuneEffect]);
 
   const handleSendGift = (friendId) => {
-    setFriends(prev => prev.map(f => 
+    setFriends(prev => prev.map(f =>
       f.id === friendId ? { ...f, giftSent: true } : f
     ));
     showNotification("Gift sent! +1 Karma", 'success');
@@ -1927,7 +1910,7 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
       return;
     }
 
-    setFriends(prev => prev.map(f => 
+    setFriends(prev => prev.map(f =>
       f.id === friendId ? { ...f, giftReceived: false } : f
     ));
     setDailyGiftCount(prev => prev + 1);
@@ -1948,7 +1931,7 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
     setShields(INITIAL_STATE.SHIELDS);
     setEventProgress(0);
     setPlayerPosition(0);
-    
+
     // Reset ephemeral state
     setTotalRolls(0);
     setTotalUpgrades(0);
@@ -1957,27 +1940,27 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
     setActivePowerUps([]);
     setPowerUpCooldowns({});
     setPurchasedPowerUps({});
-    
+
     // 3. Set new prestige level
     setGlobalPrestigeLevel(nextLevel);
-    
+
     // 4. Celebration
     setHudMessage(`GLOBAL PRESTIGE ${nextLevel}!`);
-    addParticleEffect('fireworks', window.innerWidth / 2, window.innerHeight / 2, { 
-      count: 50, 
-      distance: 200, 
+    addParticleEffect('fireworks', window.innerWidth / 2, window.innerHeight / 2, {
+      count: 50,
+      distance: 200,
       duration: 2.0,
       customColors: ['#fbbf24', '#d946ef', '#3b82f6', '#10b981']
     });
     audioManager.playSFX('cityUnlock');
-    
+
     showNotification(`Welcome to Prestige Tier ${nextLevel}! Earnings x${multiplier.toFixed(1)}`, 'success', 5000);
   };
 
   const handleGlobalPrestigeConfirmation = () => {
     const nextLevel = globalPrestigeLevel + 1;
     const multiplier = getGlobalPrestigeMultiplier(nextLevel);
-    
+
     showConfirm(
       "🌍 GLOBAL PRESTIGE AVAILABLE!",
       `You have conquered all cities! Are you ready to ascend?\n\n` +
@@ -2022,7 +2005,7 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
       // Use new particle effect system with stars
       addParticleEffect('stars', centerX, centerY, { count: 15, distance: 70, duration: 1.0 });
       setTextPop({ x: centerX, y: centerY, text: 'LEVEL UP!' });
-      
+
       // Play upgrade sound
       audioManager.playSFX('upgrade');
 
@@ -2056,7 +2039,7 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
             4: '2.74x',
             5: '3.84x'
           };
-          
+
           showConfirm(
             `CITY COMPLETE!`,
             `Congratulations! You've maxed out ${CITIES[cityLevel].name}.\n\n` +
@@ -2361,10 +2344,10 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
           />
         ))}
         {textPop && <TextPop x={textPop.x} y={textPop.y} text={textPop.text} />}
-        
+
         {/* Audio Controls */}
         <AudioControls />
-        
+
         <div className="board-shell">
           <div className="board-layout-main">
             {/* Main Board Area (Left/Center) */}
@@ -2885,7 +2868,7 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
 
                   {activeTab === 'social' && (
                     <div className="tab-panel">
-                      <SocialTab 
+                      <SocialTab
                         friends={friends}
                         cityLevel={cityLevel}
                         netWorth={funds} // Simple net worth proxy for now

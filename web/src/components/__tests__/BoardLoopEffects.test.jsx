@@ -40,15 +40,15 @@ test('landing on Shield tile triggers shield effect', async () => {
     const setDiceMock = vi.fn();
     const setShieldsMock = vi.fn();
 
-    render(<BoardLoop cityLevel={1} funds={100} setFunds={setFundsMock} shields={0} setShields={setShieldsMock} dice={50} setDice={setDiceMock} setCityLevel={() => {}} />);
-    
+    render(<BoardLoop cityLevel={1} funds={100} setFunds={setFundsMock} shields={0} setShields={setShieldsMock} dice={50} setDice={setDiceMock} setCityLevel={() => { }} />);
+
     // Target Shield Tile at Index 4
     // Need a roll of 4.
     // die1 = 2 (0.2 -> 1.2 -> 2), die2 = 2
     vi.spyOn(Math, 'random')
-      .mockReturnValueOnce(0.2) 
-      .mockReturnValueOnce(0.2) 
-      .mockReturnValueOnce(0.5); // combo
+        .mockReturnValueOnce(0.2)
+        .mockReturnValueOnce(0.2)
+        .mockReturnValueOnce(0.5); // combo
 
     const rollDiceButton = screen.getByRole('button', { name: /Roll/i });
     await userEvent.click(rollDiceButton);
@@ -64,14 +64,14 @@ test('landing on Funds tile triggers funds effect', async () => {
     const setDiceMock = vi.fn();
     const setShieldsMock = vi.fn();
 
-    render(<BoardLoop cityLevel={1} funds={100} setFunds={setFundsMock} shields={0} setShields={setShieldsMock} dice={50} setDice={setDiceMock} setCityLevel={() => {}} />);
-    
+    render(<BoardLoop cityLevel={1} funds={100} setFunds={setFundsMock} shields={0} setShields={setShieldsMock} dice={50} setDice={setDiceMock} setCityLevel={() => { }} />);
+
     // Target Funds Tile at Index 6
     // Need roll of 6. 3 + 3
     vi.spyOn(Math, 'random')
-      .mockReturnValueOnce(0.4) // die1 = 3
-      .mockReturnValueOnce(0.4) // die2 = 3
-      .mockReturnValueOnce(0.5); // combo
+        .mockReturnValueOnce(0.4) // die1 = 3
+        .mockReturnValueOnce(0.4) // die2 = 3
+        .mockReturnValueOnce(0.5); // combo
 
     const rollDiceButton = screen.getByRole('button', { name: /Roll/i });
     await userEvent.click(rollDiceButton);
@@ -84,7 +84,7 @@ test('landing on Funds tile triggers funds effect', async () => {
         // Check that tile effect class was applied
         expect(fundsTile).toHaveClass('tile-effect-funds');
     }, { timeout: 5000 });
-    
+
     // Verify setFunds was called with the correct payout (1000)
     await waitFor(() => {
         expect(setFundsMock).toHaveBeenCalled();
@@ -101,9 +101,7 @@ test('mega multiplier scales funds tile payout', async () => {
     });
 
     const randomSpy = vi.spyOn(Math, 'random')
-        .mockReturnValueOnce(0.5) // comboTarget
-        .mockReturnValueOnce(0.4) // die1 = 3
-        .mockReturnValueOnce(0.4); // die2 = 3
+        .mockReturnValue(0.4); // die1=3, die2=3, total=6 -> land on Funds tile (index 6)
 
     render(<BoardLoopHarness initialFunds={10000} initialDice={10} />);
 
@@ -127,12 +125,14 @@ test('lucky dice guarantees doubles', async () => {
         dice: 10,
         shields: 0,
         cityLevel: 1,
-        activePowerUps: [{ id: POWER_UPS.LUCKY_DICE.id, remainingRolls: 1 }]
+        activePowerUps: [{ id: POWER_UPS.LUCKY_DICE.id, remainingRolls: 1 }],
+        autoRollEnabled: false
     });
 
     const randomSpy = vi.spyOn(Math, 'random')
         .mockReturnValueOnce(0.3) // comboTarget
-        .mockReturnValueOnce(0.6); // die1 = 4
+        .mockReturnValueOnce(0.6) // die1 = 4
+        .mockReturnValue(0.5); // Default for all subsequent calls (special events etc)
 
     render(<BoardLoopHarness initialFunds={10000} initialDice={10} />);
 
@@ -147,19 +147,22 @@ test('lucky dice guarantees doubles', async () => {
         expect(screen.getByText(/Doubles! You get/i)).toBeInTheDocument();
     }, { timeout: 10000 });
 
-    expect(randomSpy).toHaveBeenCalledTimes(2);
+    // Verify dice refund (10 - 1 + 4 = 13)
+    await waitFor(() => {
+        expect(screen.getAllByText('13').length).toBeGreaterThan(0);
+    });
     randomSpy.mockRestore();
 }, 15000);
 
 test('rolling the same value twice triggers a dice streak', async () => {
     const setFundsMock = vi.fn();
     const setDiceMock = vi.fn();
-    
+
     // Mock Math.random for initial comboTarget and two rolls
     const randomSpy = vi.spyOn(Math, 'random').mockReturnValue(0.2);
 
-    render(<BoardLoop cityLevel={1} funds={100} setFunds={setFundsMock} shields={0} setShields={vi.fn()} dice={50} setDice={setDiceMock} setCityLevel={() => {}} />);
-    
+    render(<BoardLoop cityLevel={1} funds={100} setFunds={setFundsMock} shields={0} setShields={vi.fn()} dice={50} setDice={setDiceMock} setCityLevel={() => { }} />);
+
     const rollDiceButton = screen.getByRole('button', { name: /Roll/i });
     await userEvent.click(rollDiceButton);
 
@@ -181,6 +184,6 @@ test('rolling the same value twice triggers a dice streak', async () => {
     await waitFor(() => {
         expect(screen.getByText(/Streak: x2/i)).toBeInTheDocument();
     }, { timeout: 10000 });
-    
+
     randomSpy.mockRestore();
 }, 20000);

@@ -1,0 +1,4793 @@
+﻿
+[1m[46m RUN [49m[22m [36mv3.2.4 [39m[90mC:/city-slick1/city-builder/web[39m
+
+node.exe : [90mstderr[2m | 
+src/components/__tests__/Boar
+dLoopEffects.test.jsx
+At C:\Program 
+Files\nodejs\npx.ps1:29 
+char:3
++   & $NODE_EXE $NPX_CLI_JS 
+$args
++   
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo           
+   : NotSpecified: ([90mst  
+  derr[2m...ffects.test.j   
+ sx:String) [], RemoteExc    
+eption
+    + FullyQualifiedErrorId  
+   : NativeCommandError
+ 
+[22m[39mWARNING: Multiple 
+instances of Three.js being 
+imported.
+
+[90mstderr[2m | src/compone
+nts/__tests__/UpgradeFeedback
+.test.jsx
+[22m[39mWARNING: Multiple 
+instances of Three.js being 
+imported.
+
+[90mstderr[2m | src/compone
+nts/__tests__/BoardLoop.test.
+jsx
+[22m[39mWARNING: Multiple 
+instances of Three.js being 
+imported.
+
+[90mstderr[2m | src/compone
+nts/__tests__/BoardLoop.test.
+jsx[2m > [22m[2mplayer 
+can move around the board 
+and collect funds
+[22m[39mReceived `true` 
+for a non-boolean attribute 
+`jsx`.
+
+If you want to write it to 
+the DOM, pass a string 
+instead: jsx="true" or 
+jsx={value.toString()}.
+
+[90mstderr[2m | src/compone
+nts/__tests__/UpgradeFeedback
+.test.jsx[2m > 
+[22m[2mupgrading landmark 
+triggers text pop
+[22m[39mReceived `true` 
+for a non-boolean attribute 
+`jsx`.
+
+If you want to write it to 
+the DOM, pass a string 
+instead: jsx="true" or 
+jsx={value.toString()}.
+
+[90mstderr[2m | src/compone
+nts/__tests__/BoardLoopEffect
+s.test.jsx[2m > 
+[22m[2mlanding on Shield 
+tile triggers shield effect
+[22m[39mReceived `true` 
+for a non-boolean attribute 
+`jsx`.
+
+If you want to write it to 
+the DOM, pass a string 
+instead: jsx="true" or 
+jsx={value.toString()}.
+
+[90mstdout[2m | src/components/__tests__/UpgradeFeedback.test.jsx[2m > [22m[2mupgrading landmark triggers text pop
+[22m[39mAudioManager initialized
+
+[90mstdout[2m | src/components/__tests__/BoardLoopEffects.test.jsx[2m > [22m[2mlanding on Shield tile triggers shield effect
+[22m[39mAudioManager initialized
+
+[90mstdout[2m | src/components/__tests__/BoardLoop.test.jsx[2m > [22m[2mplayer can move around the board and collect funds
+[22m[39mAudioManager initialized
+
+ [32mΓ£ô[39m src/components/__tests__/BoardLoop.test.jsx[2m > [22mplayer can move around the board and collect funds[33m 305[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/BoardLoop.test.jsx[2m > [22mevent progress increments by pacing points per roll[33m 890[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/BoardLoopEffects.test.jsx[2m > [22mlanding on Shield tile triggers shield effect[33m 2070[2mms[22m[39m
+ [31m├ù[39m src/components/__tests__/BoardLoop.test.jsx[2m > [22mdoubles bonus scales dice refund[33m 2407[2mms[22m[39m
+[31m   ΓåÆ expected 9 to be 11 // Object.is equality[39m
+ [32mΓ£ô[39m src/components/__tests__/BoardLoopEffects.test.jsx[2m > [22mlanding on Funds tile triggers funds effect[33m 2440[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/BoardLoop.test.jsx[2m > [22mupgrade landmark button is disabled if funds are insufficient[33m 2703[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/BoardLoop.test.jsx[2m > [22mswitching city level updates the city title and tile set[32m 74[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/BoardLoop.test.jsx[2m > [22msticker album shows progress hints and currency flow[32m 142[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/CityTransition.test.jsx[2m > [22mCityTransition Component[2m > [22mRendering and Visibility[2m > [22mshould not render when isActive is false[32m 19[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/CityTransition.test.jsx[2m > [22mCityTransition Component[2m > [22mRendering and Visibility[2m > [22mshould render overlay when isActive is true[32m 31[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/CityTransition.test.jsx[2m > [22mCityTransition Component[2m > [22mRendering and Visibility[2m > [22mshould render with dark overlay background[32m 36[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/CityTransition.test.jsx[2m > [22mCityTransition Component[2m > [22mRendering and Visibility[2m > [22mshould have high z-index for overlay[32m 6[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/CityTransition.test.jsx[2m > [22mCityTransition Component[2m > [22mCity-Specific Configurations[2m > [22mshould display City 2 (Deco Heights) configuration[33m 446[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/CityTransition.test.jsx[2m > [22mCityTransition Component[2m > [22mCity-Specific Configurations[2m > [22mshould display City 3 (Crystal Plaza) configuration[33m 315[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/CityTransition.test.jsx[2m > [22mCityTransition Component[2m > [22mCity-Specific Configurations[2m > [22mshould display City 4 (Starlight District) configuration[33m 312[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/CityTransition.test.jsx[2m > [22mCityTransition Component[2m > [22mCity-Specific Configurations[2m > [22mshould display City 5 (Neon Skyline) configuration[33m 314[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/CityTransition.test.jsx[2m > [22mCityTransition Component[2m > [22mCity-Specific Configurations[2m > [22mshould use City 2 as default for invalid city level[33m 311[2mms[22m[39m
+ [31m├ù[39m src/components/__tests__/UpgradeFeedback.test.jsx[2m > [22mupgrading landmark triggers text pop[33m 10278[2mms[22m[39m
+[31m   ΓåÆ Unable to find role="button" and name `/0ΓåÆ1 \$1k/i`
+
+Ignored nodes: comments, script, style
+[36m<body>[31m
+  [36m<div>[31m
+    [36m<section[31m
+      [33mclass[31m=[32m"board-section board-section-fit theme-neon-harbor"[31m
+    [36m>[31m
+      [36m<div[31m
+        [33mclass[31m=[32m"city-backdrop -z-10"[31m
+      [36m/>[31m
+      [36m<div[31m
+        [33mclass[31m=[32m"city-grid -z-10"[31m
+      [36m/>[31m
+      [36m<div[31m
+        [33mclass[31m=[32m"city-glow -z-10"[31m
+        [33mstyle[31m=[32m"background: transparent;"[31m
+      [36m/>[31m
+      [36m<div[31m
+        [33mclass[31m=[32m"audio-controls"[31m
+      [36m>[31m
+        [36m<button[31m
+          [33maria-label[31m=[32m"Mute audio"[31m
+          [33mclass[31m=[32m"audio-toggle-btn"[31m
+          [33mtitle[31m=[32m"Mute audio"[31m
+        [36m>[31m
+          [36m<svg[31m
+            [33mfill[31m=[32m"none"[31m
+            [33mheight[31m=[32m"24"[31m
+            [33mstroke[31m=[32m"currentColor"[31m
+            [33mstroke-width[31m=[32m"2"[31m
+            [33mviewBox[31m=[32m"0 0 24 24"[31m
+            [33mwidth[31m=[32m"24"[31m
+          [36m>[31m
+            [36m<path[31m
+              [33md[31m=[32m"M11 5L6 9H2v6h4l5 4V5z"[31m
+            [36m/>[31m
+            [36m<path[31m
+              [33md[31m=[32m"M19.07 4.93a10 10 0 0 1 0 14.14"[31m
+            [36m/>[31m
+            [36m<path[31m
+              [33md[31m=[32m"M15.54 8.46a5 5 0 0 1 0 7.07"[31m
+            [36m/>[31m
+          [36m</svg>[31m
+        [36m</button>[31m
+        [36m<button[31m
+          [33maria-label[31m=[32m"Audio settings"[31m
+          [33mclass[31m=[32m"audio-settings-btn"[31m
+          [33mtitle[31m=[32m"Audio settings"[31m
+        [36m>[31m
+          [0mΓÜÖ∩╕Å[0m
+        [36m</button>[31m
+      [36m</div>[31m
+      [36m<div[31m
+        [33mclass[31m=[32m"board-shell"[31m
+      [36m>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"board-layout-main"[31m
+        [36m>[31m
+          [36m<div[31m
+            [33mclass[31m=[32m"board-stage   "[31m
+          [36m>[31m
+            [36m<div[31m
+              [33mclass[31m=[32m"board-grid "[31m
+            [36m>[31m
+              [36m<div[31m
+                [33mclass[31m=[32m"board-tile  tile-id-0   "[31m
+                [33mstyle[31m=[32m"grid-row: 6; grid-column: 6;"[31m
+              [36m>[31m
+                [36m<span[31m
+                  [33mclass[31m=[32m"board-tile-label"[31m
+                [36m>[31m
+                  [0mSTART[0m
+                [36m</span>[31m
+              [36m</div>[31m
+              [36m<div[31m
+                [33mclass[31m=[32m"board-tile board-tile-funds tile-id-1   "[31m
+                [33mstyle[31m=[32m"grid-row: 6; grid-column: 5;"[31m
+              [36m>[31m
+                [36m<span[31m
+                  [33mclass[31m=[32m"board-tile-label"[31m
+                [36m>[31m
+                  [0mFUNDS[0m
+                [36m</span>[31m
+              [36m</div>[31m
+              [36m<div[31m
+                [33mclass[31m=[32m"board-tile board-tile-lottery tile-id-2   "[31m
+                [33mstyle[31m=[32m"grid-row: 6; grid-column: 4;"[31m
+              [36m>[31m
+                [36m<span[31m
+                  [33mclass[31m=[32m"board-tile-label"[31m
+                [36m>[31m
+                  [0mLOTTERY[0m
+                [36m</span>[31m
+              [36m</div>[31m
+              [36m<div[31m
+                [33mclass[31m=[32m"board-tile board-tile-tax tile-id-3   "[31m
+                [33mstyle[31m=[32m"grid-row: 6; grid-column: 3;"[31m
+              [36m>[31m
+                [36m<span[31m
+                  [33mclass[31m=[32m"board-tile-label"[31m
+                [36m>[31m
+                  [0mTAX[0m
+                [36m</span>[31m
+              [36m</div>[31m
+              [36m<div[31m
+                [33mclass[31m=[32m"board-tile board-tile-shield tile-id-4   "[31m
+                [33mstyle[31m=[32m"grid-row: 6; grid-column: 2;"[31m
+              [36m>[31m
+                [36m<span[31m
+                  [33mclass[31m=[32m"board-tile-label"[31m
+                [36m>[31m
+                  [0mSHIELD[0m
+                [36m</span>[31m
+              [36m</div>[31m
+              [36m<div[31m
+                [33mclass[31m=[32m"board-tile  tile-id-5   "[31m
+                [33mstyle[31m=[32m"grid-row: 6; grid-column: 1;"[31m
+              [36m>[31m
+                [36m<span[31m
+                  [33mclass[31m=[32m"board-tile-label"[31m
+                [36m>[31m
+                  [0mBONUS[0m
+                [36m</span>[31m
+              [36m</div>[31m
+              [36m<div[31m
+                [33mclass[31m=[32m"board-tile board-tile-funds tile-id-6 board-tile-active  "[31m
+                [33mstyle[31m=[32m"grid-row: 5; grid-column: 1;"[31m
+              [36m>[31m
+                [36m<span[31m
+                  [33mclass[31m=[32m"board-tile-label"[31m
+                [36m>[31m
+                  [0mFUNDS[0m
+                [36m</span>[31m
+              [36m</div>[31m
+              [36m<div[31m
+                [33mclass[31m=[32m"board-tile board-tile-heist tile-id-7   "[31m
+                [33mstyle[31m=[32m"grid-row: 4; grid-column: 1;"[31m
+              [36m>[31m
+                [36m<span[31m
+                  [33mclass[31m=[32m"board-tile-label"[31m
+                [36m>[31m
+                  [0mHEIST[0m
+                [36m</span>[31m
+              [36m</div>[31m
+              [36m<div[31m
+                [33mclass[31m=[32m"board-tile board-tile-card tile-id-8   "[31m
+                [33mstyle[31m=[32m"grid-row: 3; grid-column: 1;"[31m
+              [36m>[31m
+                [36m<span[31m
+                  [33mclass[31m=[32m"board-tile-label"[31m
+                [36m>[31m
+                  [0mLANDMARK[0m
+                [36m</span>[31m
+                [36m<div[31m
+                  [33mstyle[31m=[32m"font-size: 11px; margin-top: 4px; font-weight: bold; color: rgb(251, 191, 36); display: flex; flex-direction: column; align-items: center; gap: 2px;"[31m
+                [36m>[31m
+                  [36m<span>[31m
+                    [0m0[0m
+                    [0m/[0m
+                    [0m5[0m
+                  [36m</span>[31m
+                [36m</div>[31m
+              [36m</div>[31m
+              [36m<div[31m
+                [33mclass[31m=[32m"board-tile board-tile-card tile-id-9   "[31m
+                [33mstyle[31m=[32m"grid-row: 2; grid-column: 1;"[31m
+              [36m>[31m
+                [36m<span[31m
+                  [33mclass[31m=[32m"board-tile-label"[31m
+                [36m>[31m
+                  [0mCARD[0m
+                [36m</span>[31m
+              [36m</div>[31m
+              [36...
+
+Ignored nodes: comments, script, style
+[36m<html>[31m
+  [36m<head />[31m
+  [36m<body>[31m
+    [36m<div>[31m
+      [36m<section[31m
+        [33mclass[31m=[32m"board-section board-section-fit theme-neon-harbor"[31m
+      [36m>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"city-backdrop -z-10"[31m
+        [36m/>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"city-grid -z-10"[31m
+        [36m/>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"city-glow -z-10"[31m
+          [33mstyle[31m=[32m"background: transparent;"[31m
+        [36m/>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"audio-controls"[31m
+        [36m>[31m
+          [36m<button[31m
+            [33maria-label[31m=[32m"Mute audio"[31m
+            [33mclass[31m=[32m"audio-toggle-btn"[31m
+            [33mtitle[31m=[32m"Mute audio"[31m
+          [36m>[31m
+            [36m<svg[31m
+              [33mfill[31m=[32m"none"[31m
+              [33mheight[31m=[32m"24"[31m
+              [33mstroke[31m=[32m"currentColor"[31m
+              [33mstroke-width[31m=[32m"2"[31m
+              [33mviewBox[31m=[32m"0 0 24 24"[31m
+              [33mwidth[31m=[32m"24"[31m
+            [36m>[31m
+              [36m<path[31m
+                [33md[31m=[32m"M11 5L6 9H2v6h4l5 4V5z"[31m
+              [36m/>[31m
+              [36m<path[31m
+                [33md[31m=[32m"M19.07 4.93a10 10 0 0 1 0 14.14"[31m
+              [36m/>[31m
+              [36m<path[31m
+                [33md[31m=[32m"M15.54 8.46a5 5 0 0 1 0 7.07"[31m
+              [36m/>[31m
+            [36m</svg>[31m
+          [36m</button>[31m
+          [36m<button[31m
+            [33maria-label[31m=[32m"Audio settings"[31m
+            [33mclass[31m=[32m"audio-settings-btn"[31m
+            [33mtitle[31m=[32m"Audio settings"[31m
+          [36m>[31m
+            [0mΓÜÖ∩╕Å[0m
+          [36m</button>[31m
+        [36m</div>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"board-shell"[31m
+        [36m>[31m
+          [36m<div[31m
+            [33mclass[31m=[32m"board-layout-main"[31m
+          [36m>[31m
+            [36m<div[31m
+              [33mclass[31m=[32m"board-stage   "[31m
+            [36m>[31m
+              [36m<div[31m
+                [33mclass[31m=[32m"board-grid "[31m
+              [36m>[31m
+                [36m<div[31m
+                  [33mclass[31m=[32m"board-tile  tile-id-0   "[31m
+                  [33mstyle[31m=[32m"grid-row: 6; grid-column: 6;"[31m
+                [36m>[31m
+                  [36m<span[31m
+                    [33mclass[31m=[32m"board-tile-label"[31m
+                  [36m>[31m
+                    [0mSTART[0m
+                  [36m</span>[31m
+                [36m</div>[31m
+                [36m<div[31m
+                  [33mclass[31m=[32m"board-tile board-tile-funds tile-id-1   "[31m
+                  [33mstyle[31m=[32m"grid-row: 6; grid-column: 5;"[31m
+                [36m>[31m
+                  [36m<span[31m
+                    [33mclass[31m=[32m"board-tile-label"[31m
+                  [36m>[31m
+                    [0mFUNDS[0m
+                  [36m</span>[31m
+                [36m</div>[31m
+                [36m<div[31m
+                  [33mclass[31m=[32m"board-tile board-tile-lottery tile-id-2   "[31m
+                  [33mstyle[31m=[32m"grid-row: 6; grid-column: 4;"[31m
+                [36m>[31m
+                  [36m<span[31m
+                    [33mclass[31m=[32m"board-tile-label"[31m
+                  [36m>[31m
+                    [0mLOTTERY[0m
+                  [36m</span>[31m
+                [36m</div>[31m
+                [36m<div[31m
+                  [33mclass[31m=[32m"board-tile board-tile-tax tile-id-3   "[31m
+                  [33mstyle[31m=[32m"grid-row: 6; grid-column: 3;"[31m
+                [36m>[31m
+                  [36m<span[31m
+                    [33mclass[31m=[32m"board-tile-label"[31m
+                  [36m>[31m
+                    [0mTAX[0m
+                  [36m</span>[31m
+                [36m</div>[31m
+                [36m<div[31m
+                  [33mclass[31m=[32m"board-tile board-tile-shield tile-id-4   "[31m
+                  [33mstyle[31m=[32m"grid-row: 6; grid-column: 2;"[31m
+                [36m>[31m
+                  [36m<span[31m
+                    [33mclass[31m=[32m"board-tile-label"[31m
+                  [36m>[31m
+                    [0mSHIELD[0m
+                  [36m</span>[31m
+                [36m</div>[31m
+                [36m<div[31m
+                  [33mclass[31m=[32m"board-tile  tile-id-5   "[31m
+                  [33mstyle[31m=[32m"grid-row: 6; grid-column: 1;"[31m
+                [36m>[31m
+                  [36m<span[31m
+                    [33mclass[31m=[32m"board-tile-label"[31m
+                  [36m>[31m
+                    [0mBONUS[0m
+                  [36m</span>[31m
+                [36m</div>[31m
+                [36m<div[31m
+                  [33mclass[31m=[32m"board-tile board-tile-funds tile-id-6 board-tile-active  "[31m
+                  [33mstyle[31m=[32m"grid-row: 5; grid-column: 1;"[31m
+                [36m>[31m
+                  [36m<span[31m
+                    [33mclass[31m=[32m"board-tile-label"[31m
+                  [36m>[31m
+                    [0mFUNDS[0m
+                  [36m</span>[31m
+                [36m</div>[31m
+                [36m<div[31m
+                  [33mclass[31m=[32m"board-tile board-tile-heist tile-id-7   "[31m
+                  [33mstyle[31m=[32m"grid-row: 4; grid-column: 1;"[31m
+                [36m>[31m
+                  [36m<span[31m
+                    [33mclass[31m=[32m"board-tile-label"[31m
+                  [36m>[31m
+                    [0mHEIST[0m
+                  [36m</span>[31m
+                [36m</div>[31m
+                [36m<div[31m
+                  [33mclass[31m=[32m"board-tile board-tile-card tile-id-8   "[31m
+                  [33mstyle[31m=[32m"grid-row: 3; grid-column: 1;"[31m
+                [36m>[31m
+                  [36m<span[31m
+                    [33mclass[31m=[32m"board-tile-label"[31m
+                  [36m>[31m
+                    [0mLANDMARK[0m
+                  [36m</span>[31m
+                  [36m<div[31m
+                    [33mstyle[31m=[32m"font-size: 11px; margin-top: 4px; font-weight: bold; color: rgb(251, 191, 36); display: flex; flex-direction: column; align-items: center; gap: 2px;"[31m
+                  [36m>[31m
+                    [36m<span>[31m
+                      [0m0[0m
+                      [0m/[0m
+                      [0m5[0m
+                    [36m</span>[31m
+                  [36m</div>[31m
+                [36m</div>[31m
+                [36m<div[31m
+                  [33mclass[31m=[32m"board-tile board-t...[39m
+[90mstderr[2m | src/compone
+nts/__tests__/MultiCity.test.
+jsx
+[22m[39mWARNING: Multiple 
+instances of Three.js being 
+imported.
+
+ [32mΓ£ô[39m src/components/__tests__/CityTransition.test.jsx[2m > [22mCityTransition Component[2m > [22mAnimation Sequence[2m > [22mshould call onComplete callback after animation completes[33m 2081[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/CityTransition.test.jsx[2m > [22mCityTransition Component[2m > [22mAnimation Sequence[2m > [22mshould display celebration content during celebration stage[33m 316[2mms[22m[39m
+[90mstderr[2m | src/compone
+nts/__tests__/MultiCity.test.
+jsx[2m > 
+[22m[2mMulti-City 
+System[2m > [22m[2mCity 
+Data Configuration[2m > 
+[22m[2mCity 1 (Neon 
+Harbor) has correct base 
+values
+[22m[39mReceived `true` 
+for a non-boolean attribute 
+`jsx`.
+
+If you want to write it to 
+the DOM, pass a string 
+instead: jsx="true" or 
+jsx={value.toString()}.
+
+ [32mΓ£ô[39m src/components/__tests__/MultiCity.test.jsx[2m > [22mMulti-City System[2m > [22mCity Data Configuration[2m > [22mCity 1 (Neon Harbor) has correct base values[32m 157[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/MultiCity.test.jsx[2m > [22mMulti-City System[2m > [22mCity Data Configuration[2m > [22mCity 2 (Deco Heights) has correct multiplier values[32m 40[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/MultiCity.test.jsx[2m > [22mMulti-City System[2m > [22mCity Data Configuration[2m > [22mCity 3 (Crystal Plaza) has correct multiplier values[32m 40[2mms[22m[39m
+[90mstderr[2m | src/compone
+nts/__tests__/CityTransition.
+test.jsx[2m > 
+[22m[2mCityTransition 
+Component[2m > 
+[22m[2mAnimation 
+Sequence[2m > 
+[22m[2mshould not call 
+onComplete if not provided
+[22m[39mAn update to 
+CityTransition inside a test 
+was not wrapped in act(...).
+
+When testing, code that 
+causes React state updates 
+should be wrapped into 
+act(...):
+
+act(() => {
+  /* fire events that update 
+state */
+});
+/* assert on the output */
+
+This ensures that you're 
+testing the behavior the 
+user would see in the 
+browser. Learn more at https:
+//react.dev/link/wrap-tests-w
+ith-act
+An update to CityTransition 
+inside a test was not 
+wrapped in act(...).
+
+When testing, code that 
+causes React state updates 
+should be wrapped into 
+act(...):
+
+act(() => {
+  /* fire events that update 
+state */
+});
+/* assert on the output */
+
+This ensures that you're 
+testing the behavior the 
+user would see in the 
+browser. Learn more at https:
+//react.dev/link/wrap-tests-w
+ith-act
+
+ [32mΓ£ô[39m src/components/__tests__/MultiCity.test.jsx[2m > [22mMulti-City System[2m > [22mCity Data Configuration[2m > [22mCity 4 (Starlight District) has correct multiplier values[32m 38[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/MultiCity.test.jsx[2m > [22mMulti-City System[2m > [22mCity Data Configuration[2m > [22mCity 5 (Neon Skyline) has correct multiplier values[32m 39[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/MultiCity.test.jsx[2m > [22mMulti-City System[2m > [22mEconomic Scaling[2m > [22mSTART tile payout scales correctly across cities[32m 1[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/MultiCity.test.jsx[2m > [22mMulti-City System[2m > [22mEconomic Scaling[2m > [22mLandmark upgrade costs scale correctly[32m 1[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/MultiCity.test.jsx[2m > [22mMulti-City System[2m > [22mTheme Application[2m > [22mEach city applies correct theme class[32m 228[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/MultiCity.test.jsx[2m > [22mMulti-City System[2m > [22mCity Transitions[2m > [22mCity transition renders for City 2[32m 39[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/MultiCity.test.jsx[2m > [22mMulti-City System[2m > [22mCity Transitions[2m > [22mCity transition handles completion callback[32m 1[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/MultiCity.test.jsx[2m > [22mMulti-City System[2m > [22mCity Progression[2m > [22mPlayer starts in City 1[32m 44[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/MultiCity.test.jsx[2m > [22mMulti-City System[2m > [22mCity Progression[2m > [22mCities 1-5 all render successfully[32m 218[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/MultiCity.test.jsx[2m > [22mMulti-City System[2m > [22mTile Configuration[2m > [22mEach city has exactly 20 tiles[32m 174[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/MultiCity.test.jsx[2m > [22mMulti-City System[2m > [22mTile Configuration[2m > [22mEach city has 1 landmark tile[32m 182[2mms[22m[39m
+[90mstderr[2m | src/compone
+nts/__tests__/CityTransition.
+test.jsx[2m > 
+[22m[2mCityTransition 
+Component[2m > 
+[22m[2mAnimation 
+Sequence[2m > 
+[22m[2mshould not call 
+onComplete if not provided
+[22m[39mAn update to 
+CityTransition inside a test 
+was not wrapped in act(...).
+
+When testing, code that 
+causes React state updates 
+should be wrapped into 
+act(...):
+
+act(() => {
+  /* fire events that update 
+state */
+});
+/* assert on the output */
+
+This ensures that you're 
+testing the behavior the 
+user would see in the 
+browser. Learn more at https:
+//react.dev/link/wrap-tests-w
+ith-act
+
+ [32mΓ£ô[39m src/components/__tests__/MultiCity.test.jsx[2m > [22mMulti-City System[2m > [22mPerformance & Rendering[2m > [22mAll cities render within acceptable time[32m 170[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/MultiCity.test.jsx[2m > [22mMulti-City System[2m > [22mPerformance & Rendering[2m > [22mCity switch does not cause memory leaks[32m 151[2mms[22m[39m
+[90mstderr[2m | src/compone
+nts/__tests__/CityTransition.
+test.jsx[2m > 
+[22m[2mCityTransition 
+Component[2m > 
+[22m[2mAnimation 
+Sequence[2m > 
+[22m[2mshould not call 
+onComplete if not provided
+[22m[39mAn update to 
+CityTransition inside a test 
+was not wrapped in act(...).
+
+When testing, code that 
+causes React state updates 
+should be wrapped into 
+act(...):
+
+act(() => {
+  /* fire events that update 
+state */
+});
+/* assert on the output */
+
+This ensures that you're 
+testing the behavior the 
+user would see in the 
+browser. Learn more at https:
+//react.dev/link/wrap-tests-w
+ith-act
+
+[90mstderr[2m | src/compone
+nts/__tests__/CityTransition.
+test.jsx[2m > 
+[22m[2mCityTransition 
+Component[2m > 
+[22m[2mAnimation 
+Sequence[2m > 
+[22m[2mshould not call 
+onComplete if not provided
+[22m[39mAn update to 
+CityTransition inside a test 
+was not wrapped in act(...).
+
+When testing, code that 
+causes React state updates 
+should be wrapped into 
+act(...):
+
+act(() => {
+  /* fire events that update 
+state */
+});
+/* assert on the output */
+
+This ensures that you're 
+testing the behavior the 
+user would see in the 
+browser. Learn more at https:
+//react.dev/link/wrap-tests-w
+ith-act
+
+ [31m├ù[39m src/components/__tests__/BoardLoopEffects.test.jsx[2m > [22mmega multiplier scales funds tile payout[33m 10130[2mms[22m[39m
+[31m   ΓåÆ Found multiple elements with the text: /\$[0-9,]+/
+
+Here are the matching elements:
+
+Ignored nodes: comments, script, style
+[36m<p[31m
+  [33mclass[31m=[32m"board-mini-text"[31m
+  [33mstyle[31m=[32m"font-size: 11px; color: rgba(255, 255, 255, 0.7);"[31m
+[36m>[31m
+  [0mNext: [0m
+  [0m$5,000 Funds[0m
+[36m</p>[31m
+
+Ignored nodes: comments, script, style
+[36m<span[31m
+  [33mclass[31m=[32m"value"[31m
+[36m>[31m
+  [0m$[0m
+  [0m14,500[0m
+[36m</span>[31m
+
+Ignored nodes: comments, script, style
+[36m<span[31m
+  [33mclass[31m=[32m"milestone-reward"[31m
+[36m>[31m
+  [0m$5,000[0m
+[36m</span>[31m
+
+Ignored nodes: comments, script, style
+[36m<span[31m
+  [33mclass[31m=[32m"milestone-reward"[31m
+[36m>[31m
+  [0m$5,000[0m
+[36m</span>[31m
+
+Ignored nodes: comments, script, style
+[36m<span[31m
+  [33mclass[31m=[32m"milestone-reward"[31m
+[36m>[31m
+  [0m$5,000[0m
+[36m</span>[31m
+
+Ignored nodes: comments, script, style
+[36m<span[31m
+  [33mclass[31m=[32m"milestone-reward"[31m
+[36m>[31m
+  [0m$5,000[0m
+[36m</span>[31m
+
+Ignored nodes: comments, script, style
+[36m<span[31m
+  [33mclass[31m=[32m"milestone-reward"[31m
+[36m>[31m
+  [0m$5,000[0m
+[36m</span>[31m
+
+(If this is intentional, then use the `*AllBy*` variant of the query (like `queryAllByText`, `getAllByText`, or `findAllByText`)).
+
+Ignored nodes: comments, script, style
+[36m<body>[31m
+  [36m<div>[31m
+    [36m<section[31m
+      [33mclass[31m=[32m"board-section board-section-fit theme-neon-harbor"[31m
+    [36m>[31m
+      [36m<div[31m
+        [33mclass[31m=[32m"city-backdrop -z-10"[31m
+      [36m/>[31m
+      [36m<div[31m
+        [33mclass[31m=[32m"city-grid -z-10"[31m
+      [36m/>[31m
+      [36m<div[31m
+        [33mclass[31m=[32m"city-glow -z-10"[31m
+        [33mstyle[31m=[32m"background: transparent;"[31m
+      [36m/>[31m
+      [36m<div[31m
+        [33mclass[31m=[32m"audio-controls"[31m
+      [36m>[31m
+        [36m<button[31m
+          [33maria-label[31m=[32m"Mute audio"[31m
+          [33mclass[31m=[32m"audio-toggle-btn"[31m
+          [33mtitle[31m=[32m"Mute audio"[31m
+        [36m>[31m
+          [36m<svg[31m
+            [33mfill[31m=[32m"none"[31m
+            [33mheight[31m=[32m"24"[31m
+            [33mstroke[31m=[32m"currentColor"[31m
+            [33mstroke-width[31m=[32m"2"[31m
+            [33mviewBox[31m=[32m"0 0 24 24"[31m
+            [33mwidth[31m=[32m"24"[31m
+          [36m>[31m
+            [36m<path[31m
+              [33md[31m=[32m"M11 5L6 9H2v6h4l5 4V5z"[31m
+            [36m/>[31m
+            [36m<path[31m
+              [33md[31m=[32m"M19.07 4.93a10 10 0 0 1 0 14.14"[31m
+            [36m/>[31m
+            [36m<path[31m
+              [33md[31m=[32m"M15.54 8.46a5 5 0 0 1 0 7.07"[31m
+            [36m/>[31m
+          [36m</svg>[31m
+        [36m</button>[31m
+        [36m<button[31m
+          [33maria-label[31m=[32m"Audio settings"[31m
+          [33mclass[31m=[32m"audio-settings-btn"[31m
+          [33mtitle[31m=[32m"Audio settings"[31m
+        [36m>[31m
+          [0mΓÜÖ∩╕Å[0m
+        [36m</button>[31m
+      [36m</div>[31m
+      [36m<div[31m
+        [33mclass[31m=[32m"board-shell"[31m
+      [36m>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"board-layout-main"[31m
+        [36m>[31m
+          [36m<div[31m
+            [33mclass[31m=[32m"board-stage   "[31m
+          [36m>[31m
+            [36m<div[31m
+              [33mclass[31m=[32m"board-grid "[31m
+            [36m>[31m
+              [36m<div[31m
+                [33mclass[31m=[32m"board-tile  tile-id-0   "[31m
+                [33mstyle[31m=[32m"grid-row: 6; grid-column: 6;"[31m
+              [36m>[31m
+                [36m<span[31m
+                  [33mclass[31m=[32m"board-tile-label"[31m
+                [36m>[31m
+                  [0mSTART[0m
+                [36m</span>[31m
+              [36m</div>[31m
+              [36m<div[31m
+                [33mclass[31m=[32m"board-tile board-tile-funds tile-id-1   "[31m
+                [33mstyle[31m=[32m"grid-row: 6; grid-column: 5;"[31m
+              [36m>[31m
+                [36m<span[31m
+                  [33mclass[31m=[32m"board-tile-label"[31m
+                [36m>[31m
+                  [0mFUNDS[0m
+                [36m</span>[31m
+              [36m</div>[31m
+              [36m<div[31m
+                [33mclass[31m=[32m"board-tile board-tile-lottery tile-id-2   "[31m
+                [33mstyle[31m=[32m"grid-row: 6; grid-column: 4;"[31m
+              [36m>[31m
+                [36m<span[31m
+                  [33mclass[31m=[32m"board-tile-label"[31m
+                [36m>[31m
+                  [0mLOTTERY[0m
+                [36m</span>[31m
+              [36m</div>[31m
+              [36m<div[31m
+                [33mclass[31m=[32m"board-tile board-tile-tax tile-id-3   "[31m
+                [33mstyle[31m=[32m"grid-row: 6; grid-column: 3;"[31m
+              [36m>[31m
+                [36m<span[31m
+                  [33mclass[31m=[32m"board-tile-label"[31m
+                [36m>[31m
+                  [0mTAX[0m
+                [36m</span>[31m
+              [36m</div>[31m
+              [36m<div[31m
+                [33mclass[31m=[32m"board-tile board-tile-shield tile-id-4   "[31m
+                [33mstyle[31m=[32m"grid-row: 6; grid-column: 2;"[31m
+              [36m>[31m
+                [36m<span[31m
+                  [33mclass[31m=[32m"board-tile-label"[31m
+                [36m>[31m
+                  [0mSHIELD[0m
+                [36m</span>[31m
+              [36m</div>[31m
+              [36m<div[31m
+                [33mclass[31m=[32m"board-tile  tile-id-5   "[31m
+                [33mstyle[31m=[32m"grid-row: 6; grid-column: 1;"[31m
+              [36m>[31m
+                [36m<span[31m
+                  [33mclass[31m=[32m"board-tile-label"[31m
+                [36m>[31m
+                  [0mBONUS[0m
+                [36m</span>[31m
+              [36m</div>[31m
+              [36m<div[31m
+                [33mclass[31m=[32m"board-tile board-tile-funds tile-id-6 board-tile-active  "[31m
+                [33mstyle[31m=[32m"grid-row: 5; grid-column: 1;"[31m
+              [36m>[31m
+                [36m<span[31m
+                  [33mclass[31m=[32m"board-tile-label"[31m
+                [36m>[31m
+                  [0mFUNDS[0m
+                [36m</span>[31m
+              [36m</div>[31m
+              [36m<div[31m
+                [33mclass[31m=[32m"board-tile board-tile-heist tile-id-7   "[31m
+                [33mstyle[31m=[32m"grid-row: 4; grid-column: 1;"[31m
+              [36m>[31m
+                [36m<span[31m
+                  [33mclass[31m=[32m"board-tile-label"[31m
+                [36m>[31m
+                  [0mHEIST[0m
+                [36m</span>[31m
+              [36m</div>[31m
+              [36m<div[31m
+                [33mclass[31m=[32m"board-tile board-tile-card tile-id-8   "[31m
+                [33mstyle[31m=[32m"grid-row: 3; grid-column: 1;"[31m
+              [36m>[31m
+                [36m<span[31m
+                  [33mclass[31m=[32m"board-tile-label"[31m
+                [36m>[31m
+                  [0mLANDMARK[0m
+                [36m</span>[31m
+                [36m<div[31m
+                  [33mstyle[31m=[32m"font-size: 11px; margin-top: 4px; font-weight: bold; color: rgb(251, 191, 36); display: flex; flex-direction: column; align-items: center; gap: 2px;"[31m
+                [36m>[31m
+                  [36m<span>[31m
+                    [0m0[0m
+                    [0m/[0m
+                    [0m5[0m
+                  [36m</span>[31m
+                [36m</div>[31m
+              [36m</div>[31m
+              [36m<div[31m
+                [33mclass[31m=[32m"board-tile board-tile-card tile-id-9   "[31m
+                [33mstyle[31m=[32m"grid-row: 2; grid-column: 1;"[31m
+              [36m>[31m
+                [36m<span[31m
+                  [33mclass[31m=[32m"board-tile-label"[31m
+                [36m>[31m
+                  [0mCARD[0m
+                [36m</span>[31m
+              [36m</div>[31m
+              [36...
+
+Ignored nodes: comments, script, style
+[36m<html>[31m
+  [36m<head />[31m
+  [36m<body>[31m
+    [36m<div>[31m
+      [36m<section[31m
+        [33mclass[31m=[32m"board-section board-section-fit theme-neon-harbor"[31m
+      [36m>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"city-backdrop -z-10"[31m
+        [36m/>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"city-grid -z-10"[31m
+        [36m/>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"city-glow -z-10"[31m
+          [33mstyle[31m=[32m"background: transparent;"[31m
+        [36m/>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"audio-controls"[31m
+        [36m>[31m
+          [36m<button[31m
+            [33maria-label[31m=[32m"Mute audio"[31m
+            [33mclass[31m=[32m"audio-toggle-btn"[31m
+            [33mtitle[31m=[32m"Mute audio"[31m
+          [36m>[31m
+            [36m<svg[31m
+              [33mfill[31m=[32m"none"[31m
+              [33mheight[31m=[32m"24"[31m
+              [33mstroke[31m=[32m"currentColor"[31m
+              [33mstroke-width[31m=[32m"2"[31m
+              [33mviewBox[31m=[32m"0 0 24 24"[31m
+              [33mwidth[31m=[32m"24"[31m
+            [36m>[31m
+              [36m<path[31m
+                [33md[31m=[32m"M11 5L6 9H2v6h4l5 4V5z"[31m
+              [36m/>[31m
+              [36m<path[31m
+                [33md[31m=[32m"M19.07 4.93a10 10 0 0 1 0 14.14"[31m
+              [36m/>[31m
+              [36m<path[31m
+                [33md[31m=[32m"M15.54 8.46a5 5 0 0 1 0 7.07"[31m
+              [36m/>[31m
+            [36m</svg>[31m
+          [36m</button>[31m
+          [36m<button[31m
+            [33maria-label[31m=[32m"Audio settings"[31m
+            [33mclass[31m=[32m"audio-settings-btn"[31m
+            [33mtitle[31m=[32m"Audio settings"[31m
+          [36m>[31m
+            [0mΓÜÖ∩╕Å[0m
+          [36m</button>[31m
+        [36m</div>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"board-shell"[31m
+        [36m>[31m
+          [36m<div[31m
+            [33mclass[31m=[32m"board-layout-main"[31m
+          [36m>[31m
+            [36m<div[31m
+              [33mclass[31m=[32m"board-stage   "[31m
+            [36m>[31m
+              [36m<div[31m
+                [33mclass[31m=[32m"board-grid "[31m
+              [36m>[31m
+                [36m<div[31m
+                  [33mclass[31m=[32m"board-tile  tile-id-0   "[31m
+                  [33mstyle[31m=[32m"grid-row: 6; grid-column: 6;"[31m
+                [36m>[31m
+                  [36m<span[31m
+                    [33mclass[31m=[32m"board-tile-label"[31m
+                  [36m>[31m
+                    [0mSTART[0m
+                  [36m</span>[31m
+                [36m</div>[31m
+                [36m<div[31m
+                  [33mclass[31m=[32m"board-tile board-tile-funds tile-id-1   "[31m
+                  [33mstyle[31m=[32m"grid-row: 6; grid-column: 5;"[31m
+                [36m>[31m
+                  [36m<span[31m
+                    [33mclass[31m=[32m"board-tile-label"[31m
+                  [36m>[31m
+                    [0mFUNDS[0m
+                  [36m</span>[31m
+                [36m</div>[31m
+                [36m<div[31m
+                  [33mclass[31m=[32m"board-tile board-tile-lottery tile-id-2   "[31m
+                  [33mstyle[31m=[32m"grid-row: 6; grid-column: 4;"[31m
+                [36m>[31m
+                  [36m<span[31m
+                    [33mclass[31m=[32m"board-tile-label"[31m
+                  [36m>[31m
+                    [0mLOTTERY[0m
+                  [36m</span>[31m
+                [36m</div>[31m
+                [36m<div[31m
+                  [33mclass[31m=[32m"board-tile board-tile-tax tile-id-3   "[31m
+                  [33mstyle[31m=[32m"grid-row: 6; grid-column: 3;"[31m
+                [36m>[31m
+                  [36m<span[31m
+                    [33mclass[31m=[32m"board-tile-label"[31m
+                  [36m>[31m
+                    [0mTAX[0m
+                  [36m</span>[31m
+                [36m</div>[31m
+                [36m<div[31m
+                  [33mclass[31m=[32m"board-tile board-tile-shield tile-id-4   "[31m
+                  [33mstyle[31m=[32m"grid-row: 6; grid-column: 2;"[31m
+                [36m>[31m
+                  [36m<span[31m
+                    [33mclass[31m=[32m"board-tile-label"[31m
+                  [36m>[31m
+                    [0mSHIELD[0m
+                  [36m</span>[31m
+                [36m</div>[31m
+                [36m<div[31m
+                  [33mclass[31m=[32m"board-tile  tile-id-5   "[31m
+                  [33mstyle[31m=[32m"grid-row: 6; grid-column: 1;"[31m
+                [36m>[31m
+                  [36m<span[31m
+                    [33mclass[31m=[32m"board-tile-label"[31m
+                  [36m>[31m
+                    [0mBONUS[0m
+                  [36m</span>[31m
+                [36m</div>[31m
+                [36m<div[31m
+                  [33mclass[31m=[32m"board-tile board-tile-funds tile-id-6 board-tile-active  "[31m
+                  [33mstyle[31m=[32m"grid-row: 5; grid-column: 1;"[31m
+                [36m>[31m
+                  [36m<span[31m
+                    [33mclass[31m=[32m"board-tile-label"[31m
+                  [36m>[31m
+                    [0mFUNDS[0m
+                  [36m</span>[31m
+                [36m</div>[31m
+                [36m<div[31m
+                  [33mclass[31m=[32m"board-tile board-tile-heist tile-id-7   "[31m
+                  [33mstyle[31m=[32m"grid-row: 4; grid-column: 1;"[31m
+                [36m>[31m
+                  [36m<span[31m
+                    [33mclass[31m=[32m"board-tile-label"[31m
+                  [36m>[31m
+                    [0mHEIST[0m
+                  [36m</span>[31m
+                [36m</div>[31m
+                [36m<div[31m
+                  [33mclass[31m=[32m"board-tile board-tile-card tile-id-8   "[31m
+                  [33mstyle[31m=[32m"grid-row: 3; grid-column: 1;"[31m
+                [36m>[31m
+                  [36m<span[31m
+                    [33mclass[31m=[32m"board-tile-label"[31m
+                  [36m>[31m
+                    [0mLANDMARK[0m
+                  [36m</span>[31m
+                  [36m<div[31m
+                    [33mstyle[31m=[32m"font-size: 11px; margin-top: 4px; font-weight: bold; color: rgb(251, 191, 36); display: flex; flex-direction: column; align-items: center; gap: 2px;"[31m
+                  [36m>[31m
+                    [36m<span>[31m
+                      [0m0[0m
+                      [0m/[0m
+                      [0m5[0m
+                    [36m</span>[31m
+                  [36m</div>[31m
+                [36m</div>[31m
+                [36m<div[31m
+                  [33mclass[31m=[32m"board-tile board-t...[39m
+ [31m├ù[39m src/components/__tests__/BoardLoopEffects.test.jsx[2m > [22mlucky dice guarantees doubles[32m 112[2mms[22m[39m
+[31m   ΓåÆ expected "random" to be called 2 times, but got 50 times[39m
+ [32mΓ£ô[39m src/components/__tests__/CityTransition.test.jsx[2m > [22mCityTransition Component[2m > [22mAnimation Sequence[2m > [22mshould render particles during celebration[33m 316[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/CityTransition.test.jsx[2m > [22mCityTransition Component[2m > [22mAnimation Sequence[2m > [22mshould not call onComplete if not provided[33m 2503[2mms[22m[39m
+[90mstderr[2m | src/compone
+nts/__tests__/SaveManagementU
+I.test.jsx
+[22m[39mWARNING: Multiple 
+instances of Three.js being 
+imported.
+
+ [32mΓ£ô[39m src/components/__tests__/CityTransition.test.jsx[2m > [22mCityTransition Component[2m > [22mAccessibility - Reduced Motion[2m > [22mshould complete faster with reduced motion[33m 610[2mms[22m[39m
+[90mstderr[2m | src/compone
+nts/__tests__/CityTransition.
+test.jsx[2m > 
+[22m[2mCityTransition 
+Component[2m > 
+[22m[2mAccessibility - 
+Reduced Motion[2m > 
+[22m[2mshould not render 
+particles with reduced motion
+[22m[39mAn update to 
+CityTransition inside a test 
+was not wrapped in act(...).
+
+When testing, code that 
+causes React state updates 
+should be wrapped into 
+act(...):
+
+act(() => {
+  /* fire events that update 
+state */
+});
+/* assert on the output */
+
+This ensures that you're 
+testing the behavior the 
+user would see in the 
+browser. Learn more at https:
+//react.dev/link/wrap-tests-w
+ith-act
+
+[90mstderr[2m | src/compone
+nts/__tests__/CityTransition.
+test.jsx[2m > 
+[22m[2mCityTransition 
+Component[2m > 
+[22m[2mAccessibility - 
+Reduced Motion[2m > 
+[22m[2mshould not render 
+particles with reduced motion
+[22m[39mAn update to 
+CityTransition inside a test 
+was not wrapped in act(...).
+
+When testing, code that 
+causes React state updates 
+should be wrapped into 
+act(...):
+
+act(() => {
+  /* fire events that update 
+state */
+});
+/* assert on the output */
+
+This ensures that you're 
+testing the behavior the 
+user would see in the 
+browser. Learn more at https:
+//react.dev/link/wrap-tests-w
+ith-act
+
+[90mstderr[2m | src/compone
+nts/__tests__/SaveManagementU
+I.test.jsx[2m > 
+[22m[2mSave Management 
+UI[2m > [22m[2mshould 
+show reset confirmation and 
+clear state on confirm
+[22m[39mReceived `true` 
+for a non-boolean attribute 
+`jsx`.
+
+If you want to write it to 
+the DOM, pass a string 
+instead: jsx="true" or 
+jsx={value.toString()}.
+
+[90mstdout[2m | src/components/__tests__/SaveManagementUI.test.jsx[2m > [22m[2mSave Management UI[2m > [22m[2mshould show reset confirmation and clear state on confirm
+[22m[39mAudioManager initialized
+
+ [32mΓ£ô[39m src/components/__tests__/CityTransition.test.jsx[2m > [22mCityTransition Component[2m > [22mAccessibility - Reduced Motion[2m > [22mshould not render particles with reduced motion[33m 405[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/SaveManagementUI.test.jsx[2m > [22mSave Management UI[2m > [22mshould show reset confirmation and clear state on confirm[33m 318[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/CityTransition.test.jsx[2m > [22mCityTransition Component[2m > [22mAccessibility - Reduced Motion[2m > [22mshould still show celebration content with reduced motion[32m 109[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/CityTransition.test.jsx[2m > [22mCityTransition Component[2m > [22mColor Theming[2m > [22mshould apply correct color for City 2 (Gold)[33m 317[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/BoardLoopEffects.test.jsx[2m > [22mrolling the same value twice triggers a dice streak[33m 1926[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/CityTransition.test.jsx[2m > [22mCityTransition Component[2m > [22mColor Theming[2m > [22mshould apply correct color for City 3 (Purple)[33m 330[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/CityTransition.test.jsx[2m > [22mCityTransition Component[2m > [22mColor Theming[2m > [22mshould apply correct color for City 4 (Blue)[33m 360[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/CityTransition.test.jsx[2m > [22mCityTransition Component[2m > [22mColor Theming[2m > [22mshould apply correct color for City 5 (Cyan)[33m 393[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/CityTransition.test.jsx[2m > [22mCityTransition Component[2m > [22mEdge Cases[2m > [22mshould handle rapid activate/deactivate cycles[32m 5[2mms[22m[39m
+[90mstderr[2m | src/compone
+nts/__tests__/BoardLoopPersis
+tence.test.jsx
+[22m[39mWARNING: Multiple 
+instances of Three.js being 
+imported.
+
+ [32mΓ£ô[39m src/components/__tests__/CityTransition.test.jsx[2m > [22mCityTransition Component[2m > [22mEdge Cases[2m > [22mshould handle changing targetCityLevel during transition[33m 357[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/ParticleEffect.test.jsx[2m > [22mParticleEffect Component[2m > [22mBasic Rendering[2m > [22mshould render without crashing[32m 57[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/ParticleEffect.test.jsx[2m > [22mParticleEffect Component[2m > [22mBasic Rendering[2m > [22mshould render correct number of particles[32m 14[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/ParticleEffect.test.jsx[2m > [22mParticleEffect Component[2m > [22mBasic Rendering[2m > [22mshould have pointerEvents none for non-blocking interaction[32m 32[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/ParticleEffect.test.jsx[2m > [22mParticleEffect Component[2m > [22mParticle Types[2m > [22mshould render burst particles[32m 8[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/ParticleEffect.test.jsx[2m > [22mParticleEffect Component[2m > [22mParticle Types[2m > [22mshould render confetti particles[32m 6[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/ParticleEffect.test.jsx[2m > [22mParticleEffect Component[2m > [22mParticle Types[2m > [22mshould render star particles[32m 6[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/ParticleEffect.test.jsx[2m > [22mParticleEffect Component[2m > [22mParticle Types[2m > [22mshould render sparkle particles[32m 5[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/ParticleEffect.test.jsx[2m > [22mParticleEffect Component[2m > [22mParticle Types[2m > [22mshould render coin particles[32m 3[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/ParticleEffect.test.jsx[2m > [22mParticleEffect Component[2m > [22mParticle Types[2m > [22mshould render fireworks particles[32m 3[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/ParticleEffect.test.jsx[2m > [22mParticleEffect Component[2m > [22mCity-Specific Colors[2m > [22mshould use City 1 colors (green)[32m 3[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/ParticleEffect.test.jsx[2m > [22mParticleEffect Component[2m > [22mCity-Specific Colors[2m > [22mshould use City 2 colors (gold)[32m 2[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/ParticleEffect.test.jsx[2m > [22mParticleEffect Component[2m > [22mCity-Specific Colors[2m > [22mshould use City 3 colors (purple)[32m 3[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/ParticleEffect.test.jsx[2m > [22mParticleEffect Component[2m > [22mCity-Specific Colors[2m > [22mshould use City 4 colors (blue)[32m 3[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/ParticleEffect.test.jsx[2m > [22mParticleEffect Component[2m > [22mCity-Specific Colors[2m > [22mshould use City 5 colors (cyan)[32m 3[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/ParticleEffect.test.jsx[2m > [22mParticleEffect Component[2m > [22mCity-Specific Colors[2m > [22mshould accept custom colors[32m 3[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/ParticleEffect.test.jsx[2m > [22mParticleEffect Component[2m > [22mConfiguration Options[2m > [22mshould respect custom size[32m 3[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/ParticleEffect.test.jsx[2m > [22mParticleEffect Component[2m > [22mConfiguration Options[2m > [22mshould respect custom duration[32m 2[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/ParticleEffect.test.jsx[2m > [22mParticleEffect Component[2m > [22mConfiguration Options[2m > [22mshould respect custom distance[32m 2[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/ParticleEffect.test.jsx[2m > [22mParticleEffect Component[2m > [22mConfiguration Options[2m > [22mshould respect min/max size range[32m 3[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/ParticleEffect.test.jsx[2m > [22mParticleEffect Component[2m > [22mConfiguration Options[2m > [22mshould respect spread angle[32m 3[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/ParticleEffect.test.jsx[2m > [22mParticleEffect Component[2m > [22mAccessibility - Reduced Motion[2m > [22mshould reduce particle count with reduced motion[32m 4[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/ParticleEffect.test.jsx[2m > [22mParticleEffect Component[2m > [22mAccessibility - Reduced Motion[2m > [22mshould not render sparkles with reduced motion[32m 2[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/ParticleEffect.test.jsx[2m > [22mParticleEffect Component[2m > [22mAccessibility - Reduced Motion[2m > [22mshould use faster duration with reduced motion[32m 4[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/ParticleEffect.test.jsx[2m > [22mParticleEffect Component[2m > [22monComplete Callback[2m > [22mshould call onComplete callback when provided[32m 3[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/ParticleEffect.test.jsx[2m > [22mParticleEffect Component[2m > [22monComplete Callback[2m > [22mshould not crash when onComplete is not provided[32m 3[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/ParticleEffect.test.jsx[2m > [22mParticleEffect Component[2m > [22mPerformance[2m > [22mshould handle high particle count[32m 27[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/ParticleEffect.test.jsx[2m > [22mParticleEffect Component[2m > [22mPerformance[2m > [22mshould use GPU-accelerated properties[32m 4[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/ParticleEffect.test.jsx[2m > [22mParticleEffect Component[2m > [22mPerformance[2m > [22mshould have high z-index for proper layering[32m 7[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/ParticleEffect.test.jsx[2m > [22mParticleEffect Component[2m > [22mPosition[2m > [22mshould position at specified x,y coordinates[32m 2[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/ParticleEffect.test.jsx[2m > [22mParticleEffect Component[2m > [22mPosition[2m > [22mshould handle edge positions (0,0)[32m 2[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/ParticleEffect.test.jsx[2m > [22mParticleEffect Component[2m > [22mPosition[2m > [22mshould handle large coordinates[32m 3[2mms[22m[39m
+[90mstderr[2m | src/compone
+nts/__tests__/CityTransition.
+test.jsx[2m > 
+[22m[2mCityTransition 
+Component[2m > 
+[22m[2mEdge Cases[2m > 
+[22m[2mshould handle null 
+onComplete gracefully
+[22m[39mAn update to 
+CityTransition inside a test 
+was not wrapped in act(...).
+
+When testing, code that 
+causes React state updates 
+should be wrapped into 
+act(...):
+
+act(() => {
+  /* fire events that update 
+state */
+});
+/* assert on the output */
+
+This ensures that you're 
+testing the behavior the 
+user would see in the 
+browser. Learn more at https:
+//react.dev/link/wrap-tests-w
+ith-act
+An update to CityTransition 
+inside a test was not 
+wrapped in act(...).
+
+When testing, code that 
+causes React state updates 
+should be wrapped into 
+act(...):
+
+act(() => {
+  /* fire events that update 
+state */
+});
+/* assert on the output */
+
+This ensures that you're 
+testing the behavior the 
+user would see in the 
+browser. Learn more at https:
+//react.dev/link/wrap-tests-w
+ith-act
+
+[90mstderr[2m | src/compone
+nts/__tests__/BoardLoopPersis
+tence.test.jsx[2m > 
+[22m[2mBoardLoop 
+Persistence Integration[2m 
+> [22m[2mshould load saved 
+state on mount
+[22m[39mReceived `true` 
+for a non-boolean attribute 
+`jsx`.
+
+If you want to write it to 
+the DOM, pass a string 
+instead: jsx="true" or 
+jsx={value.toString()}.
+
+ [32mΓ£ô[39m src/components/__tests__/BoardLoopPersistence.test.jsx[2m > [22mBoardLoop Persistence Integration[2m > [22mshould load saved state on mount[32m 177[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/BoardLoopPersistence.test.jsx[2m > [22mBoardLoop Persistence Integration[2m > [22mshould trigger debounced save when funds change[32m 48[2mms[22m[39m
+[90mstderr[2m | src/compone
+nts/__tests__/CityTransition.
+test.jsx[2m > 
+[22m[2mCityTransition 
+Component[2m > 
+[22m[2mEdge Cases[2m > 
+[22m[2mshould handle null 
+onComplete gracefully
+[22m[39mAn update to 
+CityTransition inside a test 
+was not wrapped in act(...).
+
+When testing, code that 
+causes React state updates 
+should be wrapped into 
+act(...):
+
+act(() => {
+  /* fire events that update 
+state */
+});
+/* assert on the output */
+
+This ensures that you're 
+testing the behavior the 
+user would see in the 
+browser. Learn more at https:
+//react.dev/link/wrap-tests-w
+ith-act
+
+[90mstderr[2m | src/compone
+nts/__tests__/CityTransition.
+test.jsx[2m > 
+[22m[2mCityTransition 
+Component[2m > 
+[22m[2mEdge Cases[2m > 
+[22m[2mshould handle null 
+onComplete gracefully
+[22m[39mAn update to 
+CityTransition inside a test 
+was not wrapped in act(...).
+
+When testing, code that 
+causes React state updates 
+should be wrapped into 
+act(...):
+
+act(() => {
+  /* fire events that update 
+state */
+});
+/* assert on the output */
+
+This ensures that you're 
+testing the behavior the 
+user would see in the 
+browser. Learn more at https:
+//react.dev/link/wrap-tests-w
+ith-act
+
+ [32mΓ£ô[39m src/components/__tests__/SpecialEvents.test.jsx[2m > [22mcity-wide event configuration[2m > [22mall city-wide events have required fields[32m 4[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/SpecialEvents.test.jsx[2m > [22mrandom event configuration[2m > [22mall random events have required fields[32m 1[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/SpecialEvents.test.jsx[2m > [22mrandom event configuration[2m > [22mrandom event weights sum correctly[32m 1[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/SpecialEvents.test.jsx[2m > [22mselectCityWideEvent[2m > [22mreturns a valid city-wide event[32m 2[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/SpecialEvents.test.jsx[2m > [22mselectRandomEvent[2m > [22mreturns a valid random event[32m 1[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/SpecialEvents.test.jsx[2m > [22mselectRandomEvent[2m > [22mreturns deterministic event when Math.random is mocked[32m 1[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/SpecialEvents.test.jsx[2m > [22mcheckMilestoneEvents[2m > [22mtriggers roll milestone at interval boundary[32m 1[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/SpecialEvents.test.jsx[2m > [22mcheckMilestoneEvents[2m > [22mtriggers upgrade milestone at interval boundary[32m 0[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/SpecialEvents.test.jsx[2m > [22mcheckMilestoneEvents[2m > [22mreturns empty array when no milestone crossed[32m 1[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/SpecialEvents.test.jsx[2m > [22mcheckMilestoneEvents[2m > [22mtriggers both milestones simultaneously[32m 0[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/SpecialEvents.test.jsx[2m > [22mSpecialEventModal[2m > [22mrenders city-wide event with modal and dismiss button[32m 112[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/SpecialEvents.test.jsx[2m > [22mSpecialEventModal[2m > [22mrenders random event as compact toast[32m 9[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/SpecialEvents.test.jsx[2m > [22mSpecialEventModal[2m > [22mcalls onClose when dismiss button clicked for city-wide event[32m 66[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/SpecialEvents.test.jsx[2m > [22mevent trigger constants[2m > [22mtrigger constants are within expected ranges[32m 0[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/SpecialEvents.test.jsx[2m > [22mrandom event value scaling[2m > [22mbank error getValue scales by city level[32m 1[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/SpecialEvents.test.jsx[2m > [22mrandom event value scaling[2m > [22mpickpocket getMaxLoss scales by city level[32m 0[2mms[22m[39m
+[90mstderr[2m | src/compone
+nts/__tests__/CityTransition.
+test.jsx[2m > 
+[22m[2mCityTransition 
+Component[2m > 
+[22m[2mEdge Cases[2m > 
+[22m[2mshould handle null 
+onComplete gracefully
+[22m[39mAn update to 
+CityTransition inside a test 
+was not wrapped in act(...).
+
+When testing, code that 
+causes React state updates 
+should be wrapped into 
+act(...):
+
+act(() => {
+  /* fire events that update 
+state */
+});
+/* assert on the output */
+
+This ensures that you're 
+testing the behavior the 
+user would see in the 
+browser. Learn more at https:
+//react.dev/link/wrap-tests-w
+ith-act
+
+ [32mΓ£ô[39m src/components/__tests__/MiniGames.test.jsx[2m > [22mslot machine configuration[2m > [22mhas 6 symbols and correct payouts[32m 2[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/MiniGames.test.jsx[2m > [22mslot machine configuration[2m > [22mspin cost scales by city level[32m 0[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/MiniGames.test.jsx[2m > [22mgetSlotResult[2m > [22mreturns valid result with reels and type[32m 1[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/MiniGames.test.jsx[2m > [22mgetSlotResult[2m > [22mreturns jackpot when all reels are diamond[32m 1[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/MiniGames.test.jsx[2m > [22mwheel of fortune configuration[2m > [22mhas 12 segments with valid fields[32m 1[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/MiniGames.test.jsx[2m > [22mwheel of fortune configuration[2m > [22msegment weights sum to 12[32m 0[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/MiniGames.test.jsx[2m > [22mwheel of fortune configuration[2m > [22mhas exactly one bankrupt segment[32m 0[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/MiniGames.test.jsx[2m > [22mgetWheelResult[2m > [22mreturns valid segment with index[32m 0[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/MiniGames.test.jsx[2m > [22mgetWheelResult[2m > [22mreturns deterministic result when Math.random is mocked[32m 0[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/MiniGames.test.jsx[2m > [22mSlotMachine component[2m > [22mrenders bet stage with spin button and cost[32m 112[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/MiniGames.test.jsx[2m > [22mSlotMachine component[2m > [22mdisables spin when funds insufficient[32m 16[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/MiniGames.test.jsx[2m > [22mWheelOfFortune component[2m > [22mrenders spin stage with spin button[32m 17[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/CityTransition.test.jsx[2m > [22mCityTransition Component[2m > [22mEdge Cases[2m > [22mshould handle null onComplete gracefully[33m 2512[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/CityTransition.test.jsx[2m > [22mCityTransition Component[2m > [22mPerformance Optimizations[2m > [22mshould use GPU-accelerated properties[32m 6[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/CityTransition.test.jsx[2m > [22mCityTransition Component[2m > [22mPerformance Optimizations[2m > [22mshould use fixed positioning for overlay[32m 13[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/SocialSystem.test.jsx[2m > [22mSocial System[2m > [22mMock Data Generation[2m > [22mgenerateMockFriends creates correct number of friends[32m 4[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/SocialSystem.test.jsx[2m > [22mSocial System[2m > [22mMock Data Generation[2m > [22mfriends have required properties[32m 1[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/SocialSystem.test.jsx[2m > [22mSocial System[2m > [22mSocialTab Component[2m > [22mrenders leaderboard with friends and player[32m 122[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/SocialSystem.test.jsx[2m > [22mSocial System[2m > [22mSocialTab Component[2m > [22mranks players correctly by net worth[32m 14[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/SocialSystem.test.jsx[2m > [22mSocial System[2m > [22mSocialTab Component[2m > [22mrenders correct actions based on gift state[32m 8[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/SocialSystem.test.jsx[2m > [22mSocial System[2m > [22mSocialTab Component[2m > [22mcalls onSendGift when Send button clicked[32m 21[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/SocialSystem.test.jsx[2m > [22mSocial System[2m > [22mSocialTab Component[2m > [22mcalls onReceiveGift when Get Gift button clicked[32m 12[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/AdvancedMissions.test.jsx[2m > [22mAdvanced Mission System[2m > [22mrenders daily missions by default[32m 79[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/AdvancedMissions.test.jsx[2m > [22mAdvanced Mission System[2m > [22mswitches tabs to weekly and monthly[32m 21[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/AdvancedMissions.test.jsx[2m > [22mAdvanced Mission System[2m > [22mcalculates progress correctly based on start values[32m 25[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/AdvancedMissions.test.jsx[2m > [22mAdvanced Mission System[2m > [22mcalls onMissionComplete when a mission finishes[32m 10[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/AdvancedMissions.test.jsx[2m > [22mAdvanced Mission System[2m > [22muses current shields when higher than collected for shield missions[32m 11[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/TileTypes.test.jsx[2m > [22mTile type configs[2m > [22mscaleByCity applies 1.4x scaling per level[32m 2[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/TileTypes.test.jsx[2m > [22mTile type configs[2m > [22mlottery odds sum to 1[32m 1[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/TileTypes.test.jsx[2m > [22mTile type configs[2m > [22mfortune event weights sum to 100[32m 0[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/TileTypes.test.jsx[2m > [22mTile type configs[2m > [22mfortune config includes tax haven and jail free events[32m 1[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/TileTypes.test.jsx[2m > [22mTile type configs[2m > [22mselectFortuneEvent returns a valid event[32m 2[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/TileTypes.test.jsx[2m > [22mLotteryTile[2m > [22mdisables purchase when funds are insufficient[32m 135[2mms[22m[39m
+[90mstderr[2m | src/compone
+nts/__tests__/ThreeDice.test.
+jsx
+[22m[39mWARNING: Multiple 
+instances of Three.js being 
+imported.
+
+[90mstderr[2m | src/compone
+nts/__tests__/ThreeDice.test.
+jsx[2m > [22m[2mThreeDice 
+renders with shadows and 
+environment
+[22m[39mThe tag <mesh> is 
+unrecognized in this 
+browser. If you meant to 
+render a React component, 
+start its name with an 
+uppercase letter.
+<ambientLight /> is using 
+incorrect casing. Use 
+PascalCase for React 
+components, or lowercase for 
+HTML elements.
+The tag <ambientLight> is 
+unrecognized in this 
+browser. If you meant to 
+render a React component, 
+start its name with an 
+uppercase letter.
+<pointLight /> is using 
+incorrect casing. Use 
+PascalCase for React 
+components, or lowercase for 
+HTML elements.
+The tag <pointLight> is 
+unrecognized in this 
+browser. If you meant to 
+render a React component, 
+start its name with an 
+uppercase letter.
+React does not recognize the 
+`castShadow` prop on a DOM 
+element. If you 
+intentionally want it to 
+appear in the DOM as a 
+custom attribute, spell it 
+as lowercase `castshadow` 
+instead. If you accidentally 
+passed it from a parent 
+component, remove it from 
+the DOM element.
+<spotLight /> is using 
+incorrect casing. Use 
+PascalCase for React 
+components, or lowercase for 
+HTML elements.
+The tag <spotLight> is 
+unrecognized in this 
+browser. If you meant to 
+render a React component, 
+start its name with an 
+uppercase letter.
+<meshStandardMaterial /> is 
+using incorrect casing. Use 
+PascalCase for React 
+components, or lowercase for 
+HTML elements.
+The tag 
+<meshStandardMaterial> is 
+unrecognized in this 
+browser. If you meant to 
+render a React component, 
+start its name with an 
+uppercase letter.
+React does not recognize the 
+`envMapIntensity` prop on a 
+DOM element. If you 
+intentionally want it to 
+appear in the DOM as a 
+custom attribute, spell it 
+as lowercase 
+`envmapintensity` instead. 
+If you accidentally passed 
+it from a parent component, 
+remove it from the DOM 
+element.
+<sphereGeometry /> is using 
+incorrect casing. Use 
+PascalCase for React 
+components, or lowercase for 
+HTML elements.
+The tag <sphereGeometry> is 
+unrecognized in this 
+browser. If you meant to 
+render a React component, 
+start its name with an 
+uppercase letter.
+<meshStandardMaterial /> is 
+using incorrect casing. Use 
+PascalCase for React 
+components, or lowercase for 
+HTML elements.
+The tag <group> is 
+unrecognized in this 
+browser. If you meant to 
+render a React component, 
+start its name with an 
+uppercase letter.
+<sphereGeometry /> is using 
+incorrect casing. Use 
+PascalCase for React 
+components, or lowercase for 
+HTML elements.
+<meshStandardMaterial /> is 
+using incorrect casing. Use 
+PascalCase for React 
+components, or lowercase for 
+HTML elements.
+<sphereGeometry /> is using 
+incorrect casing. Use 
+PascalCase for React 
+components, or lowercase for 
+HTML elements.
+<meshStandardMaterial /> is 
+using incorrect casing. Use 
+PascalCase for React 
+components, or lowercase for 
+HTML elements.
+<sphereGeometry /> is using 
+incorrect casing. Use 
+PascalCase for React 
+components, or lowercase for 
+HTML elements.
+<meshStandardMaterial /> is 
+using incorrect casing. Use 
+PascalCase for React 
+components, or lowercase for 
+HTML elements.
+<sphereGeometry /> is using 
+incorrect casing. Use 
+PascalCase for React 
+components, or lowercase for 
+HTML elements.
+<meshStandardMaterial /> is 
+using incorrect casing. Use 
+PascalCase for React 
+components, or lowercase for 
+HTML elements.
+<sphereGeometry /> is using 
+incorrect casing. Use 
+PascalCase for React 
+components, or lowercase for 
+HTML elements.
+<meshStandardMaterial /> is 
+using incorrect casing. Use 
+PascalCase for React 
+components, or lowercase for 
+HTML elements.
+<sphereGeometry /> is using 
+incorrect casing. Use 
+PascalCase for React 
+components, or lowercase for 
+HTML elements.
+<meshStandardMaterial /> is 
+using incorrect casing. Use 
+PascalCase for React 
+components, or lowercase for 
+HTML elements.
+<sphereGeometry /> is using 
+incorrect casing. Use 
+PascalCase for React 
+components, or lowercase for 
+HTML elements.
+<meshStandardMaterial /> is 
+using incorrect casing. Use 
+PascalCase for React 
+components, or lowercase for 
+HTML elements.
+<sphereGeometry /> is using 
+incorrect casing. Use 
+PascalCase for React 
+components, or lowercase for 
+HTML elements.
+<meshStandardMaterial /> is 
+using incorrect casing. Use 
+PascalCase for React 
+components, or lowercase for 
+HTML elements.
+<sphereGeometry /> is using 
+incorrect casing. Use 
+PascalCase for React 
+components, or lowercase for 
+HTML elements.
+<meshStandardMaterial /> is 
+using incorrect casing. Use 
+PascalCase for React 
+components, or lowercase for 
+HTML elements.
+<sphereGeometry /> is using 
+incorrect casing. Use 
+PascalCase for React 
+components, or lowercase for 
+HTML elements.
+<meshStandardMaterial /> is 
+using incorrect casing. Use 
+PascalCase for React 
+components, or lowercase for 
+HTML elements.
+<sphereGeometry /> is using 
+incorrect casing. Use 
+PascalCase for React 
+components, or lowercase for 
+HTML elements.
+<meshStandardMaterial /> is 
+using incorrect casing. Use 
+PascalCase for React 
+components, or lowercase for 
+HTML elements.
+<sphereGeometry /> is using 
+incorrect casing. Use 
+PascalCase for React 
+components, or lowercase for 
+HTML elements.
+<meshStandardMaterial /> is 
+using incorrect casing. Use 
+PascalCase for React 
+components, or lowercase for 
+HTML elements.
+<sphereGeometry /> is using 
+incorrect casing. Use 
+PascalCase for React 
+components, or lowercase for 
+HTML elements.
+<meshStandardMaterial /> is 
+using incorrect casing. Use 
+PascalCase for React 
+components, or lowercase for 
+HTML elements.
+<sphereGeometry /> is using 
+incorrect casing. Use 
+PascalCase for React 
+components, or lowercase for 
+HTML elements.
+<meshStandardMaterial /> is 
+using incorrect casing. Use 
+PascalCase for React 
+components, or lowercase for 
+HTML elements.
+<sphereGeometry /> is using 
+incorrect casing. Use 
+PascalCase for React 
+components, or lowercase for 
+HTML elements.
+<meshStandardMaterial /> is 
+using incorrect casing. Use 
+PascalCase for React 
+components, or lowercase for 
+HTML elements.
+<sphereGeometry /> is using 
+incorrect casing. Use 
+PascalCase for React 
+components, or lowercase for 
+HTML elements.
+<meshStandardMaterial /> is 
+using incorrect casing. Use 
+PascalCase for React 
+components, or lowercase for 
+HTML elements.
+<sphereGeometry /> is using 
+incorrect casing. Use 
+PascalCase for React 
+components, or lowercase for 
+HTML elements.
+<meshStandardMaterial /> is 
+using incorrect casing. Use 
+PascalCase for React 
+components, or lowercase for 
+HTML elements.
+<sphereGeometry /> is using 
+incorrect casing. Use 
+PascalCase for React 
+components, or lowercase for 
+HTML elements.
+<meshStandardMaterial /> is 
+using incorrect casing. Use 
+PascalCase for React 
+components, or lowercase for 
+HTML elements.
+<sphereGeometry /> is using 
+incorrect casing. Use 
+PascalCase for React 
+components, or lowercase for 
+HTML elements.
+<meshStandardMaterial /> is 
+using incorrect casing. Use 
+PascalCase for React 
+components, or lowercase for 
+HTML elements.
+<sphereGeometry /> is using 
+incorrect casing. Use 
+PascalCase for React 
+components, or lowercase for 
+HTML elements.
+<meshStandardMaterial /> is 
+using incorrect casing. Use 
+PascalCase for React 
+components, or lowercase for 
+HTML elements.
+<meshStandardMaterial /> is 
+using incorrect casing. Use 
+PascalCase for React 
+components, or lowercase for 
+HTML elements.
+<sphereGeometry /> is using 
+incorrect casing. Use 
+PascalCase for React 
+components, or lowercase for 
+HTML elements.
+<meshStandardMaterial /> is 
+using incorrect casing. Use 
+PascalCase for React 
+components, or lowercase for 
+HTML elements.
+<sphereGeometry /> is using 
+incorrect casing. Use 
+PascalCase for React 
+components, or lowercase for 
+HTML elements.
+<meshStandardMaterial /> is 
+using incorrect casing. Use 
+PascalCase for React 
+components, or lowercase for 
+HTML elements.
+<sphereGeometry /> is using 
+incorrect casing. Use 
+PascalCase for React 
+components, or lowercase for 
+HTML elements.
+<meshStandardMaterial /> is 
+using incorrect casing. Use 
+PascalCase for React 
+components, or lowercase for 
+HTML elements.
+<sphereGeometry /> is using 
+incorrect casing. Use 
+PascalCase for React 
+components, or lowercase for 
+HTML elements.
+<meshStandardMaterial /> is 
+using incorrect casing. Use 
+PascalCase for React 
+components, or lowercase for 
+HTML elements.
+<sphereGeometry /> is using 
+incorrect casing. Use 
+PascalCase for React 
+components, or lowercase for 
+HTML elements.
+<meshStandardMaterial /> is 
+using incorrect casing. Use 
+PascalCase for React 
+components, or lowercase for 
+HTML elements.
+<sphereGeometry /> is using 
+incorrect casing. Use 
+PascalCase for React 
+components, or lowercase for 
+HTML elements.
+<meshStandardMaterial /> is 
+using incorrect casing. Use 
+PascalCase for React 
+components, or lowercase for 
+HTML elements.
+<sphereGeometry /> is using 
+incorrect casing. Use 
+PascalCase for React 
+components, or lowercase for 
+HTML elements.
+<meshStandardMaterial /> is 
+using incorrect casing. Use 
+PascalCase for React 
+components, or lowercase for 
+HTML elements.
+<sphereGeometry /> is using 
+incorrect casing. Use 
+PascalCase for React 
+components, or lowercase for 
+HTML elements.
+<meshStandardMaterial /> is 
+using incorrect casing. Use 
+PascalCase for React 
+components, or lowercase for 
+HTML elements.
+<sphereGeometry /> is using 
+incorrect casing. Use 
+PascalCase for React 
+components, or lowercase for 
+HTML elements.
+<meshStandardMaterial /> is 
+using incorrect casing. Use 
+PascalCase for React 
+components, or lowercase for 
+HTML elements.
+<sphereGeometry /> is using 
+incorrect casing. Use 
+PascalCase for React 
+components, or lowercase for 
+HTML elements.
+<meshStandardMaterial /> is 
+using incorrect casing. Use 
+PascalCase for React 
+components, or lowercase for 
+HTML elements.
+<sphereGeometry /> is using 
+incorrect casing. Use 
+PascalCase for React 
+components, or lowercase for 
+HTML elements.
+<meshStandardMaterial /> is 
+using incorrect casing. Use 
+PascalCase for React 
+components, or lowercase for 
+HTML elements.
+<sphereGeometry /> is using 
+incorrect casing. Use 
+PascalCase for React 
+components, or lowercase for 
+HTML elements.
+<meshStandardMaterial /> is 
+using incorrect casing. Use 
+PascalCase for React 
+components, or lowercase for 
+HTML elements.
+<sphereGeometry /> is using 
+incorrect casing. Use 
+PascalCase for React 
+components, or lowercase for 
+HTML elements.
+<meshStandardMaterial /> is 
+using incorrect casing. Use 
+PascalCase for React 
+components, or lowercase for 
+HTML elements.
+<sphereGeometry /> is using 
+incorrect casing. Use 
+PascalCase for React 
+components, or lowercase for 
+HTML elements.
+<meshStandardMaterial /> is 
+using incorrect casing. Use 
+PascalCase for React 
+components, or lowercase for 
+HTML elements.
+<sphereGeometry /> is using 
+incorrect casing. Use 
+PascalCase for React 
+components, or lowercase for 
+HTML elements.
+<meshStandardMaterial /> is 
+using incorrect casing. Use 
+PascalCase for React 
+components, or lowercase for 
+HTML elements.
+<sphereGeometry /> is using 
+incorrect casing. Use 
+PascalCase for React 
+components, or lowercase for 
+HTML elements.
+<meshStandardMaterial /> is 
+using incorrect casing. Use 
+PascalCase for React 
+components, or lowercase for 
+HTML elements.
+<sphereGeometry /> is using 
+incorrect casing. Use 
+PascalCase for React 
+components, or lowercase for 
+HTML elements.
+<meshStandardMaterial /> is 
+using incorrect casing. Use 
+PascalCase for React 
+components, or lowercase for 
+HTML elements.
+<sphereGeometry /> is using 
+incorrect casing. Use 
+PascalCase for React 
+components, or lowercase for 
+HTML elements.
+<meshStandardMaterial /> is 
+using incorrect casing. Use 
+PascalCase for React 
+components, or lowercase for 
+HTML elements.
+<sphereGeometry /> is using 
+incorrect casing. Use 
+PascalCase for React 
+components, or lowercase for 
+HTML elements.
+<meshStandardMaterial /> is 
+using incorrect casing. Use 
+PascalCase for React 
+components, or lowercase for 
+HTML elements.
+<sphereGeometry /> is using 
+incorrect casing. Use 
+PascalCase for React 
+components, or lowercase for 
+HTML elements.
+<meshStandardMaterial /> is 
+using incorrect casing. Use 
+PascalCase for React 
+components, or lowercase for 
+HTML elements.
+<sphereGeometry /> is using 
+incorrect casing. Use 
+PascalCase for React 
+components, or lowercase for 
+HTML elements.
+<meshStandardMaterial /> is 
+using incorrect casing. Use 
+PascalCase for React 
+components, or lowercase for 
+HTML elements.
+
+ [32mΓ£ô[39m src/components/__tests__/ThreeDice.test.jsx[2m > [22mThreeDice renders with shadows and environment[32m 58[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/PowerUps.test.jsx[2m > [22mpower-up configuration[2m > [22mgetPowerUpCost scales active power-ups by city[32m 2[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/PowerUps.test.jsx[2m > [22mPowerUpIndicator[2m > [22mshows active power-ups with remaining rolls[32m 35[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/PowerUps.test.jsx[2m > [22mPowerUpShop[2m > [22mshows hot streak as auto-triggered[32m 28[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/ComboSystem.test.jsx[2m > [22mEnhanced Combo System[2m > [22mComboTracker Component[2m > [22mdoes not render when count is 1 or less[32m 16[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/ComboSystem.test.jsx[2m > [22mEnhanced Combo System[2m > [22mComboTracker Component[2m > [22mrenders correctly when count is greater than 1[32m 73[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/ComboSystem.test.jsx[2m > [22mEnhanced Combo System[2m > [22mComboTracker Component[2m > [22mshows bonus power-up message at count 5[32m 7[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/ComboSystem.test.jsx[2m > [22mEnhanced Combo System[2m > [22mCombo Logic[2m > [22mcalculates combo bonus correctly[32m 0[2mms[22m[39m
+[90mstdout[2m | src/utils/__tests__/audioManager.test.js[2m > [22m[2mAudioManager[2m > [22m[2mInitialization[2m > [22m[2mshould initialize AudioContext on init()
+[22m[39mAudioManager initialized
+
+[90mstdout[2m | src/utils/__tests__/audioManager.test.js[2m > [22m[2mAudioManager[2m > [22m[2mInitialization[2m > [22m[2mshould create gain nodes on init()
+[22m[39mAudioManager initialized
+
+[90mstdout[2m | src/utils/__tests__/audioManager.test.js[2m > [22m[2mAudioManager[2m > [22m[2mInitialization[2m > [22m[2mshould not reinitialize if already initialized
+[22m[39mAudioManager initialized
+
+[90mstderr[2m | src/utils/_
+_tests__/audioManager.test.js
+[2m > 
+[22m[2mAudioManager[2m > 
+[22m[2mInitialization[2m 
+> [22m[2mshould handle 
+initialization errors 
+gracefully
+[22m[39mAudioManager 
+initialization failed: 
+Error: AudioContext not 
+supported
+    at t.<anonymous> [90m(C:
+\city-slick1\city-builder\web
+\[39msrc\utils\__tests__\aud
+ioManager.test.js:81:15[90m)
+[39m
+    at new mockCall [90m(fil
+e:///C:/city-slick1/city-buil
+der/web/[39mnode_modules/[4
+m@vitest[24m/spy/dist/index.
+js:96:15[90m)[39m
+    at new spy [90m(file:///
+C:/city-slick1/city-builder/w
+eb/[39mnode_modules/[4mtiny
+spy[24m/dist/index.js:47:34
+[90m)[39m
+    at AudioManager.init [90
+m(C:\city-slick1\city-builder
+\web\[39msrc\utils\audioMana
+ger.js:46:27[90m)[39m
+    at [90mC:\city-slick1\ci
+ty-builder\web\[39msrc\utils
+\__tests__\audioManager.test.
+js:84:26
+    at [90mfile:///C:/city-s
+lick1/city-builder/web/[39mn
+ode_modules/[4m@vitest[24m/
+runner/dist/chunk-hooks.js:15
+5:11
+    at [90mfile:///C:/city-s
+lick1/city-builder/web/[39mn
+ode_modules/[4m@vitest[24m/
+runner/dist/chunk-hooks.js:75
+2:26
+    at [90mfile:///C:/city-s
+lick1/city-builder/web/[39mn
+ode_modules/[4m@vitest[24m/
+runner/dist/chunk-hooks.js:18
+97:20
+    at new Promise 
+(<anonymous>)
+    at runWithTimeout [90m(f
+ile:///C:/city-slick1/city-bu
+ilder/web/[39mnode_modules/
+[4m@vitest[24m/runner/dist/c
+hunk-hooks.js:1863:10[90m)[
+39m
+
+[90mstdout[2m | src/utils/__tests__/audioManager.test.js[2m > [22m[2mAudioManager[2m > [22m[2mVolume Control[2m > [22m[2mshould set master volume
+[22m[39mAudioManager initialized
+
+[90mstdout[2m | src/utils/__tests__/audioManager.test.js[2m > [22m[2mAudioManager[2m > [22m[2mVolume Control[2m > [22m[2mshould set music volume
+[22m[39mAudioManager initialized
+
+[90mstdout[2m | src/utils/__tests__/audioManager.test.js[2m > [22m[2mAudioManager[2m > [22m[2mVolume Control[2m > [22m[2mshould set SFX volume
+[22m[39mAudioManager initialized
+
+[90mstdout[2m | src/utils/__tests__/audioManager.test.js[2m > [22m[2mAudioManager[2m > [22m[2mVolume Control[2m > [22m[2mshould reject volume below 0
+[22m[39mAudioManager initialized
+
+[90mstderr[2m | src/utils/_
+_tests__/audioManager.test.js
+[2m > 
+[22m[2mAudioManager[2m > 
+[22m[2mVolume Control[2m 
+> [22m[2mshould reject 
+volume below 0
+[22m[39mVolume must be 
+between 0 and 1
+
+[90mstdout[2m | src/utils/__tests__/audioManager.test.js[2m > [22m[2mAudioManager[2m > [22m[2mVolume Control[2m > [22m[2mshould reject volume above 1
+[22m[39mAudioManager initialized
+
+[90mstderr[2m | src/utils/_
+_tests__/audioManager.test.js
+[2m > 
+[22m[2mAudioManager[2m > 
+[22m[2mVolume Control[2m 
+> [22m[2mshould reject 
+volume above 1
+[22m[39mVolume must be 
+between 0 and 1
+
+[90mstdout[2m | src/utils/__tests__/audioManager.test.js[2m > [22m[2mAudioManager[2m > [22m[2mVolume Control[2m > [22m[2mshould save settings after volume change
+[22m[39mAudioManager initialized
+
+[90mstdout[2m | src/utils/__tests__/audioManager.test.js[2m > [22m[2mAudioManager[2m > [22m[2mMute/Unmute[2m > [22m[2mshould mute audio
+[22m[39mAudioManager initialized
+
+[90mstdout[2m | src/utils/__tests__/audioManager.test.js[2m > [22m[2mAudioManager[2m > [22m[2mMute/Unmute[2m > [22m[2mshould unmute audio
+[22m[39mAudioManager initialized
+
+[90mstdout[2m | src/utils/__tests__/audioManager.test.js[2m > [22m[2mAudioManager[2m > [22m[2mMute/Unmute[2m > [22m[2mshould toggle mute state
+[22m[39mAudioManager initialized
+
+[90mstdout[2m | src/utils/__tests__/audioManager.test.js[2m > [22m[2mAudioManager[2m > [22m[2mMute/Unmute[2m > [22m[2mshould save mute state
+[22m[39mAudioManager initialized
+
+[90mstdout[2m | src/utils/__tests__/audioManager.test.js[2m > [22m[2mAudioManager[2m > [22m[2mMute/Unmute[2m > [22m[2mshould set master gain to 0 when muted
+[22m[39mAudioManager initialized
+
+[90mstdout[2m | src/utils/__tests__/audioManager.test.js[2m > [22m[2mAudioManager[2m > [22m[2mSound Effects[2m > [22m[2mshould play diceRoll SFX
+[22m[39mAudioManager initialized
+
+[90mstdout[2m | src/utils/__tests__/audioManager.test.js[2m > [22m[2mAudioManager[2m > [22m[2mSound Effects[2m > [22m[2mshould play upgrade SFX
+[22m[39mAudioManager initialized
+
+[90mstdout[2m | src/utils/__tests__/audioManager.test.js[2m > [22m[2mAudioManager[2m > [22m[2mSound Effects[2m > [22m[2mshould play funds SFX
+[22m[39mAudioManager initialized
+
+[90mstdout[2m | src/utils/__tests__/audioManager.test.js[2m > [22m[2mAudioManager[2m > [22m[2mSound Effects[2m > [22m[2mshould play cityUnlock SFX
+[22m[39mAudioManager initialized
+
+[90mstdout[2m | src/utils/__tests__/audioManager.test.js[2m > [22m[2mAudioManager[2m > [22m[2mSound Effects[2m > [22m[2mshould play milestone SFX
+[22m[39mAudioManager initialized
+
+[90mstdout[2m | src/utils/__tests__/audioManager.test.js[2m > [22m[2mAudioManager[2m > [22m[2mSound Effects[2m > [22m[2mshould play click SFX
+[22m[39mAudioManager initialized
+
+[90mstdout[2m | src/utils/__tests__/audioManager.test.js[2m > [22m[2mAudioManager[2m > [22m[2mSound Effects[2m > [22m[2mshould play success SFX
+[22m[39mAudioManager initialized
+
+[90mstdout[2m | src/utils/__tests__/audioManager.test.js[2m > [22m[2mAudioManager[2m > [22m[2mSound Effects[2m > [22m[2mshould play error SFX
+[22m[39mAudioManager initialized
+
+[90mstdout[2m | src/utils/__tests__/audioManager.test.js[2m > [22m[2mAudioManager[2m > [22m[2mSound Effects[2m > [22m[2mshould play achievement SFX
+[22m[39mAudioManager initialized
+
+[90mstdout[2m | src/utils/__tests__/audioManager.test.js[2m > [22m[2mAudioManager[2m > [22m[2mSound Effects[2m > [22m[2mshould play teleport SFX
+[22m[39mAudioManager initialized
+
+[90mstdout[2m | src/utils/__tests__/audioManager.test.js[2m > [22m[2mAudioManager[2m > [22m[2mSound Effects[2m > [22m[2mshould play doubles SFX
+[22m[39mAudioManager initialized
+
+[90mstdout[2m | src/utils/__tests__/audioManager.test.js[2m > [22m[2mAudioManager[2m > [22m[2mSound Effects[2m > [22m[2mshould not play SFX when muted
+[22m[39mAudioManager initialized
+
+[90mstdout[2m | src/utils/__tests__/audioManager.test.js[2m > [22m[2mAudioManager[2m > [22m[2mSound Effects[2m > [22m[2mshould not play SFX when not initialized
+[22m[39mAudioManager initialized
+
+[90mstdout[2m | src/utils/__tests__/audioManager.test.js[2m > [22m[2mAudioManager[2m > [22m[2mSound Effects[2m > [22m[2mshould handle unknown SFX type gracefully
+[22m[39mAudioManager initialized
+
+[90mstderr[2m | src/utils/_
+_tests__/audioManager.test.js
+[2m > 
+[22m[2mAudioManager[2m > 
+[22m[2mSound Effects[2m > 
+[22m[2mshould handle 
+unknown SFX type gracefully
+[22m[39mUnknown SFX type: 
+unknown
+
+[90mstdout[2m | src/utils/__tests__/audioManager.test.js[2m > [22m[2mAudioManager[2m > [22m[2mSound Effects[2m > [22m[2mshould handle SFX errors gracefully
+[22m[39mAudioManager initialized
+
+[90mstderr[2m | src/utils/_
+_tests__/audioManager.test.js
+[2m > 
+[22m[2mAudioManager[2m > 
+[22m[2mSound Effects[2m > 
+[22m[2mshould handle SFX 
+errors gracefully
+[22m[39mError playing SFX: 
+Error: Oscillator error
+    at Object.<anonymous> [9
+0m(C:\city-slick1\city-builde
+r\web\[39msrc\utils\__tests_
+_\audioManager.test.js:247:15
+[90m)[39m
+    at Object.mockCall [90m(
+file:///C:/city-slick1/city-b
+uilder/web/[39mnode_modules/
+[4m@vitest[24m/spy/dist/ind
+ex.js:96:15[90m)[39m
+    at Object.spy [as 
+createOscillator] [90m(file:
+///C:/city-slick1/city-builde
+r/web/[39mnode_modules/[4mt
+inyspy[24m/dist/index.js:47:
+80[90m)[39m
+    at 
+AudioManager.playClick [90m(
+C:\city-slick1\city-builder\w
+eb\[39msrc\utils\audioManage
+r.js:261:28[90m)[39m
+    at AudioManager.playSFX 
+[90m(C:\city-slick1\city-buil
+der\web\[39msrc\utils\audioM
+anager.js:120:16[90m)[39m
+    at [90mC:\city-slick1\ci
+ty-builder\web\[39msrc\utils
+\__tests__\audioManager.test.
+js:250:33
+    at Proxy.assertThrows [9
+0m(file:///C:/city-slick1/cit
+y-builder/web/[39mnode_modul
+es/[4mchai[24m/index.js:276
+7:5[90m)[39m
+    at Proxy.methodWrapper [
+90m(file:///C:/city-slick1/ci
+ty-builder/web/[39mnode_modu
+les/[4mchai[24m/index.js:16
+86:25[90m)[39m
+    at Proxy.<anonymous> [90
+m(file:///C:/city-slick1/city
+-builder/web/[39mnode_module
+s/[4m@vitest[24m/expect/dis
+t/index.js:1088:12[90m)[39m
+    at Proxy.overwritingMetho
+dWrapper [90m(file:///C:/cit
+y-slick1/city-builder/web/[3
+9mnode_modules/[4mchai[24m/
+index.js:1735:33[90m)[39m
+
+[90mstderr[2m | src/utils/_
+_tests__/audioManager.test.js
+[2m > 
+[22m[2mAudioManager[2m > 
+[22m[2mSettings 
+Persistence[2m > 
+[22m[2mshould handle 
+corrupted localStorage data
+[22m[39mFailed to load 
+audio settings: SyntaxError: 
+Unexpected token 'i', 
+"invalid json" is not valid 
+JSON
+    at JSON.parse 
+(<anonymous>)
+    at 
+AudioManager.loadSettings [9
+0m(C:\city-slick1\city-builde
+r\web\[39msrc\utils\audioMan
+ager.js:450:31[90m)[39m
+    at [90mC:\city-slick1\ci
+ty-builder\web\[39msrc\utils
+\__tests__\audioManager.test.
+js:277:33
+    at Proxy.assertThrows [9
+0m(file:///C:/city-slick1/cit
+y-builder/web/[39mnode_modul
+es/[4mchai[24m/index.js:276
+7:5[90m)[39m
+    at Proxy.methodWrapper [
+90m(file:///C:/city-slick1/ci
+ty-builder/web/[39mnode_modu
+les/[4mchai[24m/index.js:16
+86:25[90m)[39m
+    at Proxy.<anonymous> [90
+m(file:///C:/city-slick1/city
+-builder/web/[39mnode_module
+s/[4m@vitest[24m/expect/dis
+t/index.js:1088:12[90m)[39m
+    at Proxy.overwritingMetho
+dWrapper [90m(file:///C:/cit
+y-slick1/city-builder/web/[3
+9mnode_modules/[4mchai[24m/
+index.js:1735:33[90m)[39m
+    at Proxy.<anonymous> [90
+m(file:///C:/city-slick1/city
+-builder/web/[39mnode_module
+s/[4m@vitest[24m/expect/dis
+t/index.js:1420:16[90m)[39m
+    at Proxy.<anonymous> [90
+m(file:///C:/city-slick1/city
+-builder/web/[39mnode_module
+s/[4m@vitest[24m/expect/dis
+t/index.js:1029:14[90m)[39m
+    at Proxy.methodWrapper [
+90m(file:///C:/city-slick1/ci
+ty-builder/web/[39mnode_modu
+les/[4mchai[24m/index.js:16
+86:25[90m)[39m
+
+[90mstderr[2m | src/utils/_
+_tests__/audioManager.test.js
+[2m > 
+[22m[2mAudioManager[2m > 
+[22m[2mSettings 
+Persistence[2m > 
+[22m[2mshould handle 
+localStorage save errors
+[22m[39mFailed to save 
+audio settings: Error: 
+Storage quota exceeded
+    at Object.<anonymous> [9
+0m(C:\city-slick1\city-builde
+r\web\[39msrc\utils\__tests_
+_\audioManager.test.js:290:15
+[90m)[39m
+    at Object.mockCall [90m(
+file:///C:/city-slick1/city-b
+uilder/web/[39mnode_modules/
+[4m@vitest[24m/spy/dist/ind
+ex.js:96:15[90m)[39m
+    at Object.spy [as 
+setItem] [90m(file:///C:/cit
+y-slick1/city-builder/web/[3
+9mnode_modules/[4mtinyspy[2
+4m/dist/index.js:47:80[90m)
+[39m
+    at 
+AudioManager.saveSettings [9
+0m(C:\city-slick1\city-builde
+r\web\[39msrc\utils\audioMan
+ager.js:437:20[90m)[39m
+    at [90mC:\city-slick1\ci
+ty-builder\web\[39msrc\utils
+\__tests__\audioManager.test.
+js:293:33
+    at Proxy.assertThrows [9
+0m(file:///C:/city-slick1/cit
+y-builder/web/[39mnode_modul
+es/[4mchai[24m/index.js:276
+7:5[90m)[39m
+    at Proxy.methodWrapper [
+90m(file:///C:/city-slick1/ci
+ty-builder/web/[39mnode_modu
+les/[4mchai[24m/index.js:16
+86:25[90m)[39m
+    at Proxy.<anonymous> [90
+m(file:///C:/city-slick1/city
+-builder/web/[39mnode_module
+s/[4m@vitest[24m/expect/dis
+t/index.js:1088:12[90m)[39m
+    at Proxy.overwritingMetho
+dWrapper [90m(file:///C:/cit
+y-slick1/city-builder/web/[3
+9mnode_modules/[4mchai[24m/
+index.js:1735:33[90m)[39m
+    at Proxy.<anonymous> [90
+m(file:///C:/city-slick1/city
+-builder/web/[39mnode_module
+s/[4m@vitest[24m/expect/dis
+t/index.js:1420:16[90m)[39m
+
+[90mstderr[2m | src/utils/_
+_tests__/audioManager.test.js
+[2m > 
+[22m[2mAudioManager[2m > 
+[22m[2mCleanup[2m > 
+[22m[2mshould close 
+AudioContext on dispose
+[22m[39mAudioManager 
+initialization failed: 
+Error: Oscillator error
+    at Object.<anonymous> [9
+0m(C:\city-slick1\city-builde
+r\web\[39msrc\utils\__tests_
+_\audioManager.test.js:247:15
+[90m)[39m
+    at Object.mockCall [90m(
+file:///C:/city-slick1/city-b
+uilder/web/[39mnode_modules/
+[4m@vitest[24m/spy/dist/ind
+ex.js:96:15[90m)[39m
+    at Object.spy [as 
+createOscillator] [90m(file:
+///C:/city-slick1/city-builde
+r/web/[39mnode_modules/[4mt
+inyspy[24m/dist/index.js:47:
+80[90m)[39m
+    at AudioManager.init [90
+m(C:\city-slick1\city-builder
+\web\[39msrc\utils\audioMana
+ger.js:62:48[90m)[39m
+    at [90mC:\city-slick1\ci
+ty-builder\web\[39msrc\utils
+\__tests__\audioManager.test.
+js:321:26
+    at [90mfile:///C:/city-s
+lick1/city-builder/web/[39mn
+ode_modules/[4m@vitest[24m/
+runner/dist/chunk-hooks.js:15
+5:11
+    at [90mfile:///C:/city-s
+lick1/city-builder/web/[39mn
+ode_modules/[4m@vitest[24m/
+runner/dist/chunk-hooks.js:75
+2:26
+    at [90mfile:///C:/city-s
+lick1/city-builder/web/[39mn
+ode_modules/[4m@vitest[24m/
+runner/dist/chunk-hooks.js:18
+97:20
+    at new Promise 
+(<anonymous>)
+    at runWithTimeout [90m(f
+ile:///C:/city-slick1/city-bu
+ilder/web/[39mnode_modules/
+[4m@vitest[24m/runner/dist/c
+hunk-hooks.js:1863:10[90m)[
+39m
+
+[90mstderr[2m | src/utils/_
+_tests__/audioManager.test.js
+[2m > 
+[22m[2mAudioManager[2m > 
+[22m[2mCleanup[2m > 
+[22m[2mshould reset 
+initialized flag on dispose
+[22m[39mAudioManager 
+initialization failed: 
+Error: Oscillator error
+    at Object.<anonymous> [9
+0m(C:\city-slick1\city-builde
+r\web\[39msrc\utils\__tests_
+_\audioManager.test.js:247:15
+[90m)[39m
+    at Object.mockCall [90m(
+file:///C:/city-slick1/city-b
+uilder/web/[39mnode_modules/
+[4m@vitest[24m/spy/dist/ind
+ex.js:96:15[90m)[39m
+    at Object.spy [as 
+createOscillator] [90m(file:
+///C:/city-slick1/city-builde
+r/web/[39mnode_modules/[4mt
+inyspy[24m/dist/index.js:47:
+80[90m)[39m
+    at AudioManager.init [90
+m(C:\city-slick1\city-builder
+\web\[39msrc\utils\audioMana
+ger.js:62:48[90m)[39m
+    at [90mC:\city-slick1\ci
+ty-builder\web\[39msrc\utils
+\__tests__\audioManager.test.
+js:327:26
+    at [90mfile:///C:/city-s
+lick1/city-builder/web/[39mn
+ode_modules/[4m@vitest[24m/
+runner/dist/chunk-hooks.js:15
+5:11
+    at [90mfile:///C:/city-s
+lick1/city-builder/web/[39mn
+ode_modules/[4m@vitest[24m/
+runner/dist/chunk-hooks.js:75
+2:26
+    at [90mfile:///C:/city-s
+lick1/city-builder/web/[39mn
+ode_modules/[4m@vitest[24m/
+runner/dist/chunk-hooks.js:18
+97:20
+    at new Promise 
+(<anonymous>)
+    at runWithTimeout [90m(f
+ile:///C:/city-slick1/city-bu
+ilder/web/[39mnode_modules/
+[4m@vitest[24m/runner/dist/c
+hunk-hooks.js:1863:10[90m)[
+39m
+
+[90mstderr[2m | src/utils/_
+_tests__/audioManager.test.js
+[2m > 
+[22m[2mAudioManager[2m > 
+[22m[2mSound 
+Configuration[2m > 
+[22m[2mcityUnlock should 
+play sound
+[22m[39mAudioManager 
+initialization failed: 
+Error: Oscillator error
+    at Object.<anonymous> [9
+0m(C:\city-slick1\city-builde
+r\web\[39msrc\utils\__tests_
+_\audioManager.test.js:247:15
+[90m)[39m
+    at Object.mockCall [90m(
+file:///C:/city-slick1/city-b
+uilder/web/[39mnode_modules/
+[4m@vitest[24m/spy/dist/ind
+ex.js:96:15[90m)[39m
+    at Object.spy [as 
+createOscillator] [90m(file:
+///C:/city-slick1/city-builde
+r/web/[39mnode_modules/[4mt
+inyspy[24m/dist/index.js:47:
+80[90m)[39m
+    at AudioManager.init [90
+m(C:\city-slick1\city-builder
+\web\[39msrc\utils\audioMana
+ger.js:62:48[90m)[39m
+    at [90mC:\city-slick1\ci
+ty-builder\web\[39msrc\utils
+\__tests__\audioManager.test.
+js:339:26
+    at [90mfile:///C:/city-s
+lick1/city-builder/web/[39mn
+ode_modules/[4m@vitest[24m/
+runner/dist/chunk-hooks.js:15
+5:11
+    at [90mfile:///C:/city-s
+lick1/city-builder/web/[39mn
+ode_modules/[4m@vitest[24m/
+runner/dist/chunk-hooks.js:18
+97:20
+    at new Promise 
+(<anonymous>)
+    at runWithTimeout [90m(f
+ile:///C:/city-slick1/city-bu
+ilder/web/[39mnode_modules/
+[4m@vitest[24m/runner/dist/c
+hunk-hooks.js:1863:10[90m)[
+39m
+    at runHook [90m(file:///
+C:/city-slick1/city-builder/w
+eb/[39mnode_modules/[4m@vit
+est[24m/runner/dist/chunk-ho
+oks.js:1436:51[90m)[39m
+
+[90mstderr[2m | src/utils/_
+_tests__/audioManager.test.js
+[2m > 
+[22m[2mAudioManager[2m > 
+[22m[2mSound 
+Configuration[2m > 
+[22m[2mmilestone should 
+play sound
+[22m[39mAudioManager 
+initialization failed: 
+Error: Oscillator error
+    at Object.<anonymous> [9
+0m(C:\city-slick1\city-builde
+r\web\[39msrc\utils\__tests_
+_\audioManager.test.js:247:15
+[90m)[39m
+    at Object.mockCall [90m(
+file:///C:/city-slick1/city-b
+uilder/web/[39mnode_modules/
+[4m@vitest[24m/spy/dist/ind
+ex.js:96:15[90m)[39m
+    at Object.spy [as 
+createOscillator] [90m(file:
+///C:/city-slick1/city-builde
+r/web/[39mnode_modules/[4mt
+inyspy[24m/dist/index.js:47:
+80[90m)[39m
+    at AudioManager.init [90
+m(C:\city-slick1\city-builder
+\web\[39msrc\utils\audioMana
+ger.js:62:48[90m)[39m
+    at [90mC:\city-slick1\ci
+ty-builder\web\[39msrc\utils
+\__tests__\audioManager.test.
+js:339:26
+    at [90mfile:///C:/city-s
+lick1/city-builder/web/[39mn
+ode_modules/[4m@vitest[24m/
+runner/dist/chunk-hooks.js:15
+5:11
+    at [90mfile:///C:/city-s
+lick1/city-builder/web/[39mn
+ode_modules/[4m@vitest[24m/
+runner/dist/chunk-hooks.js:18
+97:20
+    at new Promise 
+(<anonymous>)
+    at runWithTimeout [90m(f
+ile:///C:/city-slick1/city-bu
+ilder/web/[39mnode_modules/
+[4m@vitest[24m/runner/dist/c
+hunk-hooks.js:1863:10[90m)[
+39m
+    at runHook [90m(file:///
+C:/city-slick1/city-builder/w
+eb/[39mnode_modules/[4m@vit
+est[24m/runner/dist/chunk-ho
+oks.js:1436:51[90m)[39m
+
+[90mstderr[2m | src/utils/_
+_tests__/audioManager.test.js
+[2m > 
+[22m[2mAudioManager[2m > 
+[22m[2mSound 
+Configuration[2m > 
+[22m[2mdoubles should play 
+sound
+[22m[39mAudioManager 
+initialization failed: 
+Error: Oscillator error
+    at Object.<anonymous> [9
+0m(C:\city-slick1\city-builde
+r\web\[39msrc\utils\__tests_
+_\audioManager.test.js:247:15
+[90m)[39m
+    at Object.mockCall [90m(
+file:///C:/city-slick1/city-b
+uilder/web/[39mnode_modules/
+[4m@vitest[24m/spy/dist/ind
+ex.js:96:15[90m)[39m
+    at Object.spy [as 
+createOscillator] [90m(file:
+///C:/city-slick1/city-builde
+r/web/[39mnode_modules/[4mt
+inyspy[24m/dist/index.js:47:
+80[90m)[39m
+    at AudioManager.init [90
+m(C:\city-slick1\city-builder
+\web\[39msrc\utils\audioMana
+ger.js:62:48[90m)[39m
+    at [90mC:\city-slick1\ci
+ty-builder\web\[39msrc\utils
+\__tests__\audioManager.test.
+js:339:26
+    at [90mfile:///C:/city-s
+lick1/city-builder/web/[39mn
+ode_modules/[4m@vitest[24m/
+runner/dist/chunk-hooks.js:15
+5:11
+    at [90mfile:///C:/city-s
+lick1/city-builder/web/[39mn
+ode_modules/[4m@vitest[24m/
+runner/dist/chunk-hooks.js:18
+97:20
+    at new Promise 
+(<anonymous>)
+    at runWithTimeout [90m(f
+ile:///C:/city-slick1/city-bu
+ilder/web/[39mnode_modules/
+[4m@vitest[24m/runner/dist/c
+hunk-hooks.js:1863:10[90m)[
+39m
+    at runHook [90m(file:///
+C:/city-slick1/city-builder/w
+eb/[39mnode_modules/[4m@vit
+est[24m/runner/dist/chunk-ho
+oks.js:1436:51[90m)[39m
+
+ [32mΓ£ô[39m src/utils/__tests__/audioManager.test.js[2m > [22mAudioManager[2m > [22mInitialization[2m > [22mshould not be initialized by default[32m 4[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/audioManager.test.js[2m > [22mAudioManager[2m > [22mInitialization[2m > [22mshould initialize AudioContext on init()[32m 4[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/audioManager.test.js[2m > [22mAudioManager[2m > [22mInitialization[2m > [22mshould create gain nodes on init()[32m 2[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/audioManager.test.js[2m > [22mAudioManager[2m > [22mInitialization[2m > [22mshould not reinitialize if already initialized[32m 1[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/audioManager.test.js[2m > [22mAudioManager[2m > [22mInitialization[2m > [22mshould handle initialization errors gracefully[32m 12[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/audioManager.test.js[2m > [22mAudioManager[2m > [22mVolume Control[2m > [22mshould set master volume[32m 1[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/audioManager.test.js[2m > [22mAudioManager[2m > [22mVolume Control[2m > [22mshould set music volume[32m 1[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/audioManager.test.js[2m > [22mAudioManager[2m > [22mVolume Control[2m > [22mshould set SFX volume[32m 1[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/audioManager.test.js[2m > [22mAudioManager[2m > [22mVolume Control[2m > [22mshould reject volume below 0[32m 1[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/audioManager.test.js[2m > [22mAudioManager[2m > [22mVolume Control[2m > [22mshould reject volume above 1[32m 1[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/audioManager.test.js[2m > [22mAudioManager[2m > [22mVolume Control[2m > [22mshould save settings after volume change[32m 3[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/audioManager.test.js[2m > [22mAudioManager[2m > [22mMute/Unmute[2m > [22mshould mute audio[32m 1[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/audioManager.test.js[2m > [22mAudioManager[2m > [22mMute/Unmute[2m > [22mshould unmute audio[32m 1[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/audioManager.test.js[2m > [22mAudioManager[2m > [22mMute/Unmute[2m > [22mshould toggle mute state[32m 1[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/audioManager.test.js[2m > [22mAudioManager[2m > [22mMute/Unmute[2m > [22mshould save mute state[32m 1[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/audioManager.test.js[2m > [22mAudioManager[2m > [22mMute/Unmute[2m > [22mshould set master gain to 0 when muted[32m 1[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/audioManager.test.js[2m > [22mAudioManager[2m > [22mSound Effects[2m > [22mshould play diceRoll SFX[32m 1[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/audioManager.test.js[2m > [22mAudioManager[2m > [22mSound Effects[2m > [22mshould play upgrade SFX[32m 2[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/audioManager.test.js[2m > [22mAudioManager[2m > [22mSound Effects[2m > [22mshould play funds SFX[32m 2[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/audioManager.test.js[2m > [22mAudioManager[2m > [22mSound Effects[2m > [22mshould play cityUnlock SFX[32m 2[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/audioManager.test.js[2m > [22mAudioManager[2m > [22mSound Effects[2m > [22mshould play milestone SFX[32m 2[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/audioManager.test.js[2m > [22mAudioManager[2m > [22mSound Effects[2m > [22mshould play click SFX[32m 2[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/audioManager.test.js[2m > [22mAudioManager[2m > [22mSound Effects[2m > [22mshould play success SFX[32m 2[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/audioManager.test.js[2m > [22mAudioManager[2m > [22mSound Effects[2m > [22mshould play error SFX[32m 2[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/audioManager.test.js[2m > [22mAudioManager[2m > [22mSound Effects[2m > [22mshould play achievement SFX[32m 1[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/audioManager.test.js[2m > [22mAudioManager[2m > [22mSound Effects[2m > [22mshould play teleport SFX[32m 1[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/audioManager.test.js[2m > [22mAudioManager[2m > [22mSound Effects[2m > [22mshould play doubles SFX[32m 1[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/audioManager.test.js[2m > [22mAudioManager[2m > [22mSound Effects[2m > [22mshould not play SFX when muted[32m 1[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/audioManager.test.js[2m > [22mAudioManager[2m > [22mSound Effects[2m > [22mshould not play SFX when not initialized[32m 1[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/audioManager.test.js[2m > [22mAudioManager[2m > [22mSound Effects[2m > [22mshould handle unknown SFX type gracefully[32m 2[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/audioManager.test.js[2m > [22mAudioManager[2m > [22mSound Effects[2m > [22mshould handle SFX errors gracefully[32m 3[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/audioManager.test.js[2m > [22mAudioManager[2m > [22mSettings Persistence[2m > [22mshould load settings from localStorage[32m 1[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/audioManager.test.js[2m > [22mAudioManager[2m > [22mSettings Persistence[2m > [22mshould handle missing localStorage data[32m 6[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/audioManager.test.js[2m > [22mAudioManager[2m > [22mSettings Persistence[2m > [22mshould handle corrupted localStorage data[32m 2[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/audioManager.test.js[2m > [22mAudioManager[2m > [22mSettings Persistence[2m > [22mshould save settings to localStorage[32m 1[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/audioManager.test.js[2m > [22mAudioManager[2m > [22mSettings Persistence[2m > [22mshould handle localStorage save errors[32m 2[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/audioManager.test.js[2m > [22mAudioManager[2m > [22mGet Settings[2m > [22mshould return current settings[32m 1[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/audioManager.test.js[2m > [22mAudioManager[2m > [22mGet Settings[2m > [22mshould return volumes object[32m 1[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/audioManager.test.js[2m > [22mAudioManager[2m > [22mGet Settings[2m > [22mshould return copy of volumes (not reference)[32m 1[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/audioManager.test.js[2m > [22mAudioManager[2m > [22mCleanup[2m > [22mshould close AudioContext on dispose[32m 2[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/audioManager.test.js[2m > [22mAudioManager[2m > [22mCleanup[2m > [22mshould reset initialized flag on dispose[32m 1[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/audioManager.test.js[2m > [22mAudioManager[2m > [22mCleanup[2m > [22mshould handle dispose when not initialized[32m 1[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/audioManager.test.js[2m > [22mAudioManager[2m > [22mSound Configuration[2m > [22mcityUnlock should play sound[32m 2[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/audioManager.test.js[2m > [22mAudioManager[2m > [22mSound Configuration[2m > [22mmilestone should play sound[32m 2[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/audioManager.test.js[2m > [22mAudioManager[2m > [22mSound Configuration[2m > [22mdoubles should play sound[32m 1[2mms[22m[39m
+[90mstderr[2m | src/utils/_
+_tests__/sessionAnalytics.tes
+t.js[2m > 
+[22m[2mAnalytics 
+Storage[2m > 
+[22m[2mshould handle 
+corrupted data gracefully
+[22m[39mFailed to load 
+session analytics: 
+SyntaxError: Expected 
+property name or '}' in JSON 
+at position 1 (line 1 column 
+2)
+    at JSON.parse 
+(<anonymous>)
+    at loadAllSessions [90m(
+C:\city-slick1\city-builder\w
+eb\[39msrc\utils\sessionAnal
+ytics.js:172:24[90m)[39m
+    at [90mC:\city-slick1\ci
+ty-builder\web\[39msrc\utils
+\__tests__\sessionAnalytics.t
+est.js:144:37
+    at [90mfile:///C:/city-s
+lick1/city-builder/web/[39mn
+ode_modules/[4m@vitest[24m/
+runner/dist/chunk-hooks.js:15
+5:11
+    at [90mfile:///C:/city-s
+lick1/city-builder/web/[39mn
+ode_modules/[4m@vitest[24m/
+runner/dist/chunk-hooks.js:75
+2:26
+    at [90mfile:///C:/city-s
+lick1/city-builder/web/[39mn
+ode_modules/[4m@vitest[24m/
+runner/dist/chunk-hooks.js:18
+97:20
+    at new Promise 
+(<anonymous>)
+    at runWithTimeout [90m(f
+ile:///C:/city-slick1/city-bu
+ilder/web/[39mnode_modules/
+[4m@vitest[24m/runner/dist/c
+hunk-hooks.js:1863:10[90m)[
+39m
+    at runTest [90m(file:///
+C:/city-slick1/city-builder/w
+eb/[39mnode_modules/[4m@vit
+est[24m/runner/dist/chunk-ho
+oks.js:1574:12[90m)[39m
+[90m    at 
+processTicksAndRejections (no
+de:internal/process/task_queu
+es:105:5)[39m
+
+ [32mΓ£ô[39m src/utils/__tests__/sessionAnalytics.test.js[2m > [22mSessionMetrics[2m > [22mshould initialize with correct defaults[32m 3[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/sessionAnalytics.test.js[2m > [22mSessionMetrics[2m > [22mshould record rolls correctly[32m 1[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/sessionAnalytics.test.js[2m > [22mSessionMetrics[2m > [22mshould record tile landings[32m 0[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/sessionAnalytics.test.js[2m > [22mSessionMetrics[2m > [22mshould record milestones and missions[32m 0[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/sessionAnalytics.test.js[2m > [22mSessionMetrics[2m > [22mshould track funds earned and spent separately[32m 0[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/sessionAnalytics.test.js[2m > [22mSessionMetrics[2m > [22mshould track dice gained and spent separately[32m 0[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/sessionAnalytics.test.js[2m > [22mSessionMetrics[2m > [22mshould calculate duration correctly[32m 0[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/sessionAnalytics.test.js[2m > [22mSessionMetrics[2m > [22mshould end session with final state[32m 0[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/sessionAnalytics.test.js[2m > [22mSessionMetrics[2m > [22mshould serialize to JSON correctly[32m 1[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/sessionAnalytics.test.js[2m > [22mAnalytics Storage[2m > [22mshould save and load sessions[32m 1[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/sessionAnalytics.test.js[2m > [22mAnalytics Storage[2m > [22mshould limit to MAX_SESSIONS[32m 13[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/sessionAnalytics.test.js[2m > [22mAnalytics Storage[2m > [22mshould clear analytics[32m 0[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/sessionAnalytics.test.js[2m > [22mAnalytics Storage[2m > [22mshould handle corrupted data gracefully[32m 13[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/sessionAnalytics.test.js[2m > [22mAnalytics Generation[2m > [22mshould return null when no sessions exist[32m 1[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/sessionAnalytics.test.js[2m > [22mAnalytics Generation[2m > [22mshould calculate averages correctly[32m 1[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/sessionAnalytics.test.js[2m > [22mAnalytics Generation[2m > [22mshould identify sessions in target range[32m 1[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/sessionAnalytics.test.js[2m > [22mAnalytics Generation[2m > [22mshould aggregate tile frequency across sessions[32m 0[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/sessionAnalytics.test.js[2m > [22mAnalytics Generation[2m > [22mshould include recent sessions[32m 2[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/sessionAnalytics.test.js[2m > [22mCSV Export[2m > [22mshould return empty string when no sessions[32m 0[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/sessionAnalytics.test.js[2m > [22mCSV Export[2m > [22mshould generate valid CSV format[32m 1[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/sessionAnalytics.test.js[2m > [22mCSV Export[2m > [22mshould include all session data in CSV[32m 0[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/sessionAnalytics.test.js[2m > [22mMarkdown Report[2m > [22mshould handle no sessions[32m 1[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/sessionAnalytics.test.js[2m > [22mMarkdown Report[2m > [22mshould generate complete report[32m 34[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/sessionAnalytics.test.js[2m > [22mMarkdown Report[2m > [22mshould show correct status indicators[32m 1[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/sessionAnalytics.test.js[2m > [22mMarkdown Report[2m > [22mshould provide recommendations for out-of-range metrics[32m 0[2mms[22m[39m
+[90mstderr[2m | src/utils/_
+_tests__/saveSystemEdgeCases.
+test.js[2m > [22m[2mSave 
+System Edge Cases and Error 
+Handling[2m > 
+[22m[2msaveGame - Error 
+Handling[2m > 
+[22m[2mshould return false 
+when localStorage.setItem 
+throws QuotaExceededError
+[22m[39mFailed to save 
+game state: Error 
+[QuotaExceededError]: 
+QuotaExceededError
+    at Object.<anonymous> [9
+0m(C:\city-slick1\city-builde
+r\web\[39msrc\utils\__tests_
+_\saveSystemEdgeCases.test.js
+:48:23[90m)[39m
+    at Object.mockCall [90m(
+file:///C:/city-slick1/city-b
+uilder/web/[39mnode_modules/
+[4m@vitest[24m/spy/dist/ind
+ex.js:96:15[90m)[39m
+    at Object.spy [as 
+setItem] [90m(file:///C:/cit
+y-slick1/city-builder/web/[3
+9mnode_modules/[4mtinyspy[2
+4m/dist/index.js:47:80[90m)
+[39m
+    at saveGame [90m(C:\city
+-slick1\city-builder\web\[39
+msrc\utils\saveSystem.js:37:1
+8[90m)[39m
+    at [90mC:\city-slick1\ci
+ty-builder\web\[39msrc\utils
+\__tests__\saveSystemEdgeCase
+s.test.js:53:30
+    at [90mfile:///C:/city-s
+lick1/city-builder/web/[39mn
+ode_modules/[4m@vitest[24m/
+runner/dist/chunk-hooks.js:15
+5:11
+    at [90mfile:///C:/city-s
+lick1/city-builder/web/[39mn
+ode_modules/[4m@vitest[24m/
+runner/dist/chunk-hooks.js:75
+2:26
+    at [90mfile:///C:/city-s
+lick1/city-builder/web/[39mn
+ode_modules/[4m@vitest[24m/
+runner/dist/chunk-hooks.js:18
+97:20
+    at new Promise 
+(<anonymous>)
+    at runWithTimeout [90m(f
+ile:///C:/city-slick1/city-bu
+ilder/web/[39mnode_modules/
+[4m@vitest[24m/runner/dist/c
+hunk-hooks.js:1863:10[90m)[
+39m
+
+[90mstderr[2m | src/utils/_
+_tests__/saveSystemEdgeCases.
+test.js[2m > [22m[2mSave 
+System Edge Cases and Error 
+Handling[2m > 
+[22m[2msaveGame - Error 
+Handling[2m > 
+[22m[2mshould return false 
+when localStorage.setItem 
+throws SecurityError
+[22m[39mFailed to save 
+game state: Error: 
+SecurityError
+    at Object.<anonymous> [9
+0m(C:\city-slick1\city-builde
+r\web\[39msrc\utils\__tests_
+_\saveSystemEdgeCases.test.js
+:59:15[90m)[39m
+    at Object.mockCall [90m(
+file:///C:/city-slick1/city-b
+uilder/web/[39mnode_modules/
+[4m@vitest[24m/spy/dist/ind
+ex.js:96:15[90m)[39m
+    at Object.spy [as 
+setItem] [90m(file:///C:/cit
+y-slick1/city-builder/web/[3
+9mnode_modules/[4mtinyspy[2
+4m/dist/index.js:47:80[90m)
+[39m
+    at saveGame [90m(C:\city
+-slick1\city-builder\web\[39
+msrc\utils\saveSystem.js:37:1
+8[90m)[39m
+    at [90mC:\city-slick1\ci
+ty-builder\web\[39msrc\utils
+\__tests__\saveSystemEdgeCase
+s.test.js:62:30
+    at [90mfile:///C:/city-s
+lick1/city-builder/web/[39mn
+ode_modules/[4m@vitest[24m/
+runner/dist/chunk-hooks.js:15
+5:11
+    at [90mfile:///C:/city-s
+lick1/city-builder/web/[39mn
+ode_modules/[4m@vitest[24m/
+runner/dist/chunk-hooks.js:75
+2:26
+    at [90mfile:///C:/city-s
+lick1/city-builder/web/[39mn
+ode_modules/[4m@vitest[24m/
+runner/dist/chunk-hooks.js:18
+97:20
+    at new Promise 
+(<anonymous>)
+    at runWithTimeout [90m(f
+ile:///C:/city-slick1/city-bu
+ilder/web/[39mnode_modules/
+[4m@vitest[24m/runner/dist/c
+hunk-hooks.js:1863:10[90m)[
+39m
+
+[90mstderr[2m | src/utils/_
+_tests__/saveSystemEdgeCases.
+test.js[2m > [22m[2mSave 
+System Edge Cases and Error 
+Handling[2m > 
+[22m[2msaveGame - Error 
+Handling[2m > 
+[22m[2mshould handle 
+circular references in state 
+object
+[22m[39mFailed to save 
+game state: TypeError: 
+Converting circular 
+structure to JSON
+    --> starting at object 
+with constructor 'Object'
+    --- property 'self' 
+closes the circle
+    at JSON.stringify 
+(<anonymous>)
+    at saveGame [90m(C:\city
+-slick1\city-builder\web\[39
+msrc\utils\saveSystem.js:36:3
+3[90m)[39m
+    at [90mC:\city-slick1\ci
+ty-builder\web\[39msrc\utils
+\__tests__\saveSystemEdgeCase
+s.test.js:71:30
+    at [90mfile:///C:/city-s
+lick1/city-builder/web/[39mn
+ode_modules/[4m@vitest[24m/
+runner/dist/chunk-hooks.js:15
+5:11
+    at [90mfile:///C:/city-s
+lick1/city-builder/web/[39mn
+ode_modules/[4m@vitest[24m/
+runner/dist/chunk-hooks.js:75
+2:26
+    at [90mfile:///C:/city-s
+lick1/city-builder/web/[39mn
+ode_modules/[4m@vitest[24m/
+runner/dist/chunk-hooks.js:18
+97:20
+    at new Promise 
+(<anonymous>)
+    at runWithTimeout [90m(f
+ile:///C:/city-slick1/city-bu
+ilder/web/[39mnode_modules/
+[4m@vitest[24m/runner/dist/c
+hunk-hooks.js:1863:10[90m)[
+39m
+    at runTest [90m(file:///
+C:/city-slick1/city-builder/w
+eb/[39mnode_modules/[4m@vit
+est[24m/runner/dist/chunk-ho
+oks.js:1574:12[90m)[39m
+[90m    at 
+processTicksAndRejections (no
+de:internal/process/task_queu
+es:105:5)[39m
+
+[90mstderr[2m | src/utils/_
+_tests__/saveSystemEdgeCases.
+test.js[2m > [22m[2mSave 
+System Edge Cases and Error 
+Handling[2m > 
+[22m[2mloadGame - Error 
+Handling[2m > 
+[22m[2mshould return null 
+when save data is corrupted 
+JSON
+[22m[39mFailed to load 
+game state: SyntaxError: 
+Expected property name or 
+'}' in JSON at position 1 
+(line 1 column 2)
+    at JSON.parse 
+(<anonymous>)
+    at loadGame [90m(C:\city
+-slick1\city-builder\web\[39
+msrc\utils\saveSystem.js:55:2
+7[90m)[39m
+    at [90mC:\city-slick1\ci
+ty-builder\web\[39msrc\utils
+\__tests__\saveSystemEdgeCase
+s.test.js:97:30
+    at [90mfile:///C:/city-s
+lick1/city-builder/web/[39mn
+ode_modules/[4m@vitest[24m/
+runner/dist/chunk-hooks.js:15
+5:11
+    at [90mfile:///C:/city-s
+lick1/city-builder/web/[39mn
+ode_modules/[4m@vitest[24m/
+runner/dist/chunk-hooks.js:75
+2:26
+    at [90mfile:///C:/city-s
+lick1/city-builder/web/[39mn
+ode_modules/[4m@vitest[24m/
+runner/dist/chunk-hooks.js:18
+97:20
+    at new Promise 
+(<anonymous>)
+    at runWithTimeout [90m(f
+ile:///C:/city-slick1/city-bu
+ilder/web/[39mnode_modules/
+[4m@vitest[24m/runner/dist/c
+hunk-hooks.js:1863:10[90m)[
+39m
+    at runTest [90m(file:///
+C:/city-slick1/city-builder/w
+eb/[39mnode_modules/[4m@vit
+est[24m/runner/dist/chunk-ho
+oks.js:1574:12[90m)[39m
+[90m    at 
+processTicksAndRejections (no
+de:internal/process/task_queu
+es:105:5)[39m
+
+[90mstderr[2m | src/utils/_
+_tests__/saveSystemEdgeCases.
+test.js[2m > [22m[2mSave 
+System Edge Cases and Error 
+Handling[2m > 
+[22m[2mloadGame - Error 
+Handling[2m > 
+[22m[2mshould return null 
+when localStorage.getItem 
+throws
+[22m[39mFailed to load 
+game state: Error: 
+SecurityError
+    at Object.<anonymous> [9
+0m(C:\city-slick1\city-builde
+r\web\[39msrc\utils\__tests_
+_\saveSystemEdgeCases.test.js
+:103:15[90m)[39m
+    at Object.mockCall [90m(
+file:///C:/city-slick1/city-b
+uilder/web/[39mnode_modules/
+[4m@vitest[24m/spy/dist/ind
+ex.js:96:15[90m)[39m
+    at Object.spy [as 
+getItem] [90m(file:///C:/cit
+y-slick1/city-builder/web/[3
+9mnode_modules/[4mtinyspy[2
+4m/dist/index.js:47:80[90m)
+[39m
+    at loadGame [90m(C:\city
+-slick1\city-builder\web\[39
+msrc\utils\saveSystem.js:52:4
+1[90m)[39m
+    at [90mC:\city-slick1\ci
+ty-builder\web\[39msrc\utils
+\__tests__\saveSystemEdgeCase
+s.test.js:105:30
+    at [90mfile:///C:/city-s
+lick1/city-builder/web/[39mn
+ode_modules/[4m@vitest[24m/
+runner/dist/chunk-hooks.js:15
+5:11
+    at [90mfile:///C:/city-s
+lick1/city-builder/web/[39mn
+ode_modules/[4m@vitest[24m/
+runner/dist/chunk-hooks.js:75
+2:26
+    at [90mfile:///C:/city-s
+lick1/city-builder/web/[39mn
+ode_modules/[4m@vitest[24m/
+runner/dist/chunk-hooks.js:18
+97:20
+    at new Promise 
+(<anonymous>)
+    at runWithTimeout [90m(f
+ile:///C:/city-slick1/city-bu
+ilder/web/[39mnode_modules/
+[4m@vitest[24m/runner/dist/c
+hunk-hooks.js:1863:10[90m)[
+39m
+
+[90mstderr[2m | src/utils/_
+_tests__/saveSystemEdgeCases.
+test.js[2m > [22m[2mSave 
+System Edge Cases and Error 
+Handling[2m > 
+[22m[2mloadGame - Error 
+Handling[2m > 
+[22m[2mshould handle 
+missing version field
+[22m[39mSave version 
+mismatch: found undefined, 
+expected v1
+
+[90mstderr[2m | src/utils/_
+_tests__/saveSystemEdgeCases.
+test.js[2m > [22m[2mSave 
+System Edge Cases and Error 
+Handling[2m > 
+[22m[2mclearSave - Error 
+Handling[2m > 
+[22m[2mshould return false 
+when removeItem throws
+[22m[39mFailed to clear 
+save data: Error: 
+SecurityError
+    at Object.<anonymous> [9
+0m(C:\city-slick1\city-builde
+r\web\[39msrc\utils\__tests_
+_\saveSystemEdgeCases.test.js
+:174:15[90m)[39m
+    at Object.mockCall [90m(
+file:///C:/city-slick1/city-b
+uilder/web/[39mnode_modules/
+[4m@vitest[24m/spy/dist/ind
+ex.js:96:15[90m)[39m
+    at Object.spy [as 
+removeItem] [90m(file:///C:/
+city-slick1/city-builder/web/
+[39mnode_modules/[4mtinyspy
+[24m/dist/index.js:47:80[90
+m)[39m
+    at clearSave [90m(C:\cit
+y-slick1\city-builder\web\[3
+9msrc\utils\saveSystem.js:75:
+18[90m)[39m
+    at [90mC:\city-slick1\ci
+ty-builder\web\[39msrc\utils
+\__tests__\saveSystemEdgeCase
+s.test.js:176:31
+    at [90mfile:///C:/city-s
+lick1/city-builder/web/[39mn
+ode_modules/[4m@vitest[24m/
+runner/dist/chunk-hooks.js:15
+5:11
+    at [90mfile:///C:/city-s
+lick1/city-builder/web/[39mn
+ode_modules/[4m@vitest[24m/
+runner/dist/chunk-hooks.js:75
+2:26
+    at [90mfile:///C:/city-s
+lick1/city-builder/web/[39mn
+ode_modules/[4m@vitest[24m/
+runner/dist/chunk-hooks.js:18
+97:20
+    at new Promise 
+(<anonymous>)
+    at runWithTimeout [90m(f
+ile:///C:/city-slick1/city-bu
+ilder/web/[39mnode_modules/
+[4m@vitest[24m/runner/dist/c
+hunk-hooks.js:1863:10[90m)[
+39m
+
+[90mstderr[2m | src/utils/_
+_tests__/saveSystemEdgeCases.
+test.js[2m > [22m[2mSave 
+System Edge Cases and Error 
+Handling[2m > 
+[22m[2mhasSaveData - Error 
+Handling[2m > 
+[22m[2mshould handle 
+getItem throwing error
+[22m[39mFailed to check 
+for save data: Error: Error
+    at Object.<anonymous> [9
+0m(C:\city-slick1\city-builde
+r\web\[39msrc\utils\__tests_
+_\saveSystemEdgeCases.test.js
+:194:15[90m)[39m
+    at Object.mockCall [90m(
+file:///C:/city-slick1/city-b
+uilder/web/[39mnode_modules/
+[4m@vitest[24m/spy/dist/ind
+ex.js:96:15[90m)[39m
+    at Object.spy [as 
+getItem] [90m(file:///C:/cit
+y-slick1/city-builder/web/[3
+9mnode_modules/[4mtinyspy[2
+4m/dist/index.js:47:80[90m)
+[39m
+    at hasSaveData [90m(C:\c
+ity-slick1\city-builder\web\
+[39msrc\utils\saveSystem.js:8
+9:25[90m)[39m
+    at [90mC:\city-slick1\ci
+ty-builder\web\[39msrc\utils
+\__tests__\saveSystemEdgeCase
+s.test.js:197:33
+    at [90mfile:///C:/city-s
+lick1/city-builder/web/[39mn
+ode_modules/[4m@vitest[24m/
+runner/dist/chunk-hooks.js:15
+5:11
+    at [90mfile:///C:/city-s
+lick1/city-builder/web/[39mn
+ode_modules/[4m@vitest[24m/
+runner/dist/chunk-hooks.js:75
+2:26
+    at [90mfile:///C:/city-s
+lick1/city-builder/web/[39mn
+ode_modules/[4m@vitest[24m/
+runner/dist/chunk-hooks.js:18
+97:20
+    at new Promise 
+(<anonymous>)
+    at runWithTimeout [90m(f
+ile:///C:/city-slick1/city-bu
+ilder/web/[39mnode_modules/
+[4m@vitest[24m/runner/dist/c
+hunk-hooks.js:1863:10[90m)[
+39m
+
+[90mstderr[2m | src/utils/_
+_tests__/saveSystemEdgeCases.
+test.js[2m > [22m[2mSave 
+System Edge Cases and Error 
+Handling[2m > 
+[22m[2mPrivate/Incognito 
+Mode Simulation[2m > 
+[22m[2mshould handle save 
+gracefully in private mode
+[22m[39mFailed to save 
+game state: Error: 
+SecurityError
+    at Object.<anonymous> [9
+0m(C:\city-slick1\city-builde
+r\web\[39msrc\utils\__tests_
+_\saveSystemEdgeCases.test.js
+:255:15[90m)[39m
+    at Object.mockCall [90m(
+file:///C:/city-slick1/city-b
+uilder/web/[39mnode_modules/
+[4m@vitest[24m/spy/dist/ind
+ex.js:96:15[90m)[39m
+    at Object.spy [as 
+setItem] [90m(file:///C:/cit
+y-slick1/city-builder/web/[3
+9mnode_modules/[4mtinyspy[2
+4m/dist/index.js:47:80[90m)
+[39m
+    at saveGame [90m(C:\city
+-slick1\city-builder\web\[39
+msrc\utils\saveSystem.js:37:1
+8[90m)[39m
+    at [90mC:\city-slick1\ci
+ty-builder\web\[39msrc\utils
+\__tests__\saveSystemEdgeCase
+s.test.js:258:30
+    at [90mfile:///C:/city-s
+lick1/city-builder/web/[39mn
+ode_modules/[4m@vitest[24m/
+runner/dist/chunk-hooks.js:15
+5:11
+    at [90mfile:///C:/city-s
+lick1/city-builder/web/[39mn
+ode_modules/[4m@vitest[24m/
+runner/dist/chunk-hooks.js:75
+2:26
+    at [90mfile:///C:/city-s
+lick1/city-builder/web/[39mn
+ode_modules/[4m@vitest[24m/
+runner/dist/chunk-hooks.js:18
+97:20
+    at new Promise 
+(<anonymous>)
+    at runWithTimeout [90m(f
+ile:///C:/city-slick1/city-bu
+ilder/web/[39mnode_modules/
+[4m@vitest[24m/runner/dist/c
+hunk-hooks.js:1863:10[90m)[
+39m
+
+ [32mΓ£ô[39m src/utils/__tests__/saveSystemEdgeCases.test.js[2m > [22mSave System Edge Cases and Error Handling[2m > [22misStorageAvailable[2m > [22mshould return true when localStorage is available[32m 3[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/saveSystemEdgeCases.test.js[2m > [22mSave System Edge Cases and Error Handling[2m > [22misStorageAvailable[2m > [22mshould return false when localStorage throws on setItem[32m 1[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/saveSystemEdgeCases.test.js[2m > [22mSave System Edge Cases and Error Handling[2m > [22misStorageAvailable[2m > [22mshould return false when localStorage throws on getItem[32m 1[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/saveSystemEdgeCases.test.js[2m > [22mSave System Edge Cases and Error Handling[2m > [22msaveGame - Error Handling[2m > [22mshould return false when localStorage.setItem throws QuotaExceededError[32m 13[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/saveSystemEdgeCases.test.js[2m > [22mSave System Edge Cases and Error Handling[2m > [22msaveGame - Error Handling[2m > [22mshould return false when localStorage.setItem throws SecurityError[32m 2[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/saveSystemEdgeCases.test.js[2m > [22mSave System Edge Cases and Error Handling[2m > [22msaveGame - Error Handling[2m > [22mshould handle circular references in state object[32m 1[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/saveSystemEdgeCases.test.js[2m > [22mSave System Edge Cases and Error Handling[2m > [22msaveGame - Error Handling[2m > [22mshould save very large state objects[32m 2[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/saveSystemEdgeCases.test.js[2m > [22mSave System Edge Cases and Error Handling[2m > [22mloadGame - Error Handling[2m > [22mshould return null when no save data exists[32m 0[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/saveSystemEdgeCases.test.js[2m > [22mSave System Edge Cases and Error Handling[2m > [22mloadGame - Error Handling[2m > [22mshould return null when save data is corrupted JSON[32m 1[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/saveSystemEdgeCases.test.js[2m > [22mSave System Edge Cases and Error Handling[2m > [22mloadGame - Error Handling[2m > [22mshould return null when localStorage.getItem throws[32m 1[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/saveSystemEdgeCases.test.js[2m > [22mSave System Edge Cases and Error Handling[2m > [22mloadGame - Error Handling[2m > [22mshould handle version mismatch gracefully[32m 3[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/saveSystemEdgeCases.test.js[2m > [22mSave System Edge Cases and Error Handling[2m > [22mloadGame - Error Handling[2m > [22mshould handle missing version field[32m 1[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/saveSystemEdgeCases.test.js[2m > [22mSave System Edge Cases and Error Handling[2m > [22mloadGame - Error Handling[2m > [22mshould handle missing data field[32m 0[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/saveSystemEdgeCases.test.js[2m > [22mSave System Edge Cases and Error Handling[2m > [22mloadGame - Error Handling[2m > [22mshould handle empty string save data[32m 0[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/saveSystemEdgeCases.test.js[2m > [22mSave System Edge Cases and Error Handling[2m > [22mloadGame - Error Handling[2m > [22mshould handle non-object JSON[32m 0[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/saveSystemEdgeCases.test.js[2m > [22mSave System Edge Cases and Error Handling[2m > [22mclearSave - Error Handling[2m > [22mshould return true on successful clear[32m 0[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/saveSystemEdgeCases.test.js[2m > [22mSave System Edge Cases and Error Handling[2m > [22mclearSave - Error Handling[2m > [22mshould return false when removeItem throws[32m 10[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/saveSystemEdgeCases.test.js[2m > [22mSave System Edge Cases and Error Handling[2m > [22mhasSaveData - Error Handling[2m > [22mshould return true when save data exists[32m 1[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/saveSystemEdgeCases.test.js[2m > [22mSave System Edge Cases and Error Handling[2m > [22mhasSaveData - Error Handling[2m > [22mshould return false when no save data exists[32m 0[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/saveSystemEdgeCases.test.js[2m > [22mSave System Edge Cases and Error Handling[2m > [22mhasSaveData - Error Handling[2m > [22mshould handle getItem throwing error[32m 1[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/saveSystemEdgeCases.test.js[2m > [22mSave System Edge Cases and Error Handling[2m > [22mRapid Save/Load Cycles[2m > [22mshould handle rapid consecutive saves[32m 0[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/saveSystemEdgeCases.test.js[2m > [22mSave System Edge Cases and Error Handling[2m > [22mRapid Save/Load Cycles[2m > [22mshould handle rapid save/load alternation[32m 0[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/saveSystemEdgeCases.test.js[2m > [22mSave System Edge Cases and Error Handling[2m > [22mPrivate/Incognito Mode Simulation[2m > [22mshould detect when localStorage is blocked in private mode[32m 0[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/saveSystemEdgeCases.test.js[2m > [22mSave System Edge Cases and Error Handling[2m > [22mPrivate/Incognito Mode Simulation[2m > [22mshould handle save gracefully in private mode[32m 1[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/saveSystemEdgeCases.test.js[2m > [22mSave System Edge Cases and Error Handling[2m > [22mData Integrity[2m > [22mshould preserve data types on save/load cycle[32m 1[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/saveSystemEdgeCases.test.js[2m > [22mSave System Edge Cases and Error Handling[2m > [22mData Integrity[2m > [22mshould include timestamp in save data[32m 0[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/saveSystemEdgeCases.test.js[2m > [22mSave System Edge Cases and Error Handling[2m > [22mData Integrity[2m > [22mshould include version in save data[32m 0[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/saveSystem.test.js[2m > [22msaveSystem[2m > [22mshould save game state successfully[32m 3[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/saveSystem.test.js[2m > [22msaveSystem[2m > [22mshould load saved game state[32m 0[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/saveSystem.test.js[2m > [22msaveSystem[2m > [22mshould return null when loading empty save[32m 0[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/saveSystem.test.js[2m > [22msaveSystem[2m > [22mshould check if save data exists[32m 0[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/saveSystem.test.js[2m > [22msaveSystem[2m > [22mshould clear save data[32m 0[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/saveSystem.test.js[2m > [22msaveSystem[2m > [22mshould handle localStorage errors during save[32m 1[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/saveSystem.test.js[2m > [22msaveSystem[2m > [22mshould handle corrupted JSON during load[32m 0[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/GlobalPrestige.test.jsx[2m > [22mGlobal Prestige System[2m > [22mConfiguration & Helpers[2m > [22mgetGlobalPrestigeMultiplier returns correct values[32m 3[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/GlobalPrestige.test.jsx[2m > [22mGlobal Prestige System[2m > [22mConfiguration & Helpers[2m > [22mRequired city level is 5[32m 0[2mms[22m[39m
+
+[31mΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[3
+9m[1m[41m Failed Tests 4 [
+49m[22m[31mΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»Γ
+Ä»ΓÄ»[39m
+
+[41m[1m FAIL [22m[49m src
+/components/__tests__/BoardLo
+op.test.jsx[2m > 
+[22mdoubles bonus scales 
+dice refund
+[31m[1mAssertionError[22m:
+ expected 9 to be 11 // 
+Object.is equality[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- 11[39m
+[31m+ 9[39m
+
+[36m [2mΓ¥»[22m src/compon
+ents/__tests__/BoardLoop.test
+.jsx:[2m133:25[22m[39m
+    [90m131| [39m
+    [90m132| [39m    const 
+expectedBonus = Math.max(1, 
+Math.round(4 * 
+PACING.DOUBLES_BOΓÇª
+    [90m133| [39m    [34me
+xpect[39m(currentDice)[33m.
+[39m[34mtoBe[39m([34m10[
+39m [33m-[39m [34m1[39m 
+[33m+[39m 
+expectedBonus)[33m;[39m
+    [90m   | [39m          
+              [31m^[39m
+    [90m134| [39m    random
+Spy[33m.[39m[34mmockRestor
+e[39m()[33m;[39m
+    [90m135| 
+[39m}[33m,[39m 
+[34m15000[39m)[33m;[39m
+
+[31m[2mΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ
+»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»Γ
+Ä»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[1/4]Γ
+Ä»[22m[39m
+
+[41m[1m FAIL [22m[49m src
+/components/__tests__/BoardLo
+opEffects.test.jsx[2m > 
+[22mmega multiplier scales 
+funds tile payout
+[31m[1mTestingLibraryElemen
+tError[22m[39m: Found 
+multiple elements with the 
+text: /\$[0-9,]+/
+
+Here are the matching 
+elements:
+
+Ignored nodes: comments, 
+script, style
+[36m<p[39m
+  [33mclass[39m=[32m"board
+-mini-text"[39m
+  [33mstyle[39m=[32m"font-
+size: 11px; color: rgba(255, 
+255, 255, 0.7);"[39m
+[36m>[39m
+  [0mNext: [0m
+  [0m$5,000 Funds[0m
+[36m</p>[39m
+
+Ignored nodes: comments, 
+script, style
+[36m<span[39m
+  [33mclass[39m=[32m"value
+"[39m
+[36m>[39m
+  [0m$[0m
+  [0m14,500[0m
+[36m</span>[39m
+
+Ignored nodes: comments, 
+script, style
+[36m<span[39m
+  [33mclass[39m=[32m"miles
+tone-reward"[39m
+[36m>[39m
+  [0m$5,000[0m
+[36m</span>[39m
+
+Ignored nodes: comments, 
+script, style
+[36m<span[39m
+  [33mclass[39m=[32m"miles
+tone-reward"[39m
+[36m>[39m
+  [0m$5,000[0m
+[36m</span>[39m
+
+Ignored nodes: comments, 
+script, style
+[36m<span[39m
+  [33mclass[39m=[32m"miles
+tone-reward"[39m
+[36m>[39m
+  [0m$5,000[0m
+[36m</span>[39m
+
+Ignored nodes: comments, 
+script, style
+[36m<span[39m
+  [33mclass[39m=[32m"miles
+tone-reward"[39m
+[36m>[39m
+  [0m$5,000[0m
+[36m</span>[39m
+
+Ignored nodes: comments, 
+script, style
+[36m<span[39m
+  [33mclass[39m=[32m"miles
+tone-reward"[39m
+[36m>[39m
+  [0m$5,000[0m
+[36m</span>[39m
+
+(If this is intentional, 
+then use the `*AllBy*` 
+variant of the query (like 
+`queryAllByText`, 
+`getAllByText`, or 
+`findAllByText`)).
+
+Ignored nodes: comments, 
+script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<section[39m
+      [33mclass[39m=[32m"b
+oard-section 
+board-section-fit 
+theme-neon-harbor"[39m
+    [36m>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m
+"city-backdrop -z-10"[39m
+      [36m/>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m
+"city-grid -z-10"[39m
+      [36m/>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m
+"city-glow -z-10"[39m
+        [33mstyle[39m=[32m
+"background: 
+transparent;"[39m
+      [36m/>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m
+"audio-controls"[39m
+      [36m>[39m
+        [36m<button[39m
+          [33maria-label[39
+m=[32m"Mute audio"[39m
+          [33mclass[39m=[3
+2m"audio-toggle-btn"[39m
+          
+[33mtitle[39m=[32m"Mute 
+audio"[39m
+        [36m>[39m
+          [36m<svg[39m
+            [33mfill[39m=[
+32m"none"[39m
+            [33mheight[39m=
+[32m"24"[39m
+            [33mstroke[39m=
+[32m"currentColor"[39m
+            [33mstroke-width
+[39m=[32m"2"[39m
+            
+[33mviewBox[39m=[32m"0 0 
+24 24"[39m
+            [33mwidth[39m=
+[32m"24"[39m
+          [36m>[39m
+            [36m<path[39m
+              
+[33md[39m=[32m"M11 5L6 
+9H2v6h4l5 4V5z"[39m
+            [36m/>[39m
+            [36m<path[39m
+              
+[33md[39m=[32m"M19.07 
+4.93a10 10 0 0 1 0 
+14.14"[39m
+            [36m/>[39m
+            [36m<path[39m
+              
+[33md[39m=[32m"M15.54 
+8.46a5 5 0 0 1 0 7.07"[39m
+            [36m/>[39m
+          [36m</svg>[39m
+        [36m</button>[39m
+        [36m<button[39m
+          [33maria-label[39
+m=[32m"Audio settings"[39m
+          [33mclass[39m=[3
+2m"audio-settings-btn"[39m
+          
+[33mtitle[39m=[32m"Audio 
+settings"[39m
+        [36m>[39m
+          [0mΓÜÖ∩╕Å[0m
+        [36m</button>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m
+"board-shell"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[3
+2m"board-layout-main"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=
+[32m"board-stage   "[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m
+=[32m"board-grid "[39m
+            [36m>[39m
+              [36m<div[39m
+                [33mclass[3
+9m=[32m"board-tile  
+tile-id-0   "[39m
+                [33mstyle[3
+9m=[32m"grid-row: 6; 
+grid-column: 6;"[39m
+              [36m>[39m
+                
+[36m<span[39m
+                  [33mclass
+[39m=[32m"board-tile-label"
+[39m
+                [36m>[39m
+                  
+[0mSTART[0m
+                
+[36m</span>[39m
+              
+[36m</div>[39m
+              [36m<div[39m
+                [33mclass[3
+9m=[32m"board-tile 
+board-tile-funds tile-id-1   
+"[39m
+                [33mstyle[3
+9m=[32m"grid-row: 6; 
+grid-column: 5;"[39m
+              [36m>[39m
+                
+[36m<span[39m
+                  [33mclass
+[39m=[32m"board-tile-label"
+[39m
+                [36m>[39m
+                  
+[0mFUNDS[0m
+                
+[36m</span>[39m
+              
+[36m</div>[39m
+              [36m<div[39m
+                [33mclass[3
+9m=[32m"board-tile 
+board-tile-lottery tile-id-2 
+  "[39m
+                [33mstyle[3
+9m=[32m"grid-row: 6; 
+grid-column: 4;"[39m
+              [36m>[39m
+                
+[36m<span[39m
+                  [33mclass
+[39m=[32m"board-tile-label"
+[39m
+                [36m>[39m
+                  
+[0mLOTTERY[0m
+                
+[36m</span>[39m
+              
+[36m</div>[39m
+              [36m<div[39m
+                [33mclass[3
+9m=[32m"board-tile 
+board-tile-tax tile-id-3   
+"[39m
+                [33mstyle[3
+9m=[32m"grid-row: 6; 
+grid-column: 3;"[39m
+              [36m>[39m
+                
+[36m<span[39m
+                  [33mclass
+[39m=[32m"board-tile-label"
+[39m
+                [36m>[39m
+                  [0mTAX[0m
+                
+[36m</span>[39m
+              
+[36m</div>[39m
+              [36m<div[39m
+                [33mclass[3
+9m=[32m"board-tile 
+board-tile-shield tile-id-4  
+ "[39m
+                [33mstyle[3
+9m=[32m"grid-row: 6; 
+grid-column: 2;"[39m
+              [36m>[39m
+                
+[36m<span[39m
+                  [33mclass
+[39m=[32m"board-tile-label"
+[39m
+                [36m>[39m
+                  
+[0mSHIELD[0m
+                
+[36m</span>[39m
+              
+[36m</div>[39m
+              [36m<div[39m
+                [33mclass[3
+9m=[32m"board-tile  
+tile-id-5   "[39m
+                [33mstyle[3
+9m=[32m"grid-row: 6; 
+grid-column: 1;"[39m
+              [36m>[39m
+                
+[36m<span[39m
+                  [33mclass
+[39m=[32m"board-tile-label"
+[39m
+                [36m>[39m
+                  
+[0mBONUS[0m
+                
+[36m</span>[39m
+              
+[36m</div>[39m
+              [36m<div[39m
+                [33mclass[3
+9m=[32m"board-tile 
+board-tile-funds tile-id-6 
+board-tile-active  "[39m
+                [33mstyle[3
+9m=[32m"grid-row: 5; 
+grid-column: 1;"[39m
+              [36m>[39m
+                
+[36m<span[39m
+                  [33mclass
+[39m=[32m"board-tile-label"
+[39m
+                [36m>[39m
+                  
+[0mFUNDS[0m
+                
+[36m</span>[39m
+              
+[36m</div>[39m
+              [36m<div[39m
+                [33mclass[3
+9m=[32m"board-tile 
+board-tile-heist tile-id-7   
+"[39m
+                [33mstyle[3
+9m=[32m"grid-row: 4; 
+grid-column: 1;"[39m
+              [36m>[39m
+                
+[36m<span[39m
+                  [33mclass
+[39m=[32m"board-tile-label"
+[39m
+                [36m>[39m
+                  
+[0mHEIST[0m
+                
+[36m</span>[39m
+              
+[36m</div>[39m
+              [36m<div[39m
+                [33mclass[3
+9m=[32m"board-tile 
+board-tile-card tile-id-8   
+"[39m
+                [33mstyle[3
+9m=[32m"grid-row: 3; 
+grid-column: 1;"[39m
+              [36m>[39m
+                
+[36m<span[39m
+                  [33mclass
+[39m=[32m"board-tile-label"
+[39m
+                [36m>[39m
+                  
+[0mLANDMARK[0m
+                
+[36m</span>[39m
+                
+[36m<div[39m
+                  [33mstyle
+[39m=[32m"font-size: 11px; 
+margin-top: 4px; 
+font-weight: bold; color: 
+rgb(251, 191, 36); display: 
+flex; flex-direction: 
+column; align-items: center; 
+gap: 2px;"[39m
+                [36m>[39m
+                  
+[36m<span>[39m
+                    [0m0[0m
+                    [0m/[0m
+                    [0m5[0m
+                  
+[36m</span>[39m
+                
+[36m</div>[39m
+              
+[36m</div>[39m
+              [36m<div[39m
+                [33mclass[3
+9m=[32m"board-tile 
+board-tile-card tile-id-9   
+"[39m
+                [33mstyle[3
+9m=[32m"grid-row: 2; 
+grid-column: 1;"[39m
+              [36m>[39m
+                
+[36m<span[39m
+                  [33mclass
+[39m=[32m"board-tile-label"
+[39m
+                [36m>[39m
+                  
+[0mCARD[0m
+                
+[36m</span>[39m
+              
+[36m</div>[39m
+              [36...
+
+Ignored nodes: comments, 
+script, style
+[36m<html>[39m
+  [36m<head />[39m
+  [36m<body>[39m
+    [36m<div>[39m
+      [36m<section[39m
+        [33mclass[39m=[32m
+"board-section 
+board-section-fit 
+theme-neon-harbor"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[3
+2m"city-backdrop -z-10"[39m
+        [36m/>[39m
+        [36m<div[39m
+          [33mclass[39m=[3
+2m"city-grid -z-10"[39m
+        [36m/>[39m
+        [36m<div[39m
+          [33mclass[39m=[3
+2m"city-glow -z-10"[39m
+          [33mstyle[39m=[3
+2m"background: 
+transparent;"[39m
+        [36m/>[39m
+        [36m<div[39m
+          [33mclass[39m=[3
+2m"audio-controls"[39m
+        [36m>[39m
+          [36m<button[39m
+            [33maria-label[
+39m=[32m"Mute audio"[39m
+            [33mclass[39m=
+[32m"audio-toggle-btn"[39m
+            
+[33mtitle[39m=[32m"Mute 
+audio"[39m
+          [36m>[39m
+            [36m<svg[39m
+              [33mfill[39m=
+[32m"none"[39m
+              [33mheight[39
+m=[32m"24"[39m
+              [33mstroke[39
+m=[32m"currentColor"[39m
+              [33mstroke-wid
+th[39m=[32m"2"[39m
+              
+[33mviewBox[39m=[32m"0 0 
+24 24"[39m
+              [33mwidth[39m
+=[32m"24"[39m
+            [36m>[39m
+              [36m<path[39m
+                
+[33md[39m=[32m"M11 5L6 
+9H2v6h4l5 4V5z"[39m
+              [36m/>[39m
+              [36m<path[39m
+                
+[33md[39m=[32m"M19.07 
+4.93a10 10 0 0 1 0 
+14.14"[39m
+              [36m/>[39m
+              [36m<path[39m
+                
+[33md[39m=[32m"M15.54 
+8.46a5 5 0 0 1 0 7.07"[39m
+              [36m/>[39m
+            [36m</svg>[39m
+          [36m</button>[39m
+          [36m<button[39m
+            [33maria-label[
+39m=[32m"Audio 
+settings"[39m
+            [33mclass[39m=
+[32m"audio-settings-btn"[39m
+            
+[33mtitle[39m=[32m"Audio 
+settings"[39m
+          [36m>[39m
+            [0mΓÜÖ∩╕Å[0m
+          [36m</button>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[3
+2m"board-shell"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=
+[32m"board-layout-main"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m
+=[32m"board-stage   "[39m
+            [36m>[39m
+              [36m<div[39m
+                [33mclass[3
+9m=[32m"board-grid "[39m
+              [36m>[39m
+                
+[36m<div[39m
+                  [33mclass
+[39m=[32m"board-tile  
+tile-id-0   "[39m
+                  [33mstyle
+[39m=[32m"grid-row: 6; 
+grid-column: 6;"[39m
+                [36m>[39m
+                  
+[36m<span[39m
+                    [33mclas
+s[39m=[32m"board-tile-label
+"[39m
+                  [36m>[39m
+                    
+[0mSTART[0m
+                  
+[36m</span>[39m
+                
+[36m</div>[39m
+                
+[36m<div[39m
+                  [33mclass
+[39m=[32m"board-tile 
+board-tile-funds tile-id-1   
+"[39m
+                  [33mstyle
+[39m=[32m"grid-row: 6; 
+grid-column: 5;"[39m
+                [36m>[39m
+                  
+[36m<span[39m
+                    [33mclas
+s[39m=[32m"board-tile-label
+"[39m
+                  [36m>[39m
+                    
+[0mFUNDS[0m
+                  
+[36m</span>[39m
+                
+[36m</div>[39m
+                
+[36m<div[39m
+                  [33mclass
+[39m=[32m"board-tile 
+board-tile-lottery tile-id-2 
+  "[39m
+                  [33mstyle
+[39m=[32m"grid-row: 6; 
+grid-column: 4;"[39m
+                [36m>[39m
+                  
+[36m<span[39m
+                    [33mclas
+s[39m=[32m"board-tile-label
+"[39m
+                  [36m>[39m
+                    
+[0mLOTTERY[0m
+                  
+[36m</span>[39m
+                
+[36m</div>[39m
+                
+[36m<div[39m
+                  [33mclass
+[39m=[32m"board-tile 
+board-tile-tax tile-id-3   
+"[39m
+                  [33mstyle
+[39m=[32m"grid-row: 6; 
+grid-column: 3;"[39m
+                [36m>[39m
+                  
+[36m<span[39m
+                    [33mclas
+s[39m=[32m"board-tile-label
+"[39m
+                  [36m>[39m
+                    
+[0mTAX[0m
+                  
+[36m</span>[39m
+                
+[36m</div>[39m
+                
+[36m<div[39m
+                  [33mclass
+[39m=[32m"board-tile 
+board-tile-shield tile-id-4  
+ "[39m
+                  [33mstyle
+[39m=[32m"grid-row: 6; 
+grid-column: 2;"[39m
+                [36m>[39m
+                  
+[36m<span[39m
+                    [33mclas
+s[39m=[32m"board-tile-label
+"[39m
+                  [36m>[39m
+                    
+[0mSHIELD[0m
+                  
+[36m</span>[39m
+                
+[36m</div>[39m
+                
+[36m<div[39m
+                  [33mclass
+[39m=[32m"board-tile  
+tile-id-5   "[39m
+                  [33mstyle
+[39m=[32m"grid-row: 6; 
+grid-column: 1;"[39m
+                [36m>[39m
+                  
+[36m<span[39m
+                    [33mclas
+s[39m=[32m"board-tile-label
+"[39m
+                  [36m>[39m
+                    
+[0mBONUS[0m
+                  
+[36m</span>[39m
+                
+[36m</div>[39m
+                
+[36m<div[39m
+                  [33mclass
+[39m=[32m"board-tile 
+board-tile-funds tile-id-6 
+board-tile-active  "[39m
+                  [33mstyle
+[39m=[32m"grid-row: 5; 
+grid-column: 1;"[39m
+                [36m>[39m
+                  
+[36m<span[39m
+                    [33mclas
+s[39m=[32m"board-tile-label
+"[39m
+                  [36m>[39m
+                    
+[0mFUNDS[0m
+                  
+[36m</span>[39m
+                
+[36m</div>[39m
+                
+[36m<div[39m
+                  [33mclass
+[39m=[32m"board-tile 
+board-tile-heist tile-id-7   
+"[39m
+                  [33mstyle
+[39m=[32m"grid-row: 4; 
+grid-column: 1;"[39m
+                [36m>[39m
+                  
+[36m<span[39m
+                    [33mclas
+s[39m=[32m"board-tile-label
+"[39m
+                  [36m>[39m
+                    
+[0mHEIST[0m
+                  
+[36m</span>[39m
+                
+[36m</div>[39m
+                
+[36m<div[39m
+                  [33mclass
+[39m=[32m"board-tile 
+board-tile-card tile-id-8   
+"[39m
+                  [33mstyle
+[39m=[32m"grid-row: 3; 
+grid-column: 1;"[39m
+                [36m>[39m
+                  
+[36m<span[39m
+                    [33mclas
+s[39m=[32m"board-tile-label
+"[39m
+                  [36m>[39m
+                    
+[0mLANDMARK[0m
+                  
+[36m</span>[39m
+                  
+[36m<div[39m
+                    [33mstyl
+e[39m=[32m"font-size: 
+11px; margin-top: 4px; 
+font-weight: bold; color: 
+rgb(251, 191, 36); display: 
+flex; flex-direction: 
+column; align-items: center; 
+gap: 2px;"[39m
+                  [36m>[39m
+                    
+[36m<span>[39m
+                      
+[0m0[0m
+                      
+[0m/[0m
+                      
+[0m5[0m
+                    
+[36m</span>[39m
+                  
+[36m</div>[39m
+                
+[36m</div>[39m
+                
+[36m<div[39m
+                  [33mclass
+[39m=[32m"board-tile 
+board-t...
+[90m [2mΓ¥»[22m 
+waitForWrapper node_modules/@
+testing-library/dom/dist/wait
+-for.js:[2m163:27[22m[39m
+[36m [2mΓ¥»[22m src/compon
+ents/__tests__/BoardLoopEffec
+ts.test.jsx:[2m117:11[22m[
+39m
+    [90m115| [39m    
+[35mawait[39m userEvent[33
+m.[39m[34mclick[39m(rollDi
+ceButton)[33m;[39m
+    [90m116| [39m
+    [90m117| [39m    
+[35mawait[39m 
+[34mwaitFor[39m(() 
+[33m=>[39m {
+    [90m   | [39m          
+[31m^[39m
+    [90m118| [39m        
+[35mconst[39m fundsText 
+[33m=[39m screen[33m.[39m
+[34mgetByText[39m([36m/\$[
+0-9,]+/[39m)[33m;[39m
+    [90m119| [39m        co
+nsole[33m.[39m[34mlog[39m
+([32m'DEBUG: Funds text 
+found:'[39m[33m,[39m funds
+Text[33m.[39mtextContent)[
+33m;[39m
+
+[31m[2mΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ
+»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»Γ
+Ä»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[2/4]Γ
+Ä»[22m[39m
+
+[41m[1m FAIL [22m[49m src
+/components/__tests__/BoardLo
+opEffects.test.jsx[2m > 
+[22mlucky dice guarantees 
+doubles
+[31m[1mAssertionError[22m:
+ expected "random" to be 
+called 2 times, but got 50 
+times[39m
+[36m [2mΓ¥»[22m src/compon
+ents/__tests__/BoardLoopEffec
+ts.test.jsx:[2m154:23[22m[
+39m
+    [90m152| [39m    
+}[33m,[39m { 
+timeout[33m:[39m 
+[34m10000[39m })[33m;[39m
+    [90m153| [39m
+    [90m154| [39m    [34me
+xpect[39m(randomSpy)[33m.[
+39m[34mtoHaveBeenCalledTimes
+[39m([34m2[39m)[33m;[39m
+    [90m   | [39m          
+            [31m^[39m
+    [90m155| [39m    random
+Spy[33m.[39m[34mmockRestor
+e[39m()[33m;[39m
+    [90m156| 
+[39m}[33m,[39m 
+[34m15000[39m)[33m;[39m
+
+[31m[2mΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ
+»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»Γ
+Ä»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[3/4]Γ
+Ä»[22m[39m
+
+[41m[1m FAIL [22m[49m src
+/components/__tests__/Upgrade
+Feedback.test.jsx[2m > 
+[22mupgrading landmark 
+triggers text pop
+[31m[1mTestingLibraryElemen
+tError[22m[39m: Unable to 
+find role="button" and name 
+`/0ΓåÆ1 \$1k/i`
+
+Ignored nodes: comments, 
+script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<section[39m
+      [33mclass[39m=[32m"b
+oard-section 
+board-section-fit 
+theme-neon-harbor"[39m
+    [36m>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m
+"city-backdrop -z-10"[39m
+      [36m/>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m
+"city-grid -z-10"[39m
+      [36m/>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m
+"city-glow -z-10"[39m
+        [33mstyle[39m=[32m
+"background: 
+transparent;"[39m
+      [36m/>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m
+"audio-controls"[39m
+      [36m>[39m
+        [36m<button[39m
+          [33maria-label[39
+m=[32m"Mute audio"[39m
+          [33mclass[39m=[3
+2m"audio-toggle-btn"[39m
+          
+[33mtitle[39m=[32m"Mute 
+audio"[39m
+        [36m>[39m
+          [36m<svg[39m
+            [33mfill[39m=[
+32m"none"[39m
+            [33mheight[39m=
+[32m"24"[39m
+            [33mstroke[39m=
+[32m"currentColor"[39m
+            [33mstroke-width
+[39m=[32m"2"[39m
+            
+[33mviewBox[39m=[32m"0 0 
+24 24"[39m
+            [33mwidth[39m=
+[32m"24"[39m
+          [36m>[39m
+            [36m<path[39m
+              
+[33md[39m=[32m"M11 5L6 
+9H2v6h4l5 4V5z"[39m
+            [36m/>[39m
+            [36m<path[39m
+              
+[33md[39m=[32m"M19.07 
+4.93a10 10 0 0 1 0 
+14.14"[39m
+            [36m/>[39m
+            [36m<path[39m
+              
+[33md[39m=[32m"M15.54 
+8.46a5 5 0 0 1 0 7.07"[39m
+            [36m/>[39m
+          [36m</svg>[39m
+        [36m</button>[39m
+        [36m<button[39m
+          [33maria-label[39
+m=[32m"Audio settings"[39m
+          [33mclass[39m=[3
+2m"audio-settings-btn"[39m
+          
+[33mtitle[39m=[32m"Audio 
+settings"[39m
+        [36m>[39m
+          [0mΓÜÖ∩╕Å[0m
+        [36m</button>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m
+"board-shell"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[3
+2m"board-layout-main"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=
+[32m"board-stage   "[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m
+=[32m"board-grid "[39m
+            [36m>[39m
+              [36m<div[39m
+                [33mclass[3
+9m=[32m"board-tile  
+tile-id-0   "[39m
+                [33mstyle[3
+9m=[32m"grid-row: 6; 
+grid-column: 6;"[39m
+              [36m>[39m
+                
+[36m<span[39m
+                  [33mclass
+[39m=[32m"board-tile-label"
+[39m
+                [36m>[39m
+                  
+[0mSTART[0m
+                
+[36m</span>[39m
+              
+[36m</div>[39m
+              [36m<div[39m
+                [33mclass[3
+9m=[32m"board-tile 
+board-tile-funds tile-id-1   
+"[39m
+                [33mstyle[3
+9m=[32m"grid-row: 6; 
+grid-column: 5;"[39m
+              [36m>[39m
+                
+[36m<span[39m
+                  [33mclass
+[39m=[32m"board-tile-label"
+[39m
+                [36m>[39m
+                  
+[0mFUNDS[0m
+                
+[36m</span>[39m
+              
+[36m</div>[39m
+              [36m<div[39m
+                [33mclass[3
+9m=[32m"board-tile 
+board-tile-lottery tile-id-2 
+  "[39m
+                [33mstyle[3
+9m=[32m"grid-row: 6; 
+grid-column: 4;"[39m
+              [36m>[39m
+                
+[36m<span[39m
+                  [33mclass
+[39m=[32m"board-tile-label"
+[39m
+                [36m>[39m
+                  
+[0mLOTTERY[0m
+                
+[36m</span>[39m
+              
+[36m</div>[39m
+              [36m<div[39m
+                [33mclass[3
+9m=[32m"board-tile 
+board-tile-tax tile-id-3   
+"[39m
+                [33mstyle[3
+9m=[32m"grid-row: 6; 
+grid-column: 3;"[39m
+              [36m>[39m
+                
+[36m<span[39m
+                  [33mclass
+[39m=[32m"board-tile-label"
+[39m
+                [36m>[39m
+                  [0mTAX[0m
+                
+[36m</span>[39m
+              
+[36m</div>[39m
+              [36m<div[39m
+                [33mclass[3
+9m=[32m"board-tile 
+board-tile-shield tile-id-4  
+ "[39m
+                [33mstyle[3
+9m=[32m"grid-row: 6; 
+grid-column: 2;"[39m
+              [36m>[39m
+                
+[36m<span[39m
+                  [33mclass
+[39m=[32m"board-tile-label"
+[39m
+                [36m>[39m
+                  
+[0mSHIELD[0m
+                
+[36m</span>[39m
+              
+[36m</div>[39m
+              [36m<div[39m
+                [33mclass[3
+9m=[32m"board-tile  
+tile-id-5   "[39m
+                [33mstyle[3
+9m=[32m"grid-row: 6; 
+grid-column: 1;"[39m
+              [36m>[39m
+                
+[36m<span[39m
+                  [33mclass
+[39m=[32m"board-tile-label"
+[39m
+                [36m>[39m
+                  
+[0mBONUS[0m
+                
+[36m</span>[39m
+              
+[36m</div>[39m
+              [36m<div[39m
+                [33mclass[3
+9m=[32m"board-tile 
+board-tile-funds tile-id-6 
+board-tile-active  "[39m
+                [33mstyle[3
+9m=[32m"grid-row: 5; 
+grid-column: 1;"[39m
+              [36m>[39m
+                
+[36m<span[39m
+                  [33mclass
+[39m=[32m"board-tile-label"
+[39m
+                [36m>[39m
+                  
+[0mFUNDS[0m
+                
+[36m</span>[39m
+              
+[36m</div>[39m
+              [36m<div[39m
+                [33mclass[3
+9m=[32m"board-tile 
+board-tile-heist tile-id-7   
+"[39m
+                [33mstyle[3
+9m=[32m"grid-row: 4; 
+grid-column: 1;"[39m
+              [36m>[39m
+                
+[36m<span[39m
+                  [33mclass
+[39m=[32m"board-tile-label"
+[39m
+                [36m>[39m
+                  
+[0mHEIST[0m
+                
+[36m</span>[39m
+              
+[36m</div>[39m
+              [36m<div[39m
+                [33mclass[3
+9m=[32m"board-tile 
+board-tile-card tile-id-8   
+"[39m
+                [33mstyle[3
+9m=[32m"grid-row: 3; 
+grid-column: 1;"[39m
+              [36m>[39m
+                
+[36m<span[39m
+                  [33mclass
+[39m=[32m"board-tile-label"
+[39m
+                [36m>[39m
+                  
+[0mLANDMARK[0m
+                
+[36m</span>[39m
+                
+[36m<div[39m
+                  [33mstyle
+[39m=[32m"font-size: 11px; 
+margin-top: 4px; 
+font-weight: bold; color: 
+rgb(251, 191, 36); display: 
+flex; flex-direction: 
+column; align-items: center; 
+gap: 2px;"[39m
+                [36m>[39m
+                  
+[36m<span>[39m
+                    [0m0[0m
+                    [0m/[0m
+                    [0m5[0m
+                  
+[36m</span>[39m
+                
+[36m</div>[39m
+              
+[36m</div>[39m
+              [36m<div[39m
+                [33mclass[3
+9m=[32m"board-tile 
+board-tile-card tile-id-9   
+"[39m
+                [33mstyle[3
+9m=[32m"grid-row: 2; 
+grid-column: 1;"[39m
+              [36m>[39m
+                
+[36m<span[39m
+                  [33mclass
+[39m=[32m"board-tile-label"
+[39m
+                [36m>[39m
+                  
+[0mCARD[0m
+                
+[36m</span>[39m
+              
+[36m</div>[39m
+              [36...
+
+Ignored nodes: comments, 
+script, style
+[36m<html>[39m
+  [36m<head />[39m
+  [36m<body>[39m
+    [36m<div>[39m
+      [36m<section[39m
+        [33mclass[39m=[32m
+"board-section 
+board-section-fit 
+theme-neon-harbor"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[3
+2m"city-backdrop -z-10"[39m
+        [36m/>[39m
+        [36m<div[39m
+          [33mclass[39m=[3
+2m"city-grid -z-10"[39m
+        [36m/>[39m
+        [36m<div[39m
+          [33mclass[39m=[3
+2m"city-glow -z-10"[39m
+          [33mstyle[39m=[3
+2m"background: 
+transparent;"[39m
+        [36m/>[39m
+        [36m<div[39m
+          [33mclass[39m=[3
+2m"audio-controls"[39m
+        [36m>[39m
+          [36m<button[39m
+            [33maria-label[
+39m=[32m"Mute audio"[39m
+            [33mclass[39m=
+[32m"audio-toggle-btn"[39m
+            
+[33mtitle[39m=[32m"Mute 
+audio"[39m
+          [36m>[39m
+            [36m<svg[39m
+
+              [33mfill[39m=
+[32m"none"[39m
+              [33mheight[39
+m=[32m"24"[39m
+              [33mstroke[39
+m=[32m"currentColor"[39m
+              [33mstroke-wid
+th[39m=[32m"2"[39m
+              
+[33mviewBox[39m=[32m"0 0 
+24 24"[39m
+              [33mwidth[39m
+=[32m"24"[39m
+            [36m>[39m
+              [36m<path[39m
+                
+[33md[39m=[32m"M11 5L6 
+9H2v6h4l5 4V5z"[39m
+              [36m/>[39m
+              [36m<path[39m
+                
+[33md[39m=[32m"M19.07 
+4.93a10 10 0 0 1 0 
+14.14"[39m
+              [36m/>[39m
+              [36m<path[39m
+                
+[33md[39m=[32m"M15.54 
+8.46a5 5 0 0 1 0 7.07"[39m
+              [36m/>[39m
+            [36m</svg>[39m
+          [36m</button>[39m
+          [36m<button[39m
+            [33maria-label[
+39m=[32m"Audio 
+settings"[39m
+            [33mclass[39m=
+[32m"audio-settings-btn"[39m
+            
+[33mtitle[39m=[32m"Audio 
+settings"[39m
+          [36m>[39m
+            [0mΓÜÖ∩╕Å[0m
+          [36m</button>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[3
+2m"board-shell"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=
+[32m"board-layout-main"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m
+=[32m"board-stage   "[39m
+            [36m>[39m
+              [36m<div[39m
+                [33mclass[3
+9m=[32m"board-grid "[39m
+              [36m>[39m
+                
+[36m<div[39m
+                  [33mclass
+[39m=[32m"board-tile  
+tile-id-0   "[39m
+                  [33mstyle
+[39m=[32m"grid-row: 6; 
+grid-column: 6;"[39m
+                [36m>[39m
+                  
+[36m<span[39m
+                    [33mclas
+s[39m=[32m"board-tile-label
+"[39m
+                  [36m>[39m
+                    
+[0mSTART[0m
+                  
+[36m</span>[39m
+                
+[36m</div>[39m
+                
+[36m<div[39m
+                  [33mclass
+[39m=[32m"board-tile 
+board-tile-funds tile-id-1   
+"[39m
+                  [33mstyle
+[39m=[32m"grid-row: 6; 
+grid-column: 5;"[39m
+                [36m>[39m
+                  
+[36m<span[39m
+                    [33mclas
+s[39m=[32m"board-tile-label
+"[39m
+                  [36m>[39m
+                    
+[0mFUNDS[0m
+                  
+[36m</span>[39m
+                
+[36m</div>[39m
+                
+[36m<div[39m
+                  [33mclass
+[39m=[32m"board-tile 
+board-tile-lottery tile-id-2 
+  "[39m
+                  [33mstyle
+[39m=[32m"grid-row: 6; 
+grid-column: 4;"[39m
+                [36m>[39m
+                  
+[36m<span[39m
+                    [33mclas
+s[39m=[32m"board-tile-label
+"[39m
+                  [36m>[39m
+                    
+[0mLOTTERY[0m
+                  
+[36m</span>[39m
+                
+[36m</div>[39m
+                
+[36m<div[39m
+                  [33mclass
+[39m=[32m"board-tile 
+board-tile-tax tile-id-3   
+"[39m
+                  [33mstyle
+[39m=[32m"grid-row: 6; 
+grid-column: 3;"[39m
+                [36m>[39m
+                  
+[36m<span[39m
+                    [33mclas
+s[39m=[32m"board-tile-label
+"[39m
+                  [36m>[39m
+                    
+[0mTAX[0m
+                  
+[36m</span>[39m
+                
+[36m</div>[39m
+                
+[36m<div[39m
+                  [33mclass
+[39m=[32m"board-tile 
+board-tile-shield tile-id-4  
+ "[39m
+                  [33mstyle
+[39m=[32m"grid-row: 6; 
+grid-column: 2;"[39m
+                [36m>[39m
+                  
+[36m<span[39m
+                    [33mclas
+s[39m=[32m"board-tile-label
+"[39m
+                  [36m>[39m
+                    
+[0mSHIELD[0m
+                  
+[36m</span>[39m
+                
+[36m</div>[39m
+                
+[36m<div[39m
+                  [33mclass
+[39m=[32m"board-tile  
+tile-id-5   "[39m
+                  [33mstyle
+[39m=[32m"grid-row: 6; 
+grid-column: 1;"[39m
+                [36m>[39m
+                  
+[36m<span[39m
+                    [33mclas
+s[39m=[32m"board-tile-label
+"[39m
+                  [36m>[39m
+                    
+[0mBONUS[0m
+                  
+[36m</span>[39m
+                
+[36m</div>[39m
+                
+[36m<div[39m
+                  [33mclass
+[39m=[32m"board-tile 
+board-tile-funds tile-id-6 
+board-tile-active  "[39m
+                  [33mstyle
+[39m=[32m"grid-row: 5; 
+grid-column: 1;"[39m
+                [36m>[39m
+                  
+[36m<span[39m
+                    [33mclas
+s[39m=[32m"board-tile-label
+"[39m
+                  [36m>[39m
+                    
+[0mFUNDS[0m
+                  
+[36m</span>[39m
+                
+[36m</div>[39m
+                
+[36m<div[39m
+                  [33mclass
+[39m=[32m"board-tile 
+board-tile-heist tile-id-7   
+"[39m
+                  [33mstyle
+[39m=[32m"grid-row: 4; 
+grid-column: 1;"[39m
+                [36m>[39m
+                  
+[36m<span[39m
+                    [33mclas
+s[39m=[32m"board-tile-label
+"[39m
+                  [36m>[39m
+                    
+[0mHEIST[0m
+                  
+[36m</span>[39m
+                
+[36m</div>[39m
+                
+[36m<div[39m
+                  [33mclass
+[39m=[32m"board-tile 
+board-tile-card tile-id-8   
+"[39m
+                  [33mstyle
+[39m=[32m"grid-row: 3; 
+grid-column: 1;"[39m
+                [36m>[39m
+                  
+[36m<span[39m
+                    [33mclas
+s[39m=[32m"board-tile-label
+"[39m
+                  [36m>[39m
+                    
+[0mLANDMARK[0m
+                  
+[36m</span>[39m
+                  
+[36m<div[39m
+                    [33mstyl
+e[39m=[32m"font-size: 
+11px; margin-top: 4px; 
+font-weight: bold; color: 
+rgb(251, 191, 36); display: 
+flex; flex-direction: 
+column; align-items: center; 
+gap: 2px;"[39m
+                  [36m>[39m
+                    
+[36m<span>[39m
+                      
+[0m0[0m
+                      
+[0m/[0m
+                      
+[0m5[0m
+                    
+[36m</span>[39m
+                  
+[36m</div>[39m
+                
+[36m</div>[39m
+                
+[36m<div[39m
+                  [33mclass
+[39m=[32m"board-tile 
+board-t...
+[90m [2mΓ¥»[22m 
+waitForWrapper node_modules/@
+testing-library/dom/dist/wait
+-for.js:[2m163:27[22m[39m
+[36m [2mΓ¥»[22m src/compon
+ents/__tests__/UpgradeFeedbac
+k.test.jsx:[2m49:11[22m[39
+m
+    [90m 47| [39m
+    [90m 48| [39m    
+[90m// Find upgrade button 
+- wait for it to appear with 
+correct text[39m
+    [90m 49| [39m    
+[35mawait[39m 
+[34mwaitFor[39m(() 
+[33m=>[39m {
+    [90m   | [39m          
+[31m^[39m
+    [90m 50| [39m        
+const upgradeButton = 
+screen.getByRole('button', { 
+name: /0ΓåÆ1 ΓÇª
+    [90m 51| [39m        [
+34mexpect[39m(upgradeButton)
+[33m.[39mnot[33m.[39m[34
+mtoBeDisabled[39m()[33m;[3
+9m
+
+[31m[2mΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ
+»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»Γ
+Ä»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[4/4]Γ
+Ä»[22m[39m
+
+[2m Test Files [22m [1m[31m3 failed[39m[22m[2m | [22m[1m[32m18 passed[39m[22m[90m (21)[39m
+[2m      Tests [22m [1m[31m4 failed[39m[22m[2m | [22m[1m[32m243 passed[39m[22m[90m (247)[39m
+[2m   Start at [22m 12:44:41
+[2m   Duration [22m 31.25s[2m (transform 1.11s, setup 3.52s, collect 9.97s, tests 49.49s, environment 20.02s, prepare 3.53s)[22m
+

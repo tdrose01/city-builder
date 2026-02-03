@@ -17,22 +17,35 @@ class AudioContextMock {
   createOscillator() {
     return {
       type: 'sine',
-      frequency: { value: 0 },
-      connect: () => {},
-      start: () => {},
-      stop: () => {},
+      frequency: { 
+        value: 0,
+        setValueAtTime: vi.fn(),
+        exponentialRampToValueAtTime: vi.fn()
+      },
+      connect: vi.fn(),
+      start: vi.fn(),
+      stop: vi.fn(),
     }
   }
 
   createGain() {
     return {
-      gain: { value: 0, exponentialRampToValueAtTime: () => {} },
-      connect: () => {},
+      gain: { 
+        value: 0,
+        setValueAtTime: vi.fn(),
+        exponentialRampToValueAtTime: vi.fn()
+      },
+      connect: vi.fn(),
     }
+  }
+
+  close() {
+    return Promise.resolve()
   }
 }
 
 global.AudioContext = AudioContextMock
+global.webkitAudioContext = AudioContextMock
 
 const ResizeObserverMock = vi.fn(() => ({
   observe: vi.fn(),

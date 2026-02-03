@@ -1,0 +1,79 @@
+﻿
+[1m[46m RUN [49m[22m [36mv3.2.4 [39m[90mC:/city-slick1/city-builder/web[39m
+
+node.exe : [90mstderr[2m | 
+src/components/__tests__/Upgr
+adeFeedback.test.jsx
+At C:\Program 
+Files\nodejs\npx.ps1:29 
+char:3
++   & $NODE_EXE $NPX_CLI_JS 
+$args
++   
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo           
+   : NotSpecified: ([90mst  
+  derr[2m...edback.test.j   
+ sx:String) [], RemoteExc    
+eption
+    + FullyQualifiedErrorId  
+   : NativeCommandError
+ 
+[22m[39mWARNING: Multiple 
+instances of Three.js being 
+imported.
+
+[90mstderr[2m | src/compone
+nts/__tests__/BoardLoop.test.
+jsx
+[22m[39mWARNING: Multiple 
+instances of Three.js being 
+imported.
+
+[90mstderr[2m | src/compone
+nts/__tests__/UpgradeFeedback
+.test.jsx[2m > 
+[22m[2mupgrading landmark 
+triggers text pop
+[22m[39mReceived `true` 
+for a non-boolean attribute 
+`jsx`.
+
+If you want to write it to 
+the DOM, pass a string 
+instead: jsx="true" or 
+jsx={value.toString()}.
+
+[90mstderr[2m | src/compone
+nts/__tests__/BoardLoop.test.
+jsx[2m > [22m[2mplayer 
+can move around the board 
+and collect funds
+[22m[39mReceived `true` 
+for a non-boolean attribute 
+`jsx`.
+
+If you want to write it to 
+the DOM, pass a string 
+instead: jsx="true" or 
+jsx={value.toString()}.
+
+[90mstdout[2m | src/components/__tests__/UpgradeFeedback.test.jsx[2m > [22m[2mupgrading landmark triggers text pop
+[22m[39mAudioManager initialized
+
+[90mstdout[2m | src/components/__tests__/BoardLoop.test.jsx[2m > [22m[2mplayer can move around the board and collect funds
+[22m[39mAudioManager initialized
+
+ [32mΓ£ô[39m src/components/__tests__/BoardLoop.test.jsx[2m > [22mplayer can move around the board and collect funds[33m 313[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/BoardLoop.test.jsx[2m > [22mevent progress increments by pacing points per roll[33m 879[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/UpgradeFeedback.test.jsx[2m > [22mupgrading landmark triggers text pop[33m 2855[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/BoardLoop.test.jsx[2m > [22mdoubles bonus scales dice refund[33m 1912[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/BoardLoop.test.jsx[2m > [22mupgrade landmark button is disabled if funds are insufficient[33m 2741[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/BoardLoop.test.jsx[2m > [22mswitching city level updates the city title and tile set[32m 63[2mms[22m[39m
+ [32mΓ£ô[39m src/components/__tests__/BoardLoop.test.jsx[2m > [22msticker album shows progress hints and currency flow[32m 93[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m2 passed[39m[22m[90m (2)[39m
+[2m      Tests [22m [1m[32m7 passed[39m[22m[90m (7)[39m
+[2m   Start at [22m 13:03:01
+[2m   Duration [22m 8.91s[2m (transform 448ms, setup 262ms, collect 2.65s, tests 8.86s, environment 1.67s, prepare 771ms)[22m
+

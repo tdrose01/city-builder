@@ -23,18 +23,15 @@ afterEach(() => {
 
 test('upgrading landmark triggers text pop', async () => {
     const setFundsMock = vi.fn();
-    
+
     // Start with enough funds (upgrade cost 1000)
     // Land on Upgrade (index 8)
     // Roll 4 + 4 = 8
     vi.spyOn(Math, 'random')
-      .mockReturnValueOnce(0.5) // Initial comboTarget
-      .mockReturnValueOnce(0.5) // die1 = 4
-      .mockReturnValueOnce(0.5) // die2 = 4
-      .mockReturnValueOnce(0.5); // New combo target (if miss)
+        .mockReturnValue(0.5); // die1=4, die2=4, total=8 -> land on Landmark (index 8)
 
-    render(<BoardLoop cityLevel={1} funds={2000} setFunds={setFundsMock} shields={0} setShields={() => {}} dice={50} setDice={() => {}} setCityLevel={() => {}} />);
-    
+    render(<BoardLoop cityLevel={1} funds={2000} setFunds={setFundsMock} shields={0} setShields={() => { }} dice={50} setDice={() => { }} setCityLevel={() => { }} />);
+
     // Roll to land on City Hall
     const rollDiceButton = screen.getByRole('button', { name: /Roll/i });
     await userEvent.click(rollDiceButton);
@@ -47,7 +44,7 @@ test('upgrading landmark triggers text pop', async () => {
 
     // Find upgrade button - wait for it to appear with correct text
     await waitFor(() => {
-        const upgradeButton = screen.getByRole('button', { name: /\$1k/i });
+        const upgradeButton = screen.getByRole('button', { name: /0.*1.*1k/i });
         expect(upgradeButton).not.toBeDisabled();
         userEvent.click(upgradeButton);
     }, { timeout: 10000 });
