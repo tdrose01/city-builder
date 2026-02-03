@@ -354,33 +354,6 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
   // Phase 10: 3D Particle System Ref
   const particleSystemRef = useRef(null);
 
-  const addParticleEffect = useCallback((type, x, y, options = {}) => {
-    // 1. Legacy DOM Particles (Keep for UI overlay effects like text pops)
-    const id = Date.now() + Math.random();
-    setActiveParticles(prev => [...prev, { id, type, x, y, ...options }]);
-    
-    // 2. Phase 10: 3D Particles (The Juice)
-    if (particleSystemRef.current) {
-      // Map 2D screen coords (x,y) to 3D world coords if needed, 
-      // or just emit at center for now (0,0,0) since we don't have raycasting yet.
-      // For now, let's just emit an explosion at center for big events.
-      
-      let color = '#ffffff';
-      if (type === 'coins' || type === 'funds') color = '#fbbf24';
-      if (type === 'stars') color = '#a855f7';
-      if (type === 'confetti') color = ['#ff0000', '#00ff00', '#0000ff'][Math.floor(Math.random()*3)];
-
-      // Only fire 3D particles for major events to avoid cluttering while testing
-      if (['coins', 'stars', 'fireworks', 'confetti'].includes(type)) {
-         particleSystemRef.current.emit(0, 0, 0, {
-           amount: options.count ? options.count * 2 : 20, // Double count for 3D!
-           color: color,
-           speed: 8,
-           spread: 2
-         });
-      }
-    }
-  }, []);
 
   useEffect(() => {
     if (!isStorageAvailable()) {
@@ -2347,7 +2320,9 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
     <>
       {/* Phase 10: Global 3D Scene */}
       <GameScene>
-        <DiceGroup rolling={rolling} value1={die1Value} value2={die2Value} />
+        <group position={[0, 2.5, 0]}>
+          <DiceGroup rolling={rolling} value1={die1Value} value2={die2Value} />
+        </group>
         <InstancedParticles ref={particleSystemRef} />
       </GameScene>
 
