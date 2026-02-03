@@ -8,7 +8,10 @@ import ParticleEffect from './ParticleEffect';
 import TextPop from './TextPop';
 import AudioControls from './AudioControls';
 import audioManager from '../utils/audioManager';
-import ThreeDice from './ThreeDice';
+// import ThreeDice from './ThreeDice'; // Deprecated in Phase 10
+import { DiceGroup } from './ThreeDice'; 
+import GameScene from './Scene3D/GameScene'; 
+import InstancedParticles from './Scene3D/VFX/InstancedParticles';
 import Notification from './Notification';
 import ConfirmDialog from './ConfirmDialog';
 import AnalyticsViewer from './AnalyticsViewer';
@@ -347,11 +350,37 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
   // Analytics: Session tracking
   const currentSession = useRef(new SessionMetrics());
   const skipCityResetRef = useRef(false);
+  
+  // Phase 10: 3D Particle System Ref
+  const particleSystemRef = useRef(null);
 
-  // Persistence: Load game on mount
-  useEffect(() => {
-    diceRef.current = dice;
-  }, [dice]);
+  const addParticleEffect = useCallback((type, x, y, options = {}) => {
+    // 1. Legacy DOM Particles (Keep for UI overlay effects like text pops)
+    const id = Date.now() + Math.random();
+    setActiveParticles(prev => [...prev, { id, type, x, y, ...options }]);
+    
+    // 2. Phase 10: 3D Particles (The Juice)
+    if (particleSystemRef.current) {
+      // Map 2D screen coords (x,y) to 3D world coords if needed, 
+      // or just emit at center for now (0,0,0) since we don't have raycasting yet.
+      // For now, let's just emit an explosion at center for big events.
+      
+      let color = '#ffffff';
+      if (type === 'coins' || type === 'funds') color = '#fbbf24';
+      if (type === 'stars') color = '#a855f7';
+      if (type === 'confetti') color = ['#ff0000', '#00ff00', '#0000ff'][Math.floor(Math.random()*3)];
+
+      // Only fire 3D particles for major events to avoid cluttering while testing
+      if (['coins', 'stars', 'fireworks', 'confetti'].includes(type)) {
+         particleSystemRef.current.emit(0, 0, 0, {
+           amount: options.count ? options.count * 2 : 20, // Double count for 3D!
+           color: color,
+           speed: 8,
+           spread: 2
+         });
+      }
+    }
+  }, []);
 
   useEffect(() => {
     if (!isStorageAvailable()) {
@@ -2316,13 +2345,19 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
 
   return (
     <>
+      {/* Phase 10: Global 3D Scene */}
+      <GameScene>
+        <DiceGroup rolling={rolling} value1={die1Value} value2={die2Value} />
+        <InstancedParticles ref={particleSystemRef} />
+      </GameScene>
+
       <Notification notification={notification} onClose={() => setNotification(null)} />
       <ConfirmDialog
         dialog={confirmDialog}
         onConfirm={() => confirmDialog?.onConfirm()}
         onCancel={() => setConfirmDialog(null)}
       />
-      <section className={`board-section board-section-fit ${cityData.backdropClass}`}>
+      <section className={`board-section board-section-fit ${cityData.backdropClass}`} style={{ position: 'relative', zIndex: 10 }}>
         {/* Dynamic Progression Backdrop */}
         <div className="city-backdrop -z-10" />
         <div className="city-grid -z-10" />
@@ -2399,7 +2434,9 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
                   />
                 </motion.div>
                 <div className="board-center">
-                  <ThreeDice rolling={rolling} value1={die1Value} value2={die2Value} />
+                  {/* Phase 10: Dice moved to Global GameScene */}
+                  {/* <ThreeDice rolling={rolling} value1={die1Value} value2={die2Value} /> */}
+                  <div style={{ height: '100%', width: '100%' }} /> 
 
                   <ComboTracker comboChain={comboChain} getComboMultiplier={getComboMultiplier} />
 

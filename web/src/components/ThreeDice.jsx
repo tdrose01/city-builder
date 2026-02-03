@@ -148,6 +148,13 @@ const DiceCube = ({ position, rotation, value, rolling }) => {
   );
 };
 
+export const DiceGroup = ({ rolling, value1, value2 }) => (
+  <group>
+    <DiceCube position={[-0.8, 0, 0]} value={value1 || 1} rolling={rolling} />
+    <DiceCube position={[0.8, 0, 0]} value={value2 || 6} rolling={rolling} />
+  </group>
+);
+
 function ThreeDice({ rolling, value1, value2 }) {
   return (
     <div className="three-dice-container" style={{ 
