@@ -1,6 +1,6 @@
 import React, { useRef, useState, useMemo } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { RoundedBox, Text } from '@react-three/drei';
+import { RoundedBox, Text, Html } from '@react-three/drei';
 import * as THREE from 'three';
 
 /**
@@ -209,39 +209,61 @@ const Tile3D = ({
         />
       </RoundedBox>
       
-      {/* Tile label */}
-      <Text
-        position={[0, tileConfig.height + 0.05, 0]}
-        fontSize={0.3}
-        color="white"
-        anchorX="center"
-        anchorY="middle"
-        maxWidth={2}
+      {/* Tile label - HTML OVERLAY for guaranteed visibility */}
+      <Html
+        position={[0, tileConfig.height / 2 + 0.05, 0]}
+        center
+        distanceFactor={8}
+        style={{
+          pointerEvents: 'none',
+          userSelect: 'none',
+        }}
       >
-        {name}
-      </Text>
+        <div style={{
+          background: 'rgba(0,0,0,0.7)',
+          padding: '2px 8px',
+          borderRadius: '4px',
+          border: `1px solid ${tileConfig.color}`,
+          color: 'white',
+          fontSize: '10px',
+          fontWeight: 'bold',
+          whiteSpace: 'nowrap',
+          textShadow: '0 1px 2px rgba(0,0,0,0.8)',
+          transform: 'translateY(-50%)',
+        }}>
+          {name.toUpperCase()}
+        </div>
+      </Html>
       
-      {/* Icon indicator */}
-      <Text
-        position={[0, tileConfig.height + 0.05, 0.2]}
-        fontSize={0.4}
-        anchorX="center"
-        anchorY="middle"
+      {/* Icon emoji */}
+      <Html
+        position={[0, tileConfig.height / 2 + 0.05, 0.4]}
+        center
+        distanceFactor={10}
+        style={{ pointerEvents: 'none' }}
       >
-        {tileConfig.icon}
-      </Text>
+        <div style={{ fontSize: '14px', filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.5))' }}>
+          {tileConfig.icon}
+        </div>
+      </Html>
       
       {/* Payout text for Funds tiles */}
       {payout && (
-        <Text
-          position={[0, tileConfig.height + 0.05, -0.3]}
-          fontSize={0.2}
-          color="#fbbf24"
-          anchorX="center"
-          anchorY="middle"
+        <Html
+          position={[0, tileConfig.height / 2 + 0.05, -0.4]}
+          center
+          distanceFactor={10}
+          style={{ pointerEvents: 'none' }}
         >
-          +{payout}
-        </Text>
+          <div style={{
+            color: '#fbbf24',
+            fontSize: '9px',
+            fontWeight: 'bold',
+            textShadow: '0 1px 2px rgba(0,0,0,0.8)',
+          }}>
+            +{payout}
+          </div>
+        </Html>
       )}
       
       {/* Level indicators for Landmark */}
