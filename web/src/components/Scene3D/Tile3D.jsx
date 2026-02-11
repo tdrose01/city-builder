@@ -225,7 +225,7 @@ const Tile3D = ({
           borderRadius: '4px',
           border: `1px solid ${tileConfig.color}`,
           color: 'white',
-          fontSize: '10px',
+          fontSize: '18px',
           fontWeight: 'bold',
           whiteSpace: 'nowrap',
           textShadow: '0 1px 2px rgba(0,0,0,0.8)',
@@ -242,7 +242,7 @@ const Tile3D = ({
         distanceFactor={10}
         style={{ pointerEvents: 'none' }}
       >
-        <div style={{ fontSize: '14px', filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.5))' }}>
+        <div style={{ fontSize: '18px', filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.5))' }}>
           {tileConfig.icon}
         </div>
       </Html>
@@ -257,7 +257,7 @@ const Tile3D = ({
         >
           <div style={{
             color: '#fbbf24',
-            fontSize: '9px',
+            fontSize: '12px',
             fontWeight: 'bold',
             textShadow: '0 1px 2px rgba(0,0,0,0.8)',
           }}>
