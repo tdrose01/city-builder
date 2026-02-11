@@ -334,6 +334,7 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
   const [targetCity, setTargetCity] = useState(null);
   const [activeTab, setActiveTab] = useState('event');
   const [isMoving, setIsMoving] = useState(false);
+  const [use3DBoard, setUse3DBoard] = useState(true); // Phase 10: 3D board enabled
   const [autoRollEnabled, setAutoRollEnabled] = useState(false);
   const [missionResetAvailable, setMissionResetAvailable] = useState(false);
   const [missionResetHandler, setMissionResetHandler] = useState(null);
@@ -2249,7 +2250,14 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
     return (
       <motion.div
         key={tile.id}
-        style={position}
+        style={{
+          ...position,
+          backgroundColor: use3DBoard ? 'transparent' : undefined,
+          border: use3DBoard ? '1px solid rgba(255,255,255,0.1)' : undefined,
+          boxShadow: use3DBoard ? 'none' : undefined,
+          pointerEvents: 'auto', // Keep clickable
+          zIndex: use3DBoard ? 10 : 'auto'
+        }}
         className={`board-tile ${tileTypeClass} tile-id-${tile.id} ${isLanded ? 'board-tile-active' : ''} ${tileGlow === tile.type ? 'tile-glow' : ''} ${effectClass}`}
         initial={false}
         animate={{
@@ -2274,8 +2282,10 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
           damping: 20
         }}
       >
-        <span className="board-tile-label">{displayLabel}</span>
-        {tile.type === 'Landmark' && (
+        {!use3DBoard && (
+          <span className="board-tile-label">{displayLabel}</span>
+        )}
+        {!use3DBoard && tile.type === 'Landmark' && (
           <div style={{
             fontSize: '11px',
             marginTop: '4px',

@@ -16,7 +16,7 @@ export default function GameScene({ children, cameraPosition = [0, 15, 15] }) {
       left: 0,
       width: '100vw',
       height: '100vh',
-      zIndex: 0, // Behind UI, but visible
+      zIndex: 1, // Behind UI overlay, above background
       pointerEvents: 'none', // Let clicks pass through to UI for now
     }}>
       <Canvas
