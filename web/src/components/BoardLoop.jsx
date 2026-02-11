@@ -9,9 +9,11 @@ import TextPop from './TextPop';
 import AudioControls from './AudioControls';
 import audioManager from '../utils/audioManager';
 // import ThreeDice from './ThreeDice'; // Deprecated in Phase 10
-import { DiceGroup } from './ThreeDice'; 
-import GameScene from './Scene3D/GameScene'; 
+import { DiceGroup } from './ThreeDice';
+import GameScene from './Scene3D/GameScene';
 import InstancedParticles from './Scene3D/VFX/InstancedParticles';
+import Board3D from './Scene3D/Board3D';
+import VFXManager from './Scene3D/VFXManager';
 import Notification from './Notification';
 import ConfirmDialog from './ConfirmDialog';
 import AnalyticsViewer from './AnalyticsViewer';
@@ -350,9 +352,11 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
   // Analytics: Session tracking
   const currentSession = useRef(new SessionMetrics());
   const skipCityResetRef = useRef(false);
-  
+
   // Phase 10: 3D Particle System Ref
   const particleSystemRef = useRef(null);
+  const board3DRef = useRef(null);
+  const vfxRef = useRef(null);
 
 
   useEffect(() => {
@@ -2324,6 +2328,14 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
           <DiceGroup rolling={rolling} value1={die1Value} value2={die2Value} />
         </group>
         <InstancedParticles ref={particleSystemRef} />
+        <Board3D
+          ref={board3DRef}
+          tiles={tiles}
+          playerPosition={playerPosition}
+          isMoving={isMoving}
+          themeColor={cityData.themeColor}
+        />
+        <VFXManager ref={vfxRef} />
       </GameScene>
 
       <Notification notification={notification} onClose={() => setNotification(null)} />
@@ -2411,7 +2423,7 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
                 <div className="board-center">
                   {/* Phase 10: Dice moved to Global GameScene */}
                   {/* <ThreeDice rolling={rolling} value1={die1Value} value2={die2Value} /> */}
-                  <div style={{ height: '100%', width: '100%' }} /> 
+                  <div style={{ height: '100%', width: '100%' }} />
 
                   <ComboTracker comboChain={comboChain} getComboMultiplier={getComboMultiplier} />
 

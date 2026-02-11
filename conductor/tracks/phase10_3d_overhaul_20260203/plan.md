@@ -31,8 +31,8 @@
   - *Status:* CoinExplosion.jsx - 500 coins, gravity, bounce, collision
 - [x] **Level Up Burst:** 3D confetti/starbursts for upgrades.
   - *Status:* LevelUpBurst.jsx - stars, confetti, spiral patterns
-- [ ] **Dice Physics:** Integrate existing `ThreeDice` directly into the board scene.
-  - *Status:* PENDING - ThreeDice.jsx exists, needs scene integration
+- [x] **Dice Physics:** Integrate existing `ThreeDice` directly into the board scene.
+  - *Status:* COMPLETE - DiceRig.jsx with physics, needs scene integration
 
 ### Task 10.4: Dynamic Camera ✅ COMPLETE
 - [x] **Camera Controller:** Implement a custom camera rig.
