@@ -2252,8 +2252,8 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
         key={tile.id}
         style={{
           ...position,
-          backgroundColor: use3DBoard ? 'rgba(255,255,255,0.03)' : undefined,
-          border: use3DBoard ? '1px solid rgba(255,255,255,0.08)' : undefined,
+          backgroundColor: 'transparent',
+          border: 'none',
           boxShadow: 'none',
           pointerEvents: 'auto',
           zIndex: use3DBoard ? 10 : 'auto'
@@ -2262,7 +2262,7 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
         initial={false}
         animate={{
           scale: 1,
-          opacity: use3DBoard ? 0.15 : 1,
+          opacity: use3DBoard ? 0 : 1,
           z: isLanded ? 30 : 10
         }}
         whileHover={{
