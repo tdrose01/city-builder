@@ -2252,13 +2252,13 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
         key={tile.id}
         style={{
           ...position,
-          backgroundColor: use3DBoard ? 'transparent' : undefined,
-          border: use3DBoard ? '1px solid rgba(255,255,255,0.1)' : undefined,
-          boxShadow: use3DBoard ? 'none' : undefined,
-          pointerEvents: 'auto', // Keep clickable
+          backgroundColor: 'transparent',
+          border: use3DBoard ? 'none' : undefined,
+          boxShadow: 'none',
+          pointerEvents: 'auto',
           zIndex: use3DBoard ? 10 : 'auto'
         }}
-        className={`board-tile ${tileTypeClass} tile-id-${tile.id} ${isLanded ? 'board-tile-active' : ''} ${tileGlow === tile.type ? 'tile-glow' : ''} ${effectClass}`}
+        className={`${use3DBoard ? '' : 'board-tile'} ${tileTypeClass} tile-id-${tile.id} ${isLanded ? 'board-tile-active' : ''} ${tileGlow === tile.type ? 'tile-glow' : ''} ${effectClass}`}
         initial={false}
         animate={{
           scale: 1,
