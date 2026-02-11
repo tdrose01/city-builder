@@ -1,0 +1,173 @@
+import React, { useMemo, useRef, useImperativeHandle, forwardRef } from 'react';
+import { useFrame } from '@react-three/fiber';
+import * as THREE from 'three';
+import Tile3D from './Tile3D';
+import PlayerPawn from './PlayerPawn';
+import CameraController from './CameraController';
+
+/**
+ * Board3D
+ * Renders the 20-tile board loop in 3D space.
+ * Tiles are arranged in a rectangular path (Monopoly-style).
+ */
+const Board3D = forwardRef(({ 
+  tiles = [],
+  playerPosition = 0,
+  playerTargetPosition = null,
+  isMoving = false,
+  themeColor = '#00f3ff',
+  onTileClick,
+  children
+}, ref) => {
+  const boardGroupRef = useRef();
+  const pawnRef = useRef();
+  const cameraRef = useRef();
+
+  // Board dimensions (Monopoly-style rectangle)
+  const BOARD_CONFIG = useMemo(() => ({
+    tilesPerSide: 5, // 5 tiles per side (corners = 1 tile)
+    tileSize: 2,
+    tileSpacing: 0.1,
+    cornerSize: 2.5,
+    height: 0.3,
+    pathRadius: 0.3 // rounded corners
+  }), []);
+
+  // Calculate tile positions in 3D space
+  const tilePositions = useMemo(() => {
+    const positions = [];
+    const { tilesPerSide, tileSize, tileSpacing, cornerSize } = BOARD_CONFIG;
+    
+    const sideLength = tilesPerSide * tileSize + (tilesPerSide - 1) * tileSpacing;
+    const halfSide = sideLength / 2;
+    
+    // Calculate center offset to center the board
+    const offsetX = 0;
+    const offsetZ = 0;
+    
+    // Tile 0 is bottom-right corner (START)
+    // Going counter-clockwise:
+    // Side 0: Bottom (tiles 0-5, right to left)
+    // Side 1: Left (tiles 5-10, bottom to top)
+    // Side 2: Top (tiles 10-15, left to right)
+    // Side 3: Right (tiles 15-20/0, top to bottom)
+    
+    for (let i = 0; i < 20; i++) {
+      let x = 0, z = 0, rotation = 0;
+      
+      if (i <= 5) {
+        // Bottom side (moving left from corner 0)
+        const pos = i === 0 ? 0 : (5 - i);
+        x = halfSide - (pos * (tileSize + tileSpacing));
+        z = halfSide;
+        rotation = 0;
+        if (i === 0) { x = halfSide; z = halfSide; }
+      } else if (i <= 10) {
+        // Left side (moving up from corner 5)
+        const pos = i === 5 ? 0 : (i - 5);
+        x = -halfSide;
+        z = halfSide - (pos * (tileSize + tileSpacing));
+        rotation = Math.PI / 2;
+        if (i === 5) { x = -halfSide; z = halfSide; rotation = 0; }
+      } else if (i <= 15) {
+        // Top side (moving right from corner 10)
+        const pos = i === 10 ? 0 : (i - 10);
+        x = -halfSide + (pos * (tileSize + tileSpacing));
+        z = -halfSide;
+        rotation = Math.PI;
+        if (i === 10) { x = -halfSide; z = -halfSide; rotation = Math.PI / 2; }
+      } else {
+        // Right side (moving down from corner 15)
+        const pos = i === 15 ? 0 : (i - 15);
+        x = halfSide;
+        z = -halfSide + (pos * (tileSize + tileSpacing));
+        rotation = -Math.PI / 2;
+        if (i === 15) { x = halfSide; z = -halfSide; rotation = Math.PI; }
+      }
+      
+      positions.push({
+        id: i,
+        position: [x + offsetX, 0, z + offsetZ],
+        rotation: [0, rotation, 0],
+        isCorner: i % 5 === 0
+      });
+    }
+    
+    return positions;
+  }, [BOARD_CONFIG]);
+
+  // Get current and target positions for pawn
+  const currentTilePos = tilePositions[playerPosition]?.position || [0, 0, 0];
+  const targetTilePos = playerTargetPosition !== null 
+    ? tilePositions[playerTargetPosition]?.position 
+    : currentTilePos;
+
+  // Expose API to parent
+  useImperativeHandle(ref, () => ({
+    getTilePosition: (index) => tilePositions[index]?.position || [0, 0, 0],
+    getPawnPosition: () => pawnRef.current?.getPosition(),
+    triggerCameraShake: (intensity = 0.5, duration = 0.5) => {
+      cameraRef.current?.shake(intensity, duration);
+    },
+    zoomToTile: (tileIndex, zoom = 1.5) => {
+      const pos = tilePositions[tileIndex]?.position;
+      if (pos) cameraRef.current?.zoomTo(pos, zoom);
+    }
+  }));
+
+  return (
+    <group ref={boardGroupRef}>
+      {/* Camera Controller */}
+      <CameraController 
+        ref={cameraRef}
+        targetPosition={isMoving ? targetTilePos : currentTilePos}
+        followPlayer={true}
+      />
+      
+      {/* Player Pawn */}
+      <PlayerPawn 
+        ref={pawnRef}
+        position={currentTilePos}
+        targetPosition={targetTilePos}
+        isMoving={isMoving}
+        themeColor={themeColor}
+      />
+      
+      {/* Board Tiles */}
+      {tilePositions.map((tileData) => {
+        const tileConfig = tiles.find(t => t.id === tileData.id);
+        return (
+          <Tile3D
+            key={tileData.id}
+            id={tileData.id}
+            position={tileData.position}
+            rotation={tileData.rotation}
+            type={tileConfig?.type || 'Funds'}
+            name={tileConfig?.name || `Tile ${tileData.id}`}
+            themeColor={themeColor}
+            isCorner={tileData.isCorner}
+            onClick={() => onTileClick?.(tileData.id)}
+            payout={tileConfig?.payout}
+            level={tileConfig?.level}
+          />
+        );
+      })}
+      
+      {/* Ground plane for shadows */}
+      <mesh position={[0, -0.01, 0]} receiveShadow>
+        <planeGeometry args={[20, 20]} />
+        <meshStandardMaterial 
+          color="#1a1a2e" 
+          roughness={0.8}
+          metalness={0.1}
+        />
+      </mesh>
+      
+      {children}
+    </group>
+  );
+});
+
+Board3D.displayName = 'Board3D';
+
+export default Board3D;
