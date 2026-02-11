@@ -2,6 +2,75 @@
 
 All notable changes to the City Slacker project are documented here.
 
+## [2026-02-11] - Phase 10: 3D Visual Overhaul - COMPLETE 🎨
+
+**3D transformation complete. The flat DOM board is now a fully immersive 3D experience powered by React Three Fiber.**
+
+### 🎯 Task 10.1: 3D Infrastructure (COMPLETE)
+- **Canvas Refactor**: BoardLoop now wraps in global `<Canvas>` via `GameScene.jsx`
+- **UI Overlay**: CSS layering strategy (`zIndex: 10` for HUD, `zIndex: 0` for 3D)
+- **Lighting**: Ambient + Directional lights with shadows, HDRI environment preset
+- **Post-Processing**: Bloom effects for glow and "juice"
+
+### 🧱 Task 10.2: 3D Board System (COMPLETE)
+- **Board3D.jsx**: 20-tile rectangular board layout (5 tiles per side)
+- **Tile3D.jsx**: 16 tile types:
+  - `RoundedBox` geometry with rounded edges
+  - Type-specific emissive materials (Start: Green, Funds: Theme, Jail: Gray, etc.)
+  - Hover effects: Scale + glow ring
+  - Floating animation
+  - Icon labels (emoji indicators)
+- **PlayerPawn.jsx**: 
+  - Multi-part 3D mesh (base + middle + glow orb)
+  - Parabolic hop animation (spring physics)
+  - Particle trail during movement
+  - Idle floating + breathing glow
+
+### 💥 Task 10.3: High-Performance VFX (COMPLETE)
+- **InstancedMesh System**: Single draw call for thousands of particles
+- **CoinExplosion.jsx**: 
+  - 500 instanced coins
+  - Physics: gravity, bounce, drag
+  - Gold/silver variants
+  - Floor collision
+- **LevelUpBurst.jsx**:
+  - 300 particles (stars, confetti, sparkles)
+  - Color palettes: gold, rainbow, neon
+  - Spiral and fountain patterns
+- **VFXManager.jsx**: Unified API for triggering effects
+
+### 📷 Task 10.4: Dynamic Camera (COMPLETE)
+- **CameraController.jsx**:
+  - Smooth follow mode with configurable smoothness
+  - Screen shake API (`shake(intensity, duration)`)
+  - Zoom events: `zoomTo()`, `zoomPulse()`, `resetZoom()`
+  - Pan and jump methods
+
+### 🔌 Task 10.5: Integration (COMPLETE)
+- Board3D wired into BoardLoop.jsx with live game state
+- VFXManager ready for event triggers
+- diceRef, vfxRef exposed for game logic
+
+### 📁 New Files
+```
+web/src/components/Scene3D/
+├── index.js, README.md
+├── GameScene.jsx, Board3D.jsx, Tile3D.jsx, PlayerPawn.jsx
+├── CameraController.jsx, VFXManager.jsx, DiceRig.jsx
+├── IntegrationGuide.jsx
+└── VFX/
+    ├── index.js, InstancedParticles.jsx
+    ├── CoinExplosion.jsx, LevelUpBurst.jsx
+```
+
+### Performance
+- Target: 60fps on desktop/mobile
+- InstancedMesh: 1 draw call for 500+ particles
+- dpr: [1, 2] for high-res screens
+- Contact shadows for grounded look
+
+---
+
 ## [2026-01-30] - Phase 9: Social Features & Advanced Progression - COMPLETE 🚀
 
 **Phase 9 introduces long-term retention loops via social mechanics and global prestige.**

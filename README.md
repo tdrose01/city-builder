@@ -23,6 +23,16 @@ A React-based idle/incremental city-building game inspired by Monopoly GO, featu
 - **Sticker Collections**: Collect and trade stickers across themed albums
 
 ### 🎨 Recent Updates
+- **Phase 10: 3D Visual Overhaul** (COMPLETE ✅ 2026-02-11)
+  - **3D Game Board**: React Three Fiber powered 20-tile 3D board
+  - **Tile Meshes**: 16 tile types with RoundedBox, emissive materials
+  - **Player Pawn**: Parabolic hop animation with spring physics
+  - **Dynamic Camera**: Follow, shake (Jail/Shutdown), zoom (Lottery/Fortune)
+  - **VFX System**:
+    - **Coin Explosion**: 500 instanced coins with physics
+    - **Level Up Burst**: Stars, confetti, spiral patterns (300 particles)
+  - **Tech**: R3F, @react-three/drei, @react-spring/three
+  - **Files**: 14 new components in Scene3D/
 - **Phase 9: Social & Advanced Progression** (COMPLETE ✅)
   - **Friend System**: Mock leaderboard with daily gifting mechanics.
   - **Global Prestige**: End-game reset with permanent +50% income multipliers.
