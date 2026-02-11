@@ -8,7 +8,7 @@ import { EffectComposer, Bloom } from '@react-three/postprocessing';
  * The global 3D container for the entire game world.
  * Replaces the fragmented DOM/Canvas approach.
  */
-export default function GameScene({ children, cameraPosition = [0, 12, 18] }) {
+export default function GameScene({ children, cameraPosition = [0, 8, 14] }) {
   return (
     <div className="game-scene-container" style={{
       position: 'fixed',
