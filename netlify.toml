@@ -1,6 +1,6 @@
 [build]
-  command = "cd web && npm install && npm run build"
   publish = "web/dist"
+  command = "echo 'Build skipped - using pre-built dist'"
 
 [build.environment]
   NODE_VERSION = "20"
