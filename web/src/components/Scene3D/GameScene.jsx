@@ -42,7 +42,7 @@ export default function GameScene({ children, cameraPosition = [0, 8, 14] }) {
         shadows
         dpr={[1, 2]} // Handle high-res screens
         gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
-        style={{ touchAction: 'none' }}
+        style={{ touchAction: 'pan-y' }}
       >
         <Suspense fallback={null}>
           {/* Camera Rig */}

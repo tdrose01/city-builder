@@ -15,6 +15,34 @@ const SHAPES = {
 };
 
 /**
+ * City-themed color palettes for level-based burst effects
+ */
+const CITY_COLOR_THEMES = {
+  1: { name: 'Neon Harbor', primary: '#00f3ff', secondary: '#00c0cc', accent: '#80f9ff' },
+  2: { name: 'Deco Heights', primary: '#fbbf24', secondary: '#d97706', accent: '#fcd34d' },
+  3: { name: 'Crystal Plaza', primary: '#d946ef', secondary: '#a855f7', accent: '#e879f9' },
+  4: { name: 'Starlight District', primary: '#3b82f6', secondary: '#2563eb', accent: '#60a5fa' },
+  5: { name: 'Neon Skyline', primary: '#10b981', secondary: '#059669', accent: '#34d399' }
+};
+
+/**
+ * Get color palette array for the current city level
+ * Creates a gradient of city colors with primary, secondary, and accent variants
+ * @param {number} level - City level (1-5), defaults to 1
+ * @returns {string[]} Array of hex colors for particle burst
+ */
+const getCityColorPalette = (level = 1) => {
+  const theme = CITY_COLOR_THEMES[level] || CITY_COLOR_THEMES[1];
+  return [
+    theme.primary,
+    theme.secondary,
+    theme.accent,
+    theme.primary,
+    theme.secondary
+  ];
+};
+
+/**
  * LevelUpBurst
  * 3D celebration effect for level ups, achievements, and big wins.
  * Features stars, confetti, and sparkle particles.
@@ -29,7 +57,8 @@ const LevelUpBurst = forwardRef(({
     gold: ['#ffd700', '#ffaa00', '#ffdd44', '#e6c200'],
     rainbow: ['#ff0000', '#ff8800', '#ffff00', '#00ff00', '#0088ff', '#8800ff'],
     neon: ['#00f3ff', '#ff00ff', '#00ff00', '#ffff00', '#ff0088'],
-    achievement: ['#ffd700', '#ffffff', '#ffaa00', '#ffffff']
+    achievement: ['#ffd700', '#ffffff', '#ffaa00', '#ffffff'],
+    city: getCityColorPalette(1) // Default to level 1 (Neon Harbor) city colors
   }), []);
 
   // Particle pool
@@ -56,7 +85,7 @@ const LevelUpBurst = forwardRef(({
       const {
         amount = 100,
         power = 10,
-        colors = 'gold',
+        colors = 'city',
         spread = 1,
         lifetime = 3,
         shapes = 'mixed'

@@ -1,6 +1,6 @@
-import React, { useRef, useState, useMemo } from 'react';
+import React, { useRef, useState, useMemo, useEffect } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { RoundedBox, Text, Html } from '@react-three/drei';
+import { RoundedBox, Text, Html, Billboard, Points, PointMaterial } from '@react-three/drei';
 import * as THREE from 'three';
 
 /**
@@ -22,6 +22,8 @@ const Tile3D = ({
   const meshRef = useRef();
   const [hovered, setHovered] = useState(false);
   const [pulseScale, setPulseScale] = useState(1);
+  const [iconBounce, setIconBounce] = useState(0);
+  const [particles, setParticles] = useState(null);
 
   // Tile configuration based on type
   const tileConfig = useMemo(() => {
@@ -29,17 +31,30 @@ const Tile3D = ({
       Start: {
         color: '#22c55e',
         emissive: '#15803d',
+        emissiveIntensity: 0.3,
+        rimLightColor: '#22c55e',
+        rimLightIntensity: 0.8,
         icon: '★',
         height: 0.4,
-        baseSize: 2.5
+        baseSize: 2.5,
+        labelSize: 18,
+        iconSize: 24,
+        glowColor: '#22c55e',
+        isSpecial: true
       },
       Funds: {
         color: themeColor,
         emissive: themeColor,
         emissiveIntensity: 0.2,
+        rimLightColor: themeColor,
+        rimLightIntensity: 0.6,
         icon: '💰',
         height: 0.25,
-        baseSize: 2
+        baseSize: 2,
+        labelSize: 16,
+        iconSize: 22,
+        glowColor: themeColor,
+        isSpecial: false
       },
       Lottery: {
         color: '#f59e0b',
@@ -69,9 +84,15 @@ const Tile3D = ({
         color: '#a855f7',
         emissive: '#7c3aed',
         emissiveIntensity: 0.4,
+        rimLightColor: '#a855f7',
+        rimLightIntensity: 0.8,
         icon: '🎁',
         height: 0.35,
-        baseSize: 2.5
+        baseSize: 2.5,
+        labelSize: 18,
+        iconSize: 24,
+        glowColor: '#a855f7',
+        isSpecial: true
       },
       Heist: {
         color: '#7c2d12',
@@ -101,9 +122,15 @@ const Tile3D = ({
         color: '#374151',
         emissive: '#1f2937',
         emissiveIntensity: 0.1,
+        rimLightColor: '#374151',
+        rimLightIntensity: 0.8,
         icon: '⛓️',
         height: 0.35,
-        baseSize: 2.5
+        baseSize: 2.5,
+        labelSize: 18,
+        iconSize: 24,
+        glowColor: '#f59e0b',
+        isSpecial: true
       },
       Sticker: {
         color: '#8b5cf6',
@@ -125,9 +152,15 @@ const Tile3D = ({
         color: '#fbbf24',
         emissive: '#f59e0b',
         emissiveIntensity: 0.4,
+        rimLightColor: '#fbbf24',
+        rimLightIntensity: 0.8,
         icon: '🎉',
         height: 0.3,
-        baseSize: 2
+        baseSize: 2,
+        labelSize: 18,
+        iconSize: 24,
+        glowColor: '#fbbf24',
+        isSpecial: true
       },
       Fortune: {
         color: '#06b6d4',
@@ -157,13 +190,27 @@ const Tile3D = ({
         color: '#6b7280',
         emissive: '#4b5563',
         emissiveIntensity: 0.1,
+        rimLightColor: '#6b7280',
+        rimLightIntensity: 0.6,
         icon: '?',
         height: 0.25,
-        baseSize: 2
+        baseSize: 2,
+        labelSize: 16,
+        iconSize: 22,
+        glowColor: '#6b7280',
+        isSpecial: false
       }
     };
     return configs[type] || configs.Default;
   }, [type, themeColor, level]);
+
+  // Icon bounce animation
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIconBounce(prev => (prev + 1) % 2);
+    }, 2000 + Math.random() * 1000);
+    return () => clearInterval(interval);
+  }, []);
 
   // Animate hover/pulse
   useFrame((state) => {
@@ -179,7 +226,10 @@ const Tile3D = ({
     const hoverScale = hovered ? 1.05 : 1;
     const targetScale = pulseScale * hoverScale;
     
-    meshRef.current.position.y = baseY + floatY + tileConfig.height / 2;
+    // Lift up effect on hover
+    const liftY = hovered ? 0.2 : 0;
+    
+    meshRef.current.position.y = baseY + tileConfig.height / 2 + floatY + liftY;
     meshRef.current.scale.setScalar(THREE.MathUtils.lerp(meshRef.current.scale.x, targetScale, 0.1));
   });
 
@@ -203,49 +253,61 @@ const Tile3D = ({
         <meshStandardMaterial
           color={tileConfig.color}
           emissive={tileConfig.emissive}
-          emissiveIntensity={hovered ? tileConfig.emissiveIntensity * 2 : tileConfig.emissiveIntensity}
-          roughness={0.3}
-          metalness={0.4}
+          emissiveIntensity={hovered ? tileConfig.emissiveIntensity * 3 : tileConfig.emissiveIntensity}
+          roughness={0.2}
+          metalness={0.6}
+          envMapIntensity={1}
+          emissiveMapIntensity={tileConfig.isSpecial ? 1.5 : 1}
         />
       </RoundedBox>
       
       {/* Tile label - HTML OVERLAY for guaranteed visibility */}
-      <Html
-        position={[0, tileConfig.height / 2 + 0.05, 0]}
-        center
-        distanceFactor={8}
-        style={{
-          pointerEvents: 'none',
-          userSelect: 'none',
-        }}
-      >
-        <div style={{
-          background: 'rgba(0,0,0,0.7)',
-          padding: '2px 8px',
-          borderRadius: '4px',
-          border: `1px solid ${tileConfig.color}`,
-          color: 'white',
-          fontSize: '18px',
-          fontWeight: 'bold',
-          whiteSpace: 'nowrap',
-          textShadow: '0 1px 2px rgba(0,0,0,0.8)',
-          transform: 'translateY(-50%)',
-        }}>
-          {name.toUpperCase()}
-        </div>
-      </Html>
+      <Billboard>
+        <Html
+          position={[0, tileConfig.height / 2 + 0.05, 0]}
+          center
+          distanceFactor={8}
+          style={{
+            pointerEvents: 'none',
+            userSelect: 'none',
+          }}
+        >
+          <div style={{
+            background: 'rgba(0,0,0,0.8)',
+            padding: '3px 10px',
+            borderRadius: '6px',
+            border: `2px solid ${tileConfig.color}`,
+            color: 'white',
+            fontSize: `${tileConfig.labelSize}px`,
+            fontWeight: 'bold',
+            whiteSpace: 'nowrap',
+            textShadow: `0 0 8px ${tileConfig.glowColor}, 0 2px 4px rgba(0,0,0,0.8)`,
+            transform: 'translateY(-50%)',
+            boxShadow: `0 0 15px ${tileConfig.glowColor}40`,
+          }}>
+            {name.toUpperCase()}
+          </div>
+        </Html>
+      </Billboard>
       
       {/* Icon emoji */}
-      <Html
-        position={[0, tileConfig.height / 2 + 0.05, 0.4]}
-        center
-        distanceFactor={10}
-        style={{ pointerEvents: 'none' }}
-      >
-        <div style={{ fontSize: '18px', filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.5))' }}>
-          {tileConfig.icon}
-        </div>
-      </Html>
+      <Billboard>
+        <Html
+          position={[0, tileConfig.height / 2 + 0.05, 0.4]}
+          center
+          distanceFactor={10}
+          style={{ pointerEvents: 'none' }}
+        >
+          <div style={{ 
+            fontSize: `${tileConfig.iconSize}px`, 
+            filter: `drop-shadow(0 2px 4px rgba(0,0,0,0.6)) brightness(1.1)`,
+            transform: iconBounce === 1 ? 'scale(1.1)' : 'scale(1)',
+            transition: 'transform 0.3s ease',
+          }}>
+            {tileConfig.icon}
+          </div>
+        </Html>
+      </Billboard>
       
       {/* Payout text for Funds tiles */}
       {payout && (
@@ -281,12 +343,51 @@ const Tile3D = ({
         </group>
       )}
       
-      {/* Hover glow ring */}
+      {/* Enhanced hover glow ring */}
       {hovered && (
-        <mesh position={[0, 0.01, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-          <ringGeometry args={[size * 0.6, size * 0.7, 32]} />
-          <meshBasicMaterial color={themeColor} transparent opacity={0.5} />
-        </mesh>
+        <>
+          <mesh position={[0, 0.02, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+            <ringGeometry args={[size * 0.55, size * 0.65, 32]} />
+            <meshBasicMaterial 
+              color={tileConfig.glowColor} 
+              transparent 
+              opacity={0.8} 
+              emissive={tileConfig.glowColor}
+              emissiveIntensity={0.3}
+            />
+          </mesh>
+          <mesh position={[0, 0.03, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+            <ringGeometry args={[size * 0.65, size * 0.75, 32]} />
+            <meshBasicMaterial 
+              color={tileConfig.glowColor} 
+              transparent 
+              opacity={0.4} 
+              emissive={tileConfig.glowColor}
+              emissiveIntensity={0.2}
+            />
+          </mesh>
+        </>
+      )}
+      
+      {/* Particle effects for special tiles */}
+      {tileConfig.isSpecial && (
+        <Points position={[0, tileConfig.height / 2 + 0.2, 0]}>
+          <pointsMaterial
+            size={0.05}
+            color={tileConfig.glowColor}
+            transparent
+            opacity={0.6}
+            sizeAttenuation={true}
+          />
+          <bufferGeometry>
+            <bufferAttribute
+              attach="attributes-position"
+              count={20}
+              array={new Float32Array(Array.from({ length: 20 }, () => (Math.random() - 0.5) * 2))}
+              itemSize={3}
+            />
+          </bufferGeometry>
+        </Points>
       )}
     </group>
   );

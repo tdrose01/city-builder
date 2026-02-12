@@ -89,11 +89,15 @@ body {
 .board-section {
   @apply w-full flex items-center justify-center relative;
   min-height: 60vh;
+  overflow: auto; /* Allow scrolling when content exceeds viewport */
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
 }
 
 .board-section-fit {
   min-height: 100vh;
   align-items: start;
+  overflow: auto; /* Allow scrolling when content exceeds viewport */
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
 }
 
 .board-section-fit .board-kicker,
@@ -536,6 +540,18 @@ body {
   
   .board-tile:hover {
     transform: translateY(-4px) scale(1.02);
+  }
+  
+  /* Ensure body allows scrolling on mobile */
+  body {
+    overflow: auto;
+    position: relative;
+    height: auto;
+  }
+  
+  html {
+    overflow: auto;
+    height: auto;
   }
 }
 

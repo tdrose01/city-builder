@@ -354,10 +354,85 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
   const currentSession = useRef(new SessionMetrics());
   const skipCityResetRef = useRef(false);
 
-  // Phase 10: 3D Particle System Ref
+  // Phase 10: 3D Scene Refs
   const particleSystemRef = useRef(null);
   const board3DRef = useRef(null);
   const vfxRef = useRef(null);
+  const diceRigRef = useRef(null);
+  // Phase 10.5: Camera controller ref for camera effects
+  const cameraControllerRef = useRef(null);
+  
+  // Track player target position for 3D animation (Phase 10.5)
+  const [playerTargetPosition, setPlayerTargetPosition] = useState(0);
+
+  // Calculate 3D position for player target (Phase 10.5)
+  const calculate3DPosition = useCallback((tileIndex) => {
+    const BOARD_CONFIG = {
+      tilesPerSide: 5,
+      tileSize: 2,
+      tileSpacing: 0.1,
+    };
+    const { tilesPerSide, tileSize, tileSpacing } = BOARD_CONFIG;
+    const sideLength = tilesPerSide * tileSize + (tilesPerSide - 1) * tileSpacing;
+    const halfSide = sideLength / 2;
+
+    let x = 0, z = 0;
+    if (tileIndex <= 5) {
+      const pos = tileIndex === 0 ? 0 : (5 - tileIndex);
+      x = halfSide - (pos * (tileSize + tileSpacing));
+      z = halfSide;
+      if (tileIndex === 0) { x = halfSide; z = halfSide; }
+    } else if (tileIndex <= 10) {
+      const pos = tileIndex === 5 ? 0 : (tileIndex - 5);
+      x = -halfSide;
+      z = halfSide - (pos * (tileSize + tileSpacing));
+      if (tileIndex === 5) { x = -halfSide; z = halfSide; }
+    } else if (tileIndex <= 15) {
+      const pos = tileIndex === 10 ? 0 : (tileIndex - 10);
+      x = -halfSide + (pos * (tileSize + tileSpacing));
+      z = -halfSide;
+      if (tileIndex === 10) { x = -halfSide; z = -halfSide; }
+    } else {
+      const pos = tileIndex === 15 ? 0 : (tileIndex - 15);
+      x = halfSide;
+      z = -halfSide + (pos * (tileSize + tileSpacing));
+      if (tileIndex === 15) { x = halfSide; z = -halfSide; }
+    }
+    return [x, 0, z];
+  }, []);
+
+  // Phase 10.5: Tile click handler for 3D board interaction
+  const handleTileClick = useCallback((tileIndex) => {
+    const tile = tiles.find(t => t.id === tileIndex);
+    if (!tile) return;
+
+    // Trigger camera zoom to tile
+    if (board3DRef.current) {
+      board3DRef.current.zoomToTile(tileIndex, 1.5);
+    }
+
+    // Handle landmark upgrade if applicable
+    if (tile.type === 'Landmark' && tile.level < tile.maxLevel) {
+      // Only upgrade if player is currently on this tile
+      if (playerPosition === tileIndex) {
+        handleUpgradeLandmark();
+      }
+    }
+
+    // Show tile info in HUD
+    setHudMessage(`${tile.name} (${tile.type})`);
+    setTimeout(() => setHudMessage(null), 1500);
+
+    // Trigger VFX at tile position
+    if (vfxRef.current) {
+      const pos = calculate3DPosition(tileIndex);
+      vfxRef.current.emitParticles(pos[0], 1, pos[2], {
+        type: 'sparkle',
+        count: 20,
+        color: cityData.themeColor
+      });
+    }
+  }, [tiles, playerPosition, cityData.themeColor, calculate3DPosition]);
 
 
   useEffect(() => {
@@ -1119,15 +1194,52 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
       }
     }
 
-    // Walk the player piece
+    // Walk the player piece (Phase 10.5: Update for 3D animation)
     setIsMoving(true);
     let currentPos = playerPosition;
+    const finalPos = (playerPosition + totalRoll) % TILE_COUNT;
+
+    // Calculate and set target position for 3D pawn animation
+    setPlayerTargetPosition(finalPos);
+
+    // Trigger camera zoom to target tile
+    if (board3DRef.current) {
+      board3DRef.current.zoomToTile(finalPos, 1.2);
+    }
+
+    // Step through each tile
     for (let i = 0; i < totalRoll; i++) {
       currentPos = (currentPos + 1) % TILE_COUNT;
       setPlayerPosition(currentPos);
+
+      // Trigger VFX on tile pass (Phase 10.5)
+      if (vfxRef.current && i > 0 && i % 2 === 0) {
+        const tilePos = calculate3DPosition(currentPos);
+        vfxRef.current.emitParticles(tilePos[0], 0.5, tilePos[2], {
+          type: 'hop',
+          count: 5,
+          color: cityData.themeColor
+        });
+      }
+
       const delay = totalRoll > 8 ? BALANCE_PACING.MOVE_DELAY_FAST : BALANCE_PACING.MOVE_DELAY_NORMAL;
       await new Promise(r => setTimeout(r, delay));
     }
+
+    // Trigger celebration VFX on landing (Phase 10.5)
+    if (vfxRef.current) {
+      const landingPos = calculate3DPosition(finalPos);
+      vfxRef.current.celebration(landingPos[0], 0.5, landingPos[2], {
+        coinOptions: { amount: 30, power: 6 },
+        burstOptions: { colors: 'neon', shapes: 'mixed', amount: 60 }
+      });
+    }
+
+    // Trigger camera shake on landing (Phase 10.5)
+    if (board3DRef.current) {
+      board3DRef.current.triggerCameraShake(0.3, 0.3);
+    }
+
     setIsMoving(false);
 
     // Resolve landing
@@ -2205,23 +2317,97 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
   };
 
   const getTilePosition = (index) => {
-    // Match 3D board positioning: 6x6 grid, bottom-right is START (tile 0)
+    // Use same coordinate system as 3D board
+    // Match Board3D.jsx tile positioning logic
+    const BOARD_CONFIG = {
+      tilesPerSide: 5,
+      tileSize: 2,
+      tileSpacing: 0.1,
+      cornerSize: 2.5
+    };
+    
+    const { tilesPerSide, tileSize, tileSpacing } = BOARD_CONFIG;
+    const sideLength = tilesPerSide * tileSize + (tilesPerSide - 1) * tileSpacing;
+    const halfSide = sideLength / 2;
+    
+    let x = 0, z = 0;
+    
+    if (index <= 5) {
+      // Bottom side (tiles 0-5, right to left)
+      const pos = index === 0 ? 0 : (5 - index);
+      x = halfSide - (pos * (tileSize + tileSpacing));
+      z = halfSide;
+      if (index === 0) { x = halfSide; z = halfSide; }
+    } else if (index <= 10) {
+      // Left side (tiles 5-10, bottom to top)
+      const pos = index === 5 ? 0 : (index - 5);
+      x = -halfSide;
+      z = halfSide - (pos * (tileSize + tileSpacing));
+      if (index === 5) { x = -halfSide; z = halfSide; }
+    } else if (index <= 15) {
+      // Top side (tiles 10-15, left to right)
+      const pos = index === 10 ? 0 : (index - 10);
+      x = -halfSide + (pos * (tileSize + tileSpacing));
+      z = -halfSide;
+      if (index === 10) { x = -halfSide; z = -halfSide; }
+    } else {
+      // Right side (tiles 15-20, top to bottom)
+      const pos = index === 15 ? 0 : (index - 15);
+      x = halfSide;
+      z = -halfSide + (pos * (tileSize + tileSpacing));
+      if (index === 15) { x = halfSide; z = -halfSide; }
+    }
+    
+    // Convert 3D coordinates to CSS pixel coordinates
+    // Map from [-halfSide, +halfSide] to pixel coordinates
+    if (typeof window !== 'undefined') {
+      const boardContainer = document.querySelector('.board-grid');
+      if (boardContainer) {
+        const containerRect = boardContainer.getBoundingClientRect();
+        const containerWidth = containerRect.width;
+        const containerHeight = containerRect.height;
+        
+        // Center the coordinate system
+        const centerX = containerWidth / 2;
+        const centerZ = containerHeight / 2;
+        
+        // Scale factor to fit board in container
+        const scale = Math.min(containerWidth, containerHeight) / (sideLength + 4);
+        
+        // Convert 3D coordinates to 2D screen coordinates
+        const pixelX = centerX + (x * scale);
+        const pixelZ = centerZ + (z * scale);
+        
+        // Calculate tile size in pixels
+        const tilePixelSize = tileSize * scale;
+        
+        return {
+          position: 'absolute',
+          left: `${pixelX}px`,
+          top: `${pixelZ}px`,
+          transform: 'translate(-50%, -50%)', // Center the tile on the point
+          width: `${tilePixelSize}px`,
+          height: `${tilePixelSize}px`,
+          // Ensure tiles are clickable and visible
+          zIndex: use3DBoard ? 10 : 'auto',
+          opacity: use3DBoard ? 0.3 : 1 // Fixed: Make DOM tiles 30% visible for clickability
+        };
+      }
+    }
+    
+    // Fallback to grid positioning if container not available
     const max = 6;
     const min = 1;
 
     if (index <= 5) {
-      // Bottom side (tiles 0-5, right to left) - matches 3D board
       return { gridRow: max, gridColumn: max - index };
     }
     if (index <= 10) {
-      // Left side (tiles 5-10, bottom to top) - matches 3D board
       return { gridRow: max - (index - 5), gridColumn: min };
     }
     if (index <= 15) {
-      // Top side (tiles 10-15, left to right) - matches 3D board
       return { gridRow: min, gridColumn: min + (index - 10) };
     }
-    // Right side (tiles 15-20, top to bottom) - matches 3D board
     return { gridRow: min + (index - 15), gridColumn: max };
   };
 
@@ -2260,21 +2446,17 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
           border: 'none',
           boxShadow: 'none',
           pointerEvents: 'auto',
-          zIndex: use3DBoard ? 10 : 'auto',
-          // Make tiles slightly visible for debugging alignment, but still clickable
-          opacity: use3DBoard ? 0.1 : 1, // Changed from 0 to 0.1 for debugging
-          position: 'absolute', // Ensure absolute positioning for proper alignment
-          width: '100%', // Fill grid cell
-          height: '100%', // Fill grid cell
           display: 'flex', // Enable flexbox for content
           alignItems: 'center', // Center content
-          justifyContent: 'center' // Center content
+          justifyContent: 'center', // Center content
+          // Ensure proper stacking
+          zIndex: use3DBoard ? 10 : 'auto'
         }}
         className={`${use3DBoard ? '' : 'board-tile'} ${tileTypeClass} tile-id-${tile.id} ${isLanded ? 'board-tile-active' : ''} ${tileGlow === tile.type ? 'tile-glow' : ''} ${effectClass}`}
         initial={false}
         animate={{
           scale: 1,
-          opacity: use3DBoard ? 0.1 : 1, // Changed from 0 to 0.1 for debugging
+          opacity: use3DBoard ? 0.3 : 1, // Fixed: Make DOM tiles 30% visible for clickability
           z: isLanded ? 30 : 10
         }}
         whileHover={{
