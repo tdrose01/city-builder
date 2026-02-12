@@ -236,6 +236,8 @@ const Tile3D = ({
   const size = isCorner ? tileConfig.baseSize : 2;
   const rounded = isCorner ? 0.3 : 0.15;
 
+  console.log('🔍 Tile3D: Rendering tile', id, 'with name:', name, 'position:', position);
+      
   return (
     <group position={position} rotation={rotation}>
       {/* Main tile mesh */}
@@ -289,6 +291,17 @@ const Tile3D = ({
           </div>
         </Html>
       </Billboard>
+      
+      {/* Debug: Log tile rendering */}
+      <script dangerouslySetInnerHTML={{
+        __html: `
+          if (typeof window !== 'undefined') {
+            setTimeout(() => {
+              console.log('🔍 Tile3D HTML: Rendered label for tile ${id}: "${name}"');
+            }, 100);
+          }
+        `
+      }} />
       
       {/* Icon emoji */}
       <Billboard>

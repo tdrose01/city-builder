@@ -53,11 +53,15 @@ const Board3D = forwardRef(({
 
   // Calculate tile positions in 3D space
   const tilePositions = useMemo(() => {
+    console.log('🔍 Board3D: Calculating tile positions for', tiles.length, 'tiles');
+    
     const positions = [];
     const { tilesPerSide, tileSize, tileSpacing, cornerSize } = BOARD_CONFIG;
     
     const sideLength = tilesPerSide * tileSize + (tilesPerSide - 1) * tileSpacing;
     const halfSide = sideLength / 2;
+    
+    console.log('🔍 Board3D: Board config - tilesPerSide:', tilesPerSide, 'tileSize:', tileSize, 'sideLength:', sideLength, 'halfSide:', halfSide);
     
     // Calculate center offset to center the board
     const offsetX = 0;
@@ -111,8 +115,11 @@ const Board3D = forwardRef(({
       });
     }
     
+    console.log('🔍 Board3D: Generated positions for', positions.length, 'tiles');
+    console.log('🔍 Board3D: Sample positions:', positions.slice(0, 3));
+    
     return positions;
-  }, [BOARD_CONFIG]);
+  }, [BOARD_CONFIG, tiles.length]);
 
   // Get current and target positions for pawn
   const currentTilePos = tilePositions[playerPosition]?.position || [0, 0, 0];
