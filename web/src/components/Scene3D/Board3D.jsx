@@ -19,6 +19,24 @@ const Board3D = forwardRef(({
   onTileClick,
   children
 }, ref) => {
+  // Calculate responsive scale for mobile devices
+  const getBoardScale = () => {
+    if (typeof window === 'undefined') return 1;
+    
+    const aspect = window.innerWidth / window.innerHeight;
+    const isTall = aspect < 0.5; // Tall aspect ratio (like Pixel 9a ~20:9)
+    
+    if (isTall) {
+      // Scale up for tall screens to make board appear larger
+      return 1.3;
+    } else if (window.innerWidth <= 768) {
+      // Scale up for regular mobile devices
+      return 1.2;
+    }
+    return 1; // Normal scale for desktop
+  };
+  
+  const boardScale = getBoardScale();
   const boardGroupRef = useRef();
   const pawnRef = useRef();
   const cameraRef = useRef();
@@ -116,7 +134,7 @@ const Board3D = forwardRef(({
   }));
 
   return (
-    <group ref={boardGroupRef}>
+    <group ref={boardGroupRef} scale={boardScale}>
       {/* Camera Controller */}
       <CameraController 
         ref={cameraRef}

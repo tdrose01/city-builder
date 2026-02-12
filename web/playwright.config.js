@@ -29,6 +29,15 @@ export default defineConfig({
       name: 'mobile-safari',
       use: { ...devices['iPhone 13'] },
     },
+    {
+      name: 'pixel-9a',
+      use: { 
+        ...devices['Android Chrome'],
+        viewport: { width: 412, height: 915 },
+        deviceScaleFactor: 2.75,
+        userAgent: 'Mozilla/5.0 (Linux; Android 14; Pixel 9a) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.6099.230 Mobile Safari/537.36'
+      },
+    },
   ],
   webServer: {
     command: 'npm run dev -- --host 127.0.0.1 --port 4173',

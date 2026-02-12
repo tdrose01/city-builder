@@ -2205,20 +2205,24 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
   };
 
   const getTilePosition = (index) => {
+    // Match 3D board positioning: 6x6 grid, bottom-right is START (tile 0)
     const max = 6;
-    const last = max;
     const min = 1;
 
     if (index <= 5) {
-      return { gridRow: last, gridColumn: last - index };
+      // Bottom side (tiles 0-5, right to left) - matches 3D board
+      return { gridRow: max, gridColumn: max - index };
     }
     if (index <= 10) {
-      return { gridRow: last - (index - 5), gridColumn: min };
+      // Left side (tiles 5-10, bottom to top) - matches 3D board
+      return { gridRow: max - (index - 5), gridColumn: min };
     }
     if (index <= 15) {
+      // Top side (tiles 10-15, left to right) - matches 3D board
       return { gridRow: min, gridColumn: min + (index - 10) };
     }
-    return { gridRow: min + (index - 15), gridColumn: last };
+    // Right side (tiles 15-20, top to bottom) - matches 3D board
+    return { gridRow: min + (index - 15), gridColumn: max };
   };
 
   const renderedTiles = useMemo(() => tiles.map((tile, index) => {
@@ -2256,13 +2260,21 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
           border: 'none',
           boxShadow: 'none',
           pointerEvents: 'auto',
-          zIndex: use3DBoard ? 10 : 'auto'
+          zIndex: use3DBoard ? 10 : 'auto',
+          // Make tiles slightly visible for debugging alignment, but still clickable
+          opacity: use3DBoard ? 0.1 : 1, // Changed from 0 to 0.1 for debugging
+          position: 'absolute', // Ensure absolute positioning for proper alignment
+          width: '100%', // Fill grid cell
+          height: '100%', // Fill grid cell
+          display: 'flex', // Enable flexbox for content
+          alignItems: 'center', // Center content
+          justifyContent: 'center' // Center content
         }}
         className={`${use3DBoard ? '' : 'board-tile'} ${tileTypeClass} tile-id-${tile.id} ${isLanded ? 'board-tile-active' : ''} ${tileGlow === tile.type ? 'tile-glow' : ''} ${effectClass}`}
         initial={false}
         animate={{
           scale: 1,
-          opacity: use3DBoard ? 0 : 1,
+          opacity: use3DBoard ? 0.1 : 1, // Changed from 0 to 0.1 for debugging
           z: isLanded ? 30 : 10
         }}
         whileHover={{
@@ -2280,6 +2292,12 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
           type: "spring",
           stiffness: 260,
           damping: 20
+        }}
+        onClick={() => {
+          // Handle tile clicks for both 2D and 3D modes
+          if (tile.type === 'Landmark' && tile.level < tile.maxLevel) {
+            handleUpgradeLandmark();
+          }
         }}
       >
         {!use3DBoard && (
@@ -2302,9 +2320,25 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
             )}
           </div>
         )}
+        {use3DBoard && isLanded && (
+          <div style={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            fontSize: '10px',
+            fontWeight: 'bold',
+            color: '#fff',
+            textShadow: '1px 1px 2px rgba(0,0,0,0.8)',
+            zIndex: 100,
+            pointerEvents: 'none'
+          }}>
+            {displayLabel}
+          </div>
+        )}
       </motion.div>
     );
-  }), [tiles, playerPosition, tileEffect, tileGlow]);
+  }), [tiles, playerPosition, tileEffect, tileGlow, use3DBoard]);
 
 
 

@@ -9,26 +9,46 @@ import { EffectComposer, Bloom } from '@react-three/postprocessing';
  * Replaces the fragmented DOM/Canvas approach.
  */
 export default function GameScene({ children, cameraPosition = [0, 8, 14] }) {
+  // Adjust camera position for mobile devices based on aspect ratio
+  const getAdjustedCameraPosition = () => {
+    if (typeof window === 'undefined') return cameraPosition;
+    
+    const aspect = window.innerWidth / window.innerHeight;
+    const isTall = aspect < 0.5; // Tall aspect ratio (like Pixel 9a ~20:9)
+    
+    if (isTall) {
+      // Lower and closer camera for tall screens to see more of the board vertically
+      return [0, 6, 12];
+    } else if (window.innerWidth <= 768) {
+      // Regular mobile - lower camera slightly
+      return [0, 7, 13];
+    }
+    return cameraPosition;
+  };
+
+  const adjustedCameraPosition = getAdjustedCameraPosition();
+
   return (
     <div className="game-scene-container" style={{
-      position: 'fixed',
+      position: 'absolute',
       top: 0,
       left: 0,
-      width: '100vw',
-      height: '100vh',
-      zIndex: 1, // Behind UI overlay, above background
-      pointerEvents: 'none', // Let clicks pass through to UI for now
+      width: '100%',
+      height: '100%',
+      zIndex: 1, // Lower zIndex to allow scroll events to pass through
+      pointerEvents: 'none', // Allow scroll events to pass through to document
     }}>
       <Canvas
         shadows
         dpr={[1, 2]} // Handle high-res screens
         gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
+        style={{ touchAction: 'none' }}
       >
         <Suspense fallback={null}>
           {/* Camera Rig */}
           <PerspectiveCamera 
             makeDefault 
-            position={cameraPosition} 
+            position={adjustedCameraPosition} 
             fov={50}
             near={0.1}
             far={1000}

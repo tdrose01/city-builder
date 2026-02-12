@@ -12,6 +12,12 @@
   --font-body: "Space Grotesk", sans-serif;
 }
 
+/* Game Scene Scroll Fix */
+.game-scene-container {
+  touch-action: none;
+  pointer-events: none;
+}
+
 html {
   overflow: hidden;
   height: 100%;
