@@ -28,10 +28,10 @@ const Board3D = forwardRef(({
     
     if (isTall) {
       // Scale up for tall screens to make board appear larger
-      return 1.3;
+      return 1.8;
     } else if (window.innerWidth <= 768) {
       // Scale up for regular mobile devices
-      return 1.2;
+      return 1.4;
     }
     return 1; // Normal scale for desktop
   };

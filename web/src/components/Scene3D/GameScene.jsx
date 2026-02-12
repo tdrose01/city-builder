@@ -18,7 +18,7 @@ export default function GameScene({ children, cameraPosition = [0, 8, 14] }) {
     
     if (isTall) {
       // Lower and closer camera for tall screens to see more of the board vertically
-      return [0, 6, 12];
+      return [0, 4, 8];
     } else if (window.innerWidth <= 768) {
       // Regular mobile - lower camera slightly
       return [0, 7, 13];
