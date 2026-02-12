@@ -25,7 +25,7 @@ html {
 
 body {
   @apply text-white;
-  background: #000000;
+  background: #1a1a2e;
   font-family: var(--font-body);
   font-feature-settings: "rlig" 1, "calt" 1;
   overflow: hidden;
