@@ -49,6 +49,25 @@ All notable changes to the City Slacker project are documented here.
 ### 🔌 Task 10.5: Integration (COMPLETE)
 - Board3D wired into BoardLoop.jsx with live game state
 - VFXManager ready for event triggers
+
+### ✨ Task 10.6: Polish & Optimization (COMPLETE) - Feb 12, 2026
+- **City-Themed VFX**: LevelUpBurst colors match city themes (Neon Harbor: cyan, etc.)
+- **Idle Pawn Animation System**: 
+  - 3 states: IDLE (gentle bob), EXCITED (bounce after win), BORED (slow drift)
+  - useIdleAnimation hook for state management
+  - Emissive pulse tied to animation state
+- **Enhanced Tile Visuals**:
+  - Labels: 16px → 18px font, better contrast, glow effects
+  - Icons: 22px → 24px, drop shadows, bounce animation
+  - Corner tiles (START, JAIL, BONUS): Special treatment, larger labels
+  - Hover: Lift up (y += 0.2), icon spin, multi-layer glow
+  - Billboard labels always face camera
+- **Mobile Optimizations**:
+  - Scroll fixes: touch-action, pointerEvents
+  - Responsive camera: Pixel 9a aspect ratio support
+  - DOM/3D alignment fixes
+  - Opacity 30% for visible but non-intrusive DOM tiles
+- VFXManager ready for event triggers
 - diceRef, vfxRef exposed for game logic
 
 ### 📁 New Files

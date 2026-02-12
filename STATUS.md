@@ -1,6 +1,6 @@
 # City Slacker - Current Status
 
-**Last Updated:** February 11, 2026
+**Last Updated:** February 12, 2026
 **Version:** Phase 10 Complete - 3D Visual Overhaul ✅
 **Build Status:** 🚀 Stable (3D Migration Complete)
 
@@ -23,6 +23,12 @@
 - [x] Task 10.3: High-Performance VFX ✅
 - [x] Task 10.4: Dynamic Camera ✅
 - [x] Task 10.5: Integration ✅
+- [x] Task 10.6: Polish & Optimization ✅
+
+**New Polish Features:**
+- 🎭 **Idle Pawn**: 3 animation states (Idle/Excited/Bored)
+- 🏷️ **Enhanced Labels**: 16px font, glow, billboarding
+- ✨ **Visual Polish**: Corner tiles special treatment, icon animations
 
 **New 3D Features:**
 - 🎨 **3D Board**: 20 tiles, Monopoly-style rectangular layout

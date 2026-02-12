@@ -35,6 +35,17 @@ Replace the flat HTML/CSS board with a high-fidelity 3D environment using React 
 - [x] Add VFXManager for unified effects API
 - [x] Live player position sync
 
+### Task 10.6: Polish & Optimization ✅
+- [x] City-themed VFX colors (LevelUpBurst colors per city)
+- [x] Idle pawn animations (3 states: Idle/Excited/Bored)
+- [x] Enhanced tile labels (16px font, glow effects, billboarding)
+- [x] Improved icon visibility (22px, drop shadows)
+- [x] Corner tile special treatment (START, JAIL, BONUS)
+- [x] Enhanced hover effects (lift, spin, multi-layer glow)
+- [x] Mobile scroll fixes (touch-action, pointerEvents)
+- [x] Responsive camera (Pixel 9a aspect ratio)
+- [x] DOM/3D alignment fixes
+
 ## 🎉 Results
 
 **Files Created (14 new files):**
@@ -65,7 +76,13 @@ Scene3D/
 
 ## 📅 Timeline
 - **Started:** Feb 3, 2026
-- **Completed:** Feb 11, 2026 (8 days)
+- **Completed:** Feb 12, 2026 (9 days)
+- **Polish Phase:** Feb 11-12 (2 days)
+
+## 🎮 Deployment
+- **URL:** https://city-slacker.netlify.app
+- **Status:** Live
+- **Build:** Production-ready
 
 ## 🔗 Related
 - Plan: `conductor/tracks/phase10_3d_overhaul_20260203/plan.md`
