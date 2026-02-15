@@ -148,10 +148,12 @@ const DiceCube = ({ position, rotation, value, rolling }) => {
   );
 };
 
+const ZERO_POS = [0, -100, 0]; // Hide off-screen when null
+
 export const DiceGroup = ({ rolling, value1, value2 }) => (
   <group>
-    <DiceCube position={[-0.8, 0, 0]} value={value1 || 1} rolling={rolling} />
-    <DiceCube position={[0.8, 0, 0]} value={value2 || 6} rolling={rolling} />
+    <DiceCube position={value1 != null ? [-0.8, 0, 0] : ZERO_POS} value={value1 ?? 1} rolling={rolling} />
+    <DiceCube position={value2 != null ? [0.8, 0, 0] : ZERO_POS} value={value2 ?? 1} rolling={rolling} />
   </group>
 );
 
