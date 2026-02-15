@@ -95,16 +95,20 @@ const DiceCube = ({ position, rotation, value, rolling }) => {
     config: { mass: 1, tension: 170, friction: 26 }
   });
 
+  const wasRollingRef = useRef(false);
+
   useFrame(() => {
     if (rolling && meshRef.current) {
       meshRef.current.rotation.x += 0.2;
       meshRef.current.rotation.y += 0.25;
       meshRef.current.rotation.z += 0.15;
+      wasRollingRef.current = true;
     }
   });
 
   useEffect(() => {
-    if (!rolling && meshRef.current && meshRef.current.rotation) {
+    // Only reset once when transitioning from rolling to not rolling
+    if (!rolling && wasRollingRef.current && meshRef.current && meshRef.current.rotation) {
       if (typeof meshRef.current.rotation.set === 'function') {
         meshRef.current.rotation.set(0, 0, 0);
       } else {
@@ -112,6 +116,7 @@ const DiceCube = ({ position, rotation, value, rolling }) => {
         meshRef.current.rotation.y = 0;
         meshRef.current.rotation.z = 0;
       }
+      wasRollingRef.current = false;
     }
   }, [rolling]);
 
