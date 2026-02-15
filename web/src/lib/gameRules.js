@@ -8,11 +8,6 @@ export const GAME_STATES = {
   GAME_OVER: 'GAME_OVER'
 };
 
-export const rollDice = () => ({
-  die1: Math.floor(Math.random() * 6) + 1,
-  die2: Math.floor(Math.random() * 6) + 1
-});
-
 export const isDoubles = (dice) => dice.die1 === dice.die2;
 
 export const movePlayer = (player, steps, boardSize = 40) => {
