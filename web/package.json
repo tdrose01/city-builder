@@ -13,7 +13,10 @@
     "test:unit:watch": "vitest",
     "test:e2e": "playwright test",
     "deploy:netlify": "netlify deploy --dir dist",
-    "deploy:netlify:prod": "netlify deploy --dir dist --prod"
+    "deploy:netlify:prod": "netlify deploy --dir dist --prod",
+    "deploy:cf": "wrangler pages deploy dist --project-name=city-slacker",
+    "deploy:cf:prod": "wrangler pages deploy dist --project-name=city-slacker --branch=main",
+    "deploy:cf:init": "wrangler pages project create city-slacker"
   },
   "dependencies": {
     "@react-spring/three": "^10.0.3",

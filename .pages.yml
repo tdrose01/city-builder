@@ -1,0 +1,16 @@
+# Cloudflare Pages configuration for city-slacker
+# This configures the build settings for Git-based deployments
+
+build:
+  # The directory where npm install and build should run
+  root_dir: web
+  
+  # Build command from that directory
+  command: npm ci && npm run build
+  
+  # Where Cloudflare looks for the built files
+  output_dir: dist
+  
+# Environment variables (optional)
+# env:
+#   NODE_VERSION: "22"

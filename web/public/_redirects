@@ -1,0 +1,3 @@
+# Cloudflare Pages SPA redirects
+# Catch-all redirect for React Router / SPA routing
+/* /index.html 200
