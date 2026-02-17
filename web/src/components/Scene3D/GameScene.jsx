@@ -1,8 +1,11 @@
-import React, { Suspense, useState, useEffect } from 'react';
+import React, { Suspense, useState, useEffect, useRef } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { Environment, OrbitControls, ContactShadows, PerspectiveCamera } from '@react-three/drei';
 import { EffectComposer, Bloom } from '@react-three/postprocessing';
 import { checkWebGLSupport } from '../../utils/webglCheck';
+
+// Ref to prevent StrictMode double-mount issues
+const canvasInitializedRef = { current: false };
 
 /**
  * GameScene
