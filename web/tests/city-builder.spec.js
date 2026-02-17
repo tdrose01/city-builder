@@ -22,8 +22,10 @@ test.describe('City Builder - Core Game', () => {
   });
 
   test('Board game is rendered', async ({ page }) => {
-    // Wait for canvas/WebGL to initialize
-    await page.waitForTimeout(3000);
+    // Allow 3x timeout for WebGL initialization
+    test.slow();
+    // Wait for canvas/WebGL to initialize (WebGL can take 5+ seconds)
+    await page.waitForTimeout(6000);
     
     // Look for the 3D canvas or board stage
     const canvas = page.locator('canvas');
