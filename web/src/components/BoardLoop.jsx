@@ -2564,15 +2564,6 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
         <VFXManager ref={vfxRef} />
       </GameScene>
       
-      {/* Debug: Log tile count */}
-      <script dangerouslySetInnerHTML={{
-        __html: `
-          console.log('🔍 BoardLoop: Passing', ${tiles.length}, 'tiles to Board3D');
-          console.log('🔍 BoardLoop: Sample tiles:', ${JSON.stringify(tiles.slice(0, 3))});
-        `
-      }} />
-
-      <Notification notification={notification} onClose={() => setNotification(null)} />
       <ConfirmDialog
         dialog={confirmDialog}
         onConfirm={() => confirmDialog?.onConfirm()}
