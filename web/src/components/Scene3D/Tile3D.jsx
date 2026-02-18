@@ -292,16 +292,6 @@ const Tile3D = ({
         </Html>
       </Billboard>
       
-      {/* Debug: Log tile rendering */}
-      <script dangerouslySetInnerHTML={{
-        __html: `
-          if (typeof window !== 'undefined') {
-            setTimeout(() => {
-              console.log('🔍 Tile3D HTML: Rendered label for tile ${id}: "${name}"');
-            }, 100);
-          }
-        `
-      }} />
       
       {/* Icon emoji */}
       <Billboard>
