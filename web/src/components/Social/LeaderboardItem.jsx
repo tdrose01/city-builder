@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
-export default function LeaderboardItem({ friend, rank, onSendGift, onReceiveGift, themeColor }) {
+export default function LeaderboardItem({ friend, rank, onSendGift, onSendSticker, onReceiveGift, themeColor }) {
   const isPlayer = friend.isPlayer;
   
   return (
@@ -75,21 +75,39 @@ export default function LeaderboardItem({ friend, rank, onSendGift, onReceiveGif
         )}
         
         {!friend.giftSent && !isPlayer && (
-          <button
-            onClick={() => onSendGift(friend.id)}
-            style={{
-              padding: '6px 12px',
-              backgroundColor: themeColor,
-              color: '#000',
-              border: 'none',
-              borderRadius: '6px',
-              fontSize: '11px',
-              fontWeight: 'bold',
-              cursor: 'pointer'
-            }}
-          >
-            SEND
-          </button>
+          <div style={{ display: 'flex', gap: '4px' }}>
+            <button
+              onClick={() => onSendGift(friend.id)}
+              style={{
+                padding: '6px 12px',
+                backgroundColor: themeColor,
+                color: '#000',
+                border: 'none',
+                borderRadius: '6px',
+                fontSize: '11px',
+                fontWeight: 'bold',
+                cursor: 'pointer'
+              }}
+            >
+              GIFT
+            </button>
+            <button
+              onClick={() => onSendSticker(friend.id)}
+              style={{
+                padding: '6px 8px',
+                backgroundColor: 'rgba(255,255,255,0.1)',
+                color: '#fff',
+                border: '1px solid rgba(255,255,255,0.1)',
+                borderRadius: '6px',
+                fontSize: '11px',
+                fontWeight: 'bold',
+                cursor: 'pointer'
+              }}
+              title="Send Sticker"
+            >
+              🎴
+            </button>
+          </div>
         )}
         
         {friend.giftSent && (

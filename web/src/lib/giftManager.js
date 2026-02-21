@@ -5,6 +5,7 @@
  */
 
 import { getUserProfile, updateUserProfile, getFriendById, updateFriend, getFriends } from './friendManager';
+import { addNotification, NOTIFICATION_TYPES } from './notificationManager';
 
 // Storage keys
 const GIFTS_KEY = 'cs_gifts_v1';
@@ -50,6 +51,13 @@ export const GIFT_TYPES = {
     emoji: '🛡️',
     description: '1 Shield unit',
     getValue: () => GIFT_CONSTANTS.GIFT_SHIELD_AMOUNT
+  },
+  sticker_pack: {
+    id: 'sticker_pack',
+    name: 'Sticker Pack',
+    emoji: '🎁',
+    description: 'Contains 3 stickers!',
+    getValue: () => ({ type: 'green', count: 3 })
   }
 };
 
@@ -325,4 +333,85 @@ export const getGiftStats = () => {
     streaks: getFriendStreaks(),
     daily: getDailyGiftsCount()
   };
+};
+
+/**
+ * Simulate incoming gifts from friends (Reciprocity Engine)
+ * High Frequency version: ~75% chance per active friend
+ */
+export const simulateIncomingGifts = (cityLevel = 1) => {
+  const friends = getFriends();
+  const userProfile = getUserProfile();
+  const { received } = getDailyGiftsCount();
+  const streaks = getFriendStreaks();
+  
+  let remainingCapacity = GIFT_CONSTANTS.DAILY_GIFTS_LIMIT_RECEIVED - received;
+  if (remainingCapacity <= 0) return [];
+
+  const incomingGifts = [];
+  const gifts = getAllGifts();
+
+  // Filter for friends you've interacted with (sent gifts to)
+  const activeFriends = friends
+    .filter(f => f.lastGiftSentAt)
+    .sort((a, b) => (streaks[b.id]?.current || 0) - (streaks[a.id]?.current || 0));
+
+  for (const friend of activeFriends) {
+    if (remainingCapacity <= 0) break;
+
+    // High Frequency: 75% base chance + streak bonus
+    const streak = streaks[friend.id]?.current || 0;
+    const chance = 0.75 + (streak * 0.05);
+    
+    if (Math.random() < chance) {
+      // Determine gift type based on streak
+      let giftType = 'funds';
+      const roll = Math.random();
+      
+      if (streak >= 7 && roll > 0.4) giftType = 'sticker_pack';
+      else if (streak >= 3 && roll > 0.6) giftType = 'dice';
+      else if (roll > 0.8) giftType = 'shield';
+      else if (roll > 0.5) giftType = 'dice';
+
+      const giftConfig = GIFT_TYPES[giftType];
+      
+      const gift = {
+        id: crypto.randomUUID(),
+        fromId: friend.id,
+        fromName: friend.name,
+        fromAvatar: friend.avatar,
+        toId: userProfile.id,
+        toName: userProfile.name,
+        type: giftType,
+        value: giftConfig.getValue(cityLevel),
+        sentAt: Date.now() - Math.floor(Math.random() * 3600000), // Randomized in last hour
+        claimed: false,
+        expired: false,
+        isSimulated: true
+      };
+
+      gifts.push(gift);
+      incomingGifts.push(gift);
+      remainingCapacity--;
+
+      // Notify the player
+      addNotification(NOTIFICATION_TYPES.GIFT_RECEIVED, {
+        title: 'Gift Received!',
+        message: `${friend.name} sent you ${giftConfig.name}!`,
+        friendId: friend.id,
+        friendName: friend.name,
+        giftId: gift.id,
+        giftType: giftType,
+        emoji: giftConfig.emoji
+      });
+    }
+  }
+
+  if (incomingGifts.length > 0) {
+    localStorage.setItem(GIFTS_KEY, JSON.stringify(gifts.slice(-100)));
+    // Note: We don't increment GIFTS_DAILY_RECEIVED here because it's incremented when the user CLAIMS it in receiveGift()
+    // This allows the user to see them in the UI before they count against the limit.
+  }
+
+  return incomingGifts;
 };

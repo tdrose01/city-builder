@@ -3,6 +3,7 @@ import { Canvas } from '@react-three/fiber';
 import { Environment, OrbitControls, ContactShadows, PerspectiveCamera } from '@react-three/drei';
 import { EffectComposer, Bloom } from '@react-three/postprocessing';
 import { checkWebGLSupport } from '../../utils/webglCheck';
+import { useWeatherStore } from '../../store/useWeatherStore';
 
 // Ref to prevent StrictMode double-mount issues
 const canvasInitializedRef = { current: false };
@@ -12,9 +13,54 @@ const canvasInitializedRef = { current: false };
  * The global 3D container for the entire game world.
  * Replaces the fragmented DOM/Canvas approach.
  */
-export default function GameScene({ children, cameraPosition = [0, 8, 14] }) {
+export default function GameScene({ children, cameraPosition = [0, 8, 14], seasonalTheme = null }) {
   const [webglInfo, setWebglInfo] = useState(null);
   const [webglError, setWebglError] = useState(null);
+  const [isFlashing, setIsFlashing] = useState(false);
+
+  // Phase 16: Weather System
+  const currentWeather = useWeatherStore(state => state.currentWeather);
+
+  // Default theme if none provided
+  const theme = seasonalTheme || {
+    ambientColor: "#ffffff",
+    skyboxGradient: ["#1a1a2e", "#16213e"],
+    ambientIntensity: 0.7
+  };
+
+  // Weather overrides
+  const weatherSkyColor = currentWeather?.skyColor || theme.skyboxGradient[0];
+  const weatherAmbientIntensity = (currentWeather?.id === 'rainy' || currentWeather?.id === 'thunder') 
+    ? 0.4 
+    : theme.ambientIntensity || 0.7;
+
+  // Lightning Logic
+  useEffect(() => {
+    if (currentWeather?.id !== 'thunder') {
+      setIsFlashing(false);
+      return;
+    }
+
+    let timeout;
+    const triggerFlash = () => {
+      setIsFlashing(true);
+      setTimeout(() => setIsFlashing(false), 50 + Math.random() * 100);
+      
+      // Randomly double flash
+      if (Math.random() > 0.7) {
+        setTimeout(() => {
+          setIsFlashing(true);
+          setTimeout(() => setIsFlashing(false), 40);
+        }, 150);
+      }
+      
+      const nextFlashIn = 3000 + Math.random() * 10000;
+      timeout = setTimeout(triggerFlash, nextFlashIn);
+    };
+
+    timeout = setTimeout(triggerFlash, 5000);
+    return () => clearTimeout(timeout);
+  }, [currentWeather?.id]);
 
   useEffect(() => {
     // Check WebGL support on mount
@@ -122,14 +168,20 @@ export default function GameScene({ children, cameraPosition = [0, 8, 14] }) {
           />
           
           {/* Lighting Environment */}
-          <ambientLight intensity={0.7} />
+          <ambientLight 
+            intensity={isFlashing ? 3.0 : weatherAmbientIntensity} 
+            color={isFlashing ? "#b0c4ff" : theme.ambientColor || "#ffffff"} 
+          />
           <directionalLight 
             position={[10, 20, 10]} 
-            intensity={1.5} 
+            intensity={isFlashing ? 5.0 : theme.directionalIntensity || 1.5} 
             castShadow 
             shadow-mapSize={[2048, 2048]} 
           />
-          <Environment preset="city" blur={0.8} />
+          <Environment preset={currentWeather?.id === 'thunder' ? 'night' : theme.environmentPreset || "city"} blur={0.8} />
+          
+          {/* Seasonal Skybox / Background */}
+          <color attach="background" args={[isFlashing ? "#475569" : weatherSkyColor]} />
           
           {/* World Content */}
           <group>

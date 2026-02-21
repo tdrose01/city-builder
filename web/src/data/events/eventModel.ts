@@ -1,116 +1,83 @@
-/**
- * Phase 12: Events & Seasons — Event Data Models
- * GameEvent, EventMechanics, EventChallenge, EventModifier, TileOverride
- */
+// web/src/data/events/eventModel.ts
+import { EventLifecycle, EventType } from './eventTypes';
+import { EventReward, EventMilestone, EventShopItem } from './rewardModel';
 
-import type { SeasonId, EventType, EventLifecycle, EventMechanicType, ChallengeType, VfxType, EventModifierType, Rarity } from './eventTypes';
-import type { EventReward, EventShopItem } from './rewardModel';
-
-/**
- * Event milestone (progressive reward)
- */
-export interface EventMilestone {
-  threshold: number; // e.g., 100, 500, 1000 event currency earned
-  reward: EventReward;
-  reached: boolean;
-  reachedAt: string | null; // ISO 8601
-}
-
-/**
- * Individual challenge task within an event
- */
-export interface EventChallenge {
-  id: string;
-  description: string;
-  type: ChallengeType;
-  target: number;
-  progress: number;
-  completed: boolean;
-  reward: EventReward;
-}
-
-/**
- * Active event modifier
- */
-export interface EventModifier {
-  type: EventModifierType;
-  value: number;
-  description: string;
-}
-
-/**
- * Tile visual override for events
- */
-export interface TileOverride {
-  tileType: string; // matches existing tile types
-  skin: string; // texture/model variant id
-  label?: string; // override display name
-  particleEffect?: string;
-}
-
-/**
- * Collection event mechanics
- */
-export interface CollectionMechanics {
-  items: {
-    id: string;
-    name: string;
-    icon: string;
-    rarity: Rarity;
-  }[];
-  collected: Record<string, number>; // itemId → count
-  goal: Record<string, number>; // itemId → target
-}
-
-/**
- * Challenge event mechanics
- */
-export interface ChallengeMechanics {
-  tasks: EventChallenge[];
-}
-
-/**
- * Multiplier event mechanics
- */
-export interface MultipierMechanics {
-  target: 'income' | 'dice' | 'xp' | 'all';
-  value: number; // 1.5 = +50%
-}
-
-/**
- * Event mechanics union type
- */
-export interface EventMechanics {
-  type: EventMechanicType;
-  collectibles?: CollectionMechanics;
-  challenges?: ChallengeMechanics;
-  multiplier?: MultipierMechanics;
-}
-
-/**
- * Core GameEvent interface for limited-time events
- */
 export interface GameEvent {
-  id: string; // "halloween-heist-2025"
+  id: string;                          // "halloween-heist-2025"
   type: EventType;
   name: string;
   description: string;
-  shortDescription: string; // for HUD display
-  icon: string; // emoji or icon path
-  seasonId: string | null; // parent season reference (null = standalone)
+  shortDescription: string;            // for HUD display
+  icon: string;                        // emoji or icon path
+  seasonId: string | null;             // parent season reference
 
   // Timing
-  startDate: string; // ISO 8601
+  startDate: string;                   // ISO 8601
   endDate: string;
-  lifecycle: EventLifecycle; // derived at runtime
+  lifecycle: EventLifecycle;           // derived at runtime
 
   // Mechanics
   mechanics: EventMechanics;
 
   // Rewards
   rewards: EventReward[];
-  milestoneRewards: EventMilestone[];
+  milestoneRewards: EventMilestone[];   // progressive rewards
 
   // Modifiers (applied while event is active)
   modifiers: EventModifier[];
 
+  // Integration
+  missionIds: string[];                // event-specific missions
+  shopItems: EventShopItem[];          // event currency shop
+
+  // Visual
+  bannerImage: string | null;
+  vfxType: 'confetti' | 'fireworks' | 'spooky' | 'sparkle' | null;
+  tileOverrides: TileOverride[];       // themed tile appearances
+}
+
+export interface EventMechanics {
+  // What gameplay mechanic does this event modify?
+  type: 'bonus_multiplier' | 'special_tiles' | 'collection' | 'challenge' | 'tournament';
+
+  // Collection events: gather items from tiles
+  collectibles?: {
+    items: { id: string; name: string; icon: string; rarity: 'common' | 'rare' | 'epic' }[];
+    collected: Record<string, number>;  // itemId → count
+    goal: Record<string, number>;       // itemId → target
+  };
+
+  // Challenge events: complete tasks
+  challenges?: {
+    tasks: EventChallenge[];
+  };
+
+  // Bonus multiplier events: X% bonus to income/dice/etc
+  multiplier?: {
+    target: 'income' | 'dice' | 'xp' | 'all';
+    value: number;                      // 1.5 = +50%
+  };
+}
+
+export interface EventChallenge {
+  id: string;
+  description: string;
+  type: 'rolls' | 'funds_earned' | 'buildings_built' | 'heists_won' | 'gifts_sent' | 'tiles_landed';
+  target: number;
+  progress: number;
+  completed: boolean;
+  reward: EventReward;
+}
+
+export interface EventModifier {
+  type: 'income_multiplier' | 'dice_multiplier' | 'shield_bonus' | 'xp_multiplier' | 'rent_reduction';
+  value: number;
+  description: string;
+}
+
+export interface TileOverride {
+  tileType: string;                    // matches existing tile types
+  skin: string;                        // texture/model variant id
+  label?: string;                      // override display name
+  particleEffect?: string;
+}

@@ -160,6 +160,47 @@ body {
   }
 }
 
+/* Custom Scrollbar for Season Pass */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 5px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Event Tile Overrides */
+.tile-event-override {
+  box-shadow: 0 0 15px rgba(168, 85, 247, 0.4) !important;
+  border: 1.5px solid rgba(168, 85, 247, 0.6) !important;
+  animation: event-tile-pulse 2s ease-in-out infinite;
+}
+
+.tile-event-override::after {
+  content: '✦';
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  font-size: 8px;
+  color: #a855f7;
+  text-shadow: 0 0 5px #a855f7;
+}
+
+@keyframes event-tile-pulse {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 15px rgba(168, 85, 247, 0.4); }
+  50% { transform: scale(1.02); box-shadow: 0 0 25px rgba(168, 85, 247, 0.6); }
+}
+
 .upgrade-pulse {
   animation: upgrade-pulse 0.5s ease-in-out;
 }

@@ -3,9 +3,15 @@ import { motion } from 'framer-motion';
 import LeaderboardItem from './LeaderboardItem';
 import { SOCIAL_CONFIG } from '../../config/social';
 import { getFriends, getSortedFriends, getUserProfile } from '../../lib/friendManager';
-import { getPendingGifts, getSentGifts, getReceivedGifts, canSendGift, canReceiveGift, GIFT_TYPES, sendGift, receiveGift } from '../../lib/giftManager';
+import { getPendingGifts, getSentGifts, getReceivedGifts, canSendGift, canReceiveGift, GIFT_TYPES, sendGift, receiveGift, getDailyGiftsCount } from '../../lib/giftManager';
+import { getVisitorLog } from '../../lib/visitManager';
+import { getNotifications } from '../../lib/notificationManager';
+import { useStickerStore } from '../../store/useStickerStore';
+import { useMissionStore } from '../../store/useMissionStore';
+import { getStickerById } from '../../data/stickers/stickerData';
+import StickerSelectorModal from './StickerSelectorModal';
 
-export default function SocialTab({ cityLevel, netWorth, themeColor, onCompareCity }) {
+export default function SocialTab({ cityLevel, netWorth, themeColor, onCompareCity, onClaimStickerPack }) {
   const [activeTab, setActiveTab] = useState('friends'); // 'friends' | 'gifts' | 'sent'
   const [friends, setFriends] = useState([]);
   const [pendingGifts, setPendingGifts] = useState([]);
@@ -14,6 +20,52 @@ export default function SocialTab({ cityLevel, netWorth, themeColor, onCompareCi
   const [dailySent, setDailySent] = useState(0);
   const [dailyReceived, setDailyReceived] = useState(0);
   const [lastSent, setLastSent] = useState({});
+  const [activityFeed, setActivityFeed] = useState([]);
+
+  // Phase 13: Trading & Requests State
+  const [isStickerSelectorOpen, setIsStickerSelectorOpen] = useState(false);
+  const [selectedFriend, setSelectedFriend] = useState(null);
+  
+  const owned = useStickerStore(state => state.owned);
+  const activeRequests = useStickerStore(state => state.requests);
+  const sendStickerAction = useStickerStore(state => state.sendSticker);
+  const fulfillRequestAction = useStickerStore(state => state.fulfillRequest);
+
+  // Phase 14: Mission Store
+  const updateMissionProgress = useMissionStore(state => state.updateMissionProgress);
+
+  const handleOpenStickerSelector = (friend) => {
+    setSelectedFriend(friend);
+    setIsStickerSelectorOpen(true);
+  };
+
+  const handleStickerSelect = (sticker) => {
+    if (!selectedFriend) return;
+    
+    const success = sendStickerAction(sticker.id, selectedFriend.id);
+    if (success) {
+      setIsStickerSelectorOpen(false);
+      
+      // Phase 14: Track Social Mission
+      updateMissionProgress('sticker_send', 1);
+      
+      alert(`Sent ${sticker.name} to ${selectedFriend.name}!`);
+      refreshData();
+    } else {
+      alert("Failed to send sticker. Do you have a duplicate?");
+    }
+  };
+
+  const handleFulfillRequest = (request) => {
+    const success = fulfillRequestAction(request.id);
+    if (success) {
+      alert(`Request fulfilled! You earned ${request.reward} bonus dice!`);
+      // In a full integration, we'd dispatch a dice grant to the main store here
+      refreshData();
+    } else {
+      alert("You don't have a duplicate of this sticker!");
+    }
+  };
 
   useEffect(() => {
     refreshData();
@@ -25,9 +77,20 @@ export default function SocialTab({ cityLevel, netWorth, themeColor, onCompareCi
     setSentGiftsHistory(getSentGifts());
     setReceivedGifts(getReceivedGifts());
     
-    const counts = { sent: 0, received: 0 }; // Would come from giftManager.getDailyGiftsCount()
+    const counts = getDailyGiftsCount();
     setDailySent(counts.sent);
     setDailyReceived(counts.received);
+
+    // Phase 15: Merge notifications and visitor logs for Activity Feed
+    const notifications = getNotifications();
+    const visitorLogs = getVisitorLog();
+    
+    const merged = [
+      ...notifications.map(n => ({ ...n, feedType: 'notification' })),
+      ...visitorLogs.map(v => ({ ...v, feedType: 'visit', createdAt: v.visitedAt }))
+    ].sort((a, b) => b.createdAt - a.createdAt);
+    
+    setActivityFeed(merged.slice(0, 30)); // Keep top 30
   };
 
   const player = { id: 'player', name: 'YOU', avatar: '😎', level: cityLevel, netWorth: netWorth || 0, isPlayer: true };
@@ -41,7 +104,14 @@ export default function SocialTab({ cityLevel, netWorth, themeColor, onCompareCi
 
   const handleReceiveGift = (giftId) => {
     const r = receiveGift(giftId);
-    if (r.success) { refreshData(); alert(`Claimed ${GIFT_TYPES[r.reward.type].emoji} ${r.reward.value}!`); }
+    if (r.success) { 
+      refreshData(); 
+      if (r.reward.type === 'sticker_pack') {
+        if (onClaimStickerPack) onClaimStickerPack(r.reward.value);
+      } else {
+        alert(`Claimed ${GIFT_TYPES[r.reward.type].emoji} ${r.reward.value}!`); 
+      }
+    }
   };
 
   const tabButton = (key, label, icon) => (
@@ -59,6 +129,7 @@ export default function SocialTab({ cityLevel, netWorth, themeColor, onCompareCi
     <div style={{ padding: '8px' }}>
       {/* Tabs */}
       <div style={{ display: 'flex', gap: '6px', marginBottom: '12px', padding: '4px', background: 'rgba(0,0,0,0.2)', borderRadius: '10px' }}>
+        {tabButton('activity', 'Activity', '🔔')}
         {tabButton('friends', 'Friends', '👥')}
         {tabButton('gifts', `Gifts ${pendingGifts.length > 0 ? `(${pendingGifts.length})` : ''}`, '🎁')}
         {tabButton('sent', 'Sent', '📤')}
@@ -74,11 +145,91 @@ export default function SocialTab({ cityLevel, netWorth, themeColor, onCompareCi
 
       {/* Content */}
       <div style={{ maxHeight: '350px', overflowY: 'auto' }}>
+        {activeTab === 'activity' && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+            {activityFeed.length === 0 ? (
+              <div style={{ textAlign: 'center', padding: '40px', color: '#94a3b8' }}>
+                <div style={{ fontSize: '32px', marginBottom: '8px' }}>📭</div>
+                <div>No recent activity</div>
+              </div>
+            ) : (
+              activityFeed.map((item, i) => (
+                <motion.div 
+                  key={item.id} 
+                  initial={{ opacity: 0, y: 5 }} 
+                  animate={{ opacity: 1, y: 0 }} 
+                  transition={{ delay: i * 0.03 }}
+                  style={{ 
+                    padding: '10px', 
+                    background: 'rgba(255,255,255,0.03)', 
+                    borderRadius: '8px', 
+                    borderLeft: `3px solid ${item.feedType === 'visit' ? '#f59e0b' : themeColor}`,
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '12px'
+                  }}
+                >
+                  <div style={{ fontSize: '20px' }}>{item.emoji || '🔔'}</div>
+                  <div style={{ flex: 1 }}>
+                    <div style={{ fontSize: '11px', color: '#fff', lineHeight: '1.4' }}>{item.message}</div>
+                    <div style={{ fontSize: '9px', color: '#94a3b8', marginTop: '2px' }}>
+                      {new Date(item.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                    </div>
+                  </div>
+                </motion.div>
+              ))
+            )}
+          </div>
+        )}
+
         {activeTab === 'friends' && (
           <div>
+            {/* Sticker Requests Simulation */}
+            {activeRequests.length > 0 && (
+              <div style={{ marginBottom: '16px', padding: '12px', background: 'rgba(59, 130, 246, 0.1)', border: '1px solid rgba(59, 130, 246, 0.2)', borderRadius: '12px' }}>
+                <h4 style={{ fontSize: '10px', fontWeight: 'black', color: '#60a5fa', uppercase: 'true', letterSpacing: '0.1em', marginBottom: '8px', marginTop: 0 }}>
+                  SOCIAL REQUESTS
+                </h4>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                  {activeRequests.map(req => {
+                    const friend = friends.find(f => f.id === req.friendId);
+                    const sticker = getStickerById(req.stickerId);
+                    const hasDuplicate = (owned[req.stickerId] || 0) > 1;
+
+                    return (
+                      <div key={req.id} style={{ display: 'flex', alignItems: 'center', gap: '10px', background: 'rgba(0,0,0,0.2)', padding: '8px', borderRadius: '8px' }}>
+                        <div style={{ fontSize: '20px' }}>{friend?.avatar || '👤'}</div>
+                        <div style={{ flex: 1 }}>
+                          <div style={{ fontSize: '11px', fontWeight: 'bold', color: '#fff' }}>{friend?.name} needs</div>
+                          <div style={{ fontSize: '10px', color: '#94a3b8' }}>{sticker?.icon} {sticker?.name}</div>
+                        </div>
+                        <button 
+                          onClick={() => handleFulfillRequest(req)}
+                          disabled={!hasDuplicate}
+                          style={{
+                            padding: '6px 12px',
+                            background: hasDuplicate ? '#3b82f6' : 'rgba(255,255,255,0.05)',
+                            color: hasDuplicate ? '#fff' : 'rgba(255,255,255,0.2)',
+                            border: 'none',
+                            borderRadius: '6px',
+                            fontSize: '10px',
+                            fontWeight: 'bold',
+                            cursor: hasDuplicate ? 'pointer' : 'default'
+                          }}
+                        >
+                          {hasDuplicate ? 'HELP' : 'LOCKED'}
+                        </button>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+
             {leaderboard.map((f, i) => (
               <LeaderboardItem key={f.id} rank={i + 1} friend={f} themeColor={themeColor}
                 onSendGift={!f.isPlayer ? handleSendGift : null}
+                onSendSticker={!f.isPlayer ? () => handleOpenStickerSelector(f) : null}
                 onCompareCity={!f.isPlayer ? onCompareCity : null}
                 canSend={canSendGift() && !lastSent[f.id]}
               />

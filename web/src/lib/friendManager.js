@@ -4,6 +4,8 @@
  * Offline-first: uses localStorage
  */
 
+import { notifyFriendMilestone } from './notificationManager';
+
 const FRIENDS_KEY = 'cs_friends_v1';
 const INVITE_CODE_KEY = 'cs_player_code_v1';
 const USER_PROFILE_KEY = 'cs_user_profile_v1';
@@ -223,4 +225,47 @@ export const getFriendCount = () => {
  */
 export const canAddMoreFriends = (max = 100) => {
   return getFriendCount() < max;
+};
+
+/**
+ * Simulate background growth for friends
+ * Makes the leaderboard feel alive by progressing simulated friends
+ * @param {number} playerLevel - Current player level to keep friends relevant
+ */
+export const simulateFriendGrowth = (playerLevel = 1) => {
+  const friends = getFriends();
+  let updated = false;
+
+  const updatedFriends = friends.map(friend => {
+    // 30% chance of a "growth spurt" per simulation run
+    if (Math.random() < 0.3) {
+      updated = true;
+      const oldLevel = friend.level;
+      
+      // Friends stay roughly in the player's orbit (Level range: playerLevel +/- 3)
+      const targetLevel = Math.max(1, playerLevel + (Math.floor(Math.random() * 7) - 3));
+      
+      // Simulate leveling up if behind target
+      if (friend.level < targetLevel) {
+        friend.level += 1;
+        friend.netWorth += Math.floor(Math.random() * 5000 * friend.level);
+        
+        // Notify the player of significant progress
+        if (friend.level > oldLevel) {
+          notifyFriendMilestone(friend, 'level_up', friend.level.toString());
+        }
+      } else {
+        // Just increase net worth
+        friend.netWorth += Math.floor(Math.random() * 2000 * friend.level);
+      }
+      
+      friend.lastActive = Date.now();
+    }
+    return friend;
+  });
+
+  if (updated) {
+    localStorage.setItem(FRIENDS_KEY, JSON.stringify(updatedFriends));
+  }
+  return updatedFriends;
 };

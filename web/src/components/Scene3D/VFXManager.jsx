@@ -8,7 +8,7 @@ import InstancedParticles from './VFX/InstancedParticles';
  * Centralized manager for all 3D visual effects.
  * Provides unified API for triggering effects from game logic.
  */
-const VFXManager = forwardRef((props, ref) => {
+const VFXManager = forwardRef(({ ambientType = null }, ref) => {
   const coinExplosionRef = useRef();
   const levelUpRef = useRef();
   const particlesRef = useRef();
@@ -79,7 +79,7 @@ const VFXManager = forwardRef((props, ref) => {
     <group>
       <CoinExplosion ref={coinExplosionRef} />
       <LevelUpBurst ref={levelUpRef} />
-      <InstancedParticles ref={particlesRef} />
+      <InstancedParticles ref={particlesRef} ambientType={ambientType} />
     </group>
   );
 });

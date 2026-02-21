@@ -4,6 +4,7 @@ import { saveGame, loadGame, clearSave, isStorageAvailable } from '../utils/save
 import { INITIAL_STATE, PACING as BALANCE_PACING, ECONOMY, PRESTIGE, getScaledReward as calculateScaledReward, getGlobalPrestigeMultiplier } from '../config/gameBalance';
 import { SessionMetrics, saveSession } from '../utils/sessionAnalytics';
 import MissionTracker from './MissionTracker';
+import SeasonPassView from './SeasonPassView';
 import ParticleEffect from './ParticleEffect';
 import TextPop from './TextPop';
 import AudioControls from './AudioControls';
@@ -14,7 +15,16 @@ import GameScene from './Scene3D/GameScene';
 import InstancedParticles from './Scene3D/VFX/InstancedParticles';
 import Board3D from './Scene3D/Board3D';
 import VFXManager from './Scene3D/VFXManager';
+import ActiveEventBanner from './ActiveEventBanner';
+import EventCenterModal from './EventCenterModal';
+import StickerAlbumModal from './StickerAlbum/StickerAlbumModal';
+import StickerPackOpener from './StickerPackOpener';
+import MissionBoard from './Missions/MissionBoard';
 import Notification from './Notification';
+import { useStickerStore } from '../store/useStickerStore';
+import { useMissionStore } from '../store/useMissionStore';
+import { useWeatherStore } from '../store/useWeatherStore';
+import { useMasteryStore } from '../store/useMasteryStore';
 import ConfirmDialog from './ConfirmDialog';
 import AnalyticsViewer from './AnalyticsViewer';
 import CityTransition from './CityTransition';
@@ -31,6 +41,10 @@ import ComboTracker from './ComboTracker';
 import SocialTab from './Social/SocialTab';
 import { POWER_UPS, getPowerUpCost } from '../config/powerUps';
 import { generateMockFriends, SOCIAL_CONFIG } from '../config/social';
+import { useEventStore } from '../store/useEventStore';
+import { checkDailyReset as checkGiftsReset, simulateIncomingGifts } from '../lib/giftManager';
+import { simulateFriendGrowth } from '../lib/friendManager';
+import { simulateIncomingVisit, getVisitorLog, markVisitsRead } from '../lib/visitManager';
 import {
   CITY_WIDE_EVENTS,
   EVENT_TRIGGER,
@@ -55,7 +69,7 @@ const CITIES = {
       { id: 5, type: 'Corner', name: 'BONUS' },
       { id: 6, type: 'Funds', name: 'Funds', payout: 1500 },
       { id: 7, type: 'Heist', name: 'Heist' },
-      { id: 8, type: 'Landmark', name: 'Upgrade', level: 0, upgradeCost: [1000, 2000, 4000, 8000, 16000], maxLevel: 5 },
+      { id: 8, type: 'Landmark', name: 'Upgrade', level: 0, upgradeCost: [1000, 2000, 4000, 8000, 16000], maxLevel: 5, masteryBonus: { type: 'start_payout', value: 0.1 } },
       { id: 9, type: 'Card', name: 'Card' },
       { id: 10, type: 'Jail', name: 'Jail' },
       { id: 11, type: 'Sticker', name: 'Sticker' },
@@ -83,7 +97,7 @@ const CITIES = {
       { id: 5, type: 'Corner', name: 'BONUS' },
       { id: 6, type: 'Funds', name: 'Funds', payout: 2100 },
       { id: 7, type: 'Heist', name: 'Heist' },
-      { id: 8, type: 'Landmark', name: 'Upgrade', level: 0, upgradeCost: [1400, 2800, 5600, 11200, 22400], maxLevel: 5 },
+      { id: 8, type: 'Landmark', name: 'Upgrade', level: 0, upgradeCost: [1400, 2800, 5600, 11200, 22400], maxLevel: 5, masteryBonus: { type: 'max_shields', value: 1 } },
       { id: 9, type: 'Card', name: 'Card' },
       { id: 10, type: 'Jail', name: 'Jail' },
       { id: 11, type: 'Sticker', name: 'Sticker' },
@@ -111,7 +125,7 @@ const CITIES = {
       { id: 5, type: 'Corner', name: 'BONUS' },
       { id: 6, type: 'Funds', name: 'Funds', payout: 2940 },      // 1500 * 1.96
       { id: 7, type: 'Heist', name: 'Heist' },
-      { id: 8, type: 'Landmark', name: 'Upgrade', level: 0, upgradeCost: [1960, 3920, 7840, 15680, 31360], maxLevel: 5 },
+      { id: 8, type: 'Landmark', name: 'Upgrade', level: 0, upgradeCost: [1960, 3920, 7840, 15680, 31360], maxLevel: 5, masteryBonus: { type: 'xp_boost', value: 0.1 } },
       { id: 9, type: 'Card', name: 'Card' },
       { id: 10, type: 'Jail', name: 'Jail' },
       { id: 11, type: 'Sticker', name: 'Sticker' },
@@ -139,7 +153,7 @@ const CITIES = {
       { id: 5, type: 'Corner', name: 'BONUS' },
       { id: 6, type: 'Funds', name: 'Funds', payout: 4116 },      // 1500 * 2.744
       { id: 7, type: 'Heist', name: 'Heist' },
-      { id: 8, type: 'Landmark', name: 'Upgrade', level: 0, upgradeCost: [2744, 5488, 10976, 21952, 43904], maxLevel: 5 },
+      { id: 8, type: 'Landmark', name: 'Upgrade', level: 0, upgradeCost: [2744, 5488, 10976, 21952, 43904], maxLevel: 5, masteryBonus: { type: 'dice_discount', value: 0.1 } },
       { id: 9, type: 'Card', name: 'Card' },
       { id: 10, type: 'Jail', name: 'Jail' },
       { id: 11, type: 'Sticker', name: 'Sticker' },
@@ -167,7 +181,7 @@ const CITIES = {
       { id: 5, type: 'Corner', name: 'BONUS' },
       { id: 6, type: 'Funds', name: 'Funds', payout: 5762 },      // 1500 * 3.8416
       { id: 7, type: 'Heist', name: 'Heist' },
-      { id: 8, type: 'Landmark', name: 'Upgrade', level: 0, upgradeCost: [3842, 7683, 15366, 30733, 61466], maxLevel: 5 },
+      { id: 8, type: 'Landmark', name: 'Upgrade', level: 0, upgradeCost: [3842, 7683, 15366, 30733, 61466], maxLevel: 5, masteryBonus: { type: 'event_boost', value: 0.25 } },
       { id: 9, type: 'Card', name: 'Card' },
       { id: 10, type: 'Jail', name: 'Jail' },
       { id: 11, type: 'Sticker', name: 'Sticker' },
@@ -333,17 +347,130 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
   const [cityTransitionActive, setCityTransitionActive] = useState(false);
   const [targetCity, setTargetCity] = useState(null);
   const [activeTab, setActiveTab] = useState('event');
+  const [eventSubTab, setEventSubTab] = useState('pass'); // 'pass' or 'milestones'
   const [isMoving, setIsMoving] = useState(false);
   const [use3DBoard, setUse3DBoard] = useState(true); // Phase 10: 3D board enabled
   const [autoRollEnabled, setAutoRollEnabled] = useState(false);
   const [missionResetAvailable, setMissionResetAvailable] = useState(false);
   const [missionResetHandler, setMissionResetHandler] = useState(null);
-  const [eventPrestigeLevel, setEventPrestigeLevel] = useState(0);
-  const [notification, setNotification] = useState(null);
+  
+  // Phase 13: Sticker State
+  const [isAlbumOpen, setIsAlbumOpen] = useState(false);
+  const [pendingPack, setPendingPack] = useState(null); // { type, count }
+
+  // Calculate if Event Center needs a notification badge
+  const hasUnclaimedRewards = useMemo(() => {
+    // Check Season Pass
+    const pass = activeSeason?.pass;
+    if (pass) {
+      const canClaimPass = pass.levels.some(l => 
+        (activeSeason.pass.currentXP >= l.xpRequired) && 
+        ((l.freeReward && !l.claimed.free) || (activeSeason.pass.tier === 'premium' && l.premiumReward && !l.claimed.premium))
+      );
+      if (canClaimPass) return true;
+    }
+
+    // Check Classic Milestones
+    const canClaimClassic = MILESTONES.some((m, idx) => eventProgress >= m.threshold && !milestoneRewardsClaimed[idx]);
+    if (canClaimClassic) return true;
+
+    // Check Community Rewards
+    const canClaimComm = activeCommunityEvents.some(ce => 
+      ce.globalGoal.milestones.some(m => m.reached && !m.reward.claimed) ||
+      ce.contributionRewards.some(t => ce.playerContribution >= t.minContribution && !t.claimed)
+    );
+    if (canClaimComm) return true;
+
+    return false;
+  }, [activeSeason, MILESTONES, eventProgress, milestoneRewardsClaimed, activeCommunityEvents]);
+
+  // Handle Event Center Open (Clears Badge)
+  const handleOpenEventCenter = () => {
+    setIsEventCenterOpen(true);
+    // Future: Update lastViewedAt in store
+  };
   const [confirmDialog, setConfirmDialog] = useState(null);
   const [_showTiles, setShowTiles] = useState(true);
   const [lastSaved, setLastSaved] = useState(null);
   const [showAnalytics, setShowAnalytics] = useState(false);
+
+  // Event Store
+  const advanceSeasonPass = useEventStore(state => state.advanceSeasonPass);
+  const activeSeason = useEventStore(state => state.getActiveSeason());
+  const activeEventModifiers = useEventStore(state => state.getActiveModifiers());
+  const activeTileOverrides = useEventStore(state => state.getActiveTileOverrides());
+  const updateChallengeProgress = useEventStore(state => state.updateChallengeProgress);
+  const collectEventItem = useEventStore(state => state.collectEventItem);
+  const tickEvents = useEventStore(state => state.tickEvents);
+  const activeEvents = useEventStore(state => state.getActiveEvents());
+  const addEvent = useEventStore(state => state.addEvent);
+  const addCommunityEvent = useEventStore(state => state.addCommunityEvent);
+  const simulateCommunityProgress = useEventStore(state => state.simulateCommunityProgress);
+  const contributeToCommunityEvent = useEventStore(state => state.contributeToCommunityEvent);
+  const activeCommunityEvents = useEventStore(state => state.getActiveCommunityEvents());
+
+  // Phase 16: Weather Store
+  const currentWeather = useWeatherStore(state => state.currentWeather);
+  const updateWeatherRollCount = useWeatherStore(state => state.updateRollCount);
+
+  // Phase 16: Global Mastery Buffs
+  const addMastery = useMasteryStore(state => state.addMastery);
+  const globalBuffs = useMemo(() => {
+    return useMasteryStore.getState().getMasteryBuffs(CITIES);
+  }, [totalUpgrades]); 
+
+  // Debug: Inject Test Events
+  useEffect(() => {
+    // Only run in development or via a specific flag
+    if (totalRolls === 0) {
+      const { FLASH_GOLD_RUSH, LANDMARK_CHALLENGE, HALLOWEEN_COLLECTION, COMMUNITY_RESTORATION } = require('../data/events/eventData');
+      addEvent(FLASH_GOLD_RUSH);
+      addEvent(LANDMARK_CHALLENGE);
+      addEvent(HALLOWEEN_COLLECTION);
+      addCommunityEvent(COMMUNITY_RESTORATION);
+    }
+  }, [addEvent, addCommunityEvent]);
+
+  // Phase 13: Sticker Store
+  const generateStickerRequest = useStickerStore(state => state.generateRequest);
+  const activeRequests = useStickerStore(state => state.requests);
+
+  // Tick events and simulation on every roll
+  useEffect(() => {
+    const transitions = tickEvents();
+    if (transitions && transitions.length > 0) {
+      transitions.forEach(t => {
+        if (t.type === 'start') {
+          showNotification(`NEW EVENT: ${t.name} is now active!`, 'success', 6000);
+          audioManager.playSFX('milestone');
+        } else if (t.type === 'end') {
+          showNotification(`EVENT ENDED: ${t.name} has concluded.`, 'info', 5000);
+        }
+      });
+    }
+    simulateCommunityProgress();
+
+    // Phase 13: Social Request Simulation
+    if (totalRolls > 0 && totalRolls % 12 === 0) {
+      const randomFriend = friends[Math.floor(Math.random() * friends.length)];
+      if (randomFriend && activeRequests.length < 3) {
+        const { STICKER_SETS } = require('../data/stickers/stickerData');
+        const allStickers = STICKER_SETS.flatMap(s => s.stickers);
+        const randomSticker = allStickers[Math.floor(Math.random() * allStickers.length)];
+        generateStickerRequest(randomFriend.id, randomSticker.id);
+        showNotification(`${randomFriend.name} is looking for a sticker!`, 'info');
+      }
+    }
+  }, [totalRolls, tickEvents, simulateCommunityProgress, friends, generateStickerRequest, activeRequests.length]);
+
+  // Phase 12: Inject Seasonal UI Accents
+  useEffect(() => {
+    if (activeSeason?.theme?.uiAccentColor) {
+      document.documentElement.style.setProperty('--seasonal-accent', activeSeason.theme.uiAccentColor);
+    } else {
+      document.documentElement.style.setProperty('--seasonal-accent', cityData.themeColor);
+    }
+  }, [activeSeason, cityData.themeColor]);
 
   const notificationTimeoutRef = useRef(null);
   const resumeAutoRollAfterPrestigeRef = useRef(false);
@@ -353,6 +480,22 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
   // Analytics: Session tracking
   const currentSession = useRef(new SessionMetrics());
   const skipCityResetRef = useRef(false);
+
+  // Phase 15: Get active visitors (those with unclaimed bonuses)
+  const activeVisitors = useMemo(() => {
+    return getVisitorLog().filter(e => 
+      e.action === 'visit_bonus' && 
+      e.metadata && 
+      !e.metadata.claimed
+    ).map(e => ({
+      id: e.id,
+      friendId: e.friendId,
+      name: e.friendName,
+      tileIndex: e.metadata.tileIndex,
+      bonusType: e.metadata.bonusType,
+      avatar: getFriendById(e.friendId)?.avatar || '👤'
+    }));
+  }, [totalRolls, friends]);
 
   // Phase 10: 3D Scene Refs
   const particleSystemRef = useRef(null);
@@ -478,6 +621,10 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
       if (savedState.wheelSpunThisCity !== undefined) setWheelSpunThisCity(savedState.wheelSpunThisCity);
       if (savedState.globalPrestigeLevel !== undefined) setGlobalPrestigeLevel(savedState.globalPrestigeLevel);
       if (savedState.missionState !== undefined) setMissionState(savedState.missionState);
+
+      // Phase 15: Check gift reset and simulate reciprocity
+      checkGiftsReset();
+      simulateIncomingGifts(savedState.cityLevel || 1);
 
       // Social state load
       if (savedState.friends && savedState.friends.length > 0) {
@@ -716,13 +863,24 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
     if (value <= 0) return value;
     let total = value * activePowerUpEffects.rewardMultiplier;
 
+    // Phase 16: Weather Modifier (Rainy = more funds)
+    const weatherFundsModifier = currentWeather?.modifiers?.funds || 1.0;
+    total *= weatherFundsModifier;
+
     // Apply global prestige
     if (globalPrestigeLevel > 0) {
       total *= getGlobalPrestigeMultiplier(globalPrestigeLevel);
     }
 
+    // Apply Limited-Time Event Modifiers (e.g., XP Multipliers)
+    activeEventModifiers.forEach(mod => {
+      if (mod.type === 'xp_multiplier') {
+        total *= mod.value;
+      }
+    });
+
     return Math.round(total);
-  }, [activePowerUpEffects.rewardMultiplier, globalPrestigeLevel]);
+  }, [activePowerUpEffects.rewardMultiplier, globalPrestigeLevel, activeEventModifiers]);
 
   const applyFundsMultiplier = useCallback((value, options = {}) => {
     if (value <= 0) return value;
@@ -730,6 +888,13 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
     if (options.isFundsTile) {
       total *= activePowerUpEffects.fundsFromFundsTiles;
     }
+
+    // Apply Limited-Time Event Modifiers (e.g., Income Multipliers)
+    activeEventModifiers.forEach(mod => {
+      if (mod.type === 'income_multiplier') {
+        total *= mod.value;
+      }
+    });
 
     // Apply global prestige to funds too (it's multiplicative)
     // Note: applyRewardMultiplier is often called with applyFundsMultiplier result,
@@ -741,7 +906,7 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
     // Let's stick to applying it in applyRewardMultiplier for now as the single source of truth for "output scaling".
 
     return Math.round(total);
-  }, [activePowerUpEffects.fundsMultiplier, activePowerUpEffects.fundsFromFundsTiles]);
+  }, [activePowerUpEffects.fundsMultiplier, activePowerUpEffects.fundsFromFundsTiles, activeEventModifiers]);
 
   const advancePowerUpRolls = useCallback(() => {
     setActivePowerUps((prev) => {
@@ -917,6 +1082,30 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
     setTileGlow(position);
     setTimeout(() => setTileGlow(null), 1500);
 
+    // Phase 15: Check for Visitor Bonuses on this tile
+    const visitorLog = getVisitorLog();
+    const bonusEntry = visitorLog.find(e => 
+      e.action === 'visit_bonus' && 
+      e.metadata.tileIndex === position && 
+      !e.metadata.claimed
+    );
+
+    if (bonusEntry) {
+      const { bonusType, bonusValue } = bonusEntry.metadata;
+      if (bonusType === 'dice') {
+        setDice(prev => prev + bonusValue);
+        showNotification(`Visitor Gift: +${bonusValue} Dice from ${bonusEntry.friendName}!`, 'success', 3000);
+      } else {
+        const adjustedFunds = Math.round(applyRewardMultiplier(bonusValue) * comboMultiplier);
+        setFunds(prev => prev + adjustedFunds);
+        showNotification(`Visitor Gift: +$${adjustedFunds.toLocaleString()} from ${bonusEntry.friendName}!`, 'success', 3000);
+      }
+      
+      // Mark as claimed
+      bonusEntry.metadata.claimed = true;
+      markVisitsRead([bonusEntry.id]);
+    }
+
     switch (tile.type) {
       case 'Start': {
         const startPayout = tile.payout || ECONOMY.START_TILE_PAYOUT_BASE;
@@ -936,9 +1125,41 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
         const adjustedFunds = Math.round(applyRewardMultiplier(applyFundsMultiplier(fundsPayout, { isFundsTile: true })) * comboMultiplier);
         setFunds(prev => prev + adjustedFunds);
         setFundsTilesLanded(prev => prev + 1);
+        
+        // Phase 14: Track Earnings and Funds Tile Missions
+        updateMissionProgress('earn', adjustedFunds);
+        updateMissionProgress('funds_tile', 1);
+
         setTileEffect({ type: 'funds', x: 400, y: 300 });
         setTimeout(() => setTileEffect(null), 2000);
         currentSession.current.recordFundsChange(adjustedFunds);
+
+        // Community Contribution: Add earned funds to active community events
+        activeCommunityEvents.forEach(ce => {
+          if (ce.globalGoal.metric === 'total_funds_earned') {
+            contributeToCommunityEvent(ce.id, adjustedFunds);
+          }
+        });
+
+        // Event Collection: If landing on Funds and a collection event is active
+        activeEvents.forEach(event => {
+          if (event.mechanics.type === 'collection' && event.lifecycle === 'active') {
+            const override = event.tileOverrides.find(o => o.tileType === 'Funds');
+            if (override) {
+              const itemId = event.mechanics.collectibles?.items[0]?.id;
+              if (itemId) {
+                collectEventItem(event.id, itemId, 1);
+                
+                // Phase 12: Also earn event-specific currency
+                const earnEventCurrency = useEventStore.getState().earnEventCurrency;
+                earnEventCurrency(5); // Grant 5 event tokens (e.g. Candy Corn)
+                
+                showNotification(`Collected ${event.mechanics.collectibles.items[0].name} +5 Tokens!`, 'success', 2000);
+                audioManager.playSFX('sticker'); // Use sticker sound for collection
+              }
+            }
+          }
+        });
 
         // Add coin particles for large funds gains (>= 5000)
         if (adjustedFunds >= 5000) {
@@ -1163,15 +1384,53 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
     await new Promise(r => setTimeout(r, 800));
     setRolling(false);
 
-    const rollCost = activePowerUpEffects.diceCostMultiplier;
+    // Phase 16: Weather Modifier (Thunderstorms cost more dice)
+    const weatherDiceModifier = currentWeather?.modifiers?.diceCost || 1.0;
+    const rollCost = activePowerUpEffects.diceCostMultiplier * weatherDiceModifier;
     const totalCost = rollCost + diceCostRemainder;
     const diceToDeduct = Math.floor(totalCost);
     const nextRemainder = Number((totalCost - diceToDeduct).toFixed(2));
     setDiceCostRemainder(nextRemainder);
 
     setDice(prev => prev - diceToDeduct + doublesBonus);
-    setEventProgress(prev => prev + PACING.pointsPerRoll);
+    
+    // Phase 16: Weather XP Modifier (Thunderstorm = 2x XP)
+    const weatherXpModifier = currentWeather?.modifiers?.xp || 1.0;
+    setEventProgress(prev => prev + Math.round(PACING.pointsPerRoll * weatherXpModifier));
+    
     setTotalRolls(prev => prev + 1);
+
+    // Phase 14: Track Roll Mission
+    updateMissionProgress('roll', 1);
+
+    // Phase 16: Progress Weather Cycle
+    updateWeatherRollCount();
+
+    // Phase 15: Occasional Visitor Check (5% chance per roll)
+    if (Math.random() < 0.05) {
+      simulateIncomingVisit(tiles.length);
+    }
+
+    // Event Challenges
+    updateChallengeProgress('rolls', 1);
+
+    // Community Contribution: Rolls
+    activeCommunityEvents.forEach(ce => {
+      if (ce.globalGoal.metric === 'total_rolls') {
+        contributeToCommunityEvent(ce.id, 1);
+      }
+    });
+
+    // Season Pass XP
+    const result = advanceSeasonPass(10);
+    if (result?.leveledUp) {
+      showNotification(`SEASON LEVEL UP! Reach Level ${result.newLevel}`, 'success', 4000);
+      audioManager.playSFX('milestone');
+    }
+
+    // Phase 12: Earn Seasonal Currency (Passive)
+    const earnEventCurrency = useEventStore.getState().earnEventCurrency;
+    earnEventCurrency(2); // 2 Sun Shards per roll
 
     // Analytics: Record roll
     currentSession.current.recordRoll(totalRoll, rolledDoubles);
@@ -1244,6 +1503,26 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
 
     // Resolve landing
     resolveTileLanding(currentPos);
+
+    // Trigger Event VFX (Thematic)
+    activeEvents.forEach(event => {
+      if (event.lifecycle === 'active' && event.vfxType && vfxRef.current) {
+        const landingPos = calculate3DPosition(currentPos);
+        if (event.vfxType === 'spooky') {
+          vfxRef.current.emitParticles(landingPos[0], 0.5, landingPos[2], {
+            type: 'spooky',
+            count: 10,
+            color: '#a855f7'
+          });
+        } else if (event.vfxType === 'confetti') {
+          vfxRef.current.emitParticles(landingPos[0], 0.5, landingPos[2], {
+            type: 'hop',
+            count: 20,
+            color: '#fbbf24'
+          });
+        }
+      }
+    });
 
     // Advance power-ups and special events AFTER resolution so 1-roll durations cover the landing
     advancePowerUpRolls();
@@ -1525,6 +1804,50 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
       setTimeout(() => setHudMessage(null), 3000);
       setTextPop({ x: window.innerWidth / 2, y: window.innerHeight / 2, text: "ALL CLAIMED!", color: "#fbbf24" });
       setTimeout(() => setTextPop(null), 2000);
+    }
+  };
+
+  const handleSeasonPassReward = (reward) => {
+    if (!reward || !reward.payload) return;
+
+    const { type, payload } = reward;
+    
+    if (type === 'currency') {
+      if (payload.currencyType === 'funds') {
+        const amount = payload.currencyAmount || 0;
+        setFunds(prev => prev + amount);
+        currentSession.current.recordFundsChange(amount);
+        showNotification(`Season Reward: +$${amount.toLocaleString()} Funds!`, 'success');
+      } else if (payload.currencyType === 'dice') {
+        const amount = payload.currencyAmount || 0;
+        setDice(prev => prev + amount);
+        currentSession.current.recordDiceChange(amount);
+        showNotification(`Season Reward: +${amount} Dice!`, 'success');
+      }
+    } else if (type === 'power_up') {
+      if (payload.powerUpId) {
+        activatePowerUp(payload.powerUpId, { silent: true });
+        showNotification(`Season Reward: Power-Up Activated!`, 'success');
+      }
+    } else if (type === 'building') {
+      showNotification(`Season Reward: Exclusive Building Unlocked!`, 'success');
+      // In Phase 13 we'll add an inventory system for these
+    } else if (type === 'sticker_pack') {
+      const { packType, packCount } = payload;
+      setPendingPack({ type: packType || 'green', count: packCount || 1 });
+      showNotification(`Earned a ${packType || 'green'} Sticker Pack!`, 'success');
+    }
+  };
+
+  const handleUpgradeSeasonPass = () => {
+    const cost = 10000;
+    if (funds >= cost) {
+      setFunds(prev => prev - cost);
+      currentSession.current.recordFundsChange(-cost);
+      showNotification("Upgraded to PREMIUM PASS! Exclusive rewards unlocked.", 'success', 5000);
+      audioManager.playSFX('cityUnlock');
+    } else {
+      showNotification(`Not enough funds! Need $${cost.toLocaleString()} for Premium.`, 'error');
     }
   };
 
@@ -2107,11 +2430,23 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
       return;
     }
     const currentTile = tiles.find(t => t.id === playerPosition);
-    if (!currentTile || currentTile.type !== 'Landmark' || currentTile.level >= currentTile.maxLevel) {
+    if (!currentTile || currentTile.type !== 'Landmark') {
       return;
     }
 
-    const cost = currentTile.upgradeCost[currentTile.level];
+    const isMaxLevel = currentTile.level >= currentTile.maxLevel;
+    const isMastered = currentTile.mastered || false;
+
+    // Phase 16: Check for Mastery Ascension
+    if (isMaxLevel && isMastered) {
+      showNotification('Landmark has reached maximum Mastery!', 'info');
+      return;
+    }
+
+    const cost = isMaxLevel 
+      ? (currentTile.upgradeCost[currentTile.maxLevel - 1] * 3) // Mastery cost is 3x final upgrade
+      : currentTile.upgradeCost[currentTile.level];
+
     if (funds >= cost) {
       setUpgradePulse(true);
       setTimeout(() => setUpgradePulse(false), 500);
@@ -2121,26 +2456,46 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
       const centerX = rect.left + rect.width / 2;
       const centerY = rect.top + rect.height / 2;
 
-      // Use new particle effect system with stars
-      addParticleEffect('stars', centerX, centerY, { count: 15, distance: 70, duration: 1.0 });
-      setTextPop({ x: centerX, y: centerY, text: 'LEVEL UP!' });
-
-      // Play upgrade sound
-      audioManager.playSFX('upgrade');
+      // Special VFX for Mastery
+      if (isMaxLevel) {
+        addParticleEffect('celebration', centerX, centerY, { amount: 30 });
+        setTextPop({ x: centerX, y: centerY, text: 'MASTERY UNLOCKED!' });
+        audioManager.playSFX('achievement');
+      } else {
+        addParticleEffect('stars', centerX, centerY, { count: 15, distance: 70, duration: 1.0 });
+        setTextPop({ x: centerX, y: centerY, text: 'LEVEL UP!' });
+        audioManager.playSFX('upgrade');
+      }
 
       setTimeout(() => {
         setTextPop(null);
       }, 1000);
 
       setFunds(prev => prev - cost);
-      const newTiles = tiles.map(t =>
-        t.id === currentTile.id
-          ? { ...t, level: t.level + 1 }
-          : t
-      );
+      const newTiles = tiles.map(t => {
+        if (t.id === currentTile.id) {
+          if (isMaxLevel) {
+            // Phase 16: Record permanent mastery
+            addMastery(cityLevel, currentTile.id);
+            return { ...t, mastered: true, tier: 2 };
+          }
+          return { ...t, level: t.level + 1 };
+        }
+        return t;
+      });
       setTiles(newTiles);
 
-      setTotalUpgrades(prev => prev + 1); // Increment total upgrades for mission tracker
+      setTotalUpgrades(prev => prev + 1);
+      updateMissionProgress('upgrade', 1);
+      updateChallengeProgress('buildings_built', 1);
+
+      // Massive XP for Mastery
+      const xpReward = isMaxLevel ? 500 : 50;
+      const result = advanceSeasonPass(xpReward);
+      if (result?.leveledUp) {
+        showNotification(`SEASON LEVEL UP! Reach Level ${result.newLevel}`, 'success', 4000);
+        audioManager.playSFX('milestone');
+      }
 
       // Analytics: Record upgrade
       currentSession.current.recordUpgrade();
@@ -2434,8 +2789,10 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
     else if (tile.type === 'Card') tileTypeClass = 'board-tile-card';
     else if (tile.type === 'Landmark') tileTypeClass = 'board-tile-card';
 
-    // Display label - show type for regular tiles, name for corners
-    const displayLabel = isCorner ? tile.name : tile.type.toUpperCase();
+    // Apply Overrides
+    const override = activeTileOverrides.find(o => o.tileType === tile.type);
+    const displayLabel = override ? override.label : (isCorner ? tile.name : tile.type.toUpperCase());
+    const overrideClass = override ? 'tile-event-override' : '';
 
     return (
       <motion.div
@@ -2452,7 +2809,7 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
           // Ensure proper stacking
           zIndex: use3DBoard ? 10 : 'auto'
         }}
-        className={`${use3DBoard ? '' : 'board-tile'} ${tileTypeClass} tile-id-${tile.id} ${isLanded ? 'board-tile-active' : ''} ${tileGlow === tile.type ? 'tile-glow' : ''} ${effectClass}`}
+        className={`${use3DBoard ? '' : 'board-tile'} ${tileTypeClass} ${overrideClass} tile-id-${tile.id} ${isLanded ? 'board-tile-active' : ''} ${tileGlow === tile.type ? 'tile-glow' : ''} ${effectClass}`}
         initial={false}
         animate={{
           scale: 1,
@@ -2548,8 +2905,35 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
 
   return (
     <>
+      {/* Phase 12: Active Event Banner */}
+      <ActiveEventBanner />
+
+      {/* Phase 16: Weather HUD */}
+      <div className="absolute top-20 left-6 z-30 flex flex-col gap-2 pointer-events-none">
+        <motion.div 
+          initial={{ x: -20, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          key={currentWeather.id}
+          className="bg-black/40 backdrop-blur-md border border-white/10 rounded-2xl p-3 flex items-center gap-3 shadow-2xl"
+          style={{ borderLeft: `4px solid ${currentWeather.color}` }}
+        >
+          <div className="text-2xl drop-shadow-lg">{currentWeather.icon}</div>
+          <div>
+            <div className="text-[10px] font-black text-white uppercase tracking-widest leading-none mb-1 flex items-center gap-2">
+              {currentWeather.name}
+              <span className="text-white/40 font-bold lowercase tracking-normal">
+                ({useWeatherStore.getState().rollsUntilChange} rolls left)
+              </span>
+            </div>
+            <div className="text-[9px] font-bold text-white/60 uppercase">
+              {currentWeather.description}
+            </div>
+          </div>
+        </motion.div>
+      </div>
+
       {/* Phase 10: Global 3D Scene */}
-      <GameScene>
+      <GameScene seasonalTheme={activeSeason?.theme}>
         <group position={[0, 2.5, 0]}>
           <DiceGroup rolling={rolling} value1={die1Value} value2={die2Value} />
         </group>
@@ -2560,8 +2944,13 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
           playerPosition={playerPosition}
           isMoving={isMoving}
           themeColor={cityData.themeColor}
+          boardTint={currentWeather?.skyColor || activeSeason?.theme?.boardTint}
+          activeVisitors={activeVisitors}
         />
-        <VFXManager ref={vfxRef} />
+        <VFXManager 
+          ref={vfxRef} 
+          ambientType={currentWeather?.particles || activeSeason?.theme?.particleType} 
+        />
       </GameScene>
       
       <ConfirmDialog
@@ -2880,9 +3269,9 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
                     style={activeTab === 'stickers' ? { borderBottomColor: cityData.themeColor, color: cityData.themeColor } : {}}
                   >
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
                     </svg>
-                    <span>Stickers</span>
+                    <span>Collection</span>
                     {hasNewSticker && <span className="tab-badge-dot" style={{ backgroundColor: cityData.themeColor }}></span>}
                   </button>
                   <button
@@ -2911,70 +3300,55 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
                 {/* Tab Content */}
                 <div className="tab-content">
                   {activeTab === 'event' && (
-                    <div className="tab-panel">
-                      {eventPrestigeLevel > 0 && (
-                        <div className="prestige-badge">
-                          <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                          </svg>
-                          <span>Prestige {eventPrestigeLevel} - {currentMultiplier.toFixed(1)}x Rewards</span>
+                    <div className="tab-panel h-full flex flex-col items-center justify-center text-center p-6">
+                      <div className="w-16 h-16 bg-white/5 rounded-full flex items-center justify-center text-3xl mb-4 shadow-inner">
+                        {activeSeason?.seasonId === 'summer' ? '☀️' : '🎟️'}
+                      </div>
+                      <h3 className="text-lg font-black text-white uppercase tracking-tighter mb-2 italic">
+                        {activeSeason?.name || 'Seasonal Event'}
+                      </h3>
+                      <p className="text-xs text-white/40 mb-8 max-w-[200px] leading-relaxed">
+                        Earn XP, unlock exclusive rewards, and participate in community goals.
+                      </p>
+                      
+                      <button 
+                        onClick={handleOpenEventCenter}
+                        className="w-full py-4 rounded-xl font-black text-xs uppercase tracking-widest transition-all shadow-xl hover:scale-[1.02] active:scale-[0.98] relative overflow-hidden"
+                        style={{ backgroundColor: cityData.themeColor, color: '#000' }}
+                      >
+                        OPEN EVENT CENTER
+                        {hasUnclaimedRewards && (
+                          <span className="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full animate-ping" />
+                        )}
+                        {hasUnclaimedRewards && (
+                          <span className="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full" />
+                        )}
+                      </button>
+
+                      {/* Mini Progress */}
+                      <div className="mt-8 w-full bg-black/20 p-4 rounded-xl border border-white/5">
+                        <div className="flex justify-between text-[10px] font-bold uppercase mb-2">
+                          <span className="text-white/40">Current Progress</span>
+                          <span className="text-white">Level {Math.floor((activeSeason?.pass.currentXP || 0) / 1000)}</span>
                         </div>
-                      )}
-
-                      <div className="progress-header">
-                        <span className="progress-label">Progress</span>
-                        <span className="progress-value">{eventProgress} / {MILESTONES[MILESTONES.length - 1].threshold}</span>
-                      </div>
-                      <div className="board-mini-progress">
-                        <span
-                          className="board-mini-progress-fill"
-                          style={{ width: `${Math.min(100, (eventProgress / MILESTONES[MILESTONES.length - 1].threshold) * 100)}%`, backgroundColor: cityData.themeColor }}
-                        />
-                      </div>
-
-                      {MILESTONES.some((m, idx) => eventProgress >= m.threshold && !milestoneRewardsClaimed[idx]) && (
-                        <button
-                          className="btn-claim-all"
-                          onClick={handleClaimAllRewards}
-                          style={{ backgroundColor: cityData.themeColor }}
-                        >
-                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                          </svg>
-                          CLAIM ALL AVAILABLE
-                        </button>
-                      )}
-
-                      <div className="milestones-list">
-                        {MILESTONES.map((milestone, index) => {
-                          const scaledAmount = getScaledReward(milestone.reward.amount, eventPrestigeLevel);
-                          const rewardText = milestone.reward.type === 'funds'
-                            ? `$${scaledAmount.toLocaleString()}`
-                            : milestone.reward.type === 'sticker_pack'
-                              ? `${scaledAmount} Pack${scaledAmount > 1 ? 's' : ''}`
-                              : `${scaledAmount} ${milestone.reward.type}`;
-
-                          return (
-                            <div key={index} className="milestone-item">
-                              <div className="milestone-info">
-                                <span className={`milestone-threshold ${eventProgress >= milestone.threshold ? 'milestone-done' : ''}`}>
-                                  {milestone.threshold} pts
-                                </span>
-                                <span className="milestone-reward">{rewardText}</span>
-                              </div>
-                              <button
-                                className="milestone-claim-btn"
-                                onClick={() => claimReward(index)}
-                                disabled={eventProgress < milestone.threshold || milestoneRewardsClaimed[index]}
-                                style={!milestoneRewardsClaimed[index] && eventProgress >= milestone.threshold ? { backgroundColor: cityData.themeColor, color: '#000' } : {}}
-                              >
-                                {milestoneRewardsClaimed[index] ? '✓' : 'Claim'}
-                              </button>
-                            </div>
-                          );
-                        })}
+                        <div className="h-1.5 bg-white/5 rounded-full overflow-hidden">
+                          <div 
+                            className="h-full transition-all duration-500" 
+                            style={{ 
+                              width: `${((activeSeason?.pass.currentXP || 0) % 1000) / 10}%`,
+                              backgroundColor: cityData.themeColor 
+                            }} 
+                          />
+                        </div>
                       </div>
                     </div>
+                  )}
+
+                  {activeTab === 'missions' && (
+                    <MissionBoard 
+                      cityThemeColor={cityData.themeColor} 
+                      onClaimReward={handleSeasonPassReward} 
+                    />
                   )}
 
                   {activeTab === 'missions' && (
@@ -2999,48 +3373,42 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
                   )}
 
                   {activeTab === 'stickers' && (
-                    <div className="tab-panel">
-                      <div className="sticker-currency-bar">
-                        <div className="currency-item">
-                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
-                          </svg>
-                          <span>Dust: {dust}</span>
+                    <div className="tab-panel h-full flex flex-col items-center justify-center text-center p-6">
+                      <div className="w-20 h-20 bg-white/5 rounded-2xl flex items-center justify-center text-4xl mb-6 shadow-inner rotate-3">
+                        📖
+                      </div>
+                      <h3 className="text-xl font-black text-white uppercase tracking-tighter mb-2 italic">
+                        Your Collection
+                      </h3>
+                      <p className="text-xs text-white/40 mb-8 max-w-[200px] leading-relaxed">
+                        Collect unique stickers from sets to earn massive dice and fund rewards.
+                      </p>
+                      
+                      <button 
+                        onClick={() => setIsAlbumOpen(true)}
+                        className="w-full py-4 rounded-xl font-black text-xs uppercase tracking-widest transition-all shadow-xl hover:scale-[1.02] active:scale-[0.98] border border-white/10"
+                        style={{ backgroundColor: 'rgba(255,255,255,0.05)', color: '#fff' }}
+                      >
+                        OPEN STICKER ALBUM
+                      </button>
+
+                      {/* Collection Stats Summary */}
+                      <div className="mt-8 w-full grid grid-cols-2 gap-3">
+                        <div className="bg-black/20 p-3 rounded-xl border border-white/5">
+                          <span className="text-[8px] font-bold text-white/30 uppercase block mb-1">Sets Done</span>
+                          <span className="text-sm font-black text-white">
+                            {useStickerStore.getState().completedSetIds.length} / 3
+                          </span>
                         </div>
-                        <div className="currency-item">
-                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
-                          </svg>
-                          <span>Tokens: {setTokens}</span>
+                        <div className="bg-black/20 p-3 rounded-xl border border-white/5">
+                          <span className="text-[8px] font-bold text-white/30 uppercase block mb-1">Star Power</span>
+                          <span className="text-sm font-black text-yellow-500">
+                            ✨ {useStickerStore.getState().starPower}
+                          </span>
                         </div>
                       </div>
-
-                      <div className="sticker-actions-grid">
-                        <button
-                          onClick={openStickerPack}
-                          disabled={stickerPacksAvailable <= 0}
-                          className="sticker-action-btn"
-                          style={stickerPacksAvailable > 0 ? { backgroundColor: cityData.themeColor, color: '#000' } : {}}
-                        >
-                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
-                          </svg>
-                          <span>Open Pack</span>
-                          <span className="sticker-count-badge">{stickerPacksAvailable}</span>
-                        </button>
-
-                        <button
-                          onClick={redeemSetToken}
-                          disabled={setTokens <= 0}
-                          className="sticker-action-btn"
-                          style={setTokens > 0 ? { borderColor: cityData.themeColor, color: cityData.themeColor } : {}}
-                        >
-                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7" />
-                          </svg>
-                          <span>Redeem</span>
-                        </button>
-                      </div>
+                    </div>
+                  )}
 
                       <div className="crafting-bar">
                         <select
@@ -3118,13 +3486,11 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
                   {activeTab === 'social' && (
                     <div className="tab-panel">
                       <SocialTab
-                        friends={friends}
                         cityLevel={cityLevel}
-                        netWorth={funds} // Simple net worth proxy for now
+                        netWorth={funds}
                         themeColor={cityData.themeColor}
-                        onSendGift={handleSendGift}
-                        onReceiveGift={handleReceiveGift}
-                        dailyGiftCount={dailyGiftCount}
+                        onCompareCity={(friend) => setComparisonTarget(friend)}
+                        onClaimStickerPack={(packData) => setPendingPack(packData)}
                       />
                     </div>
                   )}
@@ -3241,6 +3607,41 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
         targetCityLevel={targetCity}
         onComplete={handleCityTransitionComplete}
         isActive={cityTransitionActive}
+      />
+
+      {/* Phase 12: Event Center Modal */}
+      <EventCenterModal
+        isOpen={isEventCenterOpen}
+        onClose={() => setIsEventCenterOpen(false)}
+        onClaimReward={handleSeasonPassReward}
+        onUpgradePremium={handleUpgradeSeasonPass}
+        cityThemeColor={cityData.themeColor}
+        // Classic Milestone Props
+        eventProgress={eventProgress}
+        milestones={MILESTONES}
+        milestoneRewardsClaimed={milestoneRewardsClaimed}
+        onClaimClassicReward={claimReward}
+        onClaimAllClassic={handleClaimAllRewards}
+        eventPrestigeLevel={eventPrestigeLevel}
+        getScaledReward={getScaledReward}
+      />
+
+      {/* Phase 13: Sticker Pack Opener */}
+      {pendingPack && (
+        <StickerPackOpener 
+          type={pendingPack.type} 
+          count={pendingPack.count} 
+          onComplete={() => setPendingPack(null)} 
+        />
+      )}
+
+      {/* Phase 13: Sticker Album Modal */}
+      <StickerAlbumModal
+        isOpen={isAlbumOpen}
+        onClose={() => setIsAlbumOpen(false)}
+        cityThemeColor={cityData.themeColor}
+        onClaimReward={handleSeasonPassReward}
+        onOpenVaultPack={(type) => setPendingPack({ type, count: 1 })}
       />
     </>
   );

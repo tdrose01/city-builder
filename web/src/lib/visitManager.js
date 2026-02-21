@@ -4,8 +4,47 @@
  * Offline-first: uses localStorage
  */
 
-const VISITOR_LOG_KEY = 'cs_visitor_log_v1';
-const VISIT_HISTORY_KEY = 'cs_visit_history_v1';
+import { getFriends } from './friendManager';
+import { addNotification, NOTIFICATION_TYPES } from './notificationManager';
+
+/**
+ * Simulate an incoming visit from a friend
+ * @param {number} tileCount - Total tiles on board to pick a drop location
+ * @returns {Object|null} Visit data if occurred
+ */
+export const simulateIncomingVisit = (tileCount = 20) => {
+  const friends = getFriends();
+  if (friends.length === 0) return null;
+
+  // 15% chance of a visit occurring during a play session check
+  if (Math.random() < 0.15) {
+    const friend = friends[Math.floor(Math.random() * friends.length)];
+    const targetTileIndex = Math.floor(Math.random() * tileCount);
+    
+    // Choose a bonus type
+    const bonusType = Math.random() > 0.3 ? 'funds' : 'dice';
+    const bonusValue = bonusType === 'funds' ? 500 : 3;
+
+    const visitEntry = logVisit(friend.id, friend.name, 'visit_bonus', {
+      tileIndex: targetTileIndex,
+      bonusType,
+      bonusValue,
+      claimed: false
+    });
+
+    // Notify the player
+    addNotification(NOTIFICATION_TYPES.VISITOR, {
+      title: 'City Visitor!',
+      message: `${friend.name} is visiting your city! They left a surprise on a tile.`,
+      friendId: friend.id,
+      friendName: friend.name,
+      emoji: '🏙️'
+    });
+
+    return visitEntry;
+  }
+  return null;
+};
 
 const MAX_LOG_ENTRIES = 50;  // Keep last 50 visits
 const MAX_HISTORY_ENTRIES = 100;  // Keep last 100 cities visited

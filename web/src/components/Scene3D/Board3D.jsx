@@ -4,6 +4,42 @@ import * as THREE from 'three';
 import Tile3D from './Tile3D';
 import PlayerPawn from './PlayerPawn';
 import CameraController from './CameraController';
+import { Text } from '@react-three/drei';
+
+/**
+ * VisitorAvatar
+ * Floating emoji representing a friend visiting a tile
+ */
+const VisitorAvatar = ({ position, avatar }) => {
+  const ref = useRef();
+  
+  useFrame((state) => {
+    if (ref.current) {
+      // Floating animation
+      ref.current.position.y = position[1] + Math.sin(state.clock.elapsedTime * 2) * 0.1;
+      // Billboard effect (face camera)
+      ref.current.quaternion.copy(state.camera.quaternion);
+    }
+  });
+
+  return (
+    <group ref={ref} position={position}>
+      <Text
+        fontSize={0.6}
+        color="white"
+        anchorX="center"
+        anchorY="middle"
+      >
+        {avatar}
+      </Text>
+      {/* Small glow/shadow under avatar */}
+      <mesh position={[0, -0.4, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+        <planeGeometry args={[0.5, 0.5]} />
+        <meshBasicMaterial color="white" transparent opacity={0.2} />
+      </mesh>
+    </group>
+  );
+};
 
 /**
  * Board3D
@@ -16,7 +52,9 @@ const Board3D = forwardRef(({
   playerTargetPosition = null,
   isMoving = false,
   themeColor = '#00f3ff',
+  boardTint = '#1a1a2e',
   onTileClick,
+  activeVisitors = [],
   children
 }, ref) => {
   // Calculate responsive scale for mobile devices
@@ -177,12 +215,25 @@ const Board3D = forwardRef(({
           />
         );
       })}
+
+      {/* Phase 15: Visitor Avatars */}
+      {activeVisitors.map((visitor) => {
+        const tilePos = tilePositions[visitor.tileIndex]?.position;
+        if (!tilePos) return null;
+        return (
+          <VisitorAvatar 
+            key={visitor.id}
+            position={[tilePos[0], 1.2, tilePos[2]]}
+            avatar={visitor.avatar}
+          />
+        );
+      })}
       
       {/* Ground plane for shadows */}
       <mesh position={[0, -0.01, 0]} receiveShadow>
         <planeGeometry args={[20, 20]} />
         <meshStandardMaterial 
-          color="#1a1a2e" 
+          color={boardTint} 
           roughness={0.8}
           metalness={0.1}
         />
