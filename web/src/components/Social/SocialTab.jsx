@@ -6,6 +6,7 @@ import { getFriends, getSortedFriends, getUserProfile } from '../../lib/friendMa
 import { getPendingGifts, getSentGifts, getReceivedGifts, canSendGift, canReceiveGift, GIFT_TYPES, sendGift, receiveGift, getDailyGiftsCount } from '../../lib/giftManager';
 import { getVisitorLog } from '../../lib/visitManager';
 import { getNotifications } from '../../lib/notificationManager';
+import { useSocialStore } from '../../social/core/SocialStore';
 import { useStickerStore } from '../../store/useStickerStore';
 import { useMissionStore } from '../../store/useMissionStore';
 import { getStickerById } from '../../data/stickers/stickerData';
@@ -21,6 +22,12 @@ export default function SocialTab({ cityLevel, netWorth, themeColor, onCompareCi
   const [dailyReceived, setDailyReceived] = useState(0);
   const [lastSent, setLastSent] = useState({});
   const [activityFeed, setActivityFeed] = useState([]);
+
+  // Reactive store subscriptions (Phase C migration)
+  const _friendsVersion = useSocialStore(state => state.friends);
+  const _giftsVersion = useSocialStore(state => state.gifts);
+  const _notificationsVersion = useSocialStore(state => state.notifications);
+  const _visitorLogVersion = useSocialStore(state => state.visitorLog);
 
   // Phase 13: Trading & Requests State
   const [isStickerSelectorOpen, setIsStickerSelectorOpen] = useState(false);
@@ -69,7 +76,7 @@ export default function SocialTab({ cityLevel, netWorth, themeColor, onCompareCi
 
   useEffect(() => {
     refreshData();
-  }, []);
+  }, [_friendsVersion, _giftsVersion, _notificationsVersion, _visitorLogVersion]);
 
   const refreshData = () => {
     setFriends(getSortedFriends());

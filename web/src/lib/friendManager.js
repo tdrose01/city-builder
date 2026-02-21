@@ -1,16 +1,17 @@
 /**
- * Friend Manager
- * Handles friend CRUD, invite codes, and city snapshots
- * Offline-first: uses localStorage
+ * Friend Manager (Event-Driven Refactor)
+ * Compatible API surface with Phase A architecture
+ * Now uses SocialStore as single source of truth
  */
 
-import { notifyFriendMilestone } from './notificationManager';
+import { useSocialStore, storageAdapter } from '../social/core/SocialStore';
 
-const FRIENDS_KEY = 'cs_friends_v1';
-const INVITE_CODE_KEY = 'cs_player_code_v1';
-const USER_PROFILE_KEY = 'cs_user_profile_v1';
+// Dynamic import for notificationManager to break circular dependency
+const notifyFriendMilestone = async (...args) => {
+  const { notifyFriendMilestone: notify } = await import('./notificationManager');
+  return notify(...args);
+};
 
-// Valid characters for invite codes (excludes 0, O, I, L)
 const CODE_CHARS = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789';
 
 /**
@@ -25,31 +26,31 @@ export const generateInviteCode = () => {
   return code;
 };
 
+const checkCodeExistsInFriends = (code) => {
+  const friends = getFriends();
+  return friends.some(f => f.code === code.toUpperCase().trim());
+};
+
 /**
  * Get or create user's invite code
  * @returns {string} User's invite code
  */
 export const getUserInviteCode = () => {
-  let code = localStorage.getItem(INVITE_CODE_KEY);
+  const store = useSocialStore.getState();
+  if (store.inviteCode) return store.inviteCode;
+  
+  let code = storageAdapter.getInviteCode();
   if (!code) {
     code = generateInviteCode();
-    // Check for collision (unlikely but possible)
     while (checkCodeExistsInFriends(code)) {
       code = generateInviteCode();
     }
-    localStorage.setItem(INVITE_CODE_KEY, code);
+    storageAdapter.setInviteCode(code);
+    useSocialStore.setState({ inviteCode: code });
+  } else {
+    useSocialStore.setState({ inviteCode: code });
   }
   return code;
-};
-
-/**
- * Check if a code already exists in friends list
- * @param {string} code - Code to check
- * @returns {boolean}
- */
-const checkCodeExistsInFriends = (code) => {
-  const friends = getFriends();
-  return friends.some(f => f.code === code);
 };
 
 /**
@@ -57,22 +58,28 @@ const checkCodeExistsInFriends = (code) => {
  * @returns {Object} User profile
  */
 export const getUserProfile = () => {
-  const profile = localStorage.getItem(USER_PROFILE_KEY);
-  if (!profile) {
-    const newProfile = {
-      id: crypto.randomUUID(),
-      inviteCode: getUserInviteCode(),
-      name: 'Player',
-      avatar: '😎',
-      level: 1,
-      netWorth: 0,
-      createdAt: Date.now(),
-      lastActive: Date.now()
-    };
-    localStorage.setItem(USER_PROFILE_KEY, JSON.stringify(newProfile));
-    return newProfile;
+  const store = useSocialStore.getState();
+  if (store.profile) return store.profile;
+  
+  const profile = storageAdapter.getUserProfile();
+  if (profile) {
+    useSocialStore.setState({ profile });
+    return profile;
   }
-  return JSON.parse(profile);
+  
+  const newProfile = {
+    id: crypto.randomUUID(),
+    inviteCode: getUserInviteCode(),
+    name: 'Player',
+    avatar: '😎',
+    level: 1,
+    netWorth: 0,
+    createdAt: Date.now(),
+    lastActive: Date.now()
+  };
+  storageAdapter.setUserProfile(newProfile);
+  useSocialStore.setState({ profile: newProfile });
+  return newProfile;
 };
 
 /**
@@ -81,9 +88,10 @@ export const getUserProfile = () => {
  * @returns {Object} Updated profile
  */
 export const updateUserProfile = (updates) => {
-  const profile = getUserProfile();
-  const updated = { ...profile, ...updates, lastActive: Date.now() };
-  localStorage.setItem(USER_PROFILE_KEY, JSON.stringify(updated));
+  const current = getUserProfile();
+  const updated = { ...current, ...updates, lastActive: Date.now() };
+  storageAdapter.setUserProfile(updated);
+  useSocialStore.setState({ profile: updated });
   return updated;
 };
 
@@ -92,20 +100,20 @@ export const updateUserProfile = (updates) => {
  * @returns {Array} List of friends
  */
 export const getFriends = () => {
-  const friends = localStorage.getItem(FRIENDS_KEY);
-  return friends ? JSON.parse(friends) : [];
+  const store = useSocialStore.getState();
+  return store.friends || [];
 };
 
 /**
  * Add a friend by invite code
  * @param {string} code - Friend's invite code
- * @param {Object} friendData - Friend data (from QR scan or manual entry)
+ * @param {Object} friendData - Friend data
  * @returns {Object} {success: boolean, friend: Object|null, error: string|null}
  */
 export const addFriendByCode = (code, friendData = {}) => {
   code = code.toUpperCase().trim();
-  
   const userCode = getUserInviteCode();
+  
   if (code === userCode) {
     return { success: false, error: 'Cannot add yourself' };
   }
@@ -126,8 +134,8 @@ export const addFriendByCode = (code, friendData = {}) => {
     citySnapshot: friendData.citySnapshot || null
   };
   
-  friends.push(newFriend);
-  localStorage.setItem(FRIENDS_KEY, JSON.stringify(friends));
+  const updatedFriends = [...friends, newFriend];
+  useSocialStore.getState().updateFriends(updatedFriends);
   
   return { success: true, friend: newFriend };
 };
@@ -140,12 +148,16 @@ export const addFriendByCode = (code, friendData = {}) => {
 export const removeFriend = (friendId) => {
   const friends = getFriends();
   const filtered = friends.filter(f => f.id !== friendId);
-  localStorage.setItem(FRIENDS_KEY, JSON.stringify(filtered));
-  return filtered.length < friends.length;
+  const removed = filtered.length < friends.length;
+  
+  if (removed) {
+    useSocialStore.getState().updateFriends(filtered);
+  }
+  return removed;
 };
 
 /**
- * Update friend's data (e.g., after visiting their city)
+ * Update friend's data
  * @param {string} friendId - Friend's ID
  * @param {Object} updates - Data updates
  * @returns {Object|null} Updated friend or null
@@ -155,9 +167,12 @@ export const updateFriend = (friendId, updates) => {
   const index = friends.findIndex(f => f.id === friendId);
   if (index === -1) return null;
   
-  friends[index] = { ...friends[index], ...updates, lastActive: Date.now() };
-  localStorage.setItem(FRIENDS_KEY, JSON.stringify(friends));
-  return friends[index];
+  const updatedFriend = { ...friends[index], ...updates, lastActive: Date.now() };
+  const updatedFriends = [...friends];
+  updatedFriends[index] = updatedFriend;
+  
+  useSocialStore.getState().updateFriends(updatedFriends);
+  return updatedFriend;
 };
 
 /**
@@ -168,10 +183,7 @@ export const updateFriend = (friendId, updates) => {
  */
 export const saveFriendCitySnapshot = (friendId, cityData) => {
   return updateFriend(friendId, {
-    citySnapshot: {
-      ...cityData,
-      capturedAt: Date.now()
-    }
+    citySnapshot: { ...cityData, capturedAt: Date.now() }
   });
 };
 
@@ -207,16 +219,14 @@ export const getInviteText = () => {
  * Clear all friend data (for testing)
  */
 export const clearFriends = () => {
-  localStorage.removeItem(FRIENDS_KEY);
+  useSocialStore.getState().updateFriends([]);
 };
 
 /**
  * Get friend count
  * @returns {number}
  */
-export const getFriendCount = () => {
-  return getFriends().length;
-};
+export const getFriendCount = () => getFriends().length;
 
 /**
  * Check if user can add more friends
@@ -229,43 +239,39 @@ export const canAddMoreFriends = (max = 100) => {
 
 /**
  * Simulate background growth for friends
- * Makes the leaderboard feel alive by progressing simulated friends
- * @param {number} playerLevel - Current player level to keep friends relevant
+ * Now uses SocialStore for atomic updates
+ * @param {number} playerLevel - Current player level
  */
 export const simulateFriendGrowth = (playerLevel = 1) => {
   const friends = getFriends();
   let updated = false;
-
+  const notifications = [];
+  
   const updatedFriends = friends.map(friend => {
-    // 30% chance of a "growth spurt" per simulation run
     if (Math.random() < 0.3) {
       updated = true;
       const oldLevel = friend.level;
-      
-      // Friends stay roughly in the player's orbit (Level range: playerLevel +/- 3)
       const targetLevel = Math.max(1, playerLevel + (Math.floor(Math.random() * 7) - 3));
       
-      // Simulate leveling up if behind target
       if (friend.level < targetLevel) {
         friend.level += 1;
         friend.netWorth += Math.floor(Math.random() * 5000 * friend.level);
-        
-        // Notify the player of significant progress
         if (friend.level > oldLevel) {
-          notifyFriendMilestone(friend, 'level_up', friend.level.toString());
+          notifications.push({ friend, type: 'level_up', value: friend.level.toString() });
         }
       } else {
-        // Just increase net worth
         friend.netWorth += Math.floor(Math.random() * 2000 * friend.level);
       }
-      
       friend.lastActive = Date.now();
     }
     return friend;
   });
-
+  
   if (updated) {
-    localStorage.setItem(FRIENDS_KEY, JSON.stringify(updatedFriends));
+    useSocialStore.getState().updateFriends(updatedFriends);
+    // Fire notifications async
+    notifications.forEach(n => notifyFriendMilestone(n.friend, n.type, n.value));
   }
+  
   return updatedFriends;
 };

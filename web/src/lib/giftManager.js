@@ -1,18 +1,12 @@
 /**
- * Gift Manager
- * Handles gift sending/receiving, daily limits, and gift economy
- * Offline-first: uses localStorage
+ * Gift Manager (Event-Driven Refactor)
+ * Compatible API surface with Phase A architecture
+ * Uses SocialStore for state management
  */
 
-import { getUserProfile, updateUserProfile, getFriendById, updateFriend, getFriends } from './friendManager';
-import { addNotification, NOTIFICATION_TYPES } from './notificationManager';
-
-// Storage keys
-const GIFTS_KEY = 'cs_gifts_v1';
-const GIFTS_DAILY_SENT = 'cs_gifts_daily_sent_v1';
-const GIFTS_DAILY_RECEIVED = 'cs_gifts_daily_received_v1';
-const GIFTS_LAST_RESET = 'cs_gifts_last_reset_v1';
-const FRIEND_STREAKS_KEY = 'cs_friend_streaks_v1';
+import { useSocialStore } from '../social/core/SocialStore';
+import storageAdapter, { STORAGE_KEYS } from '../social/repository/LocalStorageAdapter';
+import { getUserProfile, getFriendById, updateFriend, getFriends } from './friendManager';
 
 // Gift economy constants
 export const GIFT_CONSTANTS = {
@@ -61,6 +55,16 @@ export const GIFT_TYPES = {
   }
 };
 
+// Dynamic import for notificationManager to break circular dependency
+const notifyGiftReceived = async (data) => {
+  try {
+    const { addNotification, NOTIFICATION_TYPES } = await import('./notificationManager');
+    await addNotification(NOTIFICATION_TYPES.GIFT_RECEIVED, data);
+  } catch (e) {
+    console.warn('Failed to notify gift received', e);
+  }
+};
+
 /**
  * Get the current UTC midnight timestamp
  * @returns {number}
@@ -72,16 +76,39 @@ const getUTCMidnight = () => {
 };
 
 /**
+ * Helper to resync state from storage for tests that modify localStorage directly
+ */
+const resyncStateFromStorage = () => {
+  const sent = parseInt(storageAdapter.getString(STORAGE_KEYS.GIFTS_DAILY_SENT, '0'));
+  const received = parseInt(storageAdapter.getString(STORAGE_KEYS.GIFTS_DAILY_RECEIVED, '0'));
+  const lastReset = storageAdapter.getString(STORAGE_KEYS.GIFTS_LAST_RESET, null);
+  
+  useSocialStore.setState({
+    dailyGiftsSent: sent,
+    dailyGiftsReceived: received,
+    giftsLastReset: lastReset
+  });
+  
+  return { sent, received, lastReset };
+};
+
+/**
  * Check and reset daily limits if needed (resets at midnight UTC)
  */
 export const checkDailyReset = () => {
-  const lastReset = localStorage.getItem(GIFTS_LAST_RESET);
+  const { lastReset } = resyncStateFromStorage();
   const currentUTCMidnight = getUTCMidnight();
   
   if (!lastReset || parseInt(lastReset) < currentUTCMidnight) {
-    localStorage.setItem(GIFTS_DAILY_SENT, '0');
-    localStorage.setItem(GIFTS_DAILY_RECEIVED, '0');
-    localStorage.setItem(GIFTS_LAST_RESET, currentUTCMidnight.toString());
+    useSocialStore.setState({
+      dailyGiftsSent: 0,
+      dailyGiftsReceived: 0,
+      giftsLastReset: currentUTCMidnight.toString()
+    });
+    // Write directly to storage adapter to persist limits
+    storageAdapter.setString(STORAGE_KEYS.GIFTS_DAILY_SENT, '0');
+    storageAdapter.setString(STORAGE_KEYS.GIFTS_DAILY_RECEIVED, '0');
+    storageAdapter.setString(STORAGE_KEYS.GIFTS_LAST_RESET, currentUTCMidnight.toString());
     return true; // Reset occurred
   }
   return false; // No reset needed
@@ -93,9 +120,8 @@ export const checkDailyReset = () => {
  */
 export const getDailyGiftsCount = () => {
   checkDailyReset();
-  const sent = parseInt(localStorage.getItem(GIFTS_DAILY_SENT) || '0');
-  const received = parseInt(localStorage.getItem(GIFTS_DAILY_RECEIVED) || '0');
-  return { sent, received };
+  const store = useSocialStore.getState();
+  return { sent: store.dailyGiftsSent, received: store.dailyGiftsReceived };
 };
 
 /**
@@ -103,8 +129,7 @@ export const getDailyGiftsCount = () => {
  * @returns {Array}
  */
 export const getAllGifts = () => {
-  const gifts = localStorage.getItem(GIFTS_KEY);
-  return gifts ? JSON.parse(gifts) : [];
+  return useSocialStore.getState().gifts || [];
 };
 
 /**
@@ -113,7 +138,9 @@ export const getAllGifts = () => {
  */
 export const getPendingGifts = () => {
   const gifts = getAllGifts();
-  return gifts.filter(g => g.toId === getUserProfile().id && !g.claimed && !g.expired);
+  const profile = getUserProfile();
+  if (!profile) return [];
+  return gifts.filter(g => g.toId === profile.id && !g.claimed && !g.expired);
 };
 
 /**
@@ -122,7 +149,9 @@ export const getPendingGifts = () => {
  */
 export const getSentGifts = () => {
   const gifts = getAllGifts();
-  return gifts.filter(g => g.fromId === getUserProfile().id);
+  const profile = getUserProfile();
+  if (!profile) return [];
+  return gifts.filter(g => g.fromId === profile.id);
 };
 
 /**
@@ -131,7 +160,9 @@ export const getSentGifts = () => {
  */
 export const getReceivedGifts = () => {
   const gifts = getAllGifts();
-  return gifts.filter(g => g.toId === getUserProfile().id);
+  const profile = getUserProfile();
+  if (!profile) return [];
+  return gifts.filter(g => g.toId === profile.id);
 };
 
 /**
@@ -157,8 +188,7 @@ export const canReceiveGift = () => {
  * @returns {Object} Map of friendId -> streak data
  */
 export const getFriendStreaks = () => {
-  const streaks = localStorage.getItem(FRIEND_STREAKS_KEY);
-  return streaks ? JSON.parse(streaks) : {};
+  return useSocialStore.getState().friendStreaks || {};
 };
 
 /**
@@ -191,10 +221,12 @@ const updateFriendStreak = (friendId, action) => {
     streak.current += 1;
     streak.lastExchangeDate = now;
   }
-  // If same day, don't increment but update timestamp
   
-  streaks[friendId] = streak;
-  localStorage.setItem(FRIEND_STREAKS_KEY, JSON.stringify(streaks));
+  const updatedStreaks = { ...streaks, [friendId]: streak };
+  
+  // Update state and persistent storage
+  useSocialStore.setState({ friendStreaks: updatedStreaks });
+  storageAdapter.setFriendStreaks(updatedStreaks);
   
   return streak;
 };
@@ -243,7 +275,7 @@ export const sendGift = (toFriendId, giftType, cityLevel = 1) => {
   };
   
   // Save gift
-  const gifts = getAllGifts();
+  const gifts = [...getAllGifts()];
   gifts.push(gift);
   
   // Limit stored gifts to last 100
@@ -251,11 +283,13 @@ export const sendGift = (toFriendId, giftType, cityLevel = 1) => {
     gifts.splice(0, gifts.length - 100);
   }
   
-  localStorage.setItem(GIFTS_KEY, JSON.stringify(gifts));
+  useSocialStore.getState().updateGifts(gifts);
   
   // Increment daily sent count
-  const currentSent = parseInt(localStorage.getItem(GIFTS_DAILY_SENT) || '0');
-  localStorage.setItem(GIFTS_DAILY_SENT, (currentSent + 1).toString());
+  const store = useSocialStore.getState();
+  const newSent = store.dailyGiftsSent + 1;
+  useSocialStore.setState({ dailyGiftsSent: newSent });
+  storageAdapter.setString(STORAGE_KEYS.GIFTS_DAILY_SENT, newSent.toString());
   
   // Update streak
   const streak = updateFriendStreak(toFriendId, 'send');
@@ -280,7 +314,7 @@ export const receiveGift = (giftId) => {
     return { success: false, error: 'Daily receive limit reached (5/5)' };
   }
   
-  const gifts = getAllGifts();
+  const gifts = [...getAllGifts()];
   const giftIndex = gifts.findIndex(g => g.id === giftId);
   
   if (giftIndex === -1) {
@@ -298,11 +332,13 @@ export const receiveGift = (giftId) => {
   gift.claimed = true;
   gift.claimedAt = Date.now();
   gifts[giftIndex] = gift;
-  localStorage.setItem(GIFTS_KEY, JSON.stringify(gifts));
+  useSocialStore.getState().updateGifts(gifts);
   
   // Increment daily received count
-  const currentReceived = parseInt(localStorage.getItem(GIFTS_DAILY_RECEIVED) || '0');
-  localStorage.setItem(GIFTS_DAILY_RECEIVED, (currentReceived + 1).toString());
+  const store = useSocialStore.getState();
+  const newReceived = store.dailyGiftsReceived + 1;
+  useSocialStore.setState({ dailyGiftsReceived: newReceived });
+  storageAdapter.setString(STORAGE_KEYS.GIFTS_DAILY_RECEIVED, newReceived.toString());
   
   // Update streak with sender
   const streak = updateFriendStreak(gift.fromId, 'receive');
@@ -349,7 +385,7 @@ export const simulateIncomingGifts = (cityLevel = 1) => {
   if (remainingCapacity <= 0) return [];
 
   const incomingGifts = [];
-  const gifts = getAllGifts();
+  const gifts = [...getAllGifts()];
 
   // Filter for friends you've interacted with (sent gifts to)
   const activeFriends = friends
@@ -395,7 +431,7 @@ export const simulateIncomingGifts = (cityLevel = 1) => {
       remainingCapacity--;
 
       // Notify the player
-      addNotification(NOTIFICATION_TYPES.GIFT_RECEIVED, {
+      notifyGiftReceived({
         title: 'Gift Received!',
         message: `${friend.name} sent you ${giftConfig.name}!`,
         friendId: friend.id,
@@ -408,7 +444,7 @@ export const simulateIncomingGifts = (cityLevel = 1) => {
   }
 
   if (incomingGifts.length > 0) {
-    localStorage.setItem(GIFTS_KEY, JSON.stringify(gifts.slice(-100)));
+    useSocialStore.getState().updateGifts(gifts.slice(-100));
     // Note: We don't increment GIFTS_DAILY_RECEIVED here because it's incremented when the user CLAIMS it in receiveGift()
     // This allows the user to see them in the UI before they count against the limit.
   }

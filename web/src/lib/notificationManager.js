@@ -1,14 +1,11 @@
 /**
- * Notification Manager
- * Handles in-app notifications for friend milestones, gifts, rank changes
- * Offline-first: uses localStorage
+ * Notification Manager (Event-Driven Refactor)
+ * Uses SocialStore + LocalStorageAdapter
  */
 
-import { getUserProfile } from './friendManager';
-
-// Storage keys
-const NOTIFICATIONS_KEY = 'cs_notifications_v1';
-const NOTIFICATIONS_READ_KEY = 'cs_notifications_read_v1';
+import { useSocialStore } from '../social/core/SocialStore';
+import storageAdapter from '../social/repository/LocalStorageAdapter';
+import { getUserProfile, getFriends } from './friendManager';
 
 // Notification types
 export const NOTIFICATION_TYPES = {
@@ -19,13 +16,19 @@ export const NOTIFICATION_TYPES = {
   VISITOR: 'visitor'
 };
 
+const resyncNotificationsFromStorage = () => {
+  const notifications = storageAdapter.getNotifications() || [];
+  useSocialStore.setState({ notifications });
+  return notifications;
+};
+
 /**
  * Get all notifications
  * @returns {Array}
  */
 export const getNotifications = () => {
-  const notifications = localStorage.getItem(NOTIFICATIONS_KEY);
-  return notifications ? JSON.parse(notifications) : [];
+  const notifications = resyncNotificationsFromStorage();
+  return notifications;
 };
 
 /**
@@ -33,8 +36,7 @@ export const getNotifications = () => {
  * @returns {number}
  */
 export const getUnreadCount = () => {
-  const notifications = getNotifications();
-  return notifications.filter(n => !n.read).length;
+  return getNotifications().filter(n => !n.read).length;
 };
 
 /**
@@ -44,8 +46,8 @@ export const getUnreadCount = () => {
  * @returns {Object} Created notification
  */
 export const addNotification = (type, data) => {
-  const profile = getUserProfile();
-  
+  getUserProfile(); // keep parity with old flow where profile presence was touched
+
   const notification = {
     id: crypto.randomUUID(),
     type,
@@ -53,16 +55,16 @@ export const addNotification = (type, data) => {
     createdAt: Date.now(),
     read: false
   };
-  
-  const notifications = getNotifications();
+
+  const notifications = [...getNotifications()];
   notifications.unshift(notification);
-  
+
   // Keep only last 50 notifications
   if (notifications.length > 50) {
     notifications.splice(50);
   }
-  
-  localStorage.setItem(NOTIFICATIONS_KEY, JSON.stringify(notifications));
+
+  useSocialStore.getState().updateNotifications(notifications);
   return notification;
 };
 
@@ -72,14 +74,14 @@ export const addNotification = (type, data) => {
  * @returns {boolean}
  */
 export const markAsRead = (notificationId) => {
-  const notifications = getNotifications();
+  const notifications = [...getNotifications()];
   const index = notifications.findIndex(n => n.id === notificationId);
-  
+
   if (index === -1) return false;
-  
+
   notifications[index].read = true;
   notifications[index].readAt = Date.now();
-  localStorage.setItem(NOTIFICATIONS_KEY, JSON.stringify(notifications));
+  useSocialStore.getState().updateNotifications(notifications);
   return true;
 };
 
@@ -92,21 +94,23 @@ export const markAllAsRead = () => {
     read: true,
     readAt: n.readAt || Date.now()
   }));
-  localStorage.setItem(NOTIFICATIONS_KEY, JSON.stringify(notifications));
+  useSocialStore.getState().updateNotifications(notifications);
 };
 
 /**
  * Clear all notifications
  */
 export const clearNotifications = () => {
-  localStorage.removeItem(NOTIFICATIONS_KEY);
+  useSocialStore.getState().updateNotifications([]);
 };
 
 /**
  * Create notification for gift received
  * @param {Object} gift
  */
-export const notifyGiftReceived = (gift) => {
+export const notifyGiftReceived = async (gift) => {
+  const { GIFT_TYPES } = await import('./giftManager');
+
   return addNotification(NOTIFICATION_TYPES.GIFT_RECEIVED, {
     title: 'Gift Received!',
     message: `${gift.fromName} sent you ${GIFT_TYPES[gift.type]?.name || 'a gift'}!`,
@@ -130,7 +134,7 @@ export const notifyFriendMilestone = (friend, milestone, detail) => {
     landmark: `${friend.name} unlocked ${detail}!`,
     net_worth: `${friend.name} hit $${detail} net worth!`
   };
-  
+
   return addNotification(NOTIFICATION_TYPES.FRIEND_MILESTONE, {
     title: 'Friend Milestone!',
     message: messages[milestone] || `${friend.name} achieved something amazing!`,
@@ -150,10 +154,10 @@ export const notifyFriendMilestone = (friend, milestone, detail) => {
  */
 export const notifyRankChange = (oldRank, newRank, friendName = null) => {
   const improved = oldRank > newRank;
-  
+
   return addNotification(NOTIFICATION_TYPES.RANK_CHANGE, {
     title: improved ? '📈 Rank Up!' : '📉 Rank Change',
-    message: improved 
+    message: improved
       ? `You moved from #${oldRank} to #${newRank}!`
       : `${friendName || 'Someone'} passed you! You're now #${newRank}`,
     oldRank,
@@ -171,7 +175,7 @@ export const notifyRankChange = (oldRank, newRank, friendName = null) => {
 export const notifyStreakUpdate = (friendId, streakDays) => {
   const friend = getFriends().find(f => f.id === friendId);
   if (!friend) return null;
-  
+
   return addNotification(NOTIFICATION_TYPES.STREAK_UPDATE, {
     title: 'Streak Update!',
     message: `You've exchanged gifts with ${friend.name} for ${streakDays} days in a row!`,
@@ -189,7 +193,7 @@ export const notifyStreakUpdate = (friendId, streakDays) => {
  */
 export const getNotificationDisplay = (notification) => {
   const timeAgo = getTimeAgo(notification.createdAt);
-  
+
   return {
     title: notification.title || 'Notification',
     message: notification.message || '',
@@ -205,13 +209,9 @@ export const getNotificationDisplay = (notification) => {
  */
 const getTimeAgo = (timestamp) => {
   const seconds = Math.floor((Date.now() - timestamp) / 1000);
-  
+
   if (seconds < 60) return 'Just now';
   if (seconds < 3600) return `${Math.floor(seconds / 60)}m ago`;
   if (seconds < 86400) return `${Math.floor(seconds / 3600)}h ago`;
   return `${Math.floor(seconds / 86400)}d ago`;
 };
-
-// Import needed for notifications
-import { getFriends } from './friendManager';
-import { GIFT_TYPES } from './giftManager';

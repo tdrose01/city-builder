@@ -67,14 +67,23 @@ social/
 ## Execution Plan
 
 ### Phase A (Prep)
-- [ ] Audit current cross-module dependencies (grep for imports)
-- [ ] Create SocialStore skeleton with Zustand
-- [ ] Write LocalStorageAdapter with same API as old direct calls
+- [x] Audit current cross-module dependencies (grep for imports)
+- [x] Create SocialStore skeleton with Zustand
+- [x] Write LocalStorageAdapter with same API as old direct calls
 
 ### Phase B (Migrate)
-- [ ] Move FriendManager to new pattern (lowest risk)
-- [ ] Migrate GiftManager (has tests already, safe to move)
+- [x] Move FriendManager to new pattern (lowest risk)
+- [x] Migrate GiftManager (has tests already, safe to move)
+- [x] Migrate NotificationManager
 - [ ] Migrate VisitManager
+
+**Phase B Progress:**
+- ✅ FriendManager migrated to SocialStore pattern
+- ✅ Circular dependency with notificationManager fixed (dynamic import)
+- ✅ All localStorage calls abstracted through LocalStorageAdapter
+- ✅ GiftManager migrated to SocialStore pattern, synced with tests
+- ✅ NotificationManager migrated to SocialStore pattern
+- ✅ giftManager.test.js passes, API compatibility maintained
 
 ### Phase C (Cleanup)
 - [ ] Remove old manager files
