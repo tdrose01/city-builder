@@ -68,7 +68,7 @@ export default function MissionTracker({
       
       if (newlyCompleted.length > 0) {
         // Update state to mark as completed
-        setMissionState(prev => ({
+        console.log("setMissionState called"); setMissionState(prev => ({
           ...prev,
           [category]: {
             ...prev[category],
@@ -97,7 +97,7 @@ export default function MissionTracker({
 
   // Reset Logic for Daily
   const handleResetDaily = () => {
-    setMissionState(prev => ({
+    console.log("setMissionState called"); setMissionState(prev => ({
       ...prev,
       daily: {
         startRolls: rolls,

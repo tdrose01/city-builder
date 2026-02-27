@@ -335,6 +335,7 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
   const [upgradeBlocked, setUpgradeBlocked] = useState(false);
   const [wheelSpunThisCity, setWheelSpunThisCity] = useState(false);
   const [globalPrestigeLevel, setGlobalPrestigeLevel] = useState(0);
+  const [eventPrestigeLevel, setEventPrestigeLevel] = useState(0);
 
   // Mission state (Daily, Weekly, Monthly persistence)
   const [missionState, setMissionState] = useState({
@@ -353,10 +354,28 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
   const [autoRollEnabled, setAutoRollEnabled] = useState(false);
   const [missionResetAvailable, setMissionResetAvailable] = useState(false);
   const [missionResetHandler, setMissionResetHandler] = useState(null);
+  const [isEventCenterOpen, setIsEventCenterOpen] = useState(false);
+  const [notification, setNotification] = useState(null);
+  const [comparisonTarget, setComparisonTarget] = useState(null);
   
   // Phase 13: Sticker State
   const [isAlbumOpen, setIsAlbumOpen] = useState(false);
   const [pendingPack, setPendingPack] = useState(null); // { type, count }
+
+    // Event Store
+  const advanceSeasonPass = useEventStore(state => state.advanceSeasonPass);
+  const activeSeason = useEventStore(state => state.getActiveSeason());
+  const activeEventModifiers = useEventStore(state => state.getActiveModifiers());
+  const activeTileOverrides = useEventStore(state => state.getActiveTileOverrides());
+  const updateChallengeProgress = useEventStore(state => state.updateChallengeProgress);
+  const collectEventItem = useEventStore(state => state.collectEventItem);
+  const tickEvents = useEventStore(state => state.tickEvents);
+  const activeEvents = useEventStore(state => state.getActiveEvents());
+  const addEvent = useEventStore(state => state.addEvent);
+  const addCommunityEvent = useEventStore(state => state.addCommunityEvent);
+  const simulateCommunityProgress = useEventStore(state => state.simulateCommunityProgress);
+  const contributeToCommunityEvent = useEventStore(state => state.contributeToCommunityEvent);
+  const activeCommunityEvents = useEventStore(state => state.getActiveCommunityEvents());
 
   // Calculate if Event Center needs a notification badge
   const hasUnclaimedRewards = useMemo(() => {
@@ -394,21 +413,6 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
   const [lastSaved, setLastSaved] = useState(null);
   const [showAnalytics, setShowAnalytics] = useState(false);
 
-  // Event Store
-  const advanceSeasonPass = useEventStore(state => state.advanceSeasonPass);
-  const activeSeason = useEventStore(state => state.getActiveSeason());
-  const activeEventModifiers = useEventStore(state => state.getActiveModifiers());
-  const activeTileOverrides = useEventStore(state => state.getActiveTileOverrides());
-  const updateChallengeProgress = useEventStore(state => state.updateChallengeProgress);
-  const collectEventItem = useEventStore(state => state.collectEventItem);
-  const tickEvents = useEventStore(state => state.tickEvents);
-  const activeEvents = useEventStore(state => state.getActiveEvents());
-  const addEvent = useEventStore(state => state.addEvent);
-  const addCommunityEvent = useEventStore(state => state.addCommunityEvent);
-  const simulateCommunityProgress = useEventStore(state => state.simulateCommunityProgress);
-  const contributeToCommunityEvent = useEventStore(state => state.contributeToCommunityEvent);
-  const activeCommunityEvents = useEventStore(state => state.getActiveCommunityEvents());
-
   // Phase 16: Weather Store
   const currentWeather = useWeatherStore(state => state.currentWeather);
   const updateWeatherRollCount = useWeatherStore(state => state.updateRollCount);
@@ -422,6 +426,7 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
   // Debug: Inject Test Events
   useEffect(() => {
     // Only run in development or via a specific flag
+    /* 
     if (totalRolls === 0) {
       const { FLASH_GOLD_RUSH, LANDMARK_CHALLENGE, HALLOWEEN_COLLECTION, COMMUNITY_RESTORATION } = require('../data/events/eventData');
       addEvent(FLASH_GOLD_RUSH);
@@ -429,6 +434,7 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
       addEvent(HALLOWEEN_COLLECTION);
       addCommunityEvent(COMMUNITY_RESTORATION);
     }
+    */
   }, [addEvent, addCommunityEvent]);
 
   // Phase 13: Sticker Store
@@ -3345,29 +3351,10 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
                   )}
 
                   {activeTab === 'missions' && (
-                    <MissionBoard 
-                      cityThemeColor={cityData.themeColor} 
-                      onClaimReward={handleSeasonPassReward} 
-                    />
-                  )}
-
-                  {activeTab === 'missions' && (
                     <div className="tab-panel">
-                      <MissionTracker
-                        rolls={totalRolls}
-                        upgrades={totalUpgrades}
-                        shieldsCollected={totalShieldsCollected}
-                        currentShields={shields}
-                        fundsTilesLanded={fundsTilesLanded}
-                        missionState={missionState}
-                        setMissionState={setMissionState}
-                        onMissionComplete={handleMissionComplete}
-                        onAllMissionsComplete={handleAllMissionsComplete}
-                        onResetAvailable={(available, handler) => {
-                          setMissionResetAvailable(available);
-                          setMissionResetHandler(() => handler);
-                        }}
-                        missionResetCount={missionState.daily.resetCount || 0}
+                      <MissionBoard 
+                        cityThemeColor={cityData.themeColor} 
+                        onClaimReward={handleSeasonPassReward} 
                       />
                     </div>
                   )}
@@ -3407,8 +3394,7 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
                           </span>
                         </div>
                       </div>
-                    </div>
-                  )}
+                    
 
                       <div className="crafting-bar">
                         <select

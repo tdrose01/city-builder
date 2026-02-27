@@ -10,5 +10,9 @@ export default defineConfig({
     globals: true,
     include: ['src/**/*.{test,spec}.{js,jsx,ts,tsx}'],
     exclude: ['**/tests/**', '**/playwright.config.*'],
+    pool: 'forks',
+    maxWorkers: 1,
+    minWorkers: 1,
+    fileParallelism: false,
   },
 })

@@ -7,6 +7,8 @@
 import { getFriends } from './friendManager';
 import { addNotification, NOTIFICATION_TYPES } from './notificationManager';
 
+const VISITOR_LOG_KEY = 'city_slacker_visitor_log';
+
 /**
  * Simulate an incoming visit from a friend
  * @param {number} tileCount - Total tiles on board to pick a drop location
