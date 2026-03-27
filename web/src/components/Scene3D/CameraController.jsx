@@ -224,16 +224,10 @@ const CameraController = forwardRef(({
     <OrthographicCamera
       ref={cameraRef}
       makeDefault
-      args={[
-        -defaultZoom, // left
-        defaultZoom,  // right
-        defaultZoom,  // top
-        -defaultZoom, // bottom
-        0.1,          // near
-        100           // far
-      ]}
       position={[defaultDistance, defaultHeight, defaultDistance]}
       zoom={zoomLevel}
+      near={0.1}
+      far={100}
     />
   );
 });
