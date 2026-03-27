@@ -248,6 +248,57 @@ const PlayerPawn = forwardRef(({
             />
           </mesh>
 
+          {/* Monopoly-style Top Hat */}
+          <group position={[0, 1.1, 0]}>
+            {/* Hat brim */}
+            <mesh position={[0, 0, 0]}>
+              <cylinderGeometry args={[0.45, 0.45, 0.08, 16]} />
+              <meshStandardMaterial
+                color="#1a1a2e"
+                metalness={0.3}
+                roughness={0.6}
+              />
+            </mesh>
+            {/* Hat top */}
+            <mesh position={[0, 0.2, 0]}>
+              <cylinderGeometry args={[0.28, 0.35, 0.3, 16]} />
+              <meshStandardMaterial
+                color="#1a1a2e"
+                metalness={0.3}
+                roughness={0.6}
+              />
+            </mesh>
+            {/* Hat band */}
+            <mesh position={[0, 0.12, 0]}>
+              <cylinderGeometry args={[0.36, 0.36, 0.05, 16]} />
+              <meshStandardMaterial
+                color={themeColor}
+                emissive={themeColor}
+                emissiveIntensity={0.5}
+                metalness={0.7}
+                roughness={0.2}
+              />
+            </mesh>
+          </group>
+
+          {/* Character face (simple) */}
+          <group position={[0, 0.55, 0.2]}>
+            {/* Eyes */}
+            <mesh position={[-0.08, 0.05, 0]}>
+              <sphereGeometry args={[0.04, 8, 8]} />
+              <meshBasicMaterial color="#1a1a2e" />
+            </mesh>
+            <mesh position={[0.08, 0.05, 0]}>
+              <sphereGeometry args={[0.04, 8, 8]} />
+              <meshBasicMaterial color="#1a1a2e" />
+            </mesh>
+            {/* Smile */}
+            <mesh position={[0, -0.05, 0]} rotation={[0, 0, 0]}>
+              <torusGeometry args={[0.06, 0.015, 8, 16, Math.PI]} />
+              <meshBasicMaterial color="#1a1a2e" />
+            </mesh>
+          </group>
+
           {/* Inner core */}
           <mesh position={[0, 0.8, 0]}>
             <sphereGeometry args={[0.12, 8, 8]} />
