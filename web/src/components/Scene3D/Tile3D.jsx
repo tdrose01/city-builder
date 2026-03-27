@@ -1,7 +1,8 @@
-import React, { useRef, useState, useMemo, useEffect } from 'react';
+import React, { useRef, useState, useMemo, useEffect, Suspense } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { RoundedBox, Text, Html, Billboard, Points, PointMaterial } from '@react-three/drei';
 import * as THREE from 'three';
+import BuildingWithFallback from './Building';
 
 /**
  * Tile3D
@@ -262,6 +263,17 @@ const Tile3D = ({
           emissiveMapIntensity={tileConfig.isSpecial ? 1.5 : 1}
         />
       </RoundedBox>
+      
+      {/* 3D Building for property tiles */}
+      {type === 'Funds' && (
+        <group position={[0, tileConfig.height, 0]}>
+          <BuildingWithFallback 
+            level={level} 
+            themeColor={tileConfig.color} 
+            scale={0.25}
+          />
+        </group>
+      )}
       
       {/* Tile label - HTML OVERLAY for guaranteed visibility */}
       <Billboard>
