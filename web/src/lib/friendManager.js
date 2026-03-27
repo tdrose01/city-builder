@@ -4,7 +4,8 @@
  * Now uses SocialStore as single source of truth
  */
 
-import { useSocialStore, storageAdapter } from '../social/core/SocialStore';
+import { useSocialStore } from '../social/core/SocialStore';
+import { storageAdapter } from '../social/repository/LocalStorageAdapter';
 
 // Dynamic import for notificationManager to break circular dependency
 const notifyFriendMilestone = async (...args) => {

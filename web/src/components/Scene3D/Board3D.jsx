@@ -8,10 +8,42 @@ import { Text } from '@react-three/drei';
 
 /**
  * VisitorAvatar
- * Floating emoji representing a friend visiting a tile
+ * Styled initials replacing emoji - Monopoly Go style
  */
-const VisitorAvatar = ({ position, avatar }) => {
+const VisitorAvatar = ({ position, avatar, name }) => {
   const ref = useRef();
+  
+  // Generate initials from name or use first char of avatar
+  const getInitials = () => {
+    if (name) {
+      const parts = name.split(' ');
+      return parts.length > 1 
+        ? (parts[0][0] + parts[1][0]).toUpperCase()
+        : name.substring(0, 2).toUpperCase();
+    }
+    // Fallback: use first 2 chars if not emoji, else 'V'
+    if (avatar && !avatar.includes(String.fromCodePoint(0x1F600))) {
+      return avatar.substring(0, 2).toUpperCase();
+    }
+    return 'V';
+  };
+  
+  // Generate consistent color from name/avatar
+  const getAvatarColor = () => {
+    const colors = [
+      '#ef4444', '#f97316', '#f59e0b', '#84cc16', 
+      '#22c55e', '#14b8a6', '#06b6d4', '#3b82f6',
+      '#6366f1', '#8b5cf6', '#a855f7', '#ec4899'
+    ];
+    const hash = (name || avatar || 'V').split('').reduce((a, b) => {
+      a = ((a << 5) - a) + b.charCodeAt(0);
+      return a & a;
+    }, 0);
+    return colors[Math.abs(hash) % colors.length];
+  };
+  
+  const initials = getInitials();
+  const bgColor = getAvatarColor();
   
   useFrame((state) => {
     if (ref.current) {
@@ -24,18 +56,30 @@ const VisitorAvatar = ({ position, avatar }) => {
 
   return (
     <group ref={ref} position={position}>
+      {/* Circular background */}
+      <mesh>
+        <circleGeometry args={[0.35, 32]} />
+        <meshBasicMaterial color={bgColor} />
+      </mesh>
+      {/* Initials text */}
       <Text
-        fontSize={0.6}
+        fontSize={0.28}
         color="white"
         anchorX="center"
         anchorY="middle"
+        fontWeight={700}
       >
-        {avatar}
+        {initials}
       </Text>
-      {/* Small glow/shadow under avatar */}
+      {/* Glow ring */}
+      <mesh position={[0, 0, -0.01]}>
+        <ringGeometry args={[0.32, 0.38, 32]} />
+        <meshBasicMaterial color={bgColor} transparent opacity={0.5} />
+      </mesh>
+      {/* Small shadow under avatar */}
       <mesh position={[0, -0.4, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-        <planeGeometry args={[0.5, 0.5]} />
-        <meshBasicMaterial color="white" transparent opacity={0.2} />
+        <circleGeometry args={[0.3, 16]} />
+        <meshBasicMaterial color="black" transparent opacity={0.3} />
       </mesh>
     </group>
   );
