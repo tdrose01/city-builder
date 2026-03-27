@@ -1,19 +1,19 @@
 import React, { useRef, useImperativeHandle, forwardRef, useState, useEffect } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
-import { PerspectiveCamera } from '@react-three/drei';
+import { OrthographicCamera } from '@react-three/drei';
 import * as THREE from 'three';
 
 /**
  * CameraController
  * Dynamic camera with follow mode, zoom events, and impact shake.
- * Provides "Monopoly Go" style camera juice.
+ * Provides isometric view for the board.
  */
 const CameraController = forwardRef(({
   targetPosition = [0, 0, 0],
   followPlayer = true,
-  defaultDistance = 15,
-  defaultHeight = 12,
-  defaultFOV = 45,
+  defaultDistance = 25, // Increased distance for orthographic view
+  defaultHeight = 15,   // Increased height for better angle
+  defaultZoom = 10,     // Orthographic zoom level
   smoothness = 0.05
 }, ref) => {
   const cameraRef = useRef();
@@ -22,11 +22,11 @@ const CameraController = forwardRef(({
   // Camera state
   const [shakeIntensity, setShakeIntensity] = useState(0);
   const [shakeDuration, setShakeDuration] = useState(0);
-  const [zoomLevel, setZoomLevel] = useState(1);
+  const [zoomLevel, setZoomLevel] = useState(defaultZoom);
   const [isZooming, setIsZooming] = useState(false);
   
   // Current camera params for smooth interpolation
-  const currentPos = useRef(new THREE.Vector3(0, defaultHeight, defaultDistance));
+  const currentPos = useRef(new THREE.Vector3(defaultDistance, defaultHeight, defaultDistance));
   const targetPos = useRef(new THREE.Vector3(...targetPosition));
   const currentLookAt = useRef(new THREE.Vector3(0, 0, 0));
   const shakeOffset = useRef(new THREE.Vector3());
@@ -46,24 +46,22 @@ const CameraController = forwardRef(({
   useFrame((state, delta) => {
     if (!cameraRef.current) return;
     
-    // Update target position
+    // Update target position for follow
     if (followPlayer) {
       targetPos.current.set(
         targetPosition[0],
         0,
-        targetPosition[2] + defaultDistance / zoomLevel
+        targetPosition[2]
       );
     }
     
-    // Smooth position interpolation
-    currentPos.current.lerp(
-      new THREE.Vector3(
-        targetPos.current.x,
-        defaultHeight / zoomLevel,
-        targetPos.current.z + defaultDistance * (2 - zoomLevel)
-      ),
-      smoothness
+    // Smooth position interpolation (move camera in a circle around the target at isometric angle)
+    const targetCameraPos = new THREE.Vector3(
+      targetPos.current.x + defaultDistance,
+      targetPos.current.y + defaultHeight,
+      targetPos.current.z + defaultDistance
     );
+    currentPos.current.lerp(targetCameraPos, smoothness);
     
     // Calculate look-at target (always look at player/board center)
     const lookTarget = new THREE.Vector3(targetPosition[0], 0, targetPosition[2]);
@@ -105,8 +103,8 @@ const CameraController = forwardRef(({
       setShakeDuration(duration);
     },
     
-    // Zoom to a specific tile
-    zoomTo: (position, zoom = 1.5, duration = 1000) => {
+    // Zoom to a specific tile (adjust orthographic zoom)
+    zoomTo: (position, zoom = 15, duration = 1000) => {
       setIsZooming(true);
       const startZoom = zoomLevel;
       const startTime = Date.now();
@@ -134,7 +132,7 @@ const CameraController = forwardRef(({
       setIsZooming(true);
       const startZoom = zoomLevel;
       const startTime = Date.now();
-      const targetZoom = 1;
+      const targetZoom = defaultZoom;
       
       const animate = () => {
         const elapsed = Date.now() - startTime;
@@ -154,7 +152,7 @@ const CameraController = forwardRef(({
     },
     
     // Quick zoom effect (for events like Lottery)
-    zoomPulse: (zoomIn = 1.3, duration = 600) => {
+    zoomPulse: (zoomIn = 20, duration = 600) => {
       setIsZooming(true);
       const startZoom = zoomLevel;
       const startTime = Date.now();
@@ -190,8 +188,8 @@ const CameraController = forwardRef(({
     // Jump cut to position (instant)
     jumpTo: (position) => {
       currentPos.current.set(
-        position[0],
-        defaultHeight,
+        position[0] + defaultDistance,
+        position[1] + defaultHeight,
         position[2] + defaultDistance
       );
     },
@@ -200,8 +198,8 @@ const CameraController = forwardRef(({
     panTo: (position, duration = 1000) => {
       const startPos = currentPos.current.clone();
       const endPos = new THREE.Vector3(
-        position[0],
-        defaultHeight,
+        position[0] + defaultDistance,
+        position[1] + defaultHeight,
         position[2] + defaultDistance
       );
       const startTime = Date.now();
@@ -223,13 +221,19 @@ const CameraController = forwardRef(({
   }));
 
   return (
-    <PerspectiveCamera
+    <OrthographicCamera
       ref={cameraRef}
       makeDefault
-      position={[0, defaultHeight, defaultDistance]}
-      fov={defaultFOV}
-      near={0.1}
-      far={1000}
+      args={[
+        -defaultZoom, // left
+        defaultZoom,  // right
+        defaultZoom,  // top
+        -defaultZoom, // bottom
+        0.1,          // near
+        100           // far
+      ]}
+      position={[defaultDistance, defaultHeight, defaultDistance]}
+      zoom={zoomLevel}
     />
   );
 });
