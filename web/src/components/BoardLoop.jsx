@@ -53,6 +53,25 @@ import {
   checkMilestoneEvents,
 } from '../config/specialEvents';
 
+// Safe render helper - prevents "Objects are not valid as a React child" errors
+const safeRender = (value, fallback = '') => {
+  if (value === null || value === undefined) return fallback;
+  if (typeof value === 'string' || typeof value === 'number') return value;
+  if (typeof value === 'boolean') return value.toString();
+  if (typeof value === 'object') {
+    // If it's an object with a name property, use that
+    if (value.name) return value.name;
+    // If it has an icon, use that
+    if (value.icon) return value.icon;
+    // Otherwise stringify for debugging
+    try {
+      return JSON.stringify(value);
+    } catch {
+      return fallback;
+    }
+  }
+  return fallback;
+};
 
 const CITIES = {
   1: {
@@ -2846,7 +2865,7 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
         }}
       >
         {!use3DBoard && (
-          <span className="board-tile-label">{displayLabel}</span>
+          <span className="board-tile-label">{safeRender(displayLabel)}</span>
         )}
         {!use3DBoard && tile.type === 'Landmark' && (
           <div style={{
@@ -2878,7 +2897,7 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
             zIndex: 100,
             pointerEvents: 'none'
           }}>
-            {displayLabel}
+            {safeRender(displayLabel)}
           </div>
         )}
       </motion.div>
@@ -3056,7 +3075,7 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
                   <div style={{ display: 'flex', gap: '8px', marginTop: '12px', fontSize: '10px', opacity: 0.8 }}>
                     <span>Roll: <strong>{rollValue ?? 0}</strong></span>
                     <span>•</span>
-                    <span>Tile: <strong>{stoppedOnName}</strong></span>
+                    <span>Tile: <strong>{safeRender(stoppedOnName)}</strong></span>
                     {diceStreak > 1 && (
                       <>
                         <span>•</span>
@@ -3064,7 +3083,7 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
                       </>
                     )}
                   </div>
-                  {hudMessage && <div className="hud-message" style={{ marginTop: '8px', fontSize: '11px', fontWeight: 'bold', color: cityData.themeColor }}>{hudMessage}</div>}
+                  {hudMessage && <div className="hud-message" style={{ marginTop: '8px', fontSize: '11px', fontWeight: 'bold', color: cityData.themeColor }}>{safeRender(hudMessage)}</div>}
 
                   <div className="board-center-layout" style={{ position: 'relative', zIndex: 10, marginTop: 'auto', width: '100%', maxWidth: '280px' }}>
                     <div className="board-mini-panel" style={{ background: 'rgba(0,0,0,0.25)', backdropFilter: 'blur(6px)', border: `1px solid ${cityData.themeColor}22` }}>
@@ -3427,7 +3446,7 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
                           return (
                             <div key={setName} className="sticker-set-item">
                               <div className="set-header">
-                                <span className="set-name">{setName}</span>
+                                <span className="set-name">{safeRender(setName)}</span>
                                 <span className="set-count">{ownedCount}/{stickers.length}</span>
                               </div>
                               <div className="board-mini-progress">
