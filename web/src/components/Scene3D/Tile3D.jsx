@@ -236,8 +236,6 @@ const Tile3D = ({
 
   const size = isCorner ? tileConfig.baseSize : 2;
   const rounded = isCorner ? 0.3 : 0.15;
-
-  console.log('🔍 Tile3D: Rendering tile', id, 'with name:', name, 'position:', position);
       
   return (
     <group position={position} rotation={rotation}>

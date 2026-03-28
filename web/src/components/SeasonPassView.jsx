@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useEventStore } from '../store/useEventStore';
-import { PassTier } from '../data/events/seasonModel';
+import { PassTier } from '../data/events/eventTypes';
 
 export default function SeasonPassView({ onClaimReward, onUpgradePremium }) {
   const activeSeason = useEventStore(state => state.getActiveSeason());
