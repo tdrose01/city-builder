@@ -17,6 +17,14 @@ class ErrorBoundary extends React.Component {
 
   render() {
     if (this.state.hasError) {
+      // Log full error details for debugging
+      console.error('ErrorBoundary full error:', {
+        error: this.state.error,
+        errorMessage: this.state.error?.message,
+        errorType: typeof this.state.error,
+        errorInfo: this.state.errorInfo
+      });
+      
       return (
         <div className="min-h-screen flex items-center justify-center bg-gray-900 text-white p-8">
           <div className="max-w-lg text-center">
@@ -31,6 +39,7 @@ class ErrorBoundary extends React.Component {
             {this.state.error && (
               <div className="mt-6 text-left bg-gray-800 p-4 rounded-lg text-sm font-mono text-red-300 overflow-auto max-h-64">
                 <p className="font-bold">Error: {this.state.error.toString()}</p>
+                <p className="font-bold mt-2">Message: {this.state.error?.message || 'No message'}</p>
                 {this.state.errorInfo && (
                   <pre className="mt-2 text-gray-400">{this.state.errorInfo.componentStack}</pre>
                 )}
