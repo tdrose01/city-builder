@@ -3,6 +3,23 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useEventStore } from '../store/useEventStore';
 import { PassTier } from '../data/events/eventTypes';
 
+// Safe render helper - prevents "Objects are not valid as a React child" errors
+const safeRender = (value, fallback = '') => {
+  if (value === null || value === undefined) return fallback;
+  if (typeof value === 'string' || typeof value === 'number') return value;
+  if (typeof value === 'boolean') return value.toString();
+  if (typeof value === 'object') {
+    if (value.name && typeof value.name === 'string') return value.name;
+    if (value.icon && typeof value.icon === 'string') return value.icon;
+    try {
+      return JSON.stringify(value);
+    } catch {
+      return fallback;
+    }
+  }
+  return fallback;
+};
+
 export default function SeasonPassView({ onClaimReward, onUpgradePremium }) {
   const activeSeason = useEventStore(state => state.getActiveSeason());
   const claimReward = useEventStore(state => state.claimSeasonPassReward);
@@ -38,7 +55,7 @@ export default function SeasonPassView({ onClaimReward, onUpgradePremium }) {
         <div className="flex justify-between items-start mb-2">
           <div>
             <h2 className="text-xl font-bold flex items-center gap-2">
-              <span className="text-2xl">☀️</span> {name}
+              <span className="text-2xl">☀️</span> {safeRender(name, 'Season')}
             </h2>
             <p className="text-xs text-white/60">Season ends in {daysLeft} days</p>
           </div>
@@ -92,9 +109,9 @@ export default function SeasonPassView({ onClaimReward, onUpgradePremium }) {
                   {lvl.freeReward ? (
                     <div className="flex flex-col h-full">
                       <div className="flex items-center gap-2 mb-1">
-                        <span className="text-lg">{lvl.freeReward.icon}</span>
+                        <span className="text-lg">{safeRender(lvl.freeReward.icon, '🎁')}</span>
                         <div className="flex-1 min-w-0">
-                          <p className="text-[10px] font-bold truncate leading-tight">{lvl.freeReward.name}</p>
+                          <p className="text-[10px] font-bold truncate leading-tight">{safeRender(lvl.freeReward.name, 'Reward')}</p>
                           <p className="text-[8px] text-white/50 uppercase tracking-wider">Free</p>
                         </div>
                       </div>
@@ -115,9 +132,9 @@ export default function SeasonPassView({ onClaimReward, onUpgradePremium }) {
                 <div className={`p-2 rounded-lg bg-amber-400/5 border border-amber-400/20`}>
                   <div className="flex flex-col h-full">
                     <div className="flex items-center gap-2 mb-1">
-                      <span className="text-lg">{lvl.premiumReward.icon}</span>
+                      <span className="text-lg">{safeRender(lvl.premiumReward?.icon, '⭐')}</span>
                       <div className="flex-1 min-w-0">
-                        <p className="text-[10px] font-bold truncate leading-tight text-amber-200">{lvl.premiumReward.name}</p>
+                        <p className="text-[10px] font-bold truncate leading-tight text-amber-200">{safeRender(lvl.premiumReward?.name, 'Premium Reward')}</p>
                         <p className="text-[8px] text-amber-400/70 uppercase tracking-wider">Premium</p>
                       </div>
                     </div>

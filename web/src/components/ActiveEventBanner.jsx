@@ -2,6 +2,23 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useEventStore } from '../store/useEventStore';
 
+// Safe render helper - prevents "Objects are not valid as a React child" errors
+const safeRender = (value, fallback = '') => {
+  if (value === null || value === undefined) return fallback;
+  if (typeof value === 'string' || typeof value === 'number') return value;
+  if (typeof value === 'boolean') return value.toString();
+  if (typeof value === 'object') {
+    if (value.name && typeof value.name === 'string') return value.name;
+    if (value.icon && typeof value.icon === 'string') return value.icon;
+    try {
+      return JSON.stringify(value);
+    } catch {
+      return fallback;
+    }
+  }
+  return fallback;
+};
+
 const ActiveEventBanner = () => {
   const activeEvents = useEventStore(state => state.getActiveEvents());
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -47,21 +64,21 @@ const ActiveEventBanner = () => {
         >
           <div className="flex items-center gap-3">
             <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-lg shadow-inner">
-              {event.icon}
+              {safeRender(event.icon, '🎉')}
             </div>
             <div className="flex flex-col">
               <span className="text-[10px] font-bold text-white/40 uppercase tracking-widest leading-none mb-1">
                 {event.type === 'flash' ? 'Flash Event' : 'Special Event'}
               </span>
               <span className="text-xs font-bold text-white leading-none">
-                {event.name}
+                {safeRender(event.name, 'Event')}
               </span>
             </div>
           </div>
 
           <div className="flex flex-col items-end">
              <span className="text-[10px] font-bold text-yellow-400 uppercase tracking-tight mb-1">
-               {event.shortDescription}
+               {safeRender(event.shortDescription, 'Active')}
              </span>
              <span className="text-[9px] font-medium text-white/60">
                {getRemainingTime(event.endDate)}

@@ -3,49 +3,68 @@ import React from 'react';
 class ErrorBoundary extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { hasError: false, error: null, errorInfo: null };
+    this.state = { hasError: false, error: null };
   }
 
   static getDerivedStateFromError(error) {
-    return { hasError: true };
+    return { hasError: true, error };
   }
 
   componentDidCatch(error, errorInfo) {
-    this.setState({ error, errorInfo });
-    console.error('ErrorBoundary caught error:', error, errorInfo);
+    console.error('ErrorBoundary caught an error:', error, errorInfo);
   }
 
   render() {
     if (this.state.hasError) {
-      // Log full error details for debugging
-      console.error('ErrorBoundary full error:', {
-        error: this.state.error,
-        errorMessage: this.state.error?.message,
-        errorType: typeof this.state.error,
-        errorInfo: this.state.errorInfo
-      });
-      
       return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-900 text-white p-8">
-          <div className="max-w-lg text-center">
-            <h1 className="text-3xl font-bold mb-4 text-red-400">Something went wrong</h1>
-            <p className="text-gray-300 mb-4">The game encountered an error. Try refreshing the page.</p>
-            <button 
-              onClick={() => window.location.reload()}
-              className="px-6 py-2 bg-blue-500 hover:bg-blue-600 rounded-lg transition-colors"
-            >
-              Reload Game
-            </button>
-            {this.state.error && (
-              <div className="mt-6 text-left bg-gray-800 p-4 rounded-lg text-sm font-mono text-red-300 overflow-auto max-h-64">
-                <p className="font-bold">Error: {this.state.error.toString()}</p>
-                <p className="font-bold mt-2">Message: {this.state.error?.message || 'No message'}</p>
-                {this.state.errorInfo && (
-                  <pre className="mt-2 text-gray-400">{this.state.errorInfo.componentStack}</pre>
-                )}
-              </div>
-            )}
-          </div>
+        <div style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          height: '100vh',
+          background: 'linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)',
+          color: 'white',
+          fontFamily: 'system-ui, sans-serif',
+          padding: '20px',
+          textAlign: 'center'
+        }}>
+          <h1 style={{ fontSize: '24px', marginBottom: '16px' }}>Something went wrong</h1>
+          <p style={{ fontSize: '14px', opacity: 0.7, marginBottom: '24px' }}>
+            The game encountered an error. Try refreshing the page.
+          </p>
+          <button
+            onClick={() => window.location.reload()}
+            style={{
+              background: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
+              border: 'none',
+              borderRadius: '8px',
+              padding: '12px 24px',
+              fontSize: '14px',
+              fontWeight: 'bold',
+              color: 'black',
+              cursor: 'pointer',
+              transition: 'transform 0.2s'
+            }}
+          >
+            Reload Game
+          </button>
+          {this.state.error && (
+            <details style={{ marginTop: '24px', textAlign: 'left', maxWidth: '500px' }}>
+              <summary style={{ cursor: 'pointer', opacity: 0.5, fontSize: '12px' }}>
+                Error Details
+              </summary>
+              <pre style={{ 
+                fontSize: '11px', 
+                opacity: 0.5, 
+                marginTop: '8px',
+                overflow: 'auto',
+                maxWidth: '100%'
+              }}>
+                {this.state.error.toString()}
+              </pre>
+            </details>
+          )}
         </div>
       );
     }
