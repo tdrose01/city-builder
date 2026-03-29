@@ -34,9 +34,18 @@ const ActiveEventBanner = () => {
     return () => clearInterval(interval);
   }, [activeEvents.length]);
 
-  if (activeEvents.length === 0) return null;
+  // Defensive check: ensure events array is valid
+  if (!activeEvents || !Array.isArray(activeEvents) || activeEvents.length === 0) return null;
 
   const event = activeEvents[currentIndex] || activeEvents[0];
+  
+  // Defensive check: ensure event is valid and has required properties
+  if (!event || typeof event !== 'object') return null;
+  
+  // Additional safety: ensure event.id is a string (for React key)
+  if (typeof event.id !== 'string') {
+    event.id = 'event-' + Date.now();
+  }
 
   // Calculate remaining time string
   const getRemainingTime = (endDate) => {
@@ -56,7 +65,7 @@ const ActiveEventBanner = () => {
     <div className="absolute top-4 left-1/2 -translate-x-1/2 z-[60] pointer-events-none w-full max-w-md px-4">
       <AnimatePresence mode="wait">
         <motion.div
-          key={event.id}
+          key={typeof event.id === 'string' ? event.id : 'event-fallback'}
           initial={{ y: -50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 20, opacity: 0 }}
@@ -68,7 +77,7 @@ const ActiveEventBanner = () => {
             </div>
             <div className="flex flex-col">
               <span className="text-[10px] font-bold text-white/40 uppercase tracking-widest leading-none mb-1">
-                {event.type === 'flash' ? 'Flash Event' : 'Special Event'}
+                {safeRender(event.type, '') === 'flash' ? 'Flash Event' : 'Special Event'}
               </span>
               <span className="text-xs font-bold text-white leading-none">
                 {safeRender(event.name, 'Event')}
@@ -81,7 +90,7 @@ const ActiveEventBanner = () => {
                {safeRender(event.shortDescription, 'Active')}
              </span>
              <span className="text-[9px] font-medium text-white/60">
-               {getRemainingTime(event.endDate)}
+               {getRemainingTime(typeof event.endDate === 'string' ? event.endDate : new Date().toISOString())}
              </span>
           </div>
         </motion.div>

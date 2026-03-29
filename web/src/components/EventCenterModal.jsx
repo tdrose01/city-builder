@@ -202,10 +202,10 @@ const EventCenterModal = ({
                   <div key={ce.id} className="bg-white/5 rounded-xl p-5 border border-white/5">
                     <div className="flex items-center justify-between mb-4">
                       <div className="flex items-center gap-3">
-                        <span className="text-2xl">{ce.icon}</span>
+                        <span className="text-2xl">{safeRender(ce.icon, '🎯')}</span>
                         <div>
-                          <h3 className="text-sm font-bold text-white uppercase">{ce.name}</h3>
-                          <p className="text-[10px] text-white/40">{ce.description}</p>
+                          <h3 className="text-sm font-bold text-white uppercase">{safeRender(ce.name, 'Community Event')}</h3>
+                          <p className="text-[10px] text-white/40">{safeRender(ce.description, '')}</p>
                         </div>
                       </div>
                       <div className="text-right">
@@ -255,8 +255,8 @@ const EventCenterModal = ({
                                     : 'bg-white/5 border-white/5 opacity-40'
                               }`}
                             >
-                              <div className="text-lg mb-1">{m.reward.icon}</div>
-                              <p className="text-[8px] font-bold text-white uppercase truncate">{m.reward.name}</p>
+                              <div className="text-lg mb-1">{safeRender(m.reward.icon, '🎁')}</div>
+                              <p className="text-[8px] font-bold text-white uppercase truncate">{safeRender(m.reward.name, 'Reward')}</p>
                               <p className="text-[7px] text-white/40">{m.reached ? (m.reward.claimed ? 'Claimed' : 'Claim!') : 'Locked'}</p>
                             </button>
                           ))}
@@ -286,9 +286,9 @@ const EventCenterModal = ({
                                     : 'bg-white/5 border-white/5 opacity-40'
                               }`}
                             >
-                              <div className="text-xl">{tier.reward.icon}</div>
+                              <div className="text-xl">{safeRender(tier.reward.icon, '🎁')}</div>
                               <div className="text-left">
-                                <p className="text-[8px] font-bold text-white uppercase">{tier.reward.name}</p>
+                                <p className="text-[8px] font-bold text-white uppercase">{safeRender(tier.reward.name, 'Reward')}</p>
                                 <p className="text-[7px] text-white/40">
                                   {tier.claimed ? 'Unlocked' : ce.playerContribution >= tier.minContribution ? 'Click to Claim' : `Reach ${tier.minContribution.toLocaleString()}`}
                                 </p>
@@ -368,15 +368,15 @@ const EventCenterModal = ({
                     return (
                       <div key={item.id} className="bg-white/5 rounded-xl p-4 border border-white/5 group hover:bg-white/[0.08] transition-all flex flex-col">
                         <div className="w-full aspect-square bg-black/20 rounded-lg flex items-center justify-center text-3xl mb-3 group-hover:scale-110 transition-transform relative overflow-hidden">
-                          {item.reward.icon}
+                          {safeRender(item.reward.icon, '🎁')}
                           {item.stock !== null && (
                             <div className="absolute top-2 right-2 px-1.5 py-0.5 bg-black/60 rounded text-[8px] font-bold text-white/60">
                               {item.purchased}/{item.stock}
                             </div>
                           )}
                         </div>
-                        <h3 className="text-xs font-bold text-white mb-1 uppercase truncate">{item.reward.name}</h3>
-                        <p className="text-[9px] text-white/40 mb-4 leading-tight flex-1">{item.reward.description}</p>
+                        <h3 className="text-xs font-bold text-white mb-1 uppercase truncate">{safeRender(item.reward.name, 'Item')}</h3>
+                        <p className="text-[9px] text-white/40 mb-4 leading-tight flex-1">{safeRender(item.reward.description, '')}</p>
                         
                         <button 
                           disabled={!canAfford || isOutOfStock}

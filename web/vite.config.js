@@ -6,6 +6,7 @@ export default defineConfig({
   plugins: [react()],
   build: {
     sourcemap: true,
+    minify: false, // Disable minification for debugging
   },
   test: {
     environment: 'jsdom',
