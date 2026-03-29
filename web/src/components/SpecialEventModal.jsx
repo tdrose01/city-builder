@@ -2,6 +2,19 @@ import { useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import audioManager from '../utils/audioManager';
 
+// Safe render helper - prevents "Objects are not valid as a React child" errors
+const safeRender = (value, fallback = '') => {
+  if (value === null || value === undefined) return fallback;
+  if (typeof value === 'string' || typeof value === 'number') return value;
+  if (typeof value === 'boolean') return value.toString();
+  if (typeof value === 'object') {
+    if (value.name) return value.name;
+    if (value.icon) return value.icon;
+    try { return JSON.stringify(value); } catch { return fallback; }
+  }
+  return fallback;
+};
+
 /**
  * SpecialEventModal Component
  *
@@ -79,7 +92,7 @@ export default function SpecialEventModal({ event, onClose }) {
               boxShadow: `0 0 40px ${color}44, 0 0 80px ${color}22`,
             }}
           >
-            <div style={{ fontSize: '64px', marginBottom: '12px' }}>{event.icon}</div>
+            <div style={{ fontSize: '64px', marginBottom: '12px' }}>{safeRender(event.icon, '🎉')}</div>
             <h2 style={{
               color,
               fontSize: '24px',
@@ -87,7 +100,7 @@ export default function SpecialEventModal({ event, onClose }) {
               margin: '0 0 8px 0',
               textShadow: `0 0 10px ${color}66`,
             }}>
-              {event.name}
+              {safeRender(event.name, 'Event')}
             </h2>
             <p style={{
               color: '#e2e8f0',
@@ -95,7 +108,7 @@ export default function SpecialEventModal({ event, onClose }) {
               margin: '0 0 8px 0',
               lineHeight: 1.4,
             }}>
-              {event.description}
+              {safeRender(event.description, '')}
             </p>
             {event.duration && (
               <p style={{
@@ -104,7 +117,7 @@ export default function SpecialEventModal({ event, onClose }) {
                 margin: '0 0 20px 0',
                 fontWeight: 'bold',
               }}>
-                Lasts {event.duration} rolls
+                Lasts {safeRender(event.duration, '')} rolls
               </p>
             )}
             <button
@@ -159,20 +172,20 @@ export default function SpecialEventModal({ event, onClose }) {
           boxShadow: `0 4px 20px ${color}33`,
         }}
       >
-        <span style={{ fontSize: '32px' }}>{event.icon}</span>
+        <span style={{ fontSize: '32px' }}>{safeRender(event.icon, '🎉')}</span>
         <div>
           <div style={{
             color,
             fontSize: '16px',
             fontWeight: 'bold',
           }}>
-            {event.name}
+            {safeRender(event.name, 'Event')}
           </div>
           <div style={{
             color: '#cbd5e1',
             fontSize: '13px',
           }}>
-            {event.effectText || event.description}
+            {safeRender(event.effectText || event.description, '')}
           </div>
         </div>
       </motion.div>

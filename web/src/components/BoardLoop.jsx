@@ -2942,16 +2942,16 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
           className="bg-black/40 backdrop-blur-md border border-white/10 rounded-2xl p-3 flex items-center gap-3 shadow-2xl"
           style={{ borderLeft: `4px solid ${currentWeather.color}` }}
         >
-          <div className="text-2xl drop-shadow-lg">{currentWeather.icon}</div>
+          <div className="text-2xl drop-shadow-lg">{safeRender(currentWeather.icon, '☀️')}</div>
           <div>
             <div className="text-[10px] font-black text-white uppercase tracking-widest leading-none mb-1 flex items-center gap-2">
-              {currentWeather.name}
+              {safeRender(currentWeather.name, 'Weather')}
               <span className="text-white/40 font-bold lowercase tracking-normal">
                 ({useWeatherStore.getState().rollsUntilChange} rolls left)
               </span>
             </div>
             <div className="text-[9px] font-bold text-white/60 uppercase">
-              {currentWeather.description}
+              {safeRender(currentWeather.description, '')}
             </div>
           </div>
         </motion.div>
@@ -3158,8 +3158,8 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
                     color: activeSpecialEvent.color,
                     margin: '4px 0',
                   }}>
-                    <span>{activeSpecialEvent.icon}</span>
-                    <span style={{ fontWeight: 'bold' }}>{activeSpecialEvent.name}</span>
+                    <span>{safeRender(activeSpecialEvent.icon, '✨')}</span>
+                    <span style={{ fontWeight: 'bold' }}>{safeRender(activeSpecialEvent.name, 'Event')}</span>
                     <span style={{ opacity: 0.8 }}>({activeSpecialEvent.remainingRolls} rolls)</span>
                   </div>
                 )}

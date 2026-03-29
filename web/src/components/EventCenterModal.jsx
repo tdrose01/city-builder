@@ -3,6 +3,19 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useEventStore } from '../store/useEventStore';
 import SeasonPassView from './SeasonPassView';
 
+// Safe render helper - prevents "Objects are not valid as a React child" errors
+const safeRender = (value, fallback = '') => {
+  if (value === null || value === undefined) return fallback;
+  if (typeof value === 'string' || typeof value === 'number') return value;
+  if (typeof value === 'boolean') return value.toString();
+  if (typeof value === 'object') {
+    if (value.name) return value.name;
+    if (value.icon) return value.icon;
+    try { return JSON.stringify(value); } catch { return fallback; }
+  }
+  return fallback;
+};
+
 const EventCenterModal = ({ 
   isOpen, 
   onClose, 
@@ -292,10 +305,10 @@ const EventCenterModal = ({
                 {activeEvents.map(event => (
                   <div key={event.id} className="bg-white/5 rounded-xl p-5 border border-white/5">
                     <div className="flex items-center gap-3 mb-4">
-                      <span className="text-2xl">{event.icon}</span>
+                      <span className="text-2xl">{safeRender(event.icon, '🎉')}</span>
                       <div>
-                        <h3 className="text-sm font-bold text-white uppercase">{event.name}</h3>
-                        <p className="text-[10px] text-white/40">{event.description}</p>
+                        <h3 className="text-sm font-bold text-white uppercase">{safeRender(event.name, 'Event')}</h3>
+                        <p className="text-[10px] text-white/40">{safeRender(event.description, '')}</p>
                       </div>
                     </div>
 
