@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useEventStore } from '../store/useEventStore';
 
-// Safe render helper - prevents "Objects are not valid as a React child" errors
+// Safe render helper - simplified since event.id is now guaranteed to be a string
 const safeRender = (value, fallback = '') => {
   if (value === null || value === undefined) return fallback;
   if (typeof value === 'string' || typeof value === 'number') return value;
@@ -41,11 +41,6 @@ const ActiveEventBanner = () => {
   
   // Defensive check: ensure event is valid and has required properties
   if (!event || typeof event !== 'object') return null;
-  
-  // Additional safety: ensure event.id is a string (for React key)
-  if (typeof event.id !== 'string') {
-    event.id = 'event-' + Date.now();
-  }
 
   // Calculate remaining time string
   const getRemainingTime = (endDate) => {

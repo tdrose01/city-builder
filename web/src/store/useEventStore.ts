@@ -5,6 +5,7 @@ import { Season, SeasonPass, PassTier } from '../data/events/seasonModel';
 import { EventCalendarState } from '../data/events/calendarModel';
 import { GameEvent, EventModifier, TileOverride } from '../data/events/eventModel';
 import { CommunityEvent } from '../data/events/communityEventModel';
+import { normalizeEvent } from '../data/events/normalizeEvent';
 
 interface EventStoreState {
   calendar: EventCalendarState;
@@ -94,11 +95,13 @@ export const useEventStore = create<EventStoreState>()(
 
       getActiveEvents: () => {
         const now = new Date();
-        return Object.values(get().calendar.events).filter(event => {
-          const start = new Date(event.startDate);
-          const end = new Date(event.endDate);
-          return now >= start && now <= end;
-        });
+        return Object.values(get().calendar.events)
+          .map(event => normalizeEvent(event)) // Normalize each event
+          .filter(event => {
+            const start = new Date(event.startDate);
+            const end = new Date(event.endDate);
+            return now >= start && now <= end;
+          });
       },
 
       getActiveModifiers: () => {
