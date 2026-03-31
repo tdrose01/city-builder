@@ -370,7 +370,11 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
   const [activeTab, setActiveTab] = useState('event');
   const [eventSubTab, setEventSubTab] = useState('pass'); // 'pass' or 'milestones'
   const [isMoving, setIsMoving] = useState(false);
-  const [use3DBoard, setUse3DBoard] = useState(true); // Phase 10: 3D board enabled
+  const [use3DBoard, setUse3DBoard] = useState(
+    typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('mode') === '2d'
+      ? false
+      : true
+  ); // Phase 10: 3D board enabled, but allow ?mode=2d for tests
   const [autoRollEnabled, setAutoRollEnabled] = useState(false);
   const [missionResetAvailable, setMissionResetAvailable] = useState(false);
   const [missionResetHandler, setMissionResetHandler] = useState(null);
@@ -396,6 +400,9 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
   const simulateCommunityProgress = useEventStore(state => state.simulateCommunityProgress);
   const contributeToCommunityEvent = useEventStore(state => state.contributeToCommunityEvent);
   const activeCommunityEvents = useEventStore(useShallow(state => state.getActiveCommunityEvents()));
+
+  // Missions store
+  const updateMissionProgress = useMissionStore(state => state.updateMissionProgress);
 
   // Calculate if Event Center needs a notification badge
   const hasUnclaimedRewards = useMemo(() => {
@@ -2968,9 +2975,11 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
           ref={board3DRef}
           tiles={tiles}
           playerPosition={playerPosition}
+          playerTargetPosition={playerTargetPosition}
           isMoving={isMoving}
           themeColor={cityData.themeColor}
           boardTint={currentWeather?.skyColor || activeSeason?.theme?.boardTint}
+          onTileClick={handleTileClick}
           activeVisitors={activeVisitors}
         />
         <VFXManager 
@@ -3012,8 +3021,12 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
 
         <div className="board-shell">
           <div className="board-layout-main">
-            {/* Main Board Area (Left/Center) */}
-            <div className={`board-stage ${dicePulse ? 'board-stage-bounce' : ''} ${rolling ? 'board-stage-rolling' : ''} ${upgradePulse ? 'upgrade-pulse' : ''}`}>
+            {/* Main Board Area (Left/Center) - HIDDEN: 3D board is primary */}
+            <div
+              className={`board-stage ${dicePulse ? 'board-stage-bounce' : ''} ${rolling ? 'board-stage-rolling' : ''} ${upgradePulse ? 'upgrade-pulse' : ''}`}
+              style={use3DBoard ? { display: 'none', visibility: 'hidden', pointerEvents: 'none' } : undefined}
+              aria-hidden={use3DBoard}
+            >
               <div className={`board-grid ${rolling ? 'board-zoom' : ''}`}>
                 {renderedTiles}
                 <motion.div

@@ -7,7 +7,7 @@ test.describe('City Builder - Core Game', () => {
   
   test.beforeEach(async ({ page }) => {
     // Navigate to the game
-    await page.goto('http://127.0.0.1:4173');
+    await page.goto('http://127.0.0.1:4173/?mode=2d');
     // Wait for the game to load
     await page.waitForTimeout(2000);
   });

@@ -115,67 +115,67 @@ test.describe('Analytics Playtest - 10 Sessions', () => {
   }
 
   test('Session 1: Natural play', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('/?mode=2d');
     await playSession(page, 'normal');
     console.log('✅ Session 1 complete');
   });
 
   test('Session 2: Natural play', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('/?mode=2d');
     await playSession(page, 'normal');
     console.log('✅ Session 2 complete');
   });
 
   test('Session 3: Natural play', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('/?mode=2d');
     await playSession(page, 'normal');
     console.log('✅ Session 3 complete');
   });
 
   test('Session 4: Aggressive strategy', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('/?mode=2d');
     await playSession(page, 'aggressive');
     console.log('✅ Session 4 complete');
   });
 
   test('Session 5: Aggressive strategy', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('/?mode=2d');
     await playSession(page, 'aggressive');
     console.log('✅ Session 5 complete');
   });
 
   test('Session 6: Aggressive strategy', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('/?mode=2d');
     await playSession(page, 'aggressive');
     console.log('✅ Session 6 complete');
   });
 
   test('Session 7: Conservative strategy', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('/?mode=2d');
     await playSession(page, 'conservative');
     console.log('✅ Session 7 complete');
   });
 
   test('Session 8: Conservative strategy', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('/?mode=2d');
     await playSession(page, 'conservative');
     console.log('✅ Session 8 complete');
   });
 
   test('Session 9: Conservative strategy', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('/?mode=2d');
     await playSession(page, 'conservative');
     console.log('✅ Session 9 complete');
   });
 
   test('Session 10: Mixed strategy', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('/?mode=2d');
     await playSession(page, 'normal');
     console.log('✅ Session 10 complete');
   });
 
   test('Export analytics report', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('/?mode=2d');
     await page.waitForSelector('.board-grid');
 
     // Click Analytics button

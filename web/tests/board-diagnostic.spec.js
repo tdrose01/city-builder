@@ -9,7 +9,7 @@ import { expect, test } from '@playwright/test'
 test.describe('Board Alignment Diagnostics', () => {
 
     test('board renders with tiles', async ({ page }) => {
-        await page.goto('/', { waitUntil: 'domcontentloaded' })
+        await page.goto('/?mode=2d', { waitUntil: 'domcontentloaded' })
 
         // Wait for board to render
         await expect(page.locator('.board-grid')).toBeVisible()

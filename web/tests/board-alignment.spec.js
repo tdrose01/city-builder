@@ -22,7 +22,7 @@ test.describe('Board Perimeter Alignment', () => {
       await page.setViewportSize({ width, height })
       
       // Navigate to app
-      await page.goto('/', { waitUntil: 'domcontentloaded' })
+      await page.goto('/?mode=2d', { waitUntil: 'domcontentloaded' })
       
       // Wait for board to render
       await expect(page.locator('.board-grid')).toBeVisible()
