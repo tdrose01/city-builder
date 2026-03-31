@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useEventStore } from '../store/useEventStore';
+import { useShallow } from 'zustand/react/shallow';
 
 // Safe render helper - simplified since event.id is now guaranteed to be a string
 const safeRender = (value, fallback = '') => {
@@ -20,7 +21,7 @@ const safeRender = (value, fallback = '') => {
 };
 
 const ActiveEventBanner = () => {
-  const activeEvents = useEventStore(state => state.getActiveEvents());
+  const activeEvents = useEventStore(useShallow(state => state.getActiveEvents()));
   const [currentIndex, setCurrentIndex] = useState(0);
 
   // Cycle through events if multiple are active

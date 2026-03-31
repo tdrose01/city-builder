@@ -22,3 +22,11 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+-e 
+# Build/cache
+.npm
+.wrangler
+-e 
+# Build/cache
+.npm
+.wrangler

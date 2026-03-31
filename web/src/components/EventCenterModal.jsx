@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useEventStore } from '../store/useEventStore';
 import SeasonPassView from './SeasonPassView';
+import { useShallow } from 'zustand/react/shallow';
 
 // Safe render helper - prevents "Objects are not valid as a React child" errors
 const safeRender = (value, fallback = '') => {
@@ -32,9 +33,9 @@ const EventCenterModal = ({
   getScaledReward
 }) => {
   const [activeTab, setActiveTab] = useState('season');
-  const activeSeason = useEventStore(state => state.getActiveSeason());
-  const activeEvents = useEventStore(state => state.getActiveEvents());
-  const activeCommunityEvents = useEventStore(state => state.getActiveCommunityEvents());
+  const activeSeason = useEventStore(useShallow(state => state.getActiveSeason()));
+  const activeEvents = useEventStore(useShallow(state => state.getActiveEvents()));
+  const activeCommunityEvents = useEventStore(useShallow(state => state.getActiveCommunityEvents()));
   const currencies = useEventStore(state => state.calendar.currencies);
   const purchaseItem = useEventStore(state => state.purchaseEventShopItem);
   const claimGlobalReward = useEventStore(state => state.claimGlobalMilestoneReward);

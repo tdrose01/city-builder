@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useMemo, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useShallow } from 'zustand/react/shallow';
 import { saveGame, loadGame, clearSave, isStorageAvailable } from '../utils/saveSystem';
 import { INITIAL_STATE, PACING as BALANCE_PACING, ECONOMY, PRESTIGE, getScaledReward as calculateScaledReward, getGlobalPrestigeMultiplier } from '../config/gameBalance';
 import { SessionMetrics, saveSession } from '../utils/sessionAnalytics';
@@ -383,18 +384,18 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
 
     // Event Store
   const advanceSeasonPass = useEventStore(state => state.advanceSeasonPass);
-  const activeSeason = useEventStore(state => state.getActiveSeason());
-  const activeEventModifiers = useEventStore(state => state.getActiveModifiers());
-  const activeTileOverrides = useEventStore(state => state.getActiveTileOverrides());
+  const activeSeason = useEventStore(useShallow(state => state.getActiveSeason()));
+  const activeEventModifiers = useEventStore(useShallow(state => state.getActiveModifiers()));
+  const activeTileOverrides = useEventStore(useShallow(state => state.getActiveTileOverrides()));
   const updateChallengeProgress = useEventStore(state => state.updateChallengeProgress);
   const collectEventItem = useEventStore(state => state.collectEventItem);
   const tickEvents = useEventStore(state => state.tickEvents);
-  const activeEvents = useEventStore(state => state.getActiveEvents());
+  const activeEvents = useEventStore(useShallow(state => state.getActiveEvents()));
   const addEvent = useEventStore(state => state.addEvent);
   const addCommunityEvent = useEventStore(state => state.addCommunityEvent);
   const simulateCommunityProgress = useEventStore(state => state.simulateCommunityProgress);
   const contributeToCommunityEvent = useEventStore(state => state.contributeToCommunityEvent);
-  const activeCommunityEvents = useEventStore(state => state.getActiveCommunityEvents());
+  const activeCommunityEvents = useEventStore(useShallow(state => state.getActiveCommunityEvents()));
 
   // Calculate if Event Center needs a notification badge
   const hasUnclaimedRewards = useMemo(() => {
