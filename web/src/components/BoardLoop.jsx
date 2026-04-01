@@ -568,26 +568,28 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
     const halfSide = sideLength / 2;
 
     let x = 0, z = 0;
-    if (tileIndex <= 5) {
-      const pos = tileIndex === 0 ? 0 : (5 - tileIndex);
-      x = halfSide - (pos * (tileSize + tileSpacing));
+    const step = tileSize + tileSpacing;
+
+    if (tileIndex === 0) {
+      x = halfSide; z = halfSide;
+    } else if (tileIndex < 5) {
+      x = halfSide - (tileIndex * step);
       z = halfSide;
-      if (tileIndex === 0) { x = halfSide; z = halfSide; }
-    } else if (tileIndex <= 10) {
-      const pos = tileIndex === 5 ? 0 : (tileIndex - 5);
+    } else if (tileIndex === 5) {
+      x = -halfSide; z = halfSide;
+    } else if (tileIndex < 10) {
       x = -halfSide;
-      z = halfSide - (pos * (tileSize + tileSpacing));
-      if (tileIndex === 5) { x = -halfSide; z = halfSide; }
-    } else if (tileIndex <= 15) {
-      const pos = tileIndex === 10 ? 0 : (tileIndex - 10);
-      x = -halfSide + (pos * (tileSize + tileSpacing));
+      z = halfSide - ((tileIndex - 5) * step);
+    } else if (tileIndex === 10) {
+      x = -halfSide; z = -halfSide;
+    } else if (tileIndex < 15) {
+      x = -halfSide + ((tileIndex - 10) * step);
       z = -halfSide;
-      if (tileIndex === 10) { x = -halfSide; z = -halfSide; }
+    } else if (tileIndex === 15) {
+      x = halfSide; z = -halfSide;
     } else {
-      const pos = tileIndex === 15 ? 0 : (tileIndex - 15);
       x = halfSide;
-      z = -halfSide + (pos * (tileSize + tileSpacing));
-      if (tileIndex === 15) { x = halfSide; z = -halfSide; }
+      z = -halfSide + ((tileIndex - 15) * step);
     }
     return [x, 0, z];
   }, []);
@@ -2734,31 +2736,36 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
     const halfSide = sideLength / 2;
     
     let x = 0, z = 0;
-    
-    if (index <= 5) {
-      // Bottom side (tiles 0-5, right to left)
-      const pos = index === 0 ? 0 : (5 - index);
-      x = halfSide - (pos * (tileSize + tileSpacing));
+    const step = tileSize + tileSpacing;
+
+    if (index === 0) {
+      // Bottom-right corner
+      x = halfSide; z = halfSide;
+    } else if (index < 5) {
+      // Bottom side (right to left)
+      x = halfSide - (index * step);
       z = halfSide;
-      if (index === 0) { x = halfSide; z = halfSide; }
-    } else if (index <= 10) {
-      // Left side (tiles 5-10, bottom to top)
-      const pos = index === 5 ? 0 : (index - 5);
+    } else if (index === 5) {
+      // Bottom-left corner
+      x = -halfSide; z = halfSide;
+    } else if (index < 10) {
+      // Left side (bottom to top)
       x = -halfSide;
-      z = halfSide - (pos * (tileSize + tileSpacing));
-      if (index === 5) { x = -halfSide; z = halfSide; }
-    } else if (index <= 15) {
-      // Top side (tiles 10-15, left to right)
-      const pos = index === 10 ? 0 : (index - 10);
-      x = -halfSide + (pos * (tileSize + tileSpacing));
+      z = halfSide - ((index - 5) * step);
+    } else if (index === 10) {
+      // Top-left corner
+      x = -halfSide; z = -halfSide;
+    } else if (index < 15) {
+      // Top side (left to right)
+      x = -halfSide + ((index - 10) * step);
       z = -halfSide;
-      if (index === 10) { x = -halfSide; z = -halfSide; }
+    } else if (index === 15) {
+      // Top-right corner
+      x = halfSide; z = -halfSide;
     } else {
-      // Right side (tiles 15-20, top to bottom)
-      const pos = index === 15 ? 0 : (index - 15);
+      // Right side (top to bottom)
       x = halfSide;
-      z = -halfSide + (pos * (tileSize + tileSpacing));
-      if (index === 15) { x = halfSide; z = -halfSide; }
+      z = -halfSide + ((index - 15) * step);
     }
     
     // Convert 3D coordinates to CSS pixel coordinates

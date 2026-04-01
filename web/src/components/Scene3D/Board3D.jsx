@@ -158,35 +158,48 @@ const Board3D = forwardRef(({
     
     for (let i = 0; i < 20; i++) {
       let x = 0, z = 0, rotation = 0;
-      
-      if (i <= 5) {
-        // Bottom side (moving left from corner 0)
-        const pos = i === 0 ? 0 : (5 - i);
-        x = halfSide - (pos * (tileSize + tileSpacing));
+      const step = tileSize + tileSpacing;
+
+      if (i === 0) {
+        // Bottom-right corner (START)
+        x = halfSide;
         z = halfSide;
         rotation = 0;
-        if (i === 0) { x = halfSide; z = halfSide; }
-      } else if (i <= 10) {
-        // Left side (moving up from corner 5)
-        const pos = i === 5 ? 0 : (i - 5);
+      } else if (i < 5) {
+        // Bottom side (moving left)
+        x = halfSide - (i * step);
+        z = halfSide;
+        rotation = 0;
+      } else if (i === 5) {
+        // Bottom-left corner
         x = -halfSide;
-        z = halfSide - (pos * (tileSize + tileSpacing));
+        z = halfSide;
         rotation = Math.PI / 2;
-        if (i === 5) { x = -halfSide; z = halfSide; rotation = 0; }
-      } else if (i <= 15) {
-        // Top side (moving right from corner 10)
-        const pos = i === 10 ? 0 : (i - 10);
-        x = -halfSide + (pos * (tileSize + tileSpacing));
+      } else if (i < 10) {
+        // Left side (moving up)
+        x = -halfSide;
+        z = halfSide - ((i - 5) * step);
+        rotation = Math.PI / 2;
+      } else if (i === 10) {
+        // Top-left corner
+        x = -halfSide;
         z = -halfSide;
         rotation = Math.PI;
-        if (i === 10) { x = -halfSide; z = -halfSide; rotation = Math.PI / 2; }
-      } else {
-        // Right side (moving down from corner 15)
-        const pos = i === 15 ? 0 : (i - 15);
+      } else if (i < 15) {
+        // Top side (moving right)
+        x = -halfSide + ((i - 10) * step);
+        z = -halfSide;
+        rotation = Math.PI;
+      } else if (i === 15) {
+        // Top-right corner
         x = halfSide;
-        z = -halfSide + (pos * (tileSize + tileSpacing));
+        z = -halfSide;
         rotation = -Math.PI / 2;
-        if (i === 15) { x = halfSide; z = -halfSide; rotation = Math.PI; }
+      } else {
+        // Right side (moving down)
+        x = halfSide;
+        z = -halfSide + ((i - 15) * step);
+        rotation = -Math.PI / 2;
       }
       
       positions.push({
