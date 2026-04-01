@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useMemo, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useSpring, animated } from '@react-spring/web';
 import { useShallow } from 'zustand/react/shallow';
 import { saveGame, loadGame, clearSave, isStorageAvailable } from '../utils/saveSystem';
 import { INITIAL_STATE, PACING as BALANCE_PACING, ECONOMY, PRESTIGE, getScaledReward as calculateScaledReward, getGlobalPrestigeMultiplier } from '../config/gameBalance';
@@ -72,6 +73,20 @@ const safeRender = (value, fallback = '') => {
     }
   }
   return fallback;
+};
+
+const CurrencyDisplay = ({ value, prefix = '', suffix = '' }) => {
+  const { number } = useSpring({
+    number: value,
+    from: { number: 0 },
+    config: { tension: 180, friction: 22 }
+  });
+
+  return (
+    <animated.span>
+      {number.to((n) => `${prefix}${Math.floor(n).toLocaleString()}${suffix}`)}
+    </animated.span>
+  );
 };
 
 const CITIES = {
@@ -3142,15 +3157,15 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
                 <div className="board-metric-summary">
                   <div className="metric-chip">
                     <span className="label">Funds</span>
-                    <span className="value">${funds.toLocaleString()}</span>
+                    <span className="value"><CurrencyDisplay value={funds} prefix="$" /></span>
                   </div>
                   <div className="metric-chip">
                     <span className="label">Dice</span>
-                    <span className="value">{dice}</span>
+                    <span className="value"><CurrencyDisplay value={dice} /></span>
                   </div>
                   <div className="metric-chip">
                     <span className="label">Shields</span>
-                    <span className="value">{shields}/{ECONOMY.MAX_SHIELDS}</span>
+                    <span className="value"><CurrencyDisplay value={shields} />/{ECONOMY.MAX_SHIELDS}</span>
                   </div>
                   <div className="metric-chip">
                     <span className="label">Stickers</span>

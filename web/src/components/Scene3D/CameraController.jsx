@@ -13,7 +13,7 @@ const CameraController = forwardRef(({
   followPlayer = true,
   defaultDistance = 15,
   defaultHeight = 12,
-  defaultFOV = 45,
+  defaultFOV = 38,
   smoothness = 0.05
 }, ref) => {
   const cameraRef = useRef();
@@ -24,6 +24,8 @@ const CameraController = forwardRef(({
   const [shakeDuration, setShakeDuration] = useState(0);
   const [zoomLevel, setZoomLevel] = useState(1);
   const [isZooming, setIsZooming] = useState(false);
+  const eventFocusTarget = useRef(null);
+  const eventFocusTimeoutRef = useRef(null);
   
   // Current camera params for smooth interpolation
   const currentPos = useRef(new THREE.Vector3(0, defaultHeight, defaultDistance));
@@ -43,15 +45,25 @@ const CameraController = forwardRef(({
     }
   }, [shakeDuration, shakeIntensity]);
 
+  useEffect(() => {
+    return () => {
+      if (eventFocusTimeoutRef.current) {
+        clearTimeout(eventFocusTimeoutRef.current);
+      }
+    };
+  }, []);
+
   useFrame((state, delta) => {
     if (!cameraRef.current) return;
+
+    const activeTarget = eventFocusTarget.current || targetPosition;
     
     // Update target position
     if (followPlayer) {
       targetPos.current.set(
-        targetPosition[0],
+        activeTarget[0],
         0,
-        targetPosition[2] + defaultDistance / zoomLevel
+        activeTarget[2] + defaultDistance / zoomLevel
       );
     }
     
@@ -66,7 +78,7 @@ const CameraController = forwardRef(({
     );
     
     // Calculate look-at target (always look at player/board center)
-    const lookTarget = new THREE.Vector3(targetPosition[0], 0, targetPosition[2]);
+    const lookTarget = new THREE.Vector3(activeTarget[0], 0, activeTarget[2]);
     currentLookAt.current.lerp(lookTarget, smoothness);
     
     // Apply shake
@@ -108,6 +120,16 @@ const CameraController = forwardRef(({
     // Zoom to a specific tile
     zoomTo: (position, zoom = 1.5, duration = 1000) => {
       setIsZooming(true);
+      eventFocusTarget.current = [position[0], 0, position[2]];
+
+      if (eventFocusTimeoutRef.current) {
+        clearTimeout(eventFocusTimeoutRef.current);
+      }
+
+      eventFocusTimeoutRef.current = setTimeout(() => {
+        eventFocusTarget.current = null;
+      }, duration + 350);
+
       const startZoom = zoomLevel;
       const startTime = Date.now();
       
@@ -198,6 +220,16 @@ const CameraController = forwardRef(({
     
     // Smooth pan to position
     panTo: (position, duration = 1000) => {
+      eventFocusTarget.current = [position[0], 0, position[2]];
+
+      if (eventFocusTimeoutRef.current) {
+        clearTimeout(eventFocusTimeoutRef.current);
+      }
+
+      eventFocusTimeoutRef.current = setTimeout(() => {
+        eventFocusTarget.current = null;
+      }, duration + 250);
+
       const startPos = currentPos.current.clone();
       const endPos = new THREE.Vector3(
         position[0],
