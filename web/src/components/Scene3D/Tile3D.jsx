@@ -32,7 +32,31 @@ const KenneyBuilding = ({ tileId = 0, tileType = 'Funds', level = 0 }) => {
   }, [tileId, tileType, propertyLevel, candidates]);
 
   const gltf = useGLTF(modelPath);
-  const clonedScene = useMemo(() => gltf.scene.clone(true), [gltf.scene]);
+  const clonedScene = useMemo(() => {
+    const scene = gltf.scene.clone(true);
+
+    scene.traverse((obj) => {
+      if (!obj.isMesh) return;
+
+      obj.castShadow = true;
+      obj.receiveShadow = true;
+
+      const materials = Array.isArray(obj.material) ? obj.material : [obj.material];
+      materials.forEach((material) => {
+        if (!material) return;
+        if ('map' in material && material.map) {
+          material.map.colorSpace = THREE.SRGBColorSpace;
+          material.map.needsUpdate = true;
+        }
+        if ('envMapIntensity' in material && material.envMapIntensity == null) {
+          material.envMapIntensity = 1.1;
+        }
+        material.needsUpdate = true;
+      });
+    });
+
+    return scene;
+  }, [gltf.scene]);
 
   return (
     <group position={[0, 0.2, 0]} scale={[0.3, 0.3, 0.3]}>
@@ -278,12 +302,12 @@ const Tile3D = ({
     <group position={position} rotation={rotation}>
       {/* Base platform */}
       <RoundedBox args={[size * 1.08, 0.22, size * 1.08]} radius={rounded + 0.08} smoothness={5} castShadow receiveShadow>
-        <meshStandardMaterial color="#1a1a2e" roughness={0.25} metalness={0.8} />
+        <meshStandardMaterial color="#1a1a2e" roughness={0.45} metalness={0.35} envMapIntensity={0.7} />
       </RoundedBox>
 
       {/* Beveled accent rim */}
       <RoundedBox args={[size * 1.02, 0.1, size * 1.02]} position={[0, 0.12, 0]} radius={rounded + 0.04} smoothness={5} castShadow receiveShadow>
-        <meshStandardMaterial color={tileConfig.glowColor} roughness={0.12} metalness={0.9} emissive={tileConfig.glowColor} emissiveIntensity={hovered ? 0.25 : 0.12} />
+        <meshStandardMaterial color={tileConfig.glowColor} roughness={0.3} metalness={0.25} emissive={tileConfig.glowColor} emissiveIntensity={hovered ? 0.2 : 0.08} envMapIntensity={0.9} />
       </RoundedBox>
 
       {/* Main tile surface */}
@@ -304,7 +328,7 @@ const Tile3D = ({
           emissive={tileConfig.emissive}
           emissiveIntensity={hovered ? tileConfig.emissiveIntensity * 3 : tileConfig.emissiveIntensity}
           roughness={0.2}
-          metalness={0.6}
+          metalness={0.2}
           envMapIntensity={1}
         />
       </RoundedBox>

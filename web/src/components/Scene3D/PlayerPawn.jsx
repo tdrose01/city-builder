@@ -29,7 +29,31 @@ const PlayerPawn = forwardRef(({
   const isHopping = useRef(false);
 
   const gltf = useGLTF(CHARACTER_PATH);
-  const sceneClone = useMemo(() => gltf.scene.clone(true), [gltf.scene]);
+  const sceneClone = useMemo(() => {
+    const scene = gltf.scene.clone(true);
+
+    scene.traverse((obj) => {
+      if (!obj.isMesh) return;
+
+      obj.castShadow = true;
+      obj.receiveShadow = true;
+
+      const materials = Array.isArray(obj.material) ? obj.material : [obj.material];
+      materials.forEach((material) => {
+        if (!material) return;
+        if ('map' in material && material.map) {
+          material.map.colorSpace = THREE.SRGBColorSpace;
+          material.map.needsUpdate = true;
+        }
+        if ('envMapIntensity' in material && material.envMapIntensity == null) {
+          material.envMapIntensity = 1.05;
+        }
+        material.needsUpdate = true;
+      });
+    });
+
+    return scene;
+  }, [gltf.scene]);
   const { actions, names } = useAnimations(gltf.animations, modelContainerRef);
 
   const walkActionName = useMemo(

@@ -162,21 +162,21 @@ export default function GameScene({ children, cameraPosition = [14, 12, 14], sea
           <PerspectiveCamera 
             makeDefault 
             position={adjustedCameraPosition} 
-            fov={50} 
+            fov={38} 
             near={0.1} 
             far={1000} 
           />
           
           {/* Lighting Environment - 3 point setup */}
           <ambientLight
-            intensity={isFlashing ? 1.6 : weatherAmbientIntensity * 0.45}
+            intensity={isFlashing ? 1.4 : weatherAmbientIntensity * 0.32}
             color={isFlashing ? "#b0c4ff" : theme.ambientColor || "#ffffff"}
           />
 
           {/* Key light: main scene illumination */}
           <directionalLight
             position={[16, 22, 12]}
-            intensity={isFlashing ? 5.5 : theme.directionalIntensity || 1.9}
+            intensity={isFlashing ? 5.5 : theme.directionalIntensity || 2.2}
             color={isFlashing ? "#dbeafe" : "#fff7e6"}
             castShadow
             shadow-mapSize={[2048, 2048]}
@@ -192,20 +192,20 @@ export default function GameScene({ children, cameraPosition = [14, 12, 14], sea
           {/* Fill light: softens shadow side */}
           <directionalLight
             position={[-12, 10, -10]}
-            intensity={isFlashing ? 1.5 : 0.65}
+            intensity={isFlashing ? 1.2 : 0.35}
             color={isFlashing ? "#93c5fd" : "#a5d8ff"}
           />
 
           {/* Rim light: edge separation from backdrop */}
           <directionalLight
             position={[0, 8, -24]}
-            intensity={isFlashing ? 1.8 : 0.8}
+            intensity={isFlashing ? 1.4 : 0.45}
             color={isFlashing ? "#c4b5fd" : "#d946ef"}
           />
 
           <Environment
             preset={currentWeather?.id === 'thunder' ? 'night' : theme.environmentPreset || 'city'}
-            blur={0.55}
+            blur={0.25}
           />
           
           {/* Seasonal Skybox / Background */}
