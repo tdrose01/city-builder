@@ -918,15 +918,15 @@ body {
   @apply relative flex flex-col items-center justify-center text-center;
   min-height: 0;
   padding: 16px 12px;
-  background: rgba(20, 30, 48, 0.85);
-  border: 2px solid rgba(255, 255, 255, 0.15);
-  border-radius: 20px;
+  background: rgba(20, 30, 48, 0.88);
+  border: 2px solid rgba(255, 255, 255, 0.14);
+  border-radius: 18px;
   box-shadow:
-    0 4px 12px rgba(0, 0, 0, 0.4),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    0 2px 6px rgba(0, 0, 0, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
   transform: translateZ(0);
   transform-style: flat;
-  transition: transform 0.2s ease, border-color 0.2s ease;
+  transition: transform 0.16s ease, border-color 0.16s ease;
   aspect-ratio: 1 / 1;
   will-change: auto;
   -webkit-font-smoothing: antialiased;
@@ -948,11 +948,11 @@ body {
 }
 
 .board-tile:hover {
-  transform: translateZ(25px) translateY(-6px) scale(1.03);
-  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.24);
   box-shadow:
-    0 8px 20px rgba(0, 0, 0, 0.5),
-    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    0 4px 10px rgba(0, 0, 0, 0.34),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
 }
 
 .board-tile:hover::before {
@@ -1536,6 +1536,58 @@ body {
   max-height: 85vh;
   overflow-y: auto;
   padding-right: 8px;
+  position: relative;
+  z-index: 12;
+}
+
+.board-ui-layer {
+  isolation: isolate;
+}
+
+.weather-hud-inline {
+  margin-top: 12px;
+  margin-bottom: 12px;
+  padding: 10px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-left: 4px solid;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.weather-hud-icon {
+  font-size: 22px;
+  line-height: 1;
+}
+
+.weather-hud-title {
+  font-size: 10px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.95);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.weather-hud-turns {
+  font-size: 10px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.55);
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+.weather-hud-desc {
+  font-size: 10px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.65);
+  margin-top: 2px;
+  text-transform: uppercase;
 }
 
 /* Slim Stats Scrollbar */
@@ -1708,6 +1760,11 @@ body {
 /* Compact Action Bar */
 .board-actions-compact {
   @apply mt-4 flex gap-2;
+  position: relative;
+  z-index: 20;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .action-btn {
@@ -1744,6 +1801,11 @@ body {
 /* Tab Navigation */
 .tab-navigation {
   @apply mt-4 flex border-b border-white/10;
+  position: relative;
+  z-index: 15;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0.05));
+  border-radius: 10px 10px 0 0;
+  overflow: hidden;
 }
 
 .tab-btn {
@@ -1771,10 +1833,16 @@ body {
 /* Tab Content */
 .tab-content {
   @apply mt-3;
+  position: relative;
+  z-index: 10;
+  min-height: 280px;
 }
 
 .tab-panel {
   @apply flex flex-col gap-3;
+  max-height: 44vh;
+  overflow-y: auto;
+  padding-right: 4px;
 }
 
 /* Event Tab Styles */

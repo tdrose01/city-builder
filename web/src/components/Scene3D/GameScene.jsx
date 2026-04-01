@@ -1,7 +1,7 @@
-import React, { Suspense, useState, useEffect, useRef } from 'react';
+import React, { Suspense, useState, useEffect } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { Environment, OrbitControls, ContactShadows, PerspectiveCamera } from '@react-three/drei';
-import { EffectComposer, Bloom } from '@react-three/postprocessing';
+import { Environment, ContactShadows, PerspectiveCamera } from '@react-three/drei';
+import { EffectComposer, Bloom, SSAO } from '@react-three/postprocessing';
 import { checkWebGLSupport } from '../../utils/webglCheck';
 import { useWeatherStore } from '../../store/useWeatherStore';
 
@@ -13,7 +13,7 @@ const canvasInitializedRef = { current: false };
  * The global 3D container for the entire game world.
  * Replaces the fragmented DOM/Canvas approach.
  */
-export default function GameScene({ children, cameraPosition = [0, 8, 14], seasonalTheme = null }) {
+export default function GameScene({ children, cameraPosition = [14, 12, 14], seasonalTheme = null }) {
   const [webglInfo, setWebglInfo] = useState(null);
   const [webglError, setWebglError] = useState(null);
   const [isFlashing, setIsFlashing] = useState(false);
@@ -140,7 +140,7 @@ export default function GameScene({ children, cameraPosition = [0, 8, 14], seaso
       width: '100%', 
       height: '100%', 
       zIndex: 1,
-      pointerEvents: 'none',
+      pointerEvents: 'auto',
     }}>
       <Canvas 
         shadows 
@@ -167,18 +167,46 @@ export default function GameScene({ children, cameraPosition = [0, 8, 14], seaso
             far={1000} 
           />
           
-          {/* Lighting Environment */}
-          <ambientLight 
-            intensity={isFlashing ? 3.0 : weatherAmbientIntensity} 
-            color={isFlashing ? "#b0c4ff" : theme.ambientColor || "#ffffff"} 
+          {/* Lighting Environment - 3 point setup */}
+          <ambientLight
+            intensity={isFlashing ? 1.6 : weatherAmbientIntensity * 0.45}
+            color={isFlashing ? "#b0c4ff" : theme.ambientColor || "#ffffff"}
           />
-          <directionalLight 
-            position={[10, 20, 10]} 
-            intensity={isFlashing ? 5.0 : theme.directionalIntensity || 1.5} 
-            castShadow 
-            shadow-mapSize={[2048, 2048]} 
+
+          {/* Key light: main scene illumination */}
+          <directionalLight
+            position={[16, 22, 12]}
+            intensity={isFlashing ? 5.5 : theme.directionalIntensity || 1.9}
+            color={isFlashing ? "#dbeafe" : "#fff7e6"}
+            castShadow
+            shadow-mapSize={[2048, 2048]}
+            shadow-camera-near={1}
+            shadow-camera-far={80}
+            shadow-camera-left={-25}
+            shadow-camera-right={25}
+            shadow-camera-top={25}
+            shadow-camera-bottom={-25}
+            shadow-bias={-0.0002}
           />
-          <Environment preset={currentWeather?.id === 'thunder' ? 'night' : theme.environmentPreset || "city"} blur={0.8} />
+
+          {/* Fill light: softens shadow side */}
+          <directionalLight
+            position={[-12, 10, -10]}
+            intensity={isFlashing ? 1.5 : 0.65}
+            color={isFlashing ? "#93c5fd" : "#a5d8ff"}
+          />
+
+          {/* Rim light: edge separation from backdrop */}
+          <directionalLight
+            position={[0, 8, -24]}
+            intensity={isFlashing ? 1.8 : 0.8}
+            color={isFlashing ? "#c4b5fd" : "#d946ef"}
+          />
+
+          <Environment
+            preset={currentWeather?.id === 'thunder' ? 'night' : theme.environmentPreset || 'city'}
+            blur={0.55}
+          />
           
           {/* Seasonal Skybox / Background */}
           <color attach="background" args={[isFlashing ? "#475569" : weatherSkyColor]} />
@@ -199,12 +227,19 @@ export default function GameScene({ children, cameraPosition = [0, 8, 14], seaso
           />
           
           {/* Post Processing */}
-          <EffectComposer disableNormalPass>
-            <Bloom 
-              luminanceThreshold={1} 
-              mipmapBlur 
-              intensity={0.5} 
-              radius={0.4} 
+          <EffectComposer>
+            <SSAO
+              samples={16}
+              radius={0.18}
+              intensity={18}
+              luminanceInfluence={0.55}
+              color="black"
+            />
+            <Bloom
+              luminanceThreshold={1}
+              mipmapBlur
+              intensity={0.5}
+              radius={0.4}
             />
           </EffectComposer>
         </Suspense>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useStickerStore } from '../store/useStickerStore';
-import { generatePack, PackType } from '../utils/stickerPackEngine';
+import { generatePack } from '../utils/stickerPackEngine';
 
 const StickerPackOpener = ({ type, count = 3, onComplete }) => {
   const [isOpen, setIsOpen] = useState(false);

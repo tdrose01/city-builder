@@ -1,7 +1,6 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useEventStore } from '../store/useEventStore';
-import { PassTier } from '../data/events/eventTypes';
 
 // Safe render helper - prevents "Objects are not valid as a React child" errors
 const safeRender = (value, fallback = '') => {

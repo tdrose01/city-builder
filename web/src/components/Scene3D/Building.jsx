@@ -1,116 +1,104 @@
 import React, { useRef, useMemo, Suspense } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { useGLTF } from '@react-three/drei';
-import * as THREE from 'three';
 
-// Building selection based on tile level
-const BUILDING_MODELS = {
+const BUILDING_VARIANTS = {
   low: [
-    '/kenney-city/Models/GLB format/low-detail-building-a.glb',
-    '/kenney-city/Models/GLB format/low-detail-building-b.glb',
-    '/kenney-city/Models/GLB format/low-detail-building-c.glb',
+    'low-detail-building-a.glb','low-detail-building-b.glb','low-detail-building-c.glb','low-detail-building-d.glb',
+    'low-detail-building-e.glb','low-detail-building-f.glb','low-detail-building-g.glb','low-detail-building-h.glb',
+    'low-detail-building-i.glb','low-detail-building-j.glb','low-detail-building-k.glb','low-detail-building-l.glb',
+    'low-detail-building-m.glb','low-detail-building-n.glb','low-detail-building-wide-a.glb','low-detail-building-wide-b.glb'
   ],
   medium: [
-    '/kenney-city/Models/GLB format/building-a.glb',
-    '/kenney-city/Models/GLB format/building-b.glb',
-    '/kenney-city/Models/GLB format/building-c.glb',
+    'building-a.glb','building-b.glb','building-c.glb','building-d.glb','building-e.glb','building-f.glb','building-g.glb',
+    'building-h.glb','building-i.glb','building-j.glb','building-k.glb','building-l.glb','building-m.glb','building-n.glb'
   ],
   high: [
-    '/kenney-city/Models/GLB format/building-skyscraper-a.glb',
-    '/kenney-city/Models/GLB format/building-skyscraper-b.glb',
-    '/kenney-city/Models/GLB format/building-skyscraper-c.glb',
+    'building-skyscraper-a.glb','building-skyscraper-b.glb','building-skyscraper-c.glb','building-skyscraper-d.glb','building-skyscraper-e.glb'
   ]
 };
 
-// Preload all models
-Object.values(BUILDING_MODELS).flat().forEach(path => {
-  useGLTF.preload(path);
-});
+const DETAILS = [
+  'detail-awning.glb',
+  'detail-awning-wide.glb',
+  'detail-overhang.glb',
+  'detail-overhang-wide.glb',
+  'detail-parasol-a.glb',
+  'detail-parasol-b.glb'
+];
 
-/**
- * Building - 3D building model for property tiles
- * 
- * @param {number} level - Tile level (0-5), determines building complexity
- * @param {string} themeColor - Color tint for the building
- * @param {number} scale - Building scale
- */
-const Building = ({ level = 0, themeColor = '#00f3ff', scale = 0.3 }) => {
+const BASE_PATH = '/kenney-city/Models/GLB format/';
+
+const allModelPaths = [
+  ...Object.values(BUILDING_VARIANTS).flat(),
+  ...DETAILS,
+].map((name) => `${BASE_PATH}${name}`);
+
+allModelPaths.forEach((path) => useGLTF.preload(path));
+
+const seededIndex = (seed, length) => {
+  if (length <= 0) return 0;
+  const normalized = Math.abs(Math.sin(seed * 999.91) * 10000);
+  return Math.floor(normalized) % length;
+};
+
+const Building = ({ level = 0, tileId = 0, tileType = 'Funds', scale = 0.3 }) => {
   const groupRef = useRef();
-  
-  // Select building based on level
+
   const modelPath = useMemo(() => {
-    const category = level >= 4 ? 'high' : level >= 2 ? 'medium' : 'low';
-    const models = BUILDING_MODELS[category];
-    return models[level % models.length];
-  }, [level]);
-  
-  // Load the GLB model
-  const { scene } = useGLTF(modelPath);
-  
-  // Clone and customize the scene
-  const clonedScene = useMemo(() => {
-    const clone = scene.clone();
-    
-    // Apply color tint to all meshes
-    clone.traverse((child) => {
-      if (child.isMesh) {
-        child.castShadow = true;
-        child.receiveShadow = true;
-        
-        // Clone material and apply tint
-        if (child.material) {
-          child.material = child.material.clone();
-          const color = new THREE.Color(themeColor);
-          child.material.color = color;
-        }
-      }
-    });
-    
-    return clone;
-  }, [scene, themeColor]);
-  
-  // Gentle bobbing animation
+    const tier = level >= 4 ? 'high' : level >= 2 ? 'medium' : 'low';
+    const buildings = BUILDING_VARIANTS[tier];
+    const details = DETAILS;
+
+    const typeSeed = tileType.split('').reduce((acc, c) => acc + c.charCodeAt(0), 0);
+    const seed = tileId * 37 + level * 11 + typeSeed;
+
+    const main = buildings[seededIndex(seed, buildings.length)];
+    const detail = details[seededIndex(seed + 17, details.length)];
+
+    return {
+      main: `${BASE_PATH}${main}`,
+      detail: `${BASE_PATH}${detail}`,
+    };
+  }, [level, tileId, tileType]);
+
+  const mainGltf = useGLTF(modelPath.main);
+  const detailGltf = useGLTF(modelPath.detail);
+
+  const mainScene = useMemo(() => mainGltf.scene.clone(true), [mainGltf.scene]);
+  const detailScene = useMemo(() => detailGltf.scene.clone(true), [detailGltf.scene]);
+
   useFrame((state) => {
-    if (groupRef.current) {
-      groupRef.current.position.y = Math.sin(state.clock.elapsedTime * 2) * 0.02;
-    }
+    if (!groupRef.current) return;
+    const wobble = 0.015 + (tileId % 4) * 0.004;
+    groupRef.current.position.y = Math.sin(state.clock.elapsedTime * (1.4 + (tileId % 3) * 0.2)) * wobble;
   });
-  
+
   return (
     <group ref={groupRef} scale={scale}>
-      <primitive object={clonedScene} />
+      <primitive object={mainScene} />
+      <group position={[0, 0.02, 0]} scale={0.95}>
+        <primitive object={detailScene} />
+      </group>
     </group>
   );
 };
 
-/**
- * BuildingPlaceholder - Fallback while loading or if model fails
- */
-const BuildingPlaceholder = ({ level = 0, themeColor = '#00f3ff' }) => {
-  const height = 0.5 + (level * 0.2);
-  
+const BuildingPlaceholder = ({ level = 0 }) => {
+  const height = 0.45 + level * 0.15;
   return (
     <mesh castShadow receiveShadow position={[0, height / 2, 0]}>
-      <boxGeometry args={[0.8, height, 0.8]} />
-      <meshStandardMaterial 
-        color={themeColor}
-        metalness={0.3}
-        roughness={0.7}
-      />
+      <boxGeometry args={[0.75, height, 0.75]} />
+      <meshStandardMaterial color="#8b9bb4" metalness={0.2} roughness={0.75} />
     </mesh>
   );
 };
 
-/**
- * BuildingWithFallback - Building with error boundary
- */
-const BuildingWithFallback = ({ level, themeColor, scale }) => {
-  return (
-    <Suspense fallback={<BuildingPlaceholder level={level} themeColor={themeColor} />}>
-      <Building level={level} themeColor={themeColor} scale={scale} />
-    </Suspense>
-  );
-};
+const BuildingWithFallback = (props) => (
+  <Suspense fallback={<BuildingPlaceholder level={props.level} />}>
+    <Building {...props} />
+  </Suspense>
+);
 
 export default BuildingWithFallback;
 export { BuildingPlaceholder };

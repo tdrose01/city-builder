@@ -262,13 +262,14 @@ const Tile3D = ({
         />
       </RoundedBox>
       
-      {/* 3D Building for property tiles */}
-      {type === 'Funds' && (
+      {/* 3D buildings/props as primary tile visuals */}
+      {!isCorner && (
         <group position={[0, tileConfig.height, 0]}>
-          <BuildingWithFallback 
-            level={level} 
-            themeColor={tileConfig.color} 
-            scale={0.25}
+          <BuildingWithFallback
+            level={level}
+            tileId={id}
+            tileType={type}
+            scale={type === 'Landmark' ? 0.32 : 0.22}
           />
         </group>
       )}

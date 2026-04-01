@@ -223,12 +223,16 @@ const Board3D = forwardRef(({
   }));
 
   return (
-    <group ref={boardGroupRef} scale={boardScale}>
+    <group ref={boardGroupRef} scale={boardScale} rotation={[0, Math.PI / 4, 0]}>
       {/* Camera Controller */}
       <CameraController 
         ref={cameraRef}
         targetPosition={isMoving ? targetTilePos : currentTilePos}
         followPlayer={true}
+        defaultDistance={17}
+        defaultHeight={13}
+        defaultFOV={42}
+        smoothness={0.06}
       />
       
       {/* Player Pawn */}

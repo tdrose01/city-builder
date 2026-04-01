@@ -2941,29 +2941,6 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
       {/* Phase 12: Active Event Banner */}
       <ActiveEventBanner />
 
-      {/* Phase 16: Weather HUD */}
-      <div className="absolute top-20 left-6 z-30 flex flex-col gap-2 pointer-events-none">
-        <motion.div 
-          initial={{ x: -20, opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
-          key={currentWeather.id}
-          className="bg-black/40 backdrop-blur-md border border-white/10 rounded-2xl p-3 flex items-center gap-3 shadow-2xl"
-          style={{ borderLeft: `4px solid ${currentWeather.color}` }}
-        >
-          <div className="text-2xl drop-shadow-lg">{safeRender(currentWeather.icon, '☀️')}</div>
-          <div>
-            <div className="text-[10px] font-black text-white uppercase tracking-widest leading-none mb-1 flex items-center gap-2">
-              {safeRender(currentWeather.name, 'Weather')}
-              <span className="text-white/40 font-bold lowercase tracking-normal">
-                ({useWeatherStore.getState().rollsUntilChange} rolls left)
-              </span>
-            </div>
-            <div className="text-[9px] font-bold text-white/60 uppercase">
-              {safeRender(currentWeather.description, '')}
-            </div>
-          </div>
-        </motion.div>
-      </div>
 
       {/* Phase 10: Global 3D Scene */}
       <GameScene seasonalTheme={activeSeason?.theme}>
@@ -3121,7 +3098,7 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
             </div>
 
             {/* Stats & Controls (Right Column) */}
-            <div className={`board-info ${upgradePulse ? 'upgrade-pulse' : ''}`}>
+            <div className={`board-info board-ui-layer ${upgradePulse ? 'upgrade-pulse' : ''}`}>
               <div className="board-panel">
                 <div className="board-panel-header">
                   <div>
@@ -3129,6 +3106,26 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
                     <p className="board-panel-title">{cityData.name}</p>
                   </div>
                 </div>
+
+                {/* Phase 16: Weather HUD (moved inline to avoid overlaying stats) */}
+                <motion.div
+                  initial={{ y: -8, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  key={currentWeather?.id || 'weather'}
+                  className="weather-hud-inline"
+                  style={{ borderLeftColor: currentWeather?.color || '#38bdf8' }}
+                >
+                  <div className="weather-hud-icon">{safeRender(currentWeather?.icon, '☀️')}</div>
+                  <div>
+                    <div className="weather-hud-title">
+                      {safeRender(currentWeather?.name, 'Weather')}
+                      <span className="weather-hud-turns">
+                        ({useWeatherStore.getState().rollsUntilChange} rolls left)
+                      </span>
+                    </div>
+                    <div className="weather-hud-desc">{safeRender(currentWeather?.description, '')}</div>
+                  </div>
+                </motion.div>
 
                 <div className="board-metric-summary">
                   <div className="metric-chip">
