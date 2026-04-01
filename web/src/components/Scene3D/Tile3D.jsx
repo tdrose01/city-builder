@@ -1,8 +1,45 @@
 import React, { useRef, useState, useMemo, useEffect, Suspense } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { RoundedBox, Text, Html, Billboard, Points, PointMaterial } from '@react-three/drei';
+import { RoundedBox, Html, Billboard, Points, useGLTF } from '@react-three/drei';
 import * as THREE from 'three';
-import BuildingWithFallback from './Building';
+
+const KENNEY_BUILDING_BASE_PATH = '/kenney-city/Models/GLB format/';
+const LEVEL_BUILDING_MODELS = {
+  1: ['building-a.glb', 'building-b.glb', 'building-c.glb', 'building-d.glb', 'building-e.glb', 'building-f.glb'],
+  2: ['building-g.glb', 'building-h.glb', 'building-i.glb', 'building-j.glb', 'building-k.glb', 'building-l.glb', 'building-m.glb', 'building-n.glb'],
+  3: ['building-skyscraper-a.glb', 'building-skyscraper-b.glb', 'building-skyscraper-c.glb', 'building-skyscraper-d.glb', 'building-skyscraper-e.glb']
+};
+
+Object.values(LEVEL_BUILDING_MODELS)
+  .flat()
+  .forEach((file) => useGLTF.preload(`${KENNEY_BUILDING_BASE_PATH}${file}`));
+
+const seededIndex = (seed, length) => {
+  if (length <= 0) return 0;
+  const normalized = Math.abs(Math.sin(seed * 127.1337) * 10000);
+  return Math.floor(normalized) % length;
+};
+
+const KenneyBuilding = ({ tileId = 0, tileType = 'Funds', level = 0 }) => {
+  const propertyLevel = Math.min(Math.max(level || 1, 1), 3);
+  const candidates = LEVEL_BUILDING_MODELS[propertyLevel] || LEVEL_BUILDING_MODELS[1];
+
+  const modelPath = useMemo(() => {
+    const typeSeed = tileType.split('').reduce((acc, c) => acc + c.charCodeAt(0), 0);
+    const seed = tileId * 37 + propertyLevel * 97 + typeSeed;
+    const file = candidates[seededIndex(seed, candidates.length)];
+    return `${KENNEY_BUILDING_BASE_PATH}${file}`;
+  }, [tileId, tileType, propertyLevel, candidates]);
+
+  const gltf = useGLTF(modelPath);
+  const clonedScene = useMemo(() => gltf.scene.clone(true), [gltf.scene]);
+
+  return (
+    <group position={[0, 0.2, 0]} scale={[0.3, 0.3, 0.3]}>
+      <primitive object={clonedScene} />
+    </group>
+  );
+};
 
 /**
  * Tile3D
@@ -239,12 +276,23 @@ const Tile3D = ({
       
   return (
     <group position={position} rotation={rotation}>
-      {/* Main tile mesh */}
+      {/* Base platform */}
+      <RoundedBox args={[size * 1.08, 0.22, size * 1.08]} radius={rounded + 0.08} smoothness={5} castShadow receiveShadow>
+        <meshStandardMaterial color="#1a1a2e" roughness={0.25} metalness={0.8} />
+      </RoundedBox>
+
+      {/* Beveled accent rim */}
+      <RoundedBox args={[size * 1.02, 0.1, size * 1.02]} position={[0, 0.12, 0]} radius={rounded + 0.04} smoothness={5} castShadow receiveShadow>
+        <meshStandardMaterial color={tileConfig.glowColor} roughness={0.12} metalness={0.9} emissive={tileConfig.glowColor} emissiveIntensity={hovered ? 0.25 : 0.12} />
+      </RoundedBox>
+
+      {/* Main tile surface */}
       <RoundedBox
         ref={meshRef}
+        position={[0, 0.2, 0]}
         args={[size, tileConfig.height, size]}
         radius={rounded}
-        smoothness={4}
+        smoothness={5}
         castShadow
         receiveShadow
         onPointerEnter={() => setHovered(true)}
@@ -258,20 +306,16 @@ const Tile3D = ({
           roughness={0.2}
           metalness={0.6}
           envMapIntensity={1}
-          emissiveMapIntensity={tileConfig.isSpecial ? 1.5 : 1}
         />
       </RoundedBox>
       
       {/* 3D buildings/props as primary tile visuals */}
       {!isCorner && (
-        <group position={[0, tileConfig.height, 0]}>
-          <BuildingWithFallback
-            level={level}
-            tileId={id}
-            tileType={type}
-            scale={type === 'Landmark' ? 0.32 : 0.22}
-          />
-        </group>
+        <Suspense fallback={null}>
+          <group position={[0, 0.22 + tileConfig.height, 0]}>
+            <KenneyBuilding tileId={id} tileType={type} level={level} />
+          </group>
+        </Suspense>
       )}
       
       {/* Tile label - HTML OVERLAY for guaranteed visibility */}

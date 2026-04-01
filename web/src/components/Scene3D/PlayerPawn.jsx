@@ -33,11 +33,11 @@ const PlayerPawn = forwardRef(({
   const { actions, names } = useAnimations(gltf.animations, modelContainerRef);
 
   const walkActionName = useMemo(
-    () => names.find((n) => /walk|run|jog|move/i.test(n)) || names[0],
+    () => names.find((n) => n === 'Walk') || names.find((n) => /walk|run|jog|move/i.test(n)) || names[0],
     [names]
   );
   const idleActionName = useMemo(
-    () => names.find((n) => /idle|stand|breathe/i.test(n)) || names[0],
+    () => names.find((n) => n === 'Idle') || names.find((n) => /idle|stand|breathe/i.test(n)) || names[0],
     [names]
   );
 
@@ -161,7 +161,7 @@ const PlayerPawn = forwardRef(({
       )}
 
       <animated.group ref={groupRef} position={pos} castShadow>
-        <group ref={modelContainerRef} position={[0, 0.08, 0]} scale={[0.42, 0.42, 0.42]}>
+        <group ref={modelContainerRef} position={[0, 0.3, 0]} scale={[0.5, 0.5, 0.5]}>
           <primitive object={sceneClone} />
         </group>
 
