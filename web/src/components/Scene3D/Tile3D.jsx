@@ -217,10 +217,11 @@ const Tile3D = ({
         rimLightColor: '#fbbf24',
         rimLightIntensity: 0.8,
         icon: '🎉',
-        height: 0.3,
+        // Keep Bonus in the same visual line as neighboring Funds/Shield tiles
+        height: 0.25,
         baseSize: 2,
-        labelSize: 18,
-        iconSize: 24,
+        labelSize: 16,
+        iconSize: 22,
         glowColor: '#fbbf24',
         isSpecial: true
       },
