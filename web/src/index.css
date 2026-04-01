@@ -1525,6 +1525,11 @@ body {
   padding: 20px 0;
 }
 
+.board-layout-main--3d {
+  grid-template-columns: minmax(0, 1fr);
+  max-width: 900px;
+}
+
 .board-shell {
   @apply w-full max-w-screen-2xl px-4;
   display: flex;
@@ -2172,12 +2177,27 @@ body {
 
 .board-inline-chips {
   @apply mt-2 flex flex-wrap gap-2;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  overflow-x: hidden;
+  overflow-y: visible;
+  align-content: flex-start;
+}
+
+.board-inline-chips--powerups {
+  max-width: 100%;
 }
 
 .board-chip {
   @apply rounded-full px-3 py-1 text-[10px] font-bold uppercase tracking-wide text-white/70;
   border: 1px solid rgba(255, 255, 255, 0.15);
   background: rgba(0, 0, 0, 0.35);
+  flex: 0 1 auto;
+  min-width: 0;
+  max-width: 100%;
+  white-space: normal;
+  overflow-wrap: anywhere;
 }
 
 .board-mini-panel {

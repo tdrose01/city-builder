@@ -2934,7 +2934,19 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
     .filter(Boolean)
     .join(' • ');
 
+  const powerUpTileChips = useMemo(() => {
+    const excludedTypes = new Set(['Start', 'Corner', 'Landmark', 'Card', 'Heist', 'Lottery', 'Tax', 'Jail', 'Rent']);
+    const seen = new Set();
 
+    return tiles
+      .filter((tile) => !excludedTypes.has(tile.type))
+      .map((tile) => tile.name?.toUpperCase())
+      .filter((name) => {
+        if (!name || seen.has(name)) return false;
+        seen.add(name);
+        return true;
+      });
+  }, [tiles]);
 
   return (
     <>
@@ -2997,7 +3009,7 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
         <AudioControls />
 
         <div className="board-shell">
-          <div className="board-layout-main">
+          <div className={`board-layout-main ${use3DBoard ? 'board-layout-main--3d' : ''}`}>
             {/* Main Board Area (Left/Center) - HIDDEN: 3D board is primary */}
             <div
               className={`board-stage ${dicePulse ? 'board-stage-bounce' : ''} ${rolling ? 'board-stage-rolling' : ''} ${upgradePulse ? 'upgrade-pulse' : ''}`}
@@ -3155,6 +3167,19 @@ export default function BoardLoop({ cityLevel, funds, setFunds, shields, setShie
                 </div>
 
                 <PowerUpIndicator activePowerUps={activePowerUps} />
+
+                {powerUpTileChips.length > 0 && (
+                  <div className="board-inline-header">
+                    <p className="board-inline-title">Power-Up Tiles</p>
+                  </div>
+                )}
+                {powerUpTileChips.length > 0 && (
+                  <div className="board-inline-chips board-inline-chips--powerups" data-testid="power-up-tile-chips">
+                    {powerUpTileChips.map((chip) => (
+                      <span key={chip} className="board-chip" title={chip}>{chip}</span>
+                    ))}
+                  </div>
+                )}
 
                 {activeSpecialEvent && (
                   <div data-testid="special-event-indicator" style={{
