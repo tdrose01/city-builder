@@ -89,6 +89,9 @@ const Tile3D = ({
 
   // Tile configuration based on type
   const tileConfig = useMemo(() => {
+    const NORMAL_TILE_HEIGHT = 0.25;
+    const NORMAL_TILE_SIZE = 2;
+
     const configs = {
       Start: {
         color: '#22c55e',
@@ -123,24 +126,28 @@ const Tile3D = ({
         emissive: '#d97706',
         emissiveIntensity: 0.3,
         icon: '🎰',
-        height: 0.3,
-        baseSize: 2
+        height: NORMAL_TILE_HEIGHT,
+        baseSize: NORMAL_TILE_SIZE
       },
       Tax: {
         color: '#ef4444',
         emissive: '#b91c1c',
         emissiveIntensity: 0.2,
         icon: '💸',
-        height: 0.25,
-        baseSize: 2
+        height: NORMAL_TILE_HEIGHT,
+        baseSize: NORMAL_TILE_SIZE
       },
       Shield: {
         color: '#3b82f6',
         emissive: '#1d4ed8',
         emissiveIntensity: 0.3,
         icon: '🛡️',
-        height: 0.25,
-        baseSize: 2
+        height: NORMAL_TILE_HEIGHT,
+        baseSize: NORMAL_TILE_SIZE,
+        labelSize: 16,
+        iconSize: 22,
+        glowColor: '#3b82f6',
+        isSpecial: false
       },
       Corner: {
         color: '#a855f7',
@@ -207,8 +214,13 @@ const Tile3D = ({
         emissive: '#991b1b',
         emissiveIntensity: 0.4,
         icon: '⚡',
-        height: 0.3,
-        baseSize: 2
+        // Keep power-up style tiles aligned with the default board lane
+        height: NORMAL_TILE_HEIGHT,
+        baseSize: NORMAL_TILE_SIZE,
+        labelSize: 16,
+        iconSize: 22,
+        glowColor: '#dc2626',
+        isSpecial: false
       },
       Bonus: {
         color: '#fbbf24',
@@ -218,8 +230,8 @@ const Tile3D = ({
         rimLightIntensity: 0.8,
         icon: '🎉',
         // Keep Bonus in the same visual line as neighboring Funds/Shield tiles
-        height: 0.25,
-        baseSize: 2,
+        height: NORMAL_TILE_HEIGHT,
+        baseSize: NORMAL_TILE_SIZE,
         labelSize: 16,
         iconSize: 22,
         glowColor: '#fbbf24',
@@ -230,8 +242,12 @@ const Tile3D = ({
         emissive: '#0891b2',
         emissiveIntensity: 0.3,
         icon: '🔮',
-        height: 0.28,
-        baseSize: 2
+        height: NORMAL_TILE_HEIGHT,
+        baseSize: NORMAL_TILE_SIZE,
+        labelSize: 16,
+        iconSize: 22,
+        glowColor: '#06b6d4',
+        isSpecial: false
       },
       Dice: {
         color: '#6366f1',
@@ -264,7 +280,11 @@ const Tile3D = ({
         isSpecial: false
       }
     };
-    return configs[type] || configs.Default;
+    const selectedConfig = configs[type] || configs.Default;
+    return {
+      ...configs.Default,
+      ...selectedConfig
+    };
   }, [type, themeColor, level]);
 
   // Icon bounce animation
