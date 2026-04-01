@@ -230,8 +230,8 @@ const Board3D = forwardRef(({
         targetPosition={isMoving ? targetTilePos : currentTilePos}
         followPlayer={true}
         defaultDistance={17}
-        defaultHeight={13}
-        defaultFOV={42}
+        defaultHeight={12}
+        defaultFOV={38}
         smoothness={0.06}
       />
       

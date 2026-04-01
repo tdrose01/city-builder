@@ -8,7 +8,7 @@
 
 This plan details the technical implementation to transform City Slacker from its current flat CSS aesthetic to a premium 3D mobile game experience matching Monopoly Go quality.
 
-**Current Status:** ~20% complete (Phase 1 CSS polish done)
+**Current Status:** ~25% complete (Phase 1 lighting done, camera optimized, currency animations added)
 **Target:** 100% visual spec compliance
 **Estimated Effort:** 3-4 implementation phases
 
@@ -346,9 +346,9 @@ const CurrencyDisplay = ({ value }) => {
 ## Implementation Priority Order
 
 ### Week 1: Foundation
-1. ✅ Lighting overhaul (3-point setup, AO, bloom) - **Coder Agent Running**
+1. ✅ Lighting overhaul (3-point setup, AO, bloom) - **Complete**
 2. ✅ HDRI environment or gradient background
-3. Camera angle optimization
+3. ✅ Camera angle optimization (FOV 38, height 12) - **2026-04-01 commit 6b3f564**
 
 ### Week 2: Core Assets
 1. Replace PlayerPawn with Kenney character model
@@ -362,7 +362,7 @@ const CurrencyDisplay = ({ value }) => {
 
 ### Week 4: Polish
 1. Modal animations
-2. Currency counter animations
+2. ✅ Currency counter animations (react-spring) - **2026-04-01 commit 6b3f564**
 3. UI micro-interactions
 
 ---
