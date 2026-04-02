@@ -7,7 +7,6 @@ test.describe('City Slacker visual regression', () => {
   });
 
   test('homepage loads and game board renders', async ({ page }) => {
-    await page.goto('/', { waitUntil: 'domcontentloaded' });
     // Wait for Three.js canvas to appear and be sized
     await page.waitForSelector('canvas', { state: 'visible', timeout: 30_000 });
     await page.waitForFunction(() => {
