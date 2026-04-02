@@ -54,6 +54,7 @@ const PlayerPawn = forwardRef(({
 
     return scene;
   }, [gltf.scene]);
+
   const { actions, names } = useAnimations(gltf.animations, modelContainerRef);
 
   const walkActionName = useMemo(
@@ -64,21 +65,43 @@ const PlayerPawn = forwardRef(({
     () => names.find((n) => n === 'Idle') || names.find((n) => /idle|stand|breathe/i.test(n)) || names[0],
     [names]
   );
+  const celebrateActionName = useMemo(
+    () => names.find((n) => /celebrate|victory|cheer|dance|happy|taunt/i.test(n)),
+    [names]
+  );
+
+  const shouldCelebrate = !isMoving && lastOutcome === 'win' && timeSinceLastRoll < 2000;
 
   React.useEffect(() => {
     if (!actions || names.length === 0) return;
 
-    const activeName = isMoving ? walkActionName : idleActionName;
-    const next = actions[activeName];
-    if (!next) return;
+    let nextAction;
 
-    Object.values(actions).forEach((action) => action?.fadeOut(0.2));
-    next.reset().fadeIn(0.2).play();
+    if (shouldCelebrate && celebrateActionName && actions[celebrateActionName]) {
+      nextAction = actions[celebrateActionName];
+      nextAction.reset();
+      nextAction.setLoop(THREE.LoopOnce, 1);
+      nextAction.clampWhenFinished = true;
+    } else {
+      const activeName = isMoving ? walkActionName : idleActionName;
+      nextAction = actions[activeName];
+      nextAction?.reset();
+      nextAction?.setLoop(THREE.LoopRepeat, Infinity);
+      if (nextAction) nextAction.clampWhenFinished = false;
+    }
+
+    if (!nextAction) return;
+
+    Object.values(actions).forEach((action) => {
+      if (action !== nextAction) action?.fadeOut(0.2);
+    });
+
+    nextAction.fadeIn(0.2).play();
 
     return () => {
       Object.values(actions).forEach((action) => action?.stop());
     };
-  }, [actions, names, isMoving, walkActionName, idleActionName]);
+  }, [actions, names, isMoving, shouldCelebrate, celebrateActionName, walkActionName, idleActionName]);
 
   const particleCount = 20;
   const particles = useMemo(() => {
@@ -111,7 +134,6 @@ const PlayerPawn = forwardRef(({
   useFrame((state, delta) => {
     if (!groupRef.current) return;
 
-    const time = state.clock.elapsedTime;
     const idleAnimation = useIdleAnimation({ animationState, timeSinceLastRoll, lastOutcome, delta });
 
     if (!isMoving) {
