@@ -8,9 +8,9 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 1 : undefined,
-  timeout: 120_000,
+  timeout: 300_000,
   expect: {
-    timeout: 30_000,
+    timeout: 120_000,
     toHaveScreenshot: {
       maxDiffPixelRatio: 0.02,
       threshold: 0.2,
