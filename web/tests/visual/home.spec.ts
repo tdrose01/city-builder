@@ -8,15 +8,14 @@ test.describe('City Slacker visual regression', () => {
 
   test('homepage loads and game board renders', async ({ page }) => {
     await page.goto('/', { waitUntil: 'domcontentloaded' });
-    await page.waitForLoadState('networkidle');
+    // Wait for Three.js canvas to appear and be sized
     await page.waitForSelector('canvas', { state: 'visible', timeout: 30_000 });
     await page.waitForFunction(() => {
       const canvas = document.querySelector('canvas');
-      return Boolean(canvas && canvas.clientWidth > 0 && canvas.clientHeight > 0);
+      return !!canvas && canvas.width > 0 && canvas.height > 0;
     }, { timeout: 30_000 });
-
-    // Give Three.js time to finish initial scene render.
-    await page.waitForTimeout(5_000);
+    // Give Three.js time to load textures and render first frame
+    await page.waitForTimeout(8_000);
 
     await expect(page.locator('text=City Slacker').first()).toBeVisible();
 

@@ -1,3 +1,6 @@
+import fs from 'node:fs';
+import path from 'node:path';
+
 import { test } from '@playwright/test';
 
 /**
@@ -207,12 +210,6 @@ test.describe('Analytics Playtest - 10 Sessions', () => {
       console.log(`Average Stickers: ${avgStickers.toFixed(1)} (Target: 1-3)`);
 
       // Export to JSON file
-      // eslint-disable-next-line
-      const fs = require('fs');
-      // eslint-disable-next-line
-      const path = require('path');
-
-      // eslint-disable-next-line
       const resultsDir = path.join(process.cwd(), 'playtest-results');
       if (!fs.existsSync(resultsDir)) {
         fs.mkdirSync(resultsDir, { recursive: true });
