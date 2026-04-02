@@ -12,6 +12,8 @@
     "test:unit": "NODE_OPTIONS=--max-old-space-size=1024 vitest run --pool=forks --maxWorkers=1 --minWorkers=1 --no-file-parallelism",
     "test:unit:watch": "NODE_OPTIONS=--max-old-space-size=1024 vitest --pool=forks --maxWorkers=1 --minWorkers=1",
     "test:e2e": "playwright test",
+    "test:visual": "playwright test --config=playwright.config.ts",
+    "test:visual:update": "playwright test --config=playwright.config.ts --update-snapshots", 
     "deploy:netlify": "netlify deploy --dir dist",
     "deploy:netlify:prod": "netlify deploy --dir dist --prod",
     "deploy:cf": "wrangler pages deploy dist --project-name=city-slacker",
