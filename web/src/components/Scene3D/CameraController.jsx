@@ -11,9 +11,9 @@ import * as THREE from 'three';
 const CameraController = forwardRef(({
   targetPosition = [0, 0, 0],
   followPlayer = true,
-  defaultDistance = 15,
-  defaultHeight = 12,
-  defaultFOV = 38,
+  defaultDistance = 12,
+  defaultHeight = 9,
+  defaultFOV = 35,
   smoothness = 0.05
 }, ref) => {
   const cameraRef = useRef();

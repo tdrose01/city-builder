@@ -110,12 +110,12 @@ const Board3D = forwardRef(({
     
     if (isTall) {
       // Scale up for tall screens to make board appear larger
-      return 1.8;
+      return 1.7;
     } else if (window.innerWidth <= 768) {
       // Scale up for regular mobile devices
-      return 1.4;
+      return 1.3;
     }
-    return 1; // Normal scale for desktop
+    return 0.95; // Slightly reduced to account for larger premium-style tiles
   };
   
   const boardScale = getBoardScale();
@@ -242,9 +242,9 @@ const Board3D = forwardRef(({
         ref={cameraRef}
         targetPosition={isMoving ? targetTilePos : currentTilePos}
         followPlayer={true}
-        defaultDistance={17}
-        defaultHeight={12}
-        defaultFOV={38}
+        defaultDistance={14}
+        defaultHeight={10}
+        defaultFOV={35}
         smoothness={0.06}
       />
       

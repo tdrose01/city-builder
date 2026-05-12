@@ -20,6 +20,11 @@ const seededIndex = (seed, length) => {
   return Math.floor(normalized) % length;
 };
 
+const seededRotationY = (seed) => {
+  const normalized = Math.abs(Math.sin(seed * 91.2713) * 10000);
+  return THREE.MathUtils.degToRad(normalized % 15);
+};
+
 const KenneyBuilding = ({ tileId = 0, tileType = 'Funds', level = 0 }) => {
   const propertyLevel = Math.min(Math.max(level || 1, 1), 3);
   const candidates = LEVEL_BUILDING_MODELS[propertyLevel] || LEVEL_BUILDING_MODELS[1];
@@ -89,8 +94,10 @@ const Tile3D = ({
 
   // Tile configuration based on type
   const tileConfig = useMemo(() => {
-    const NORMAL_TILE_HEIGHT = 0.25;
-    const NORMAL_TILE_SIZE = 2;
+    const NORMAL_TILE_HEIGHT = 0.4;
+    const NORMAL_TILE_SIZE = 2.3;
+    const SPECIAL_TILE_HEIGHT = 0.55;
+    const SPECIAL_TILE_SIZE = 2.5;
 
     const configs = {
       Start: {
@@ -100,8 +107,8 @@ const Tile3D = ({
         rimLightColor: '#22c55e',
         rimLightIntensity: 0.8,
         icon: '★',
-        height: 0.4,
-        baseSize: 2.5,
+        height: SPECIAL_TILE_HEIGHT,
+        baseSize: SPECIAL_TILE_SIZE,
         labelSize: 18,
         iconSize: 24,
         glowColor: '#22c55e',
@@ -114,8 +121,8 @@ const Tile3D = ({
         rimLightColor: themeColor,
         rimLightIntensity: 0.6,
         icon: '💰',
-        height: 0.25,
-        baseSize: 2,
+        height: NORMAL_TILE_HEIGHT,
+        baseSize: NORMAL_TILE_SIZE,
         labelSize: 16,
         iconSize: 22,
         glowColor: themeColor,
@@ -156,8 +163,8 @@ const Tile3D = ({
         rimLightColor: '#a855f7',
         rimLightIntensity: 0.8,
         icon: '🎁',
-        height: 0.35,
-        baseSize: 2.5,
+        height: SPECIAL_TILE_HEIGHT,
+        baseSize: SPECIAL_TILE_SIZE,
         labelSize: 18,
         iconSize: 24,
         glowColor: '#a855f7',
@@ -168,24 +175,24 @@ const Tile3D = ({
         emissive: '#451a03',
         emissiveIntensity: 0.2,
         icon: '🦹',
-        height: 0.25,
-        baseSize: 2
+        height: NORMAL_TILE_HEIGHT,
+        baseSize: NORMAL_TILE_SIZE
       },
       Landmark: {
         color: '#059669',
         emissive: '#047857',
         emissiveIntensity: 0.3,
         icon: '🏛️',
-        height: 0.25 + (level * 0.1),
-        baseSize: 2
+        height: NORMAL_TILE_HEIGHT + (level * 0.1),
+        baseSize: NORMAL_TILE_SIZE
       },
       Card: {
         color: '#ec4899',
         emissive: '#db2777',
         emissiveIntensity: 0.2,
         icon: '🃏',
-        height: 0.25,
-        baseSize: 2
+        height: NORMAL_TILE_HEIGHT,
+        baseSize: NORMAL_TILE_SIZE
       },
       Jail: {
         color: '#374151',
@@ -194,8 +201,8 @@ const Tile3D = ({
         rimLightColor: '#374151',
         rimLightIntensity: 0.8,
         icon: '⛓️',
-        height: 0.35,
-        baseSize: 2.5,
+        height: SPECIAL_TILE_HEIGHT,
+        baseSize: SPECIAL_TILE_SIZE,
         labelSize: 18,
         iconSize: 24,
         glowColor: '#f59e0b',
@@ -206,8 +213,8 @@ const Tile3D = ({
         emissive: '#7c3aed',
         emissiveIntensity: 0.3,
         icon: '📖',
-        height: 0.25,
-        baseSize: 2
+        height: NORMAL_TILE_HEIGHT,
+        baseSize: NORMAL_TILE_SIZE
       },
       Shutdown: {
         color: '#dc2626',
@@ -254,16 +261,16 @@ const Tile3D = ({
         emissive: '#4f46e5',
         emissiveIntensity: 0.2,
         icon: '🎲',
-        height: 0.25,
-        baseSize: 2
+        height: NORMAL_TILE_HEIGHT,
+        baseSize: NORMAL_TILE_SIZE
       },
       Rent: {
         color: '#84cc16',
         emissive: '#65a30d',
         emissiveIntensity: 0.2,
         icon: '🏠',
-        height: 0.25,
-        baseSize: 2
+        height: NORMAL_TILE_HEIGHT,
+        baseSize: NORMAL_TILE_SIZE
       },
       Default: {
         color: '#6b7280',
@@ -272,8 +279,8 @@ const Tile3D = ({
         rimLightColor: '#6b7280',
         rimLightIntensity: 0.6,
         icon: '?',
-        height: 0.25,
-        baseSize: 2,
+        height: NORMAL_TILE_HEIGHT,
+        baseSize: NORMAL_TILE_SIZE,
         labelSize: 16,
         iconSize: 22,
         glowColor: '#6b7280',
@@ -286,6 +293,24 @@ const Tile3D = ({
       ...selectedConfig
     };
   }, [type, themeColor, level]);
+
+  const isPropertyTile = useMemo(() => {
+    const propertyTypes = new Set([
+      'Funds',
+      'Landmark',
+      'Rent',
+      'Railroad',
+      'Railroads',
+      'Utility',
+      'Utilities'
+    ]);
+    return propertyTypes.has(type);
+  }, [type]);
+
+  const buildingRotationY = useMemo(() => {
+    const typeSeed = type.split('').reduce((acc, c) => acc + c.charCodeAt(0), 0);
+    return seededRotationY(id * 53 + typeSeed);
+  }, [id, type]);
 
   // Icon bounce animation
   useEffect(() => {
@@ -312,30 +337,44 @@ const Tile3D = ({
     // Lift up effect on hover
     const liftY = hovered ? 0.2 : 0;
     
-    meshRef.current.position.y = baseY + tileConfig.height / 2 + floatY + liftY;
+    const BASE_THICKNESS = 0.15;
+    const RIM_THICKNESS = 0.06;
+    const TOP_THICKNESS = 0.22;
+    const topLift = Math.max(tileConfig.height - TOP_THICKNESS, 0);
+    const tileCenterY = BASE_THICKNESS + RIM_THICKNESS + topLift + (TOP_THICKNESS / 2);
+    meshRef.current.position.y = baseY + tileCenterY + floatY + liftY;
     meshRef.current.scale.setScalar(THREE.MathUtils.lerp(meshRef.current.scale.x, targetScale, 0.1));
   });
 
-  const size = isCorner ? tileConfig.baseSize : 2;
-  const rounded = isCorner ? 0.3 : 0.15;
+  const BASE_THICKNESS = 0.15;
+  const RIM_THICKNESS = 0.06;
+  const TOP_THICKNESS = 0.22;
+  const size = tileConfig.baseSize;
+  const rounded = isCorner ? 0.28 : 0.2;
+  const topLift = Math.max(tileConfig.height - TOP_THICKNESS, 0);
+  const topSurfaceCenterY = BASE_THICKNESS + RIM_THICKNESS + topLift + (TOP_THICKNESS / 2);
+  const topSurfaceTopY = topSurfaceCenterY + (TOP_THICKNESS / 2);
+  const isHighEmissiveTile = ['Start', 'Jail'].includes(type) || /railroad/i.test(type) || /utilit/i.test(type);
+  const emissiveBaseIntensity = isHighEmissiveTile ? 0.2 : 0.03;
+  const emissiveHoverBoost = hovered ? 0.15 : 0;
       
   return (
     <group position={position} rotation={rotation}>
       {/* Base platform */}
-      <RoundedBox args={[size * 1.08, 0.22, size * 1.08]} radius={rounded + 0.08} smoothness={5} castShadow receiveShadow>
-        <meshStandardMaterial color="#1a1a2e" roughness={0.45} metalness={0.35} envMapIntensity={0.7} />
+      <RoundedBox args={[size * 1.08, BASE_THICKNESS, size * 1.08]} position={[0, BASE_THICKNESS / 2, 0]} radius={rounded + 0.06} smoothness={5} castShadow receiveShadow>
+        <meshStandardMaterial color="#121522" roughness={0.15} metalness={0.85} envMapIntensity={1.3} />
       </RoundedBox>
 
       {/* Beveled accent rim */}
-      <RoundedBox args={[size * 1.02, 0.1, size * 1.02]} position={[0, 0.12, 0]} radius={rounded + 0.04} smoothness={5} castShadow receiveShadow>
-        <meshStandardMaterial color={tileConfig.glowColor} roughness={0.3} metalness={0.25} emissive={tileConfig.glowColor} emissiveIntensity={hovered ? 0.2 : 0.08} envMapIntensity={0.9} />
+      <RoundedBox args={[size * 1.03, RIM_THICKNESS, size * 1.03]} position={[0, BASE_THICKNESS + RIM_THICKNESS / 2, 0]} radius={rounded + 0.03} smoothness={5} castShadow receiveShadow>
+        <meshStandardMaterial color={tileConfig.glowColor} roughness={0.15} metalness={0.85} emissive={tileConfig.glowColor} emissiveIntensity={hovered ? 0.3 : 0.15} envMapIntensity={1.3} />
       </RoundedBox>
 
       {/* Main tile surface */}
       <RoundedBox
         ref={meshRef}
-        position={[0, 0.2, 0]}
-        args={[size, tileConfig.height, size]}
+        position={[0, topSurfaceCenterY, 0]}
+        args={[size, TOP_THICKNESS, size]}
         radius={rounded}
         smoothness={5}
         castShadow
@@ -347,17 +386,17 @@ const Tile3D = ({
         <meshStandardMaterial
           color={tileConfig.color}
           emissive={tileConfig.emissive}
-          emissiveIntensity={hovered ? tileConfig.emissiveIntensity * 3 : tileConfig.emissiveIntensity}
-          roughness={0.2}
-          metalness={0.2}
-          envMapIntensity={1}
+          emissiveIntensity={emissiveBaseIntensity + emissiveHoverBoost}
+          roughness={0.15}
+          metalness={0.85}
+          envMapIntensity={1.3}
         />
       </RoundedBox>
       
       {/* 3D buildings/props as primary tile visuals */}
-      {!isCorner && (
+      {isPropertyTile && (
         <Suspense fallback={null}>
-          <group position={[0, 0.22 + tileConfig.height, 0]}>
+          <group position={[0, topSurfaceTopY, 0]} rotation={[0, buildingRotationY, 0]}>
             <KenneyBuilding tileId={id} tileType={type} level={level} />
           </group>
         </Suspense>
@@ -366,7 +405,7 @@ const Tile3D = ({
       {/* Tile label - HTML OVERLAY for guaranteed visibility */}
       <Billboard>
         <Html
-          position={[0, tileConfig.height / 2 + 0.05, 0]}
+          position={[0, topSurfaceTopY + 0.08, 0]}
           center
           distanceFactor={8}
           style={{
@@ -396,7 +435,7 @@ const Tile3D = ({
       {/* Icon emoji */}
       <Billboard>
         <Html
-          position={[0, tileConfig.height / 2 + 0.05, 0.4]}
+          position={[0, topSurfaceTopY + 0.08, 0.4]}
           center
           distanceFactor={10}
           style={{ pointerEvents: 'none' }}
@@ -415,7 +454,7 @@ const Tile3D = ({
       {/* Payout text for Funds tiles */}
       {payout && (
         <Html
-          position={[0, tileConfig.height / 2 + 0.05, -0.4]}
+          position={[0, topSurfaceTopY + 0.08, -0.4]}
           center
           distanceFactor={10}
           style={{ pointerEvents: 'none' }}
@@ -433,7 +472,7 @@ const Tile3D = ({
       
       {/* Level indicators for Landmark */}
       {type === 'Landmark' && level > 0 && (
-        <group position={[0, tileConfig.height + 0.1, 0]}>
+        <group position={[0, topSurfaceTopY + 0.1, 0]}>
           {Array.from({ length: level }).map((_, i) => (
             <mesh
               key={i}
@@ -474,7 +513,7 @@ const Tile3D = ({
       
       {/* Particle effects for special tiles */}
       {tileConfig.isSpecial && (
-        <Points position={[0, tileConfig.height / 2 + 0.2, 0]}>
+        <Points position={[0, topSurfaceTopY + 0.2, 0]}>
           <pointsMaterial
             size={0.05}
             color={tileConfig.glowColor}

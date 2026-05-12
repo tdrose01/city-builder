@@ -230,16 +230,16 @@ export default function GameScene({ children, cameraPosition = [14, 12, 14], sea
           <EffectComposer>
             <SSAO
               samples={16}
-              radius={0.18}
-              intensity={18}
+              radius={0.4}
+              intensity={0.25}
               luminanceInfluence={0.55}
               color="black"
             />
             <Bloom
-              luminanceThreshold={1}
+              luminanceThreshold={0.5}
               mipmapBlur
-              intensity={0.5}
-              radius={0.4}
+              intensity={0.6}
+              radius={1}
             />
           </EffectComposer>
         </Suspense>
